@@ -3,12 +3,12 @@ import { Map as MapIcon, Mountain, Sparkles } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
+import { PodgladMapy } from '@/components/glowna/podglad-mapy'
 import { Powitanie } from '@/components/glowna/powitanie'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
-import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy } from '@/lib/dane/zrodlo'
-import { liczba, metry } from '@/lib/format'
-import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
+import { pobierzStatystyki, pobierzTrasy } from '@/lib/dane/zrodlo'
+import { kilometry, liczba, metry } from '@/lib/format'
 
 /**
  * Strona główna portalu.
@@ -20,12 +20,24 @@ import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
 export default function StronaGlowna() {
   const trasy = pobierzTrasy()
   const statystyki = pobierzStatystyki()
-  const atrakcje = pobierzAtrakcje()
 
-  const szczyty = atrakcje
-    .filter((a) => a.typ === 'szczyt' && a.wysokoscM !== null)
-    .sort((a, b) => (b.wysokoscM ?? 0) - (a.wysokoscM ?? 0))
-    .slice(0, 8)
+
+  /*
+    Kategorie na siatce.
+
+    Aplikacja ma ich dziesięć, a siatka trzy na trzy mieści dziewięć. Poza
+    siatkę wypada „Korony Pienin ze Szczawnicy" — nie dlatego, że jest
+    najmniej ważna, tylko dlatego, że jako jedyna jest kolekcją szczytów,
+    a nie zbiorem tras. Dostaje za to własną sekcję niżej, z numeracją
+    od najwyższego.
+  */
+  const kategorieNaSiatce = KATEGORIE_APLIKACJI.filter(
+    (kategoria) => kategoria.slug !== 'korony-pienin',
+  )
+
+  const korony = trasy
+    .filter((trasa) => trasa.kategoria === 'korony-pienin')
+    .sort((a, b) => (b.wysokoscSzczytuM ?? 0) - (a.wysokoscSzczytuM ?? 0))
 
   const ciekawostki = trasy
     .flatMap((trasa) => trasa.ciekawostki.map((c) => ({ ...c, trasa })))
@@ -45,59 +57,61 @@ export default function StronaGlowna() {
             odnosnik={{ adres: '/szlaki', etykieta: 'Wszystkie trasy' }}
           />
 
-          {/*
-            Osiem kategorii z aplikacji plus atrakcje daje równe dziewięć —
-            stąd siatka trzy na trzy. Kafelek atrakcji jest ostatni w tej
-            samej siatce, a nie w osobnej pod spodem: dwie siatki jedna nad
-            drugą łamały rytm i zostawiały dziurę po prawej stronie.
-          */}
           <div className="mt-12">
             <KafelkiKategorii
-              kategorie={KATEGORIE_APLIKACJI}
+              kategorie={kategorieNaSiatce}
               liczba={(kategoria) => trasy.filter(kategoria.pasuje).length}
-              atrakcje={{
-                // Brama „Szczawnica Przystań" z drogowskazem „Spływ Dunajcem" —
-                // najlepszy skrót do tego, czym są tutejsze atrakcje.
-                ilustracja: '/dane/zdjecia/dp_przystan.jpg',
-                ile: ATRAKCJE_TURYSTYCZNE.length,
-              }}
             />
           </div>
         </div>
       </section>
 
-      {/* ── Szczyty ─────────────────────────────────────────────────────── */}
+      {/* ── Korony Pienin ───────────────────────────────────────────────── */}
       <section className="sekcja">
         <div className="obszar">
           <NaglowekSekcji
-            nadtytul="Atrakcje"
-            tytul="Szczyty, na które prowadzą nasze trasy"
-            opis={`W przewodniku opisaliśmy ${liczba(statystyki.liczbaSzczytow)} szczytów i ${liczba(statystyki.liczbaPunktowWidokowych)} punktów widokowych.`}
-            odnosnik={{ adres: '/atrakcje', etykieta: 'Wszystkie atrakcje' }}
+            nadtytul="Kolekcja"
+            tytul="Korony Pienin ze Szczawnicy"
+            opis={`Dwadzieścia cztery szczyty do zdobycia, uszeregowane od najwyższego. Każdy ma własną trasę dojścia opisaną odcinek po odcinku.`}
+            odnosnik={{
+              adres: '/szlaki/kategorie/korony-pienin',
+              etykieta: `Wszystkie korony (${korony.length})`,
+            }}
           />
 
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {szczyty.map((szczyt) => (
-              <li key={szczyt.slug}>
+          {/*
+            Numer przy szczycie nie jest ozdobą — kolekcja jest uszeregowana
+            od najwyższego, więc „01" naprawdę znaczy „najwyższy z dwudziestu
+            czterech".
+          */}
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {korony.slice(0, 8).map((trasa, indeks) => (
+              <li key={trasa.id}>
                 <Link
-                  href={`/atrakcje/${szczyt.slug}`}
+                  href={`/szlaki/${trasa.slug}`}
                   className="group flex h-full flex-col justify-between rounded-2xl border border-kamien-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
                 >
-                  <Mountain className="size-6 text-las-600" aria-hidden />
+                  <div className="flex items-start justify-between gap-3">
+                    <Mountain className="size-6 text-las-600" aria-hidden />
+                    <span className="font-plakat text-2xl leading-none text-kamien-200 transition-colors group-hover:text-las-200">
+                      {String(indeks + 1).padStart(2, '0')}
+                    </span>
+                  </div>
                   <div className="mt-8">
-                    <h3 className="font-heading text-lg font-semibold text-kamien-900 group-hover:text-las-700">
-                      {szczyt.nazwa}
+                    <h3 className="font-heading text-lg font-semibold leading-snug text-kamien-900 group-hover:text-las-700">
+                      {trasa.nazwa}
                     </h3>
                     <p className="mt-1 text-sm text-kamien-500">
-                      {szczyt.wysokoscM !== null && <>{metry(szczyt.wysokoscM)} n.p.m. · </>}
-                      {szczyt.trasy.length}{' '}
-                      {szczyt.trasy.length === 1 ? 'trasa' : szczyt.trasy.length < 5 ? 'trasy' : 'tras'}
+                      {trasa.wysokoscSzczytuM !== null && (
+                        <>{metry(trasa.wysokoscSzczytuM)} n.p.m. · </>
+                      )}
+                      {kilometry(trasa.dlugoscKm)}
                     </p>
                   </div>
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 
@@ -125,7 +139,17 @@ export default function StronaGlowna() {
             </Link>
           </div>
 
-          <div className="aspect-[4/3] rounded-3xl border border-white/15 bg-las-800/60" />
+          {/*
+            Podgląd to prawdziwe ślady wszystkich tras, rysowane przy
+            budowaniu z tego samego pliku, którego używa mapa interaktywna.
+            Dochodzi trasa w aplikacji — dochodzi kreska tutaj.
+          */}
+          <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-las-950/40 p-6">
+            <PodgladMapy className="h-auto w-full" />
+            <p className="mt-2 text-center text-xs uppercase tracking-[0.18em] text-white/40">
+              {liczba(trasy.length)} tras · {liczba(statystyki.sumaKm)} km
+            </p>
+          </div>
         </div>
       </section>
 

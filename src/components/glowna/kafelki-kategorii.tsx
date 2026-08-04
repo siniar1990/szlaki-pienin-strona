@@ -74,12 +74,20 @@ export function KafelkiKategorii({
                 <h3 className="font-heading text-xl font-semibold text-white">
                   {kategoria.nazwa}
                 </h3>
+                {/*
+                  Liczbę tras pokazujemy tylko wtedy, gdy jakieś są. Kategorie
+                  „Szlaki niecodzienne" i „Trasy z psem" czekają na dobór tras
+                  w aplikacji — napis „0 tras" wyglądałby jak usterka, a sam
+                  podtytuł mówi, czego się spodziewać.
+                */}
                 <p className="mt-1 flex flex-wrap items-center gap-x-2 text-sm text-white/80">
                   {kategoria.podtytul && <span>{kategoria.podtytul}</span>}
-                  {kategoria.podtytul && <span aria-hidden>·</span>}
-                  <span>
-                    {ile} {ile === 1 ? 'trasa' : ile < 5 ? 'trasy' : 'tras'}
-                  </span>
+                  {kategoria.podtytul && ile > 0 && <span aria-hidden>·</span>}
+                  {ile > 0 && (
+                    <span>
+                      {ile} {ile === 1 ? 'trasa' : ile < 5 ? 'trasy' : 'tras'}
+                    </span>
+                  )}
                 </p>
               </div>
 

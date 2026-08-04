@@ -70,9 +70,19 @@ export const KATEGORIE_APLIKACJI: DefinicjaKategorii[] = [
     pasuje: (trasa) => wKategorii(trasa, 'dluga'),
   },
   {
+    slug: 'niecodzienne',
+    nazwa: 'Szlaki niecodzienne',
+    podtytul: 'nietypowe, tematyczne',
+    opis:
+      'Trasy, które prowadzi jakiś temat, a nie sam szczyt — dawne drogi, ' +
+      'ślady po nieistniejących wsiach, przejścia na słowacką stronę.',
+    ilustracja: `${ILUSTRACJE}/DP.webp`,
+    pasuje: (trasa) => wKategorii(trasa, 'niecodzienne'),
+  },
+  {
     slug: 'trzy-korony',
     nazwa: 'Trzy Korony',
-    podtytul: 'trzy drogi na szczyt',
+    podtytul: 'trzy warianty',
     opis:
       'Najsłynniejszy szczyt Pienin i trzy różne sposoby, żeby na niego wejść — ' +
       'od najłatwiejszego po najbardziej widokowy.',
@@ -102,7 +112,7 @@ export const KATEGORIE_APLIKACJI: DefinicjaKategorii[] = [
   },
   {
     slug: 'korony-pienin',
-    nazwa: 'Korony Pienin',
+    nazwa: 'Korony Pienin ze Szczawnicy',
     podtytul: '24 szczyty, od najwyższego',
     opis:
       'Kolekcja dwudziestu czterech szczytów do zdobycia ze Szczawnicy — ' +
@@ -119,6 +129,17 @@ export const KATEGORIE_APLIKACJI: DefinicjaKategorii[] = [
       'okresem zdobywania i odznaką na koniec.',
     ilustracja: `${ILUSTRACJE}/DIAMENT.webp`,
     pasuje: (trasa) => wKategorii(trasa, 'wyzwania'),
+  },
+  {
+    slug: 'z-psem',
+    nazwa: 'Trasy z psem',
+    podtytul: 'poza parkiem narodowym',
+    opis:
+      'W Pienińskim Parku Narodowym psy są zakazane — także na smyczy. ' +
+      'Tu zbieramy trasy, które w park nie wchodzą: Małe Pieniny, dolina ' +
+      'Grajcarka, grzbiety nad Jaworkami.',
+    ilustracja: `${ILUSTRACJE}/2A.webp`,
+    pasuje: (trasa) => wKategorii(trasa, 'z-psem'),
   },
 ]
 
