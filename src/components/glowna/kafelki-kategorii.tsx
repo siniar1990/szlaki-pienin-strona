@@ -48,9 +48,13 @@ export function KafelkiKategorii({
                   alt=""
                   fill
                   sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
-                  // Pierwsze trzy kafelki bywają widoczne od razu po zjechaniu
-                  // z sekcji powitalnej — ładujemy je bez zwłoki.
-                  priority={indeks < 3}
+                  /*
+                    Bez `priority`. Kafelki leżą pod pełnoekranowym zdjęciem
+                    tytułowym, więc przy wejściu na stronę nikt ich nie widzi —
+                    a cztery obrazki wstawione do kolejki priorytetowej
+                    konkurowały o pasmo z tym jednym, od którego zależy LCP.
+                  */
+                  loading="lazy"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                 />
               ) : (
@@ -82,7 +86,7 @@ export function KafelkiKategorii({
                   zdjecie && '[text-shadow:0_1px_10px_rgb(11_58_38_/_0.55)]',
                 )}
               >
-                <h3 className="font-heading text-xl font-semibold text-white">
+                <h3 className="font-heading text-2xl font-semibold leading-tight text-white sm:text-[1.6rem]">
                   {kategoria.nazwa}
                 </h3>
                 {/*
@@ -91,7 +95,7 @@ export function KafelkiKategorii({
                   w aplikacji — napis „0 tras" wyglądałby jak usterka, a sam
                   podtytuł mówi, czego się spodziewać.
                 */}
-                <p className="mt-1 flex flex-wrap items-center gap-x-2 text-sm text-white/80">
+                <p className="mt-2 flex flex-wrap items-center gap-x-2 text-base text-white/85">
                   {kategoria.podtytul && <span>{kategoria.podtytul}</span>}
                   {kategoria.podtytul && ile > 0 && <span aria-hidden>·</span>}
                   {ile > 0 && (
@@ -133,7 +137,7 @@ export function KafelkiKategorii({
               className="absolute inset-0 bg-gradient-to-t from-dunajec-900/90 via-dunajec-900/40 to-dunajec-900/5"
             />
             <div className="relative z-10 p-6">
-              <h3 className="font-heading text-xl font-semibold text-white">Atrakcje Pienin</h3>
+              <h3 className="font-heading text-2xl font-semibold text-white sm:text-[1.6rem]">Atrakcje Pienin</h3>
               <p className="mt-1 flex items-center gap-2 text-sm text-white/85">
                 <MapPin className="size-3.5" aria-hidden />
                 Spływ, wody mineralne, zamki · {atrakcje.ile} miejsc

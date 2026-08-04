@@ -49,10 +49,15 @@ export function Naglowek() {
         przewiniete ? 'border-b border-kamien-200 shadow-miekki' : 'border-b border-transparent',
       )}
     >
-      <div className="obszar flex h-16 items-center justify-between gap-6 sm:h-20">
+      {/*
+        Pasek urósł razem z logo — inaczej znak dotykałby krawędzi. Księga
+        znaku wymaga wokół niego wolnej przestrzeni wielkości litery „S"
+        z monogramu, a przy 56 px logo to około 12 px z każdej strony.
+      */}
+      <div className="obszar flex h-[4.5rem] items-center justify-between gap-6 sm:h-24">
         <Link href="/" aria-label="Szlaki Pienin — strona główna" className="shrink-0">
-          <Logo wysokosc={36} className="sm:hidden" />
-          <Logo wysokosc={44} className="hidden sm:block" />
+          <Logo wysokosc={46} className="sm:hidden" />
+          <Logo wysokosc={56} className="hidden sm:block" />
         </Link>
 
         {/*

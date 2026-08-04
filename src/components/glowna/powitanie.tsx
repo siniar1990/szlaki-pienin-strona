@@ -34,7 +34,11 @@ export function Powitanie({ statystyki }: { statystyki: StatystykiPortalu }) {
     // pod krawędź.
     <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col justify-end overflow-hidden sm:min-h-[calc(100dvh-5rem)]">
       <Image
-        src="/dane/obrazy/pieniny_hero.jpg"
+        // WebP zamiast oryginalnego JPEG-a z zasobów aplikacji: ten sam kadr
+        // waży 380 zamiast 556 kB. Przy eksporcie statycznym Next niczego nie
+        // przelicza w locie, więc plik musi przyjść gotowy — leży w `marka/`,
+        // bo `dane/` nadpisuje synchronizacja z aplikacji.
+        src="/marka/tlo/pieniny-hero.webp"
         alt=""
         fill
         // Jedyny obraz nad linią zgięcia — ładujemy go bez zwłoki, bo to on
@@ -57,17 +61,19 @@ export function Powitanie({ statystyki }: { statystyki: StatystykiPortalu }) {
       <div aria-hidden className="absolute inset-0 bg-las-950/15" />
 
       <div className="obszar relative z-10 pb-24 pt-20 sm:pb-28">
-        <p className="font-medium uppercase tracking-[0.2em] text-white/80">
-          Pieniny · Szczawnica · Dunajec
-        </p>
-
-        <h1 className="mt-5 max-w-[18ch] text-wyswietl font-semibold text-white">
-          Najlepszy przewodnik po Pieninach
+        {/*
+          Nagłówek mówi, co tu jest, zamiast ogłaszać, że jesteśmy najlepsi.
+          „Wszystkie szlaki Pienin" to obietnica, którą da się sprawdzić —
+          i sprawdza się, bo trasy pochodzą z przewodnika PTTK, a liczby pod
+          spodem są policzone z danych.
+        */}
+        <h1 className="max-w-[19ch] text-wyswietl font-semibold text-white">
+          Wszystkie szlaki Pienin w jednym miejscu
         </h1>
 
-        <p className="mt-6 max-w-[52ch] text-prowadzacy text-white/90">
-          Szlaki piesze, rowerowe, atrakcje, mapy offline, nawigacja GPS
-          i wszystko, czego potrzebujesz do odkrywania Pienin.
+        <p className="mt-6 max-w-[54ch] text-prowadzacy text-white/90">
+          Szlaki piesze, rowerowe i narciarskie, atrakcje okolicy, mapy offline,
+          nawigacja GPS i wszystko, czego potrzebujesz do odkrywania Pienin.
         </p>
 
         <PrzyciskiSklepow className="mt-10" wariant="jasny" />
