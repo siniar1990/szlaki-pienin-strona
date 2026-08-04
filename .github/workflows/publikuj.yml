@@ -4,7 +4,9 @@
 # — bierzemy katalog jak stoi i oddajemy go Pages. Dzięki temu nie ma czego
 # zepsuć aktualizacją narzędzi.
 #
-# Zanim zadziała, w repozytorium trzeba raz włączyć:
+# Witrynę Pages workflow włącza sobie sam (`enablement` niżej), więc nie trzeba
+# nic klikać w ustawieniach. Gdyby ten krok kiedyś odmówił — znaczy, że token
+# Actions w repozytorium ma tylko odczyt; wtedy ratunek jest ręczny:
 #   Settings → Pages → Source: GitHub Actions
 name: Publikacja strony
 
@@ -37,6 +39,9 @@ jobs:
 
       - name: Przygotuj Pages
         uses: actions/configure-pages@v5
+        with:
+          # Tworzy witrynę Pages, jeśli repozytorium jeszcze jej nie ma.
+          enablement: true
 
       - name: Spakuj stronę
         uses: actions/upload-pages-artifact@v3

@@ -16,8 +16,10 @@ Każde `git push` do gałęzi `main` publikuje stronę przez GitHub Actions
 (`.github/workflows/publikuj.yml`). Nie ma etapu budowania — pliki idą na
 serwer takie, jakie są.
 
-Jednorazowo trzeba włączyć w GitHubie: **Settings → Pages → Source:
-GitHub Actions**.
+Adres strony: <https://siniar1990.github.io/szlaki-pienin-strona/>.
+
+Witryny Pages nie trzeba włączać ręcznie — workflow robi to sam przy pierwszym
+przebiegu.
 
 ## Podgląd na komputerze
 
