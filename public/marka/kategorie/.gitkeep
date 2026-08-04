@@ -1,0 +1,7 @@
+Katalog na zdjęcia kafelków kategorii.
+
+Wrzuć tu plik o nazwie równej slugowi kategorii (krotkie.jpg, srednie.jpg,
+dlugie.jpg, trzy-korony.jpg, rowerowe.jpg, korony-pienin.jpg, wyzwania.jpg)
+i przebuduj stronę — kod sam go znajdzie i podmieni ilustrację zapasową.
+
+Wymagania kadru i frazy do wyszukania: narzedzia/zdjecia-kategorii.md

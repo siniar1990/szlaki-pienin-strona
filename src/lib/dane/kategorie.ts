@@ -86,7 +86,10 @@ export const KATEGORIE_APLIKACJI: DefinicjaKategorii[] = [
     opis:
       'Krótkie i bez trudności technicznych, z miejscami na odpoczynek. ' +
       'Takie, po których dziecko chce wrócić w góry, a nie odwrotnie.',
-    ilustracja: `${ILUSTRACJE}/DP.webp`,
+    // Jedyna kategoria z prawdziwym zdjęciem od początku: brukowana promenada
+    // nad Grajcarkiem z dziećmi na hulajnogach. Trafia w sedno lepiej niż
+    // cokolwiek ze stocku, bo jest stąd.
+    ilustracja: '/dane/zdjecia/dp_droga.jpg',
     pasuje: (trasa) => wKategorii(trasa, 'dzieci'),
   },
   {

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { ArrowUpRight, MapPin } from 'lucide-react'
 
 import type { DefinicjaKategorii } from '@/lib/dane/kategorie'
+import { maZdjecie, obrazekKategorii } from '@/lib/dane/zdjecia-kategorii'
+import { cn } from '@/lib/utils'
 
 /**
  * Kafelki kategorii tras — w tej samej kolejności co na ekranie startowym
@@ -31,6 +33,8 @@ export function KafelkiKategorii({
     <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {kategorie.map((kategoria, indeks) => {
         const ile = liczba(kategoria)
+        const obrazek = obrazekKategorii(kategoria)
+        const zdjecie = maZdjecie(kategoria)
 
         return (
           <li key={kategoria.slug}>
@@ -38,9 +42,9 @@ export function KafelkiKategorii({
               href={`/szlaki/kategorie/${kategoria.slug}`}
               className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-2xl border border-kamien-200 shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:shadow-wysoki"
             >
-              {kategoria.ilustracja ? (
+              {obrazek ? (
                 <Image
-                  src={kategoria.ilustracja}
+                  src={obrazek}
                   alt=""
                   fill
                   sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
@@ -53,9 +57,17 @@ export function KafelkiKategorii({
                 <div className="absolute inset-0 bg-las-100" />
               )}
 
+              {/* Nad fotografią przyciemnienie musi być mocniejsze niż nad
+                  rysunkiem — zdjęcia bywają jasne przy dolnej krawędzi
+                  i biały napis się na nich gubi. */}
               <div
                 aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-las-950/85 via-las-950/35 to-las-950/5"
+                className={cn(
+                  'absolute inset-0 bg-gradient-to-t',
+                  zdjecie
+                    ? 'from-las-950/90 via-las-950/45 to-las-950/10'
+                    : 'from-las-950/85 via-las-950/35 to-las-950/5',
+                )}
               />
 
               <div className="relative z-10 p-6">

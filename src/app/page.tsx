@@ -56,7 +56,9 @@ export default function StronaGlowna() {
               kategorie={KATEGORIE_APLIKACJI}
               liczba={(kategoria) => trasy.filter(kategoria.pasuje).length}
               atrakcje={{
-                ilustracja: '/dane/ilustracje/DP.webp',
+                // Brama „Szczawnica Przystań" z drogowskazem „Spływ Dunajcem" —
+                // najlepszy skrót do tego, czym są tutejsze atrakcje.
+                ilustracja: '/dane/zdjecia/dp_przystan.jpg',
                 ile: ATRAKCJE_TURYSTYCZNE.length,
               }}
             />
