@@ -41,11 +41,21 @@ export function Stopka() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
             <Logo wysokosc={48} />
+            {/*
+              Poprzednia wersja brzmiała tak, jakby cały portal był przepisany
+              z jednej publikacji. Nie jest: część tras to oficjalne szlaki
+              PTTK, część powstała na podstawie przewodnika, a atrakcje,
+              opisy miejsc i mapy są nasze. Rozdzielenie tych trzech rzeczy
+              to nie formalność — to uczciwość wobec autora przewodnika
+              i wobec czytelnika.
+            */}
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-kamien-600">
-              Przewodnik po Pieninach — szlaki, atrakcje i mapy. Opisy tras
-              pochodzą z przewodnika „{ZRODLA.przewodnik.tytul}"
-              {' '}({ZRODLA.przewodnik.autor}, {ZRODLA.przewodnik.wydawca},{' '}
-              {ZRODLA.przewodnik.wydanie}).
+              Przewodnik po Pieninach — szlaki, atrakcje i mapy. Część tras to
+              oficjalne szlaki PTTK, część opracowaliśmy na podstawie przewodnika
+              „{ZRODLA.przewodnik.tytul}" ({ZRODLA.przewodnik.autor},{' '}
+              {ZRODLA.przewodnik.wydawca}, {ZRODLA.przewodnik.wydanie}). Pozostałe
+              trasy, opisy atrakcji i materiały powstały specjalnie na potrzeby
+              tego portalu i aplikacji.
             </p>
 
             {/*
@@ -105,6 +115,33 @@ export function Stopka() {
             </a>
           </p>
         </div>
+
+        {/*
+          Podpis twórców. Serce jest znakiem graficznym, nie treścią, więc
+          `aria-hidden` — czytnik ekranu przeczyta „Stworzone przez…", zamiast
+          wymawiać nazwę emoji w środku zdania.
+        */}
+        <p className="mt-8 text-center text-sm text-kamien-500">
+          Stworzone z <span aria-hidden>❤️</span>
+          <span className="sr-only">miłością</span> przez{' '}
+          <a
+            href="https://frankowedomki.pl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-kamien-700 underline decoration-kamien-300 underline-offset-4 transition-colors hover:text-las-700 hover:decoration-las-400"
+          >
+            Frankowe Domki
+          </a>{' '}
+          i{' '}
+          <a
+            href="https://helenowka.pl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-kamien-700 underline decoration-kamien-300 underline-offset-4 transition-colors hover:text-las-700 hover:decoration-las-400"
+          >
+            Helenówkę
+          </a>
+        </p>
 
         <p className="mt-6 text-xs leading-relaxed text-kamien-500">
           Portal nie zastępuje mapy papierowej ani rozsądku. Przed wyjściem

@@ -17,13 +17,14 @@
  */
 
 export type GrupaAtrakcji =
-  | 'rzeka'
+  | 'dunajec'
+  | 'jeziora'
   | 'wody'
-  | 'rozrywka'
-  | 'konie'
-  | 'zabytki'
   | 'przyroda'
-  | 'rower'
+  | 'zamki'
+  | 'muzea'
+  | 'swiatynie'
+  | 'rodzinne'
 
 export type AtrakcjaTurystyczna = {
   slug: string
@@ -40,31 +41,20 @@ export type AtrakcjaTurystyczna = {
   doPotwierdzenia?: boolean
 }
 
+/**
+ * Kategorie atrakcji.
+ *
+ * Osiem zamiast wcześniejszych siedmiu rozjeżdżających się grup. Zasada
+ * porządkowania: nazwa kategorii ma odpowiadać na pytanie „co to za miejsce",
+ * a nie „do której szuflady wpadło". Dlatego „Zamki" i „Wąwozy, wodospady
+ * i rezerwaty" — a nie „Zabytki" i „Przyroda", pod którymi mieści się wszystko
+ * i nic.
+ */
 export const GRUPY_ATRAKCJI: { klucz: GrupaAtrakcji; nazwa: string; opis: string }[] = [
   {
-    klucz: 'rzeka',
-    nazwa: 'Dunajec i woda',
-    opis: 'Spływ przełomem, rejsy po jeziorze i przystanie flisackie.',
-  },
-  {
-    klucz: 'wody',
-    nazwa: 'Wody mineralne',
-    opis: 'Szczawy, dla których powstało uzdrowisko — pijalnie i zdroje.',
-  },
-  {
-    klucz: 'rozrywka',
-    nazwa: 'Koleje i zjeżdżalnie grawitacyjne',
-    opis: 'Wyjazd na górę bez wysiłku i zjazd, który dzieci zapamiętają.',
-  },
-  {
-    klucz: 'konie',
-    nazwa: 'Konie i bryczki',
-    opis: 'Jazda konna i przejażdżki po uzdrowisku.',
-  },
-  {
-    klucz: 'zabytki',
-    nazwa: 'Zamki, muzea i zabytki',
-    opis: 'Dwa zamki nad Dunajcem, architektura uzdrowiskowa i cerkwie.',
+    klucz: 'dunajec',
+    nazwa: 'Dunajec i spływ',
+    opis: 'Przełom widziany z tratwy, przystanie flisackie, trasa rowerowa i kładka na słowacki brzeg.',
   },
   {
     klucz: 'przyroda',
@@ -72,9 +62,34 @@ export const GRUPY_ATRAKCJI: { klucz: GrupaAtrakcji; nazwa: string; opis: string
     opis: 'Najbardziej efektowne miejsca, do których dojdziesz na własnych nogach.',
   },
   {
-    klucz: 'rower',
-    nazwa: 'Rower i kładki',
-    opis: 'Velo Dunajec i przejścia na słowacką stronę przełomu.',
+    klucz: 'zamki',
+    nazwa: 'Zamki',
+    opis: 'Dwie warownie stojące naprzeciw siebie nad Jeziorem Czorsztyńskim.',
+  },
+  {
+    klucz: 'jeziora',
+    nazwa: 'Jezioro i zapora',
+    opis: 'Zbiornik między zamkami, rejsy i przejście koroną zapory.',
+  },
+  {
+    klucz: 'wody',
+    nazwa: 'Wody mineralne',
+    opis: 'Szczawy, dla których w XIX wieku powstało uzdrowisko.',
+  },
+  {
+    klucz: 'rodzinne',
+    nazwa: 'Wyciągi i atrakcje rodzinne',
+    opis: 'Wyjazd na górę bez wysiłku, zjazd, który dzieci zapamiętają, i przejażdżki konne.',
+  },
+  {
+    klucz: 'muzea',
+    nazwa: 'Muzea i zabytki',
+    opis: 'Historia uzdrowiska i dawnych mieszkańców doliny Grajcarka.',
+  },
+  {
+    klucz: 'swiatynie',
+    nazwa: 'Kościoły i cerkwie',
+    opis: 'Gotyckie polichromie i pozostałości po Rusi Szlachtowskiej.',
   },
 ]
 
@@ -84,7 +99,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'splyw-dunajcem-tratwami',
     nazwa: 'Spływ Dunajcem tratwami flisackimi',
     miejscowosc: 'Sromowce Wyżne — Szczawnica',
-    grupa: 'rzeka',
+    grupa: 'dunajec',
     skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka w stroju góralskim.',
     opis: [
       'Najbardziej znana atrakcja Pienin i jedyny sposób, żeby zobaczyć przełom ' +
@@ -103,7 +118,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'przystan-flisacka-katy',
     nazwa: 'Przystań flisacka w Kątach',
     miejscowosc: 'Sromowce Wyżne',
-    grupa: 'rzeka',
+    grupa: 'dunajec',
     skrot: 'Miejsce, w którym zaczyna się spływ przełomem Dunajca.',
     opis: [
       'Główna przystań flisacka. Stąd wypływają tratwy w przełom Dunajca. ' +
@@ -116,7 +131,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'przystan-flisacka-szczawnica',
     nazwa: 'Przystań flisacka w Szczawnicy',
     miejscowosc: 'Szczawnica',
-    grupa: 'rzeka',
+    grupa: 'dunajec',
     skrot: 'Koniec spływu i początek promenady wzdłuż Dunajca.',
     opis: [
       'Miejsce, w którym tratwy dobijają do brzegu po przepłynięciu przełomu. ' +
@@ -127,7 +142,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'jezioro-czorsztynskie-rejsy',
     nazwa: 'Jezioro Czorsztyńskie i rejsy statkiem',
     miejscowosc: 'Czorsztyn — Niedzica',
-    grupa: 'rzeka',
+    grupa: 'jeziora',
     skrot: 'Sztuczne jezioro między dwoma zamkami, z rejsami wzdłuż brzegów.',
     opis: [
       'Zbiornik powstał po spiętrzeniu Dunajca zaporą w Niedzicy. Z jego taflą ' +
@@ -144,7 +159,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'zapora-w-niedzicy',
     nazwa: 'Zapora w Niedzicy',
     miejscowosc: 'Niedzica',
-    grupa: 'rzeka',
+    grupa: 'jeziora',
     skrot: 'Korona zapory z widokiem na jezioro z jednej i dolinę Dunajca z drugiej strony.',
     opis: [
       'Zapora spiętrzająca Dunajec, która utworzyła Jezioro Czorsztyńskie. ' +
@@ -192,7 +207,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'kolej-na-palenice',
     nazwa: 'Kolej krzesełkowa na Palenicę',
     miejscowosc: 'Szczawnica',
-    grupa: 'rozrywka',
+    grupa: 'rodzinne',
     skrot: 'Wyjazd nad Szczawnicę w kilka minut — i początek kilku szlaków.',
     opis: [
       'Kolej wywozi z centrum uzdrowiska na Palenicę (722 m n.p.m.). Z góry ' +
@@ -207,7 +222,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'zjezdzalnia-grawitacyjna-palenica',
     nazwa: 'Zjeżdżalnia grawitacyjna na Palenicy',
     miejscowosc: 'Szczawnica',
-    grupa: 'rozrywka',
+    grupa: 'rodzinne',
     skrot: 'Tor saneczkowy obok kolei krzesełkowej — zjazd sterowany hamulcem.',
     opis: [
       'Tor grawitacyjny biegnący stokiem Palenicy. Jedzie się w wózku na ' +
@@ -222,7 +237,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'czorsztyn-ski-kluszkowce',
     nazwa: 'Czorsztyn-Ski w Kluszkowcach',
     miejscowosc: 'Kluszkowce',
-    grupa: 'rozrywka',
+    grupa: 'rodzinne',
     skrot: 'Kolej krzesełkowa na Wdżar i całoroczny tor saneczkowy nad jeziorem.',
     opis: [
       'Ośrodek na stoku góry Wdżar nad Jeziorem Czorsztyńskim. Zimą stok ' +
@@ -237,7 +252,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'wyciag-w-jaworkach',
     nazwa: 'Wyciąg krzesełkowy w Jaworkach',
     miejscowosc: 'Jaworki',
-    grupa: 'rozrywka',
+    grupa: 'rodzinne',
     skrot: 'Wyjazd nad Jaworki, blisko wylotu Wąwozu Homole.',
     opis: [
       'Wyciąg wywozi na grzbiet nad Jaworkami. Blisko stąd do Wąwozu Homole ' +
@@ -251,7 +266,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'jazda-konna-i-bryczki',
     nazwa: 'Jazda konna i przejażdżki bryczką',
     miejscowosc: 'Szczawnica i okolice',
-    grupa: 'konie',
+    grupa: 'rodzinne',
     skrot: 'Bryczki w uzdrowisku i stajnie oferujące jazdę w terenie.',
     opis: [
       'Przejażdżka bryczką po uzdrowisku należy do szczawnickiej tradycji — ' +
@@ -269,7 +284,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'zamek-dunajec-w-niedzicy',
     nazwa: 'Zamek Dunajec w Niedzicy',
     miejscowosc: 'Niedzica',
-    grupa: 'zabytki',
+    grupa: 'zamki',
     skrot: 'Najlepiej zachowany zamek nad Dunajcem, z muzeum i widokiem na jezioro.',
     opis: [
       'Zamek na skale nad Jeziorem Czorsztyńskim, zbudowany na początku XIV wieku ' +
@@ -284,7 +299,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'ruiny-zamku-czorsztyn',
     nazwa: 'Ruiny zamku Czorsztyn',
     miejscowosc: 'Czorsztyn',
-    grupa: 'zabytki',
+    grupa: 'zamki',
     skrot: 'Królewska warownia naprzeciw Niedzicy, dziś trwała ruina z tarasem widokowym.',
     opis: [
       'Zamek strzegł polskiej strony granicy i szlaku handlowego wzdłuż Dunajca. ' +
@@ -298,7 +313,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'muzeum-pieninskie-w-szlachtowej',
     nazwa: 'Muzeum Pienińskie im. Józefa Szalaya',
     miejscowosc: 'Szlachtowa',
-    grupa: 'zabytki',
+    grupa: 'muzea',
     skrot: 'Historia uzdrowiska i dawnej Rusi Szlachtowskiej pod jednym dachem.',
     opis: [
       'Muzeum w Szlachtowej opowiada o dwóch splecionych historiach: powstaniu ' +
@@ -313,7 +328,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'plac-dietla-i-architektura-szalayowska',
     nazwa: 'Plac Dietla i architektura uzdrowiskowa',
     miejscowosc: 'Szczawnica',
-    grupa: 'zabytki',
+    grupa: 'muzea',
     skrot: 'Drewniane wille z gankami i godła nad wejściami — serce dawnego uzdrowiska.',
     opis: [
       'Plac Dietla to centrum uzdrowiskowej Szczawnicy: drewniane budynki ' +
@@ -329,7 +344,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'cerkwie-w-jaworkach-i-szlachtowej',
     nazwa: 'Cerkwie w Jaworkach i Szlachtowej',
     miejscowosc: 'Jaworki, Szlachtowa',
-    grupa: 'zabytki',
+    grupa: 'swiatynie',
     skrot: 'Pozostałość po dawnych mieszkańcach doliny Grajcarka.',
     opis: [
       'Jaworki, Szlachtowa, Biała Woda i Czarna Woda tworzyły Ruś Szlachtowską — ' +
@@ -399,7 +414,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'kosciol-wszystkich-swietych-w-kroscienku',
     nazwa: 'Kościół Wszystkich Świętych',
     miejscowosc: 'Krościenko nad Dunajcem',
-    grupa: 'zabytki',
+    grupa: 'swiatynie',
     skrot: 'Gotycki kościół z zachowanymi średniowiecznymi malowidłami.',
     opis: [
       'Najstarszy zabytek Krościenka. We wnętrzu zachowały się gotyckie ' +
@@ -413,7 +428,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'velo-dunajec',
     nazwa: 'Velo Dunajec',
     miejscowosc: 'wzdłuż Dunajca',
-    grupa: 'rower',
+    grupa: 'dunajec',
     skrot: 'Asfaltowa trasa rowerowa wzdłuż rzeki, bez ruchu samochodowego.',
     opis: [
       'Trasa rowerowa biegnąca doliną Dunajca, w dużej części wydzielona ' +
@@ -427,7 +442,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     slug: 'kladka-do-czerwonego-klasztoru',
     nazwa: 'Kładka pieszo-rowerowa do Czerwonego Klasztoru',
     miejscowosc: 'Sromowce Niżne',
-    grupa: 'rower',
+    grupa: 'dunajec',
     skrot: 'Przejście na słowacki brzeg przełomu, pieszo albo rowerem.',
     opis: [
       'Kładka nad Dunajcem łącząca polski brzeg ze słowackim Czerwonym ' +
