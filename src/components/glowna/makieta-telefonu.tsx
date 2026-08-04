@@ -18,16 +18,24 @@ import { cn } from '@/lib/utils'
 export function MakietaTelefonu({
   zrzut,
   opis,
+  children,
+  szerokosc = 'max-w-[19rem]',
+  priorytet = false,
   className,
 }: {
-  /** Adres zrzutu ekranu w katalogu publicznym. */
-  zrzut: string
-  /** Co widać na zrzucie — trafia do atrybutu `alt`. */
-  opis: string
+  /** Adres zrzutu ekranu. Pomiń, gdy zawartość ekranu podajesz jako `children`. */
+  zrzut?: string
+  /** Co widać na ekranie — trafia do atrybutu `alt`. */
+  opis?: string
+  /** Dowolna zawartość ekranu, np. odtwarzacz wideo. */
+  children?: React.ReactNode
+  /** Klasa ograniczająca szerokość makiety. */
+  szerokosc?: string
+  priorytet?: boolean
   className?: string
 }) {
   return (
-    <div className={cn('relative mx-auto w-full max-w-[19rem]', className)}>
+    <div className={cn('relative mx-auto w-full', szerokosc, className)}>
       {/*
         Poświata za telefonem. Bez niej ciemna obudowa na ciemnozielonym tle
         sekcji zlewa się z nim i makieta traci kształt.
@@ -47,13 +55,18 @@ export function MakietaTelefonu({
       >
         <div className="relative overflow-hidden rounded-[2.6rem] bg-black p-[7px]">
           <div className="relative aspect-[9/19.5] overflow-hidden rounded-[2.1rem] bg-kamien-100">
-            <Image
-              src={zrzut}
-              alt={opis}
-              fill
-              sizes="(max-width: 1024px) 60vw, 19rem"
-              className="object-cover object-top"
-            />
+            {children ??
+              (zrzut && (
+                <Image
+                  src={zrzut}
+                  alt={opis ?? ''}
+                  fill
+                  sizes="(max-width: 1024px) 60vw, 19rem"
+                  priority={priorytet}
+                  loading={priorytet ? undefined : 'lazy'}
+                  className="object-cover object-top"
+                />
+              ))}
 
             {/*
               Wysepka na górze ekranu. Rysowana nad zrzutem, bo zrzut

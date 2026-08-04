@@ -10,7 +10,11 @@ import {
   WifiOff,
 } from 'lucide-react'
 
+import { GaleriaEkranow } from '@/components/aplikacja/galeria-ekranow'
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
+import { TeaserWideo } from '@/components/aplikacja/teaser-wideo'
+import { MakietaTelefonu } from '@/components/glowna/makieta-telefonu'
+import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { pobierzStatystyki } from '@/lib/dane/zrodlo'
 import { liczba } from '@/lib/format'
@@ -100,7 +104,49 @@ export default function StronaAplikacji() {
         dodatek={<PrzyciskiSklepow wariant="ciemny" />}
       />
 
-      <div className="obszar py-16 lg:py-20">
+      {/* ── Teaser ───────────────────────────────────────────────────────── */}
+      <section className="bg-las-900 py-16 text-white lg:py-24" aria-labelledby="teaser">
+        <div className="obszar grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_20rem]">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-las-300">
+              Zobacz w działaniu
+            </p>
+            <h2 id="teaser" className="mt-3 text-sekcja font-semibold">
+              Trzydzieści pięć sekund na szlaku
+            </h2>
+            <p className="mt-4 max-w-[54ch] text-lg leading-relaxed text-white/80">
+              Nagranie z aplikacji: wybór trasy, mapa ze śladem, profil wysokości
+              i tryb „Na szlaku", który pilnuje, żebyś nie zszedł ze ścieżki.
+              Bez montażu i bez upiększeń — tak to wygląda w telefonie.
+            </p>
+            <PrzyciskiSklepow className="mt-8" wariant="jasny" />
+          </div>
+
+          <MakietaTelefonu szerokosc="max-w-[17rem]">
+            <TeaserWideo
+              zrodlo="/marka/aplikacja/teaser.mp4"
+              plakat="/marka/aplikacja/teaser-plakat.webp"
+              opis="Nagranie z aplikacji Szlaki Pienin: przeglądanie tras, mapa ze śladem, profil wysokości i nawigacja na szlaku"
+            />
+          </MakietaTelefonu>
+        </div>
+      </section>
+
+      {/* ── Galeria ekranów ─────────────────────────────────────────────── */}
+      <section className="sekcja" aria-labelledby="ekrany">
+        <div className="obszar">
+          <NaglowekSekcji
+            nadtytul="Ekran po ekranie"
+            tytul="Jak wygląda w środku"
+            opis="Sześć ekranów, na których spędzisz najwięcej czasu — od wyboru trasy po nawigację w terenie."
+          />
+          <div className="mt-12">
+            <GaleriaEkranow />
+          </div>
+        </div>
+      </section>
+
+      <div className="obszar pb-16 lg:pb-20">
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {MOZLIWOSCI.map(({ ikona: Ikona, tytul, tekst }) => (
             <li
@@ -124,13 +170,23 @@ export default function StronaAplikacji() {
           </h2>
           <div className="mt-5 max-w-[68ch] space-y-4 leading-relaxed text-kamien-700">
             <p>
-              Opisy, punkty i czasy przejścia pochodzą z przewodnika PTTK Oddziału
-              Pienińskiego „Szlaki pełne zdrowia" Piotra Krzywdy. Ślady tras to zapisy
-              GPS uzupełnione o wysokości z modelu terenu EU-DEM o rozdzielczości 25 m.
+              Z wielu źródeł, bo żadne pojedyncze nie wystarcza. Część tras to
+              oficjalne, znakowane szlaki PTTK. Część powstała na podstawie
+              przewodnika „Szlaki pełne zdrowia" PTTK Oddziału Pienińskiego.
+              Resztę złożyliśmy sami — z zapisów GPS z przejść w terenie, map
+              papierowych, opracowań innych portali turystycznych oraz z tego, co
+              podpowiedzieli przewodnicy i mieszkańcy, którzy chodzą tu od lat.
             </p>
             <p>
-              Strona i aplikacja czerpią z jednego zbioru danych. Poprawka opisu trasy
-              w aplikacji trafia na tę stronę przy najbliższej publikacji — nie ma
+              Każdy ślad przechodzi przez to samo sito: zapis GPS z terenu,
+              porównanie z mapą, uzupełnienie wysokości z modelu terenu EU-DEM
+              o rozdzielczości 25 metrów i sprawdzenie czasów przejścia. Trasy
+              autorskie, których nie ma w żadnym przewodniku, przechodzimy przed
+              opublikowaniem.
+            </p>
+            <p>
+              Strona i aplikacja czerpią z jednego zbioru danych. Poprawka opisu
+              trasy w aplikacji trafia tutaj przy najbliższej publikacji — nie ma
               dwóch wersji prawdy o tym, którędy biegnie szlak.
             </p>
           </div>
