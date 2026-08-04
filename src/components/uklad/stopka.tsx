@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Mountain } from 'lucide-react'
 
+import { Logo } from '@/components/marka/logo'
 import { PORTAL, RATUNEK, ZRODLA } from '@/lib/konfiguracja'
 
 const KOLUMNY = [
@@ -40,10 +40,7 @@ export function Stopka() {
       <div className="obszar py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
-            <div className="flex items-center gap-2.5 font-heading text-lg font-semibold text-las-800">
-              <Mountain className="size-6" aria-hidden />
-              <span>{PORTAL.nazwa}</span>
-            </div>
+            <Logo wysokosc={48} />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-kamien-600">
               Przewodnik po Pieninach — szlaki, atrakcje i mapy. Opisy tras
               pochodzą z przewodnika „{ZRODLA.przewodnik.tytul}"

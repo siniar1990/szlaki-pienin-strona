@@ -28,7 +28,11 @@ export function Powitanie({ statystyki }: { statystyki: StatystykiPortalu }) {
   ]
 
   return (
-    <section className="relative flex min-h-[100dvh] flex-col justify-end overflow-hidden">
+    // Pasek nawigacji jest kryjący i zajmuje miejsce w układzie strony,
+    // więc od pełnej wysokości okna odejmujemy jego wysokość — inaczej
+    // pierwszy ekran byłby o te 5 rem za wysoki i statystyki uciekałyby
+    // pod krawędź.
+    <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col justify-end overflow-hidden sm:min-h-[calc(100dvh-5rem)]">
       <Image
         src="/dane/obrazy/pieniny_hero.jpg"
         alt=""
@@ -52,7 +56,7 @@ export function Powitanie({ statystyki }: { statystyki: StatystykiPortalu }) {
       />
       <div aria-hidden className="absolute inset-0 bg-las-950/15" />
 
-      <div className="obszar relative z-10 pb-24 pt-32 sm:pb-28">
+      <div className="obszar relative z-10 pb-24 pt-20 sm:pb-28">
         <p className="font-medium uppercase tracking-[0.2em] text-white/80">
           Pieniny · Szczawnica · Dunajec
         </p>

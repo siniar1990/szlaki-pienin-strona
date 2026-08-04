@@ -62,7 +62,14 @@ export const metadata: Metadata = {
     description: PORTAL.opis,
   },
   icons: {
-    icon: '/marka/favicon.png',
+    // Trzy rozmiary, bo trafiają w trzy różne miejsca: 32 px to karta
+    // przeglądarki, 192 px — ikona na ekranie głównym Androida, a SVG
+    // przyda się wszędzie tam, gdzie liczy się ostrość przy powiększeniu.
+    icon: [
+      { url: '/marka/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/marka/favicon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/marka/ikona-app.svg', type: 'image/svg+xml' },
+    ],
     apple: '/marka/apple-touch-icon.png',
   },
   robots: { index: true, follow: true },

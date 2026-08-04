@@ -5,6 +5,7 @@
   "description": "Portal turystyczny o Pieninach — szlakipienin.pl",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx narzedzia/zbuduj-geojson.ts",
     "build": "next build",
     "lint": "eslint",
     "dane": "./narzedzia/synchronizuj-dane.sh"
@@ -34,6 +35,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.5",
     "typescript": "^5"
   }
 }

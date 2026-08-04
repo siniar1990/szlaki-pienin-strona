@@ -1,5 +1,4 @@
-import { Apple, Play } from 'lucide-react'
-
+import { ZnakApple, ZnakGooglePlay } from '@/components/marka/znaki-sklepow'
 import { SKLEPY } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
 
@@ -91,14 +90,14 @@ export function PrzyciskiSklepow({
       <div className="flex flex-wrap gap-3">
         <Sklep
           adres={SKLEPY.appStore}
-          ikona={<Apple className="size-7" />}
+          ikona={<ZnakApple className="size-7" />}
           gora={SKLEPY.appStore ? 'Pobierz na' : 'Wkrótce na'}
           dol="App Store"
           wariant={wariant}
         />
         <Sklep
           adres={SKLEPY.googlePlay}
-          ikona={<Play className="size-7" />}
+          ikona={<ZnakGooglePlay className="size-7" />}
           gora={SKLEPY.googlePlay ? 'Pobierz w' : 'Wkrótce w'}
           dol="Google Play"
           wariant={wariant}

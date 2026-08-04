@@ -3,31 +3,31 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Menu, Mountain, Search, X } from 'lucide-react'
+import { Menu, Search, X } from 'lucide-react'
 
+import { Logo } from '@/components/marka/logo'
 import { MENU } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
 
 /**
  * Górny pasek nawigacji.
  *
- * Nad fotografią tytułową jest przezroczysty, żeby zdjęcie zajmowało cały
- * ekran bez przykrywki. Po przewinięciu kilkudziesięciu pikseli nabiera bieli
- * i cienia — inaczej białe napisy menu ginęłyby na jasnym niebie następnych
- * sekcji. Próg jest niski (24 px), bo przy wyższym pasek zmienia się dopiero
- * w połowie ruchu i wygląda to na usterkę.
+ * Wcześniej nad zdjęciem tytułowym był przezroczysty, a napisy białe — i po
+ * prostu ginęły w jasnym niebie nad graniami. Menu stawało się widoczne
+ * dopiero po przewinięciu, kiedy pasek nabierał bieli. Teraz pasek jest
+ * kryjący od pierwszej klatki: efektowne wejście nie jest wart tego, żeby
+ * nawigacja bywała niewidzialna.
+ *
+ * Po przewinięciu dochodzi tylko cień i obramowanie — subtelny sygnał, że
+ * treść przesuwa się pod paskiem.
  */
 export function Naglowek() {
   const sciezka = usePathname()
   const [przewiniete, ustawPrzewiniete] = useState(false)
   const [menuOtwarte, ustawMenuOtwarte] = useState(false)
 
-  // Strona główna to jedyne miejsce z pełnoekranowym zdjęciem pod paskiem;
-  // wszędzie indziej treść zaczyna się od razu i pasek musi być kryjący.
-  const nadZdjeciem = sciezka === '/' && !przewiniete
-
   useEffect(() => {
-    const przySkrolu = () => ustawPrzewiniete(window.scrollY > 24)
+    const przySkrolu = () => ustawPrzewiniete(window.scrollY > 8)
     przySkrolu()
     // `passive` mówi przeglądarce, że nie zablokujemy przewijania — bez tego
     // każdy ruch palcem czeka na naszą funkcję i przewijanie się szarpie.
@@ -44,26 +44,25 @@ export function Naglowek() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300',
-        nadZdjeciem
-          ? 'bg-transparent'
-          : 'bg-white/85 shadow-miekki backdrop-blur-xl supports-[backdrop-filter]:bg-white/70',
+        'sticky top-0 z-50 bg-white/90 backdrop-blur-xl transition-shadow duration-300',
+        'supports-[backdrop-filter]:bg-white/80',
+        przewiniete ? 'border-b border-kamien-200 shadow-miekki' : 'border-b border-transparent',
       )}
     >
       <div className="obszar flex h-16 items-center justify-between gap-6 sm:h-20">
-        <Link
-          href="/"
-          className={cn(
-            'flex items-center gap-2.5 font-heading text-lg font-semibold tracking-tight transition-colors',
-            nadZdjeciem ? 'text-white' : 'text-las-800',
-          )}
-        >
-          <Mountain className="size-6 shrink-0" aria-hidden />
-          <span>Szlaki Pienin</span>
+        <Link href="/" aria-label="Szlaki Pienin — strona główna" className="shrink-0">
+          <Logo wysokosc={36} className="sm:hidden" />
+          <Logo wysokosc={44} className="hidden sm:block" />
         </Link>
 
-        <nav aria-label="Nawigacja główna" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+        {/*
+          Menu pokazujemy już od szerokości tabletu (768 px), a nie dopiero od
+          1024 px. Pięć krótkich pozycji mieści się tam bez ścisku, a najwięcej
+          osób wchodzi na portal z kodu QR na szlaku — czyli z telefonu
+          trzymanego poziomo albo z tabletu.
+        */}
+        <nav aria-label="Nawigacja główna" className="hidden md:block">
+          <ul className="flex items-center gap-0.5">
             {MENU.map((pozycja) => {
               const aktywna =
                 sciezka === pozycja.adres || sciezka.startsWith(`${pozycja.adres}/`)
@@ -75,11 +74,10 @@ export function Naglowek() {
                     // jesteśmy — samo pogrubienie jest widoczne tylko okiem.
                     aria-current={aktywna ? 'page' : undefined}
                     className={cn(
-                      'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-                      nadZdjeciem
-                        ? 'text-white/90 hover:bg-white/15 hover:text-white'
+                      'rounded-full px-3.5 py-2 text-sm font-medium transition-colors lg:px-4',
+                      aktywna
+                        ? 'bg-las-50 text-las-800'
                         : 'text-kamien-700 hover:bg-las-50 hover:text-las-800',
-                      aktywna && (nadZdjeciem ? 'bg-white/20 text-white' : 'bg-las-50 text-las-800'),
                     )}
                   >
                     {pozycja.etykieta}
@@ -90,16 +88,11 @@ export function Naglowek() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <Link
             href="/szukaj"
             aria-label="Szukaj w portalu"
-            className={cn(
-              'grid size-10 place-items-center rounded-full transition-colors',
-              nadZdjeciem
-                ? 'text-white hover:bg-white/15'
-                : 'text-kamien-700 hover:bg-kamien-100',
-            )}
+            className="grid size-10 place-items-center rounded-full text-kamien-700 transition-colors hover:bg-kamien-100"
           >
             <Search className="size-5" aria-hidden />
           </Link>
@@ -110,12 +103,7 @@ export function Naglowek() {
             aria-expanded={menuOtwarte}
             aria-controls="menu-mobilne"
             aria-label={menuOtwarte ? 'Zamknij menu' : 'Otwórz menu'}
-            className={cn(
-              'grid size-10 place-items-center rounded-full transition-colors lg:hidden',
-              nadZdjeciem
-                ? 'text-white hover:bg-white/15'
-                : 'text-kamien-700 hover:bg-kamien-100',
-            )}
+            className="grid size-10 place-items-center rounded-full text-kamien-700 transition-colors hover:bg-kamien-100 md:hidden"
           >
             {menuOtwarte ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
           </button>
@@ -126,7 +114,7 @@ export function Naglowek() {
         <nav
           id="menu-mobilne"
           aria-label="Nawigacja główna"
-          className="border-t border-kamien-200 bg-white lg:hidden"
+          className="border-t border-kamien-200 bg-white md:hidden"
         >
           <ul className="obszar flex flex-col py-3">
             {MENU.map((pozycja) => (
