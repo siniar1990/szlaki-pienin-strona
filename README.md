@@ -16,7 +16,10 @@ Każde `git push` do gałęzi `main` publikuje stronę przez GitHub Actions
 (`.github/workflows/publikuj.yml`). Nie ma etapu budowania — pliki idą na
 serwer takie, jakie są.
 
-Adres strony: <https://siniar1990.github.io/szlaki-pienin-strona/>.
+Adres strony: <https://szlakipienin.pl>. Domena stoi w OVH i wskazuje na
+GitHuba czterema rekordami `A` i czterema `AAAA`; `www` to `CNAME` na
+`siniar1990.github.io`. Stary adres `siniar1990.github.io/szlaki-pienin-strona/`
+przekierowuje na domenę.
 
 Witryny Pages nie trzeba włączać ręcznie — workflow robi to sam przy pierwszym
 przebiegu.
