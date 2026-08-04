@@ -71,7 +71,6 @@ export const MENU = [
   { adres: '/szlaki', etykieta: 'Szlaki' },
   { adres: '/atrakcje', etykieta: 'Atrakcje' },
   { adres: '/mapa', etykieta: 'Mapa' },
-  { adres: '/wyzwania', etykieta: 'Odznaki' },
   { adres: '/aplikacja', etykieta: 'Aplikacja' },
 ] as const
 

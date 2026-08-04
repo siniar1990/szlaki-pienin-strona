@@ -114,6 +114,33 @@ export function etykietaTypu(typ: string): string {
 }
 
 /**
+ * Nazwy grup na liście atrakcji — w liczbie mnogiej.
+ *
+ * Nagłówek nad dwudziestoma szczytami nie może brzmieć „Szczyt". To osobna
+ * tablica, a nie próba doklejania końcówek do liczby pojedynczej: polska
+ * odmiana nie da się załatwić regułą („zamek → zamki", ale „muzeum → muzea"),
+ * więc formy wypisujemy wprost.
+ */
+export const TYPY_PUNKTOW_MNOGIE: Record<string, string> = {
+  szczyt: 'Szczyty',
+  przelecz: 'Przełęcze',
+  schronisko: 'Schroniska',
+  punkt_widokowy: 'Punkty widokowe',
+  miejscowosc: 'Miejscowości',
+  zamek: 'Zamki',
+  kolej_linowa: 'Koleje linowe i wyciągi',
+  muzeum: 'Muzea',
+  przejscie_graniczne: 'Przejścia graniczne',
+  kaplica: 'Kaplice',
+  kosciol: 'Kościoły',
+  inny: 'Pozostałe punkty',
+}
+
+export function etykietaTypuMnoga(typ: string): string {
+  return TYPY_PUNKTOW_MNOGIE[typ] ?? etykietaTypu(typ)
+}
+
+/**
  * Barwy znaczników na mapie.
  *
  * Dobrane tak, żeby sąsiadujące kategorie różniły się nie tylko odcieniem,

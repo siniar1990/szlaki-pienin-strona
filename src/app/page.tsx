@@ -1,27 +1,15 @@
 import Link from 'next/link'
-import {
-  Baby,
-  Bike,
-  Compass,
-  Footprints,
-  Map as MapIcon,
-  Medal,
-  Mountain,
-  Sparkles,
-} from 'lucide-react'
+import { Map as MapIcon, Mountain, Sparkles } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
+import { KafelekAtrakcji, KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { Powitanie } from '@/components/glowna/powitanie'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
-import {
-  naListe,
-  pobierzAtrakcje,
-  pobierzStatystyki,
-  pobierzTrasy,
-  pobierzWyzwania,
-} from '@/lib/dane/zrodlo'
+import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
+import { naListe, pobierzAtrakcje, pobierzStatystyki, pobierzTrasy } from '@/lib/dane/zrodlo'
 import { liczba, metry } from '@/lib/format'
+import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
 
 /**
  * Strona główna portalu.
@@ -30,20 +18,10 @@ import { liczba, metry } from '@/lib/format'
  * przeglądarki trafia gotowy HTML, bez ani jednego kilobajta logiki ładowania.
  */
 
-const KATEGORIE = [
-  { adres: '/szlaki/kategorie/piesze', etykieta: 'Szlaki piesze', ikona: Footprints },
-  { adres: '/szlaki/kategorie/rowerowe', etykieta: 'Trasy rowerowe', ikona: Bike },
-  { adres: '/szlaki/kategorie/rodzinne', etykieta: 'Z dziećmi', ikona: Baby },
-  { adres: '/szlaki/kategorie/panoramy', etykieta: 'Najpiękniejsze panoramy', ikona: Compass },
-  { adres: '/szlaki/kategorie/latwe', etykieta: 'Łatwe', ikona: Footprints },
-  { adres: '/szlaki/kategorie/calodniowe', etykieta: 'Całodniowe', ikona: Mountain },
-]
-
 export default function StronaGlowna() {
   const trasy = pobierzTrasy()
   const statystyki = pobierzStatystyki()
   const atrakcje = pobierzAtrakcje()
-  const wyzwania = pobierzWyzwania()
 
   /*
     „Od czego zacząć" zamiast „najpopularniejsze".
@@ -98,26 +76,23 @@ export default function StronaGlowna() {
           <NaglowekSekcji
             nadtytul="Wybierz po swojemu"
             tytul="Kategorie tras"
-            opis="Na pół dnia z dzieckiem, na cały dzień w graniach albo na rower wzdłuż Dunajca."
+            opis="Ten sam podział co w aplikacji — od krótkiego wyjścia na pół dnia po całodniowe wyprawy i kolekcję dwudziestu czterech szczytów."
+            odnosnik={{ adres: '/szlaki', etykieta: 'Wszystkie trasy' }}
           />
 
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {KATEGORIE.map(({ adres, etykieta, ikona: Ikona }) => (
-              <li key={adres}>
-                <Link
-                  href={adres}
-                  className="group flex items-center gap-4 rounded-2xl border border-kamien-200 bg-white p-6 shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
-                >
-                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-las-50 text-las-700 transition-colors group-hover:bg-las-100">
-                    <Ikona className="size-6" aria-hidden />
-                  </span>
-                  <span className="font-heading text-lg font-semibold text-kamien-900">
-                    {etykieta}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-12">
+            <KafelkiKategorii
+              kategorie={KATEGORIE_APLIKACJI}
+              liczba={(kategoria) => trasy.filter(kategoria.pasuje).length}
+            />
+          </div>
+
+          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <KafelekAtrakcji
+              ilustracja="/dane/ilustracje/DP.webp"
+              ile={ATRAKCJE_TURYSTYCZNE.length}
+            />
+          </div>
         </div>
       </section>
 
@@ -167,9 +142,9 @@ export default function StronaGlowna() {
               Wszystkie szlaki na jednej mapie
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-white/80">
-              Ślady {liczba(trasy.filter((t) => t.slad).length)} tras, schroniska, punkty
-              widokowe, kapliczki i miejsca, w których zjesz i przenocujesz. Filtruj,
-              klikaj, planuj.
+              Wszystkie {liczba(trasy.length)} tras na jednej mapie. Lista po lewej,
+              mapa po prawej — kliknij ślad, żeby zobaczyć nazwę, długość i czas
+              przejścia, albo wybierz trasę z listy, a mapa sama do niej dojedzie.
             </p>
             <Link
               href="/mapa"
@@ -183,38 +158,6 @@ export default function StronaGlowna() {
           <div className="aspect-[4/3] rounded-3xl border border-white/15 bg-las-800/60" />
         </div>
       </section>
-
-      {/* ── Wyzwania ────────────────────────────────────────────────────── */}
-      {wyzwania.length > 0 && (
-        <section className="sekcja">
-          <div className="obszar">
-            <NaglowekSekcji
-              nadtytul="Odznaki"
-              tytul="Pienińskie wyzwania"
-              opis="Dwie odznaki przyznawane przez PTTK Szczawnica. Aplikacja liczy postęp na szlaku."
-            />
-
-            <div className="mt-12 grid gap-6 md:grid-cols-2">
-              {wyzwania.map((wyzwanie) => (
-                <article
-                  key={wyzwanie.id}
-                  className="flex items-center gap-6 rounded-2xl border border-kamien-200 bg-white p-8 shadow-miekki"
-                >
-                  <Medal className="size-10 shrink-0 text-las-600" aria-hidden />
-                  <div>
-                    <h3 className="font-heading text-xl font-semibold text-kamien-900">
-                      {wyzwanie.nazwa}
-                    </h3>
-                    {wyzwanie.podtytul && (
-                      <p className="mt-1 text-kamien-600">{wyzwanie.podtytul}</p>
-                    )}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ── Ciekawostki ─────────────────────────────────────────────────── */}
       <section className="sekcja bg-kamien-50">

@@ -42,13 +42,17 @@ type WlasciwosciSladu = {
   podejscieM: number
   trudnosc: 'latwa' | 'srednia' | 'trudna'
   petla: boolean
+  /** Czy trasa ma zdigitalizowany ślad. Bez niego zostaje sam punkt szczytu. */
+  maSlad: boolean
   kolor: string
 }
 
 type Slad = {
   type: 'Feature'
   properties: WlasciwosciSladu
-  geometry: { type: 'LineString'; coordinates: [number, number][] }
+  geometry:
+    | { type: 'LineString'; coordinates: [number, number][] }
+    | { type: 'Point'; coordinates: [number, number] }
 }
 
 type ZbiorSladow = { type: 'FeatureCollection'; features: Slad[] }
@@ -109,10 +113,17 @@ function Zawartosc() {
     )
   }, [slady, fraza])
 
-  /** Dojeżdża do wskazanego śladu, zostawiając margines na krawędziach. */
+  /** Dojeżdża do wskazanej trasy, zostawiając margines na krawędziach. */
   const pokazSlad = useCallback((slad: Slad) => {
     const m = mapa.current
     if (!m) return
+
+    // Trasa bez śladu to pojedynczy punkt — nie ma z czego liczyć zasięgu,
+    // więc po prostu dolatujemy do niego z sensownym przybliżeniem.
+    if (slad.geometry.type === 'Point') {
+      m.flyTo({ center: slad.geometry.coordinates, zoom: 13.5, duration: 700 })
+      return
+    }
 
     const granice = new maplibregl.LngLatBounds()
     slad.geometry.coordinates.forEach((punkt) => granice.extend(punkt))
@@ -183,6 +194,22 @@ function Zawartosc() {
       filter: ['==', ['get', 'id'], ''],
     })
 
+    // Trasy bez zdigitalizowanego śladu — sam szczyt jako znacznik. Rysujemy
+    // je pierścieniem, a nie linią, żeby na pierwszy rzut oka było widać,
+    // że to nie jest przebieg trasy, tylko jej cel.
+    m.addLayer({
+      id: 'szlaki-punkty',
+      type: 'circle',
+      source: ZRODLO,
+      filter: ['==', ['geometry-type'], 'Point'],
+      paint: {
+        'circle-radius': 7,
+        'circle-color': '#ffffff',
+        'circle-stroke-width': 3,
+        'circle-stroke-color': ['get', 'kolor'],
+      },
+    })
+
     // Szeroka, przezroczysta warstwa wyłącznie do łapania kliknięć. Trafienie
     // palcem w linię grubości 3 px jest praktycznie niemożliwe; 20 px daje
     // margines błędu, którego wymaga WCAG 2.2 dla celów dotykowych.
@@ -207,21 +234,27 @@ function Zawartosc() {
       m.getCanvas().style.cursor = ''
     }
 
-    m.on('click', 'szlaki-klikalne', przyKliknieciu)
-    m.on('mouseenter', 'szlaki-klikalne', wskaznikNad)
-    m.on('mouseleave', 'szlaki-klikalne', wskaznikPoza)
+    for (const warstwa of ['szlaki-klikalne', 'szlaki-punkty']) {
+      m.on('click', warstwa, przyKliknieciu)
+      m.on('mouseenter', warstwa, wskaznikNad)
+      m.on('mouseleave', warstwa, wskaznikPoza)
+    }
 
     // Kliknięcie w puste miejsce zdejmuje zaznaczenie.
     const przyKliknieciuWTlo = (zdarzenie: MapMouseEvent) => {
-      const trafione = m.queryRenderedFeatures(zdarzenie.point, { layers: ['szlaki-klikalne'] })
+      const trafione = m.queryRenderedFeatures(zdarzenie.point, {
+        layers: ['szlaki-klikalne', 'szlaki-punkty'],
+      })
       if (trafione.length === 0) ustawWybrany(null)
     }
     m.on('click', przyKliknieciuWTlo)
 
     return () => {
-      m.off('click', 'szlaki-klikalne', przyKliknieciu)
-      m.off('mouseenter', 'szlaki-klikalne', wskaznikNad)
-      m.off('mouseleave', 'szlaki-klikalne', wskaznikPoza)
+      for (const warstwa of ['szlaki-klikalne', 'szlaki-punkty']) {
+        m.off('click', warstwa, przyKliknieciu)
+        m.off('mouseenter', warstwa, wskaznikNad)
+        m.off('mouseleave', warstwa, wskaznikPoza)
+      }
       m.off('click', przyKliknieciuWTlo)
     }
   }, [gotowa, data])
@@ -236,6 +269,10 @@ function Zawartosc() {
     // przez plątaninę czterdziestu dziewięciu linii.
     m.setPaintProperty('szlaki-linia', 'line-opacity', wybrany ? 0.28 : 1)
     m.setPaintProperty('szlaki-obwodka', 'line-opacity', wybrany ? 0.3 : 0.85)
+    if (m.getLayer('szlaki-punkty')) {
+      m.setPaintProperty('szlaki-punkty', 'circle-opacity', wybrany ? 0.35 : 1)
+      m.setPaintProperty('szlaki-punkty', 'circle-stroke-opacity', wybrany ? 0.35 : 1)
+    }
   }, [wybrany, gotowa])
 
   const wybranySlad = slady.find((slad) => slad.properties.id === wybrany) ?? null
@@ -293,11 +330,22 @@ function Zawartosc() {
                     aktywny ? 'bg-las-50' : 'hover:bg-kamien-50',
                   )}
                 >
-                  <span
-                    aria-hidden
-                    className="mt-1.5 h-1 w-6 shrink-0 rounded-full"
-                    style={{ backgroundColor: w.kolor }}
-                  />
+                  {/* Trasa ze śladem dostaje kreskę, trasa bez śladu —
+                      kółko. Ten sam sygnał co na mapie, więc jedno spojrzenie
+                      wystarczy, żeby wiedzieć, czego się spodziewać. */}
+                  {w.maSlad ? (
+                    <span
+                      aria-hidden
+                      className="mt-1.5 h-1 w-6 shrink-0 rounded-full"
+                      style={{ backgroundColor: w.kolor }}
+                    />
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="mt-1 size-3 shrink-0 rounded-full border-2 bg-white"
+                      style={{ borderColor: w.kolor }}
+                    />
+                  )}
                   <span className="min-w-0 flex-1">
                     <span
                       className={cn(
@@ -324,6 +372,11 @@ function Zawartosc() {
                         <span className="inline-flex items-center gap-1">
                           <RefreshCw className="size-3" aria-hidden />
                           pętla
+                        </span>
+                      )}
+                      {!w.maSlad && (
+                        <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.7rem] font-medium text-amber-900">
+                          ślad w przygotowaniu
                         </span>
                       )}
                     </span>

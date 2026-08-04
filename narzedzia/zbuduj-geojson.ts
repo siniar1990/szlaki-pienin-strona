@@ -29,12 +29,32 @@ const KOLORY_SZLAKOW: Record<string, string> = {
 type Cecha = {
   type: 'Feature'
   properties: Record<string, unknown>
-  geometry: { type: 'LineString'; coordinates: number[][] }
+  geometry:
+    | { type: 'LineString'; coordinates: number[][] }
+    | { type: 'Point'; coordinates: number[] }
 }
 
-const trasy = pobierzTrasy().filter((trasa) => trasa.slad !== null)
+const wszystkie = pobierzTrasy()
+const trasy = wszystkie.filter((trasa) => trasa.slad !== null)
 const cechy: Cecha[] = []
 const pominiete: string[] = []
+
+/** Wspólny zestaw właściwości — mapa czyta je i z linii, i z punktu. */
+function wlasciwosci(trasa: (typeof wszystkie)[number], maSlad: boolean) {
+  return {
+    id: trasa.id,
+    nazwa: trasa.nazwa,
+    slug: trasa.slug,
+    adres: `/szlaki/${trasa.slug}`,
+    dlugoscKm: trasa.dlugoscKm,
+    czasMin: trasa.czasMin.tam,
+    podejscieM: trasa.sumaPodejscM.tam,
+    trudnosc: trasa.trudnosc,
+    petla: trasa.petla,
+    maSlad,
+    kolor: KOLORY_SZLAKOW[trasa.szlaki[0]] ?? '#2f5d43',
+  }
+}
 
 for (const trasa of trasy) {
   const sciezka = path.join(process.cwd(), 'public', trasa.slad!)
@@ -57,18 +77,7 @@ for (const trasa of trasy) {
 
   cechy.push({
     type: 'Feature',
-    properties: {
-      id: trasa.id,
-      nazwa: trasa.nazwa,
-      slug: trasa.slug,
-      adres: `/szlaki/${trasa.slug}`,
-      dlugoscKm: trasa.dlugoscKm,
-      czasMin: trasa.czasMin.tam,
-      podejscieM: trasa.sumaPodejscM.tam,
-      trudnosc: trasa.trudnosc,
-      petla: trasa.petla,
-      kolor: KOLORY_SZLAKOW[trasa.szlaki[0]] ?? '#2f5d43',
-    },
+    properties: wlasciwosci(trasa, true),
     // Wysokości (trzecia wartość) obcinamy — mapa ich nie używa, a stanowią
     // jedną trzecią wagi pliku. Profil wysokości i tak czyta oryginalny ślad.
     geometry: {
@@ -81,11 +90,46 @@ for (const trasa of trasy) {
   })
 }
 
+/*
+  Trasy bez zdigitalizowanego śladu.
+
+  Czterem szczytom Korony Pienin ślad jeszcze nie powstał — w danych aplikacji
+  po prostu go nie ma. Narysowanie przybliżonej linii „na oko" byłoby w górach
+  niebezpieczne: ktoś poszedłby za nią w teren. Zamiast tego stawiamy punkt
+  w miejscu szczytu, wyraźnie oznaczony jako trasa bez śladu, i prowadzimy
+  do pełnego opisu. Dzięki temu na mapie jest komplet tras, a żadna linia
+  nie obiecuje przebiegu, którego nikt nie sprawdził.
+*/
+for (const trasa of wszystkie) {
+  if (trasa.slad !== null) continue
+
+  // Punkt docelowy: ten o nazwie trasy (Korony Pienin nazywają się od szczytu),
+  // a gdy takiego nie ma — ostatni punkt, czyli koniec trasy.
+  const docelowy =
+    trasa.punkty.find((punkt) => punkt.nazwa === trasa.nazwa) ??
+    trasa.punkty[trasa.punkty.length - 1]
+
+  if (!docelowy) {
+    pominiete.push(`${trasa.id} (brak śladu i brak punktów)`)
+    continue
+  }
+
+  cechy.push({
+    type: 'Feature',
+    properties: wlasciwosci(trasa, false),
+    geometry: { type: 'Point', coordinates: docelowy.wspolrzedne },
+  })
+}
+
 const cel = path.join(process.cwd(), 'public', 'dane', 'szlaki.geojson')
 writeFileSync(cel, JSON.stringify({ type: 'FeatureCollection', features: cechy }))
 
 const waga = (readFileSync(cel).length / 1024).toFixed(0)
-console.log(`szlaki.geojson: ${cechy.length} śladów, ${waga} kB`)
+const linie = cechy.filter((c) => c.geometry.type === 'LineString').length
+const punkty = cechy.length - linie
+console.log(
+  `szlaki.geojson: ${cechy.length} tras (${linie} ze śladem, ${punkty} jako punkt), ${waga} kB`,
+)
 if (pominiete.length > 0) {
   console.log(`pominięto: ${pominiete.join(', ')}`)
 }

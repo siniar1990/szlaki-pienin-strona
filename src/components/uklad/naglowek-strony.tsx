@@ -13,11 +13,14 @@ export type Okruszek = { nazwa: string; adres: string }
 export function NaglowekStrony({
   okruszki,
   tytul,
+  tytulOpis,
   lead,
   dodatek,
 }: {
   okruszki: Okruszek[]
   tytul: string
+  /** Dopowiedzenie pod tytułem — mniejsze, bez własnego stopnia nagłówka. */
+  tytulOpis?: string
   lead?: string
   dodatek?: React.ReactNode
 }) {
@@ -54,6 +57,9 @@ export function NaglowekStrony({
         </nav>
 
         <h1 className="max-w-[22ch] text-tytul font-semibold text-kamien-900">{tytul}</h1>
+        {tytulOpis && (
+          <p className="mt-3 max-w-[46ch] font-heading text-xl text-kamien-700">{tytulOpis}</p>
+        )}
         {lead && <p className="mt-5 max-w-[62ch] text-prowadzacy text-kamien-600">{lead}</p>}
         {dodatek && <div className="mt-8">{dodatek}</div>}
       </div>

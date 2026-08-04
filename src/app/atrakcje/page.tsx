@@ -1,35 +1,48 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Mountain } from 'lucide-react'
+import { MapPin, Mountain } from 'lucide-react'
 
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { pobierzAtrakcje } from '@/lib/dane/zrodlo'
-import { etykietaTypu, kolorTypu, metry } from '@/lib/format'
+import { etykietaTypuMnoga, kolorTypu, metry } from '@/lib/format'
 import { PORTAL } from '@/lib/konfiguracja'
+import {
+  ATRAKCJE_TURYSTYCZNE,
+  GRUPY_ATRAKCJI,
+  atrakcjeWGrupie,
+} from '@/lib/tresc/atrakcje-turystyczne'
 
 export const metadata: Metadata = {
   title: 'Atrakcje Pienin',
   description:
-    'Szczyty, punkty widokowe, przełęcze, schroniska i zamki w Pieninach — ' +
-    'z wysokościami, ciekawostkami z przewodnika i trasami, którymi da się tam dojść.',
+    'Spływ Dunajcem, pijalnia wód mineralnych, zjeżdżalnie grawitacyjne, zamki, ' +
+    'wąwozy i wodospady — atrakcje Szczawnicy, Krościenka i okolic, plus szczyty ' +
+    'i punkty widokowe z opisanych tras.',
   alternates: { canonical: '/atrakcje' },
 }
 
-/** Kolejność grup na stronie — od tego, czego ludzie szukają najczęściej. */
-const GRUPY = [
+/**
+ * Kolejność grup szczytowych. Najpierw to, po co ludzie przyjeżdżają
+ * w Pieniny, na końcu punkty pomocnicze.
+ */
+const GRUPY_Z_TRAS = [
   'szczyt',
   'punkt_widokowy',
-  'zamek',
-  'schronisko',
   'przelecz',
+  'schronisko',
+  'zamek',
   'muzeum',
   'kolej_linowa',
-  'atrakcja',
-  'zrodlo',
 ]
 
 export default function StronaAtrakcji() {
-  const atrakcje = pobierzAtrakcje()
+  const zTras = pobierzAtrakcje()
+
+  // Atrakcja opisana w katalogu ma pierwszeństwo przed punktem o tej samej
+  // nazwie wyciągniętym z trasy — inaczej „Wodospad Zaskalnik" pojawiłby się
+  // dwa razy, raz z opisem i raz bez.
+  const slugiKatalogu = new Set(ATRAKCJE_TURYSTYCZNE.map((a) => a.slug))
+  const punktyTras = zTras.filter((atrakcja) => !slugiKatalogu.has(atrakcja.slug))
 
   const daneOkruszkow = {
     '@context': 'https://schema.org',
@@ -50,50 +63,41 @@ export default function StronaAtrakcji() {
       <NaglowekStrony
         okruszki={[{ nazwa: 'Atrakcje', adres: '/atrakcje' }]}
         tytul="Atrakcje Pienin"
-        lead={`${atrakcje.length} miejsc, do których prowadzą opisane u nas trasy — z wysokością, położeniem i ciekawostkami z przewodnika.`}
+        tytulOpis="Co zobaczyć w Szczawnicy, Krościenku i okolicy"
+        lead={`${ATRAKCJE_TURYSTYCZNE.length} atrakcji turystycznych — od spływu Dunajcem po zamki nad jeziorem — oraz ${punktyTras.length} szczytów i punktów widokowych z opisanych u nas tras.`}
       />
 
       <div className="obszar py-14 lg:py-20">
-        {GRUPY.map((grupa) => {
-          const wGrupie = atrakcje.filter((atrakcja) => atrakcja.typ === grupa)
+        {/* ── Atrakcje turystyczne ─────────────────────────────────────── */}
+        {GRUPY_ATRAKCJI.map((grupa) => {
+          const wGrupie = atrakcjeWGrupie(grupa.klucz)
           if (wGrupie.length === 0) return null
 
           return (
-            <section key={grupa} className="mb-16 last:mb-0">
-              <h2 className="flex items-baseline gap-3 text-sekcja font-semibold text-kamien-900">
-                {etykietaTypu(grupa)}
-                <span className="text-base font-normal text-kamien-500">{wGrupie.length}</span>
-              </h2>
+            <section key={grupa.klucz} className="mb-16">
+              <h2 className="text-sekcja font-semibold text-kamien-900">{grupa.nazwa}</h2>
+              <p className="mt-2 max-w-[62ch] text-kamien-600">{grupa.opis}</p>
 
-              <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {wGrupie.map((atrakcja) => (
                   <li key={atrakcja.slug}>
                     <Link
                       href={`/atrakcje/${atrakcja.slug}`}
-                      className="group flex h-full flex-col rounded-2xl border border-kamien-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
+                      className="group flex h-full flex-col rounded-2xl border border-kamien-200 bg-white p-6 shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
                     >
-                      <span
-                        aria-hidden
-                        className="grid size-9 place-items-center rounded-lg"
-                        style={{ backgroundColor: `${kolorTypu(atrakcja.typ)}1a` }}
-                      >
-                        <Mountain
-                          className="size-4"
-                          style={{ color: kolorTypu(atrakcja.typ) }}
-                        />
-                      </span>
-                      <h3 className="mt-4 font-heading text-lg font-semibold leading-snug text-kamien-900 group-hover:text-las-700">
+                      <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-las-600">
+                        <MapPin className="size-3.5" aria-hidden />
+                        {atrakcja.miejscowosc}
+                      </p>
+                      <h3 className="mt-3 font-heading text-lg font-semibold leading-snug text-kamien-900 group-hover:text-las-700">
                         {atrakcja.nazwa}
                       </h3>
-                      <p className="mt-1 text-sm text-kamien-500">
-                        {atrakcja.wysokoscM !== null && <>{metry(atrakcja.wysokoscM)} n.p.m. · </>}
-                        {atrakcja.trasy.length}{' '}
-                        {atrakcja.trasy.length === 1
-                          ? 'trasa'
-                          : atrakcja.trasy.length < 5
-                            ? 'trasy'
-                            : 'tras'}
+                      <p className="mt-2 text-sm leading-relaxed text-kamien-600">
+                        {atrakcja.skrot}
                       </p>
+                      {atrakcja.sezon && (
+                        <p className="mt-4 text-xs text-kamien-500">Sezon: {atrakcja.sezon}</p>
+                      )}
                     </Link>
                   </li>
                 ))}
@@ -101,6 +105,62 @@ export default function StronaAtrakcji() {
             </section>
           )
         })}
+
+        {/* ── Szczyty i punkty z tras ──────────────────────────────────── */}
+        <div className="mt-24 border-t border-kamien-200 pt-16">
+          <h2 className="text-tytul font-semibold text-kamien-900">
+            Szczyty i punkty na szlakach
+          </h2>
+          <p className="mt-4 max-w-[64ch] text-lg text-kamien-600">
+            Miejsca, przez które prowadzą opisane u nas trasy — z wysokością,
+            położeniem i ciekawostkami z przewodnika.
+          </p>
+
+          {GRUPY_Z_TRAS.map((grupa) => {
+            const wGrupie = punktyTras.filter((atrakcja) => atrakcja.typ === grupa)
+            if (wGrupie.length === 0) return null
+
+            return (
+              <section key={grupa} className="mt-14">
+                <h3 className="flex items-baseline gap-3 font-heading text-2xl font-semibold text-kamien-900">
+                  {etykietaTypuMnoga(grupa)}
+                  <span className="text-base font-normal text-kamien-500">{wGrupie.length}</span>
+                </h3>
+
+                <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {wGrupie.map((atrakcja) => (
+                    <li key={atrakcja.slug}>
+                      <Link
+                        href={`/atrakcje/${atrakcja.slug}`}
+                        className="group flex h-full flex-col rounded-2xl border border-kamien-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
+                      >
+                        <span
+                          aria-hidden
+                          className="grid size-9 place-items-center rounded-lg"
+                          style={{ backgroundColor: `${kolorTypu(atrakcja.typ)}1a` }}
+                        >
+                          <Mountain className="size-4" style={{ color: kolorTypu(atrakcja.typ) }} />
+                        </span>
+                        <h4 className="mt-4 font-heading text-lg font-semibold leading-snug text-kamien-900 group-hover:text-las-700">
+                          {atrakcja.nazwa}
+                        </h4>
+                        <p className="mt-1 text-sm text-kamien-500">
+                          {atrakcja.wysokoscM !== null && <>{metry(atrakcja.wysokoscM)} n.p.m. · </>}
+                          {atrakcja.trasy.length}{' '}
+                          {atrakcja.trasy.length === 1
+                            ? 'trasa'
+                            : atrakcja.trasy.length < 5
+                              ? 'trasy'
+                              : 'tras'}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )
+          })}
+        </div>
       </div>
     </>
   )

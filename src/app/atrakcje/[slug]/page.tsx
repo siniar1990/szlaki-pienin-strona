@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { MapPin, Mountain, Sparkles } from 'lucide-react'
+import { CalendarRange, Info, MapPin, Mountain, Sparkles } from 'lucide-react'
 
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
@@ -14,43 +15,79 @@ import {
 } from '@/lib/dane/zrodlo'
 import { etykietaTypu, kolorTypu, metry } from '@/lib/format'
 import { PORTAL, ZRODLA } from '@/lib/konfiguracja'
+import {
+  ATRAKCJE_TURYSTYCZNE,
+  GRUPY_ATRAKCJI,
+  type AtrakcjaTurystyczna,
+  znajdzAtrakcjeTurystyczna,
+} from '@/lib/tresc/atrakcje-turystyczne'
 
 /**
- * Strona pojedynczej atrakcji.
+ * Strona atrakcji.
  *
- * Cała treść pochodzi z danych: nazwa i wysokość z punktów tras, ciekawostki
- * z „ramek" przewodnika leżących w pobliżu, trasy — z tego, które z nich
- * przez to miejsce prowadzą. Portal nie dopisuje tu własnych opisów; te,
- * zgodnie z ustaleniem, powstaną jako szkice do zatwierdzenia.
+ * Pod jednym adresem żyją dwa rodzaje wpisów:
+ *
+ *  • atrakcje turystyczne z katalogu redakcyjnego (spływ, pijalnia, zamki),
+ *  • miejsca wyciągnięte z punktów tras (szczyty, przełęcze, schroniska).
+ *
+ * Katalog ma pierwszeństwo — jeśli coś jest opisane ręcznie, pokazujemy opis,
+ * a nie samą nazwę z listy punktów. Wspólny adres jest celowy: turysta szuka
+ * „Wąwozu Homole", a nie zastanawia się, z której szuflady portal go wyjmie.
  */
 
 export function generateStaticParams() {
-  return pobierzAtrakcje().map((atrakcja) => ({ slug: atrakcja.slug }))
+  const zKatalogu = ATRAKCJE_TURYSTYCZNE.map((atrakcja) => atrakcja.slug)
+  const zestaw = new Set(zKatalogu)
+
+  return [
+    ...zKatalogu.map((slug) => ({ slug })),
+    ...pobierzAtrakcje()
+      .filter((atrakcja) => !zestaw.has(atrakcja.slug))
+      .map((atrakcja) => ({ slug: atrakcja.slug })),
+  ]
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/atrakcje/[slug]'>): Promise<Metadata> {
   const { slug } = await params
+
+  const zKatalogu = znajdzAtrakcjeTurystyczna(slug)
+  if (zKatalogu) {
+    return {
+      title: zKatalogu.nazwa,
+      description: `${zKatalogu.miejscowosc}. ${zKatalogu.skrot}`.slice(0, 300),
+      alternates: { canonical: `/atrakcje/${zKatalogu.slug}` },
+      openGraph: {
+        type: 'article',
+        title: `${zKatalogu.nazwa} — ${zKatalogu.miejscowosc}`,
+        description: zKatalogu.skrot,
+        url: `${PORTAL.adres}/atrakcje/${zKatalogu.slug}`,
+      },
+    }
+  }
+
   const atrakcja = pobierzAtrakcje1(slug)
   if (!atrakcja) return {}
 
-  const czesci = [
+  const opis = [
     etykietaTypu(atrakcja.typ),
     'w Pieninach.',
     atrakcja.wysokoscM !== null ? `Wysokość ${metry(atrakcja.wysokoscM)} n.p.m.` : '',
     `Prowadzi tu ${atrakcja.trasy.length} opisanych tras.`,
     atrakcja.ciekawostki[0]?.tekst ?? '',
   ]
+    .filter(Boolean)
+    .join(' ')
 
   return {
     title: atrakcja.nazwa,
-    description: czesci.filter(Boolean).join(' ').slice(0, 300),
+    description: opis.slice(0, 300),
     alternates: { canonical: `/atrakcje/${atrakcja.slug}` },
     openGraph: {
       type: 'article',
       title: `${atrakcja.nazwa} — ${etykietaTypu(atrakcja.typ).toLowerCase()} w Pieninach`,
-      description: czesci.filter(Boolean).join(' ').slice(0, 300),
+      description: opis.slice(0, 300),
       url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
     },
   }
@@ -58,16 +95,192 @@ export async function generateMetadata({
 
 export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[slug]'>) {
   const { slug } = await params
+
+  const zKatalogu = znajdzAtrakcjeTurystyczna(slug)
+  if (zKatalogu) return <WidokKatalogu atrakcja={zKatalogu} />
+
   const atrakcja = pobierzAtrakcje1(slug)
   if (!atrakcja) notFound()
 
+  return <WidokZTras atrakcja={atrakcja} />
+}
+
+/* ── Atrakcja z katalogu redakcyjnego ────────────────────────────────────── */
+
+function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
+  const grupa = GRUPY_ATRAKCJI.find((g) => g.klucz === atrakcja.grupa)
+  const pokrewne = ATRAKCJE_TURYSTYCZNE.filter(
+    (inna) => inna.grupa === atrakcja.grupa && inna.slug !== atrakcja.slug,
+  ).slice(0, 3)
+
+  const dane = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'TouristAttraction',
+      name: atrakcja.nazwa,
+      description: atrakcja.skrot,
+      url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: atrakcja.miejscowosc,
+        addressRegion: 'małopolskie',
+        addressCountry: 'PL',
+      },
+      containedInPlace: { '@type': 'Place', name: 'Pieniny' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Start', item: PORTAL.adres },
+        { '@type': 'ListItem', position: 2, name: 'Atrakcje', item: `${PORTAL.adres}/atrakcje` },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: atrakcja.nazwa,
+          item: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
+        },
+      ],
+    },
+  ]
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dane) }}
+      />
+
+      <NaglowekStrony
+        okruszki={[
+          { nazwa: 'Atrakcje', adres: '/atrakcje' },
+          { nazwa: atrakcja.nazwa, adres: `/atrakcje/${atrakcja.slug}` },
+        ]}
+        tytul={atrakcja.nazwa}
+        lead={atrakcja.skrot}
+        dodatek={
+          <div className="flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-kamien-300 bg-white px-3.5 py-1.5 text-sm text-kamien-700">
+              <MapPin className="size-3.5" aria-hidden />
+              {atrakcja.miejscowosc}
+            </span>
+            {grupa && (
+              <span className="rounded-full border border-kamien-300 bg-white px-3.5 py-1.5 text-sm text-kamien-700">
+                {grupa.nazwa}
+              </span>
+            )}
+            {atrakcja.sezon && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-kamien-300 bg-white px-3.5 py-1.5 text-sm text-kamien-700">
+                <CalendarRange className="size-3.5" aria-hidden />
+                {atrakcja.sezon}
+              </span>
+            )}
+          </div>
+        }
+      />
+
+      <div className="obszar py-14 lg:py-20">
+        <div className="max-w-[68ch] space-y-5 text-[1.0625rem] leading-[1.75] text-kamien-700">
+          {atrakcja.opis.map((akapit) => (
+            <p key={akapit.slice(0, 40)}>{akapit}</p>
+          ))}
+        </div>
+
+        {/*
+          Uczciwa nota zamiast udawania wszechwiedzy. Portal opisuje, czym
+          dana atrakcja jest — godziny, ceny i terminy zmieniają się co sezon
+          i sprawdza się je u operatora, a nie na stronie o szlakach.
+        */}
+        <p className="mt-10 flex max-w-[68ch] items-start gap-3 rounded-xl border border-kamien-200 bg-kamien-50 p-5 text-sm leading-relaxed text-kamien-600">
+          <Info className="mt-0.5 size-4 shrink-0 text-kamien-500" aria-hidden />
+          <span>
+            Opisujemy, czym jest to miejsce — bez godzin otwarcia, cen i terminów.
+            Takie dane zmieniają się co sezon, więc przed wyjazdem sprawdź je
+            u operatora atrakcji.
+            {atrakcja.doPotwierdzenia && ' Szczegóły działania tej atrakcji potwierdź na miejscu.'}
+          </span>
+        </p>
+
+        {pokrewne.length > 0 && (
+          <section className="mt-20 border-t border-kamien-200 pt-14">
+            <h2 className="text-sekcja font-semibold text-kamien-900">
+              {grupa?.nazwa ?? 'Podobne atrakcje'}
+            </h2>
+            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {pokrewne.map((inna) => (
+                <li key={inna.slug}>
+                  <Link
+                    href={`/atrakcje/${inna.slug}`}
+                    className="group flex h-full flex-col rounded-2xl border border-kamien-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
+                  >
+                    <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-las-600">
+                      <MapPin className="size-3.5" aria-hidden />
+                      {inna.miejscowosc}
+                    </p>
+                    <h3 className="mt-3 font-heading text-lg font-semibold text-kamien-900 group-hover:text-las-700">
+                      {inna.nazwa}
+                    </h3>
+                    <p className="mt-2 text-sm text-kamien-600">{inna.skrot}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </>
+  )
+}
+
+/* ── Miejsce wyciągnięte z punktów tras ──────────────────────────────────── */
+
+function WidokZTras({ atrakcja }: { atrakcja: Atrakcja }) {
   const trasy = atrakcja.trasy
     .map((id) => pobierzTrasePoId(id))
     .filter((trasa) => trasa !== null)
 
+  const dane = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'TouristAttraction',
+      name: atrakcja.nazwa,
+      url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
+      description: atrakcja.ciekawostki[0]?.tekst,
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: atrakcja.wspolrzedne[1],
+        longitude: atrakcja.wspolrzedne[0],
+        elevation: atrakcja.wysokoscM ?? undefined,
+      },
+      containedInPlace: {
+        '@type': 'Place',
+        name: 'Pieniny',
+        address: { '@type': 'PostalAddress', addressCountry: 'PL' },
+      },
+      isAccessibleForFree: true,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Start', item: PORTAL.adres },
+        { '@type': 'ListItem', position: 2, name: 'Atrakcje', item: `${PORTAL.adres}/atrakcje` },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: atrakcja.nazwa,
+          item: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
+        },
+      ],
+    },
+  ]
+
   return (
     <>
-      <DaneStrukturalne atrakcja={atrakcja} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dane) }}
+      />
 
       <NaglowekStrony
         okruszki={[
@@ -102,9 +315,7 @@ export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[s
                       <h3 className="mt-3 font-heading text-xl font-semibold text-kamien-900">
                         {ciekawostka.tytul}
                       </h3>
-                      <p className="mt-3 leading-relaxed text-kamien-700">
-                        {ciekawostka.tekst}
-                      </p>
+                      <p className="mt-3 leading-relaxed text-kamien-700">{ciekawostka.tekst}</p>
                     </article>
                   ))}
                 </div>
@@ -123,8 +334,8 @@ export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[s
                 </h2>
                 <p className="mt-3 leading-relaxed text-kamien-600">
                   Do tego miejsca prowadzą opisane u nas trasy, ale nie mamy jeszcze
-                  osobnego opisu samej atrakcji. Poniżej znajdziesz trasy, którymi
-                  da się tu dojść, oraz położenie na mapie.
+                  osobnego opisu. Poniżej znajdziesz trasy, którymi da się tu dojść,
+                  oraz położenie na mapie.
                 </p>
               </section>
             )}
@@ -157,9 +368,7 @@ export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[s
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-2xl border border-kamien-200 bg-white p-6">
               <Mountain className="size-6 text-las-600" aria-hidden />
-              <h2 className="mt-3 font-heading text-lg font-semibold text-kamien-900">
-                W skrócie
-              </h2>
+              <h2 className="mt-3 font-heading text-lg font-semibold text-kamien-900">W skrócie</h2>
               <dl className="mt-4 space-y-3 text-sm">
                 <div className="flex justify-between gap-4">
                   <dt className="text-kamien-500">Rodzaj</dt>
@@ -196,52 +405,5 @@ export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[s
         )}
       </div>
     </>
-  )
-}
-
-function DaneStrukturalne({ atrakcja }: { atrakcja: Atrakcja }) {
-  const dane = [
-    {
-      '@context': 'https://schema.org',
-      // `TouristAttraction` dziedziczy po `Place`, więc jednym typem
-      // obsługujemy oba wymagania z briefu.
-      '@type': 'TouristAttraction',
-      name: atrakcja.nazwa,
-      url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
-      description: atrakcja.ciekawostki[0]?.tekst,
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: atrakcja.wspolrzedne[1],
-        longitude: atrakcja.wspolrzedne[0],
-        elevation: atrakcja.wysokoscM ?? undefined,
-      },
-      containedInPlace: {
-        '@type': 'Place',
-        name: 'Pieniny',
-        address: { '@type': 'PostalAddress', addressCountry: 'PL' },
-      },
-      isAccessibleForFree: true,
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Start', item: PORTAL.adres },
-        { '@type': 'ListItem', position: 2, name: 'Atrakcje', item: `${PORTAL.adres}/atrakcje` },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: atrakcja.nazwa,
-          item: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
-        },
-      ],
-    },
-  ]
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(dane) }}
-    />
   )
 }

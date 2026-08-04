@@ -235,11 +235,38 @@ export function naListe(trasa: Trasa): TrasaNaLiscie {
    ten sam szczyt bywa punktem na sześciu trasach, więc scalamy powtórzenia
    po nazwie i zapamiętujemy, którędy da się tam dojść.                     */
 
-/** Typy punktów, które zasługują na własną stronę. */
+/**
+ * Typy punktów, które zasługują na własną stronę.
+ *
+ * Nie ma tu typu „atrakcja" z danych aplikacji — trafiały do niego rzeczy
+ * nieporównywalne: grota, przydrożna kaplica i zamek obok siebie. Naprawdę
+ * warte osobnej strony spośród nich (wodospad, zamek, muzeum) opisujemy
+ * w katalogu atrakcji turystycznych. Nie ma też „źródła": jedno wystąpienie
+ * i to nazwane doliną, więc jako atrakcja wprowadzałoby w błąd.
+ */
 const TYPY_ATRAKCJI: ReadonlySet<TypPunktu> = new Set<TypPunktu>([
   'szczyt', 'punkt_widokowy', 'przelecz', 'schronisko', 'zamek', 'muzeum',
-  'atrakcja', 'kolej_linowa', 'zrodlo',
+  'kolej_linowa',
 ])
+
+/**
+ * Koleje linowe scalone do jednego wpisu.
+ *
+ * W danych trasy stacja dolna i górna to osobne punkty — słusznie, bo to dwa
+ * różne miejsca na szlaku. Ale jako atrakcja jest to jedna kolej i nikt nie
+ * szuka „górnej stacji" osobno. Sprowadzamy więc obie do wspólnej nazwy;
+ * pozycję dostaje ta, która trafi pierwsza, czyli stacja dolna — i dobrze,
+ * bo to od niej się zaczyna.
+ */
+const SCALONE_KOLEJE: { wzorzec: RegExp; nazwa: string }[] = [
+  { wzorzec: /stacj[ai].*kolei na Palenic/i, nazwa: 'Kolej krzesełkowa na Palenicę' },
+  { wzorzec: /stacj[ai].*wyciągu w Jaworkach/i, nazwa: 'Wyciąg krzesełkowy w Jaworkach' },
+]
+
+function scalNazwe(nazwa: string, typ: TypPunktu): string {
+  if (typ !== 'kolej_linowa') return nazwa
+  return SCALONE_KOLEJE.find((k) => k.wzorzec.test(nazwa))?.nazwa ?? nazwa
+}
 
 /**
  * Ciekawostka „należy" do atrakcji, jeśli leży w promieniu 400 m od niej.
@@ -284,7 +311,8 @@ export function pobierzAtrakcje(): Atrakcja[] {
     for (const punkt of trasa.punkty) {
       if (!TYPY_ATRAKCJI.has(punkt.typ)) continue
 
-      const klucz = naSlug(punkt.nazwa)
+      const nazwa = scalNazwe(punkt.nazwa, punkt.typ)
+      const klucz = naSlug(nazwa)
       const istniejacy = wgNazwy.get(klucz)
 
       if (istniejacy) {
@@ -294,7 +322,7 @@ export function pobierzAtrakcje(): Atrakcja[] {
         istniejacy.wysokoscM ??= punkt.wysokoscM
       } else {
         wgNazwy.set(klucz, {
-          nazwa: punkt.nazwa,
+          nazwa,
           typ: punkt.typ,
           wspolrzedne: punkt.wspolrzedne,
           wysokoscM: punkt.wysokoscM,
