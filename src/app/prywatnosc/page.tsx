@@ -126,6 +126,24 @@ export default function StronaPrywatnosc() {
             wysyłkowej. Nie wiemy, kto je dostał ani czy je przeczytał.
           </p>
 
+          <h2>Tabliczki z kodami QR</h2>
+          <p>
+            W terenie stoją tabliczki z kodami QR prowadzącymi na tę stronę.
+            Zeskanowanie kodu zapisuje zdarzenie: <strong>którą tabliczkę
+            zeskanowano, kiedy, z jakiego systemu i jakiej przeglądarki</strong>,
+            a także kraj i miejscowość wyliczone przez dostawcę hostingu. Dane
+            służą jednemu celowi — sprawdzeniu, które miejsca w Pieninach
+            przyciągają ruch.
+          </p>
+          <p>
+            <strong>Nie zapisujemy adresu IP</strong> — ani jawnie, ani w postaci
+            skrótu. Nie zakładamy ciasteczek, nie tworzymy identyfikatorów
+            i nie łączymy skanów w historię jednej osoby. Liczymy skany,
+            nie ludzi, dlatego ta strona nie prosi o zgodę na pomiar.
+            Pojedyncze zdarzenia usuwamy po 90 dniach; zostają wyłącznie sumy
+            dzienne dla każdej tabliczki.
+          </p>
+
           <h2>Strona internetowa</h2>
           <p>
             Ta strona jest zbiorem plików serwowanych przez GitHub Pages. Nie ma na niej

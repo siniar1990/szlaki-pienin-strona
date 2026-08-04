@@ -1,0 +1,152 @@
+// Model danych systemu kodów QR.
+//
+// Nazewnictwo po polsku, tak jak reszta projektu — mieszanka polskiego modelu
+// domenowego z angielskimi nazwami tabel byłaby najgorsza z możliwych.
+//
+// Trzy tabele, nie dwie, i to jest decyzja o skalowaniu. Gdyby licznik skanów
+// żył w wierszu tabliczki i rósł przy każdym skanie, wszystkie zapisy dla
+// popularnego punktu ustawiałyby się w kolejce do jednego wiersza. Zamiast
+// tego zdarzenia tylko dopisujemy, a liczniki i statystyki dzienne wylicza
+// zadanie cykliczne. Pulpity czytają agregaty, nie miliony wierszy.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Rodzaj miejsca, w którym wisi tabliczka. Służy do filtrowania w panelu
+/// i do barwienia znaczników na mapie.
+enum KategoriaKodu {
+  SZLAK
+  ATRAKCJA
+  PUNKT_WIDOKOWY
+  MIASTO
+  PARKING
+  ODPOCZYNEK
+  INNE
+}
+
+/// ZAPAS to kod wydrukowany, ale jeszcze niezamontowany — stan pośredni
+/// między „nie istnieje" a „działa w terenie". Bez niego paczka dwustu kodów
+/// zamówiona w drukarni musiałaby udawać, że wszystkie już wiszą.
+enum StatusKodu {
+  AKTYWNY
+  NIEAKTYWNY
+  ZAPAS
+}
+
+enum TypUrzadzenia {
+  IOS
+  ANDROID
+  DESKTOP
+  INNE
+}
+
+/// Nośnik zapisany od pierwszego dnia, choć dziś istnieje tylko QR. Gdy
+/// dojdą tabliczki NFC albo beacony, wejdą do tej samej tabeli i tej samej
+/// analityki — bez migracji i bez drugiego panelu.
+enum Nosnik {
+  QR
+  NFC
+  BEACON
+}
+
+/// Fizyczna tabliczka w terenie.
+model KodQr {
+  id String @id @default(cuid())
+
+  /// Identyfikator z tabliczki, np. „P001". Wchodzi do adresu /qr/P001.
+  kod   String @unique
+  nazwa String
+  opis  String?
+
+  /// Położenie tabliczki. Bez niego kod nie pojawi się na mapie, ale nadal
+  /// działa — dlatego pola są opcjonalne.
+  szerokosc Float?
+  dlugosc   Float?
+
+  kategoria        KategoriaKodu
+  nazwaLokalizacji String?
+
+  /// Adres strony w portalu, np. „/atrakcje/sokolica". Pokazujemy ją na
+  /// komputerze i wszędzie tam, gdzie nie ma dokąd przekierować.
+  powiazanaStrona String?
+
+  dataMontazu DateTime?
+  status      StatusKodu @default(ZAPAS)
+  nosnik      Nosnik     @default(QR)
+
+  /// Wariant graficzny tabliczki — pod porównywanie projektów. Ten sam punkt
+  /// może mieć dwie tabliczki o różnym wyglądzie i osobnych kodach.
+  wariant  String?
+  /// Kampania marketingowa, w ramach której kod powstał.
+  kampania String?
+
+  /// Liczniki utrzymywane przez agregację, nie przez zapis skanu.
+  liczbaSkanow Int       @default(0)
+  ostatniSkan  DateTime?
+
+  utworzono DateTime @default(now())
+  zmieniono DateTime @updatedAt
+
+  skany   SkanQr[]
+  dzienne SkanDzienny[]
+
+  @@index([status, kategoria])
+  @@index([liczbaSkanow])
+}
+
+/// Pojedyncze zeskanowanie. Tabela wyłącznie dopisywana, czyszczona po 90
+/// dniach — surowe zdarzenia służą do analiz bieżących, historia żyje
+/// w agregatach.
+///
+/// Czego tu celowo nie ma: adresu IP w żadnej postaci, identyfikatora
+/// użytkownika, ciasteczka. Liczymy skany, nie ludzi. Dzięki temu portal nie
+/// potrzebuje banera zgody, a dane nie są danymi osobowymi.
+model SkanQr {
+  id      BigInt   @id @default(autoincrement())
+  kodQrId String
+  czas    DateTime @default(now())
+
+  urzadzenie   TypUrzadzenia
+  przegladarka String?
+  jezyk        String?
+
+  /// Kraj i miasto z nagłówków dostawcy hostingu — wartości pochodne, samego
+  /// adresu IP nie dotykamy.
+  kraj   String?
+  miasto String?
+
+  /// Adres, z którego przyszło żądanie. Przy skanie kodu zwykle pusty; ma
+  /// znaczenie, gdy odnośnik trafi do sieci społecznościowej.
+  zrodlo String?
+
+  przekierowanoDoSklepu Boolean @default(false)
+  wariant               String?
+
+  kodQr KodQr @relation(fields: [kodQrId], references: [id], onDelete: Cascade)
+
+  @@index([kodQrId, czas])
+  @@index([czas])
+}
+
+/// Dzienna suma skanów dla jednej tabliczki. Trzymana bezterminowo — to z niej
+/// powstają wykresy i porównania sezonów.
+model SkanDzienny {
+  kodQrId String
+  dzien   DateTime @db.Date
+
+  liczba  Int @default(0)
+  ios     Int @default(0)
+  android Int @default(0)
+  desktop Int @default(0)
+
+  kodQr KodQr @relation(fields: [kodQrId], references: [id], onDelete: Cascade)
+
+  @@id([kodQrId, dzien])
+  @@index([dzien])
+}

@@ -2,7 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { KATEGORIE_APLIKACJI } from '../src/lib/dane/kategorie'
-import { pobierzTrasy } from '../src/lib/dane/zrodlo'
+import { pobierzAtrakcje, pobierzTrasy } from '../src/lib/dane/zrodlo'
 
 /**
  * Scala ślady wszystkich tras w jeden plik GeoJSON.
@@ -189,6 +189,34 @@ ${punkty}
   writeFileSync(path.join(katalogGpx, `${w.id}.gpx`), gpx)
   zapisanychGpx += 1
 }
+
+/*
+  Spis stron portalu dla panelu tabliczek.
+
+  Formularz nowej tabliczki pozwala wskazać, do której strony ma prowadzić kod
+  — i musi znać listę istniejących adresów, żeby nikt nie wpisał odnośnika do
+  nieistniejącej atrakcji. Panel działa przy żądaniu, a dane tras leżą
+  w plikach czytanych przy budowaniu; zamiast sięgać po dysk w czasie
+  działania, wytwarzamy gotowy spis tutaj i podajemy go jako zwykły plik.
+*/
+const strony = [
+  ...pobierzAtrakcje().map((a) => ({
+    adres: `/atrakcje/${a.slug}`,
+    nazwa: a.nazwa,
+    rodzaj: 'atrakcja',
+  })),
+  ...wszystkie.map((t) => ({
+    adres: `/szlaki/${t.slug}`,
+    nazwa: t.nazwa,
+    rodzaj: 'trasa',
+  })),
+].sort((a, b) => a.nazwa.localeCompare(b.nazwa, 'pl'))
+
+writeFileSync(
+  path.join(process.cwd(), 'public', 'dane', 'strony.json'),
+  JSON.stringify(strony),
+)
+console.log(`strony.json: ${strony.length} adresów`)
 
 const cel = path.join(process.cwd(), 'public', 'dane', 'szlaki.geojson')
 writeFileSync(cel, JSON.stringify({ type: 'FeatureCollection', features: cechy }))

@@ -6,6 +6,9 @@
 /out
 next-env.d.ts
 
+# Prisma — klient generowany przy instalacji, nie trzymamy go w repozytorium
+/src/generated
+
 # Środowisko
 .env*
 !.env.example
