@@ -1,0 +1,96 @@
+/* Szlaki Pienin — barwy wzięte wprost z aplikacji, żeby strona i aplikacja
+   wyglądały jak jedno. Zieleń to `_bazowy` z lib/core/motyw.dart, kremowe tło
+   pochodzi z ekranu startowego iOS-a. */
+:root {
+  --zielen: #2e6b4f;
+  --zielen-ciemna: #1d4c37;
+  --krem: #f6f3ea;
+  --tekst: #1c211d;
+  --tekst-slaby: #5b6660;
+  --ramka: #dcd8cc;
+  --biala-karta: #fffdf8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --krem: #11140f;
+    --tekst: #e8e6df;
+    --tekst-slaby: #a3aaa4;
+    --ramka: #2a302a;
+    --biala-karta: #191d18;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--krem);
+  color: var(--tekst);
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+
+.srodek { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* ── nagłówek ─────────────────────────────────────────────────────────── */
+header {
+  background: linear-gradient(160deg, var(--zielen) 0%, var(--zielen-ciemna) 100%);
+  color: #fff;
+  padding: 3.5rem 0 3rem;
+  text-align: center;
+}
+
+header img { width: 104px; height: 104px; border-radius: 24px; display: block; margin: 0 auto 1.25rem; }
+header h1 { margin: 0 0 .5rem; font-size: 2.1rem; letter-spacing: -.02em; }
+header p { margin: 0 auto; max-width: 30rem; font-size: 1.05rem; opacity: .93; }
+
+/* ── treść ────────────────────────────────────────────────────────────── */
+main { padding: 2.5rem 0 4rem; }
+h2 { font-size: 1.35rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; }
+h2:first-child { margin-top: 0; }
+h3 { font-size: 1.05rem; margin: 1.75rem 0 .4rem; }
+p, li { color: var(--tekst); }
+a { color: var(--zielen); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+@media (prefers-color-scheme: dark) { a { color: #7fc4a2; } }
+
+/* Karty funkcji. Grid, bo przy jednej kolumnie na telefonie i dwóch na
+   szerszym ekranie nie trzeba osobnych reguł na każdy przypadek. */
+.funkcje { display: grid; gap: .9rem; grid-template-columns: 1fr; margin: 1.5rem 0; padding: 0; list-style: none; }
+@media (min-width: 40rem) { .funkcje { grid-template-columns: 1fr 1fr; } }
+
+.funkcje li {
+  background: var(--biala-karta);
+  border: 1px solid var(--ramka);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+.funkcje strong { display: block; margin-bottom: .2rem; }
+.funkcje span { color: var(--tekst-slaby); font-size: .94rem; }
+
+.uwaga {
+  background: var(--biala-karta);
+  border: 1px solid var(--ramka);
+  border-left: 4px solid var(--zielen);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  margin: 1.75rem 0;
+}
+.uwaga p { margin: 0; }
+
+table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
+th, td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--ramka); vertical-align: top; }
+th { color: var(--tekst-slaby); font-weight: 600; }
+
+/* ── stopka ───────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--ramka);
+  padding: 2rem 0 3rem;
+  color: var(--tekst-slaby);
+  font-size: .92rem;
+}
+footer nav { margin-bottom: .75rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+.powrot { display: inline-block; margin-bottom: 1.5rem; font-size: .95rem; }

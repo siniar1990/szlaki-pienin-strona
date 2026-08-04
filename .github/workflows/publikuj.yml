@@ -1,0 +1,48 @@
+# Publikuje stronę na GitHub Pages po każdym wysłaniu zmian do gałęzi `main`.
+#
+# Strona jest statyczna (same pliki HTML/CSS), więc nie ma tu żadnego budowania
+# — bierzemy katalog jak stoi i oddajemy go Pages. Dzięki temu nie ma czego
+# zepsuć aktualizacją narzędzi.
+#
+# Zanim zadziała, w repozytorium trzeba raz włączyć:
+#   Settings → Pages → Source: GitHub Actions
+name: Publikacja strony
+
+on:
+  push:
+    branches: [main]
+  # Pozwala wypchnąć stronę ręcznie, bez zmiany w plikach.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Gdy wyślesz dwie zmiany pod rząd, druga anuluje pierwszą — publikuje się
+# zawsze najnowsza wersja, a nie ta, która akurat zdążyła.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publikuj:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.wdrozenie.outputs.page_url }}
+    steps:
+      - name: Pobierz pliki
+        uses: actions/checkout@v4
+
+      - name: Przygotuj Pages
+        uses: actions/configure-pages@v5
+
+      - name: Spakuj stronę
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Wdróż
+        id: wdrozenie
+        uses: actions/deploy-pages@v4
