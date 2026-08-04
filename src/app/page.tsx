@@ -3,7 +3,7 @@ import { ArrowUpRight, Map as MapIcon, Sparkles } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
-import { KaruzelaSzczytow } from '@/components/glowna/karuzela-szczytow'
+import { PasmoMalowane } from '@/components/glowna/pasmo-malowane'
 import { MakietaTelefonu } from '@/components/glowna/makieta-telefonu'
 import { Powitanie } from '@/components/glowna/powitanie'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
@@ -35,20 +35,7 @@ export default function StronaGlowna() {
     (kategoria) => kategoria.slug !== 'korony-pienin',
   )
 
-  /*
-    Szczyty na karuzelę.
-
-    Obrazek bierzemy z ilustracji trasy, która na dany szczyt prowadzi —
-    trasy Korony Pienin nazywają się dokładnie tak jak szczyty, więc łączy
-    je nazwa. Szczyt bez własnej trasy dostaje zieloną płaszczyznę; lepsze
-    to niż podstawianie mu cudzego rysunku.
-  */
-  const ilustracjaSzczytu = new Map(
-    trasy
-      .filter((trasa) => trasa.ilustracja !== null)
-      .map((trasa) => [trasa.nazwa, trasa.ilustracja!]),
-  )
-
+  // Szczyty do malowanego pasma — od najwyższego w dół.
   const szczytyNaKarty = pobierzAtrakcje()
     .filter((atrakcja) => atrakcja.typ === 'szczyt' && atrakcja.wysokoscM !== null)
     .sort((a, b) => (b.wysokoscM ?? 0) - (a.wysokoscM ?? 0))
@@ -56,7 +43,6 @@ export default function StronaGlowna() {
       slug: szczyt.slug,
       nazwa: szczyt.nazwa,
       wysokoscM: szczyt.wysokoscM!,
-      obrazek: ilustracjaSzczytu.get(szczyt.nazwa) ?? null,
       liczbaTras: szczyt.trasy.length,
     }))
 
@@ -98,7 +84,7 @@ export default function StronaGlowna() {
           />
 
           <div className="mt-12">
-            <KaruzelaSzczytow szczyty={szczytyNaKarty} />
+            <PasmoMalowane szczyty={szczytyNaKarty} />
           </div>
         </div>
       </section>
