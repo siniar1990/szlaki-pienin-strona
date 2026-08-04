@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
+import { KATEGORIE_APLIKACJI } from '../src/lib/dane/kategorie'
 import { pobierzTrasy } from '../src/lib/dane/zrodlo'
 
 /**
@@ -39,6 +40,23 @@ const trasy = wszystkie.filter((trasa) => trasa.slad !== null)
 const cechy: Cecha[] = []
 const pominiete: string[] = []
 
+/**
+ * Kategoria trasy w brzmieniu z aplikacji.
+ *
+ * Bierzemy pierwszą pasującą z listy — kolejność w `KATEGORIE_APLIKACJI` jest
+ * ta sama, co na ekranie startowym, więc trasa należąca do dwóch kategorii
+ * trafia do tej, którą aplikacja pokazuje wyżej. Lista na mapie grupuje się
+ * potem właśnie po tej nazwie.
+ */
+function kategoriaTrasy(trasa: (typeof wszystkie)[number]) {
+  const kategoria = KATEGORIE_APLIKACJI.find((k) => k.pasuje(trasa))
+  return {
+    kategoria: kategoria?.slug ?? 'inne',
+    kategoriaNazwa: kategoria?.nazwa ?? 'Pozostałe trasy',
+    kategoriaKolejnosc: kategoria ? KATEGORIE_APLIKACJI.indexOf(kategoria) : 99,
+  }
+}
+
 /** Wspólny zestaw właściwości — mapa czyta je i z linii, i z punktu. */
 function wlasciwosci(trasa: (typeof wszystkie)[number], maSlad: boolean) {
   return {
@@ -51,7 +69,9 @@ function wlasciwosci(trasa: (typeof wszystkie)[number], maSlad: boolean) {
     podejscieM: trasa.sumaPodejscM.tam,
     trudnosc: trasa.trudnosc,
     petla: trasa.petla,
+    pttk: trasa.pttk,
     maSlad,
+    ...kategoriaTrasy(trasa),
     kolor: KOLORY_SZLAKOW[trasa.szlaki[0]] ?? '#2f5d43',
   }
 }

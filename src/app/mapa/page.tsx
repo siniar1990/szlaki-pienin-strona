@@ -34,14 +34,16 @@ export const metadata: Metadata = {
 export default function StronaMapy() {
   const trasy = pobierzTrasy()
   const zeSladem = trasy.filter((trasa) => trasa.slad !== null)
-  const sumaKm = zeSladem.reduce((suma, trasa) => suma + trasa.dlugoscKm, 0)
+  // Suma z wszystkich tras, nie tylko tych ze śladem — na mapie są wszystkie,
+  // cztery ostatnie jako punkt szczytu zamiast linii.
+  const sumaKm = trasy.reduce((suma, trasa) => suma + trasa.dlugoscKm, 0)
 
   return (
     <>
       <NaglowekStrony
         okruszki={[{ nazwa: 'Mapa', adres: '/mapa' }]}
         tytul="Mapa szlaków Pienin"
-        lead={`${zeSladem.length} szlaków, razem ${kilometry(sumaKm)}. Kliknij ślad na mapie albo wybierz trasę z listy — druga strona zaznaczy się sama.`}
+        lead={`${trasy.length} szlaków, razem ${kilometry(sumaKm)}. Lista po lewej jest pogrupowana tak samo jak w aplikacji. Kliknij ślad na mapie albo wybierz trasę z listy — druga strona zaznaczy się sama.`}
       />
 
       <div className="obszar py-10 lg:py-14">

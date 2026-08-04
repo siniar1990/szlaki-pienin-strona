@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Fraunces, Inter } from 'next/font/google'
+import { Anton, Fraunces, Inter } from 'next/font/google'
 
 import { Naglowek } from '@/components/uklad/naglowek'
 import { Stopka } from '@/components/uklad/stopka'
@@ -32,6 +32,21 @@ const naglowkowy = Fraunces({
 const tekstowy = Inter({
   variable: '--font-tekst',
   subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+})
+
+/**
+ * Anton — wąskie, ciężkie wersaliki do wielkich napisów w sekcji atrakcji.
+ *
+ * To głos wzięty wprost z folderu gminy („NA ROWER", „TRASY MTB"): krój
+ * plakatowy, który na zdjęciu albo barwnej płaszczyźnie krzyczy, a przy tym
+ * zajmuje mało miejsca w poziomie. Używamy go wyłącznie w wersalikach i tylko
+ * do nagłówków — w tekście ciągłym byłby nieczytelny.
+ */
+const plakatowy = Anton({
+  variable: '--font-plakat',
+  subsets: ['latin', 'latin-ext'],
+  weight: '400',
   display: 'swap',
 })
 
@@ -78,7 +93,10 @@ export const metadata: Metadata = {
 
 export default function UkladGlowny({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="pl" className={`${tekstowy.variable} ${naglowkowy.variable} h-full`}>
+    <html
+      lang="pl"
+      className={`${tekstowy.variable} ${naglowkowy.variable} ${plakatowy.variable} h-full`}
+    >
       <body className="flex min-h-full flex-col bg-background">
         {/*
           Skrót dla osób korzystających z klawiatury i czytników ekranu:

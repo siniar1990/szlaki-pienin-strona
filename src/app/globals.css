@@ -83,6 +83,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-tekst);
   --font-heading: var(--font-naglowek);
+  --font-plakat: var(--font-plakat);
   --font-mono: var(--font-mono);
   --color-ring: var(--ring);
   --color-input: var(--input);

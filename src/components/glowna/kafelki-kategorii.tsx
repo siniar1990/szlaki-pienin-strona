@@ -19,10 +19,13 @@ import type { DefinicjaKategorii } from '@/lib/dane/kategorie'
 export function KafelkiKategorii({
   kategorie,
   liczba,
+  atrakcje,
 }: {
   kategorie: DefinicjaKategorii[]
   /** Ile tras jest w danej kategorii — liczone przy budowaniu. */
   liczba: (kategoria: DefinicjaKategorii) => number
+  /** Dziewiąty kafelek: atrakcje. Domyka siatkę do pełnych trzech rzędów. */
+  atrakcje?: { ilustracja: string; ile: number }
 }) {
   return (
     <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -78,41 +81,42 @@ export function KafelkiKategorii({
           </li>
         )
       })}
-    </ul>
-  )
-}
 
-/** Kafelek atrakcji — ten sam kształt, ale prowadzi poza listy tras. */
-export function KafelekAtrakcji({
-  ilustracja,
-  ile,
-}: {
-  ilustracja: string
-  ile: number
-}) {
-  return (
-    <Link
-      href="/atrakcje"
-      className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-2xl border border-kamien-200 shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:shadow-wysoki"
-    >
-      <Image
-        src={ilustracja}
-        alt=""
-        fill
-        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-dunajec-900/90 via-dunajec-900/40 to-dunajec-900/5"
-      />
-      <div className="relative z-10 p-6">
-        <h3 className="font-heading text-xl font-semibold text-white">Atrakcje Pienin</h3>
-        <p className="mt-1 flex items-center gap-2 text-sm text-white/85">
-          <MapPin className="size-3.5" aria-hidden />
-          Spływ Dunajcem, wody mineralne, zamki · {ile} miejsc
-        </p>
-      </div>
-    </Link>
+      {atrakcje && (
+        <li>
+          <Link
+            href="/atrakcje"
+            className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden rounded-2xl border border-kamien-200 shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:shadow-wysoki"
+          >
+            <Image
+              src={atrakcje.ilustracja}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            />
+            {/* Błękit Dunajca zamiast zieleni — kafelek atrakcji ma się
+                odróżniać od ośmiu kategorii tras, przy których stoi. */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-dunajec-900/90 via-dunajec-900/40 to-dunajec-900/5"
+            />
+            <div className="relative z-10 p-6">
+              <h3 className="font-heading text-xl font-semibold text-white">Atrakcje Pienin</h3>
+              <p className="mt-1 flex items-center gap-2 text-sm text-white/85">
+                <MapPin className="size-3.5" aria-hidden />
+                Spływ, wody mineralne, zamki · {atrakcje.ile} miejsc
+              </p>
+            </div>
+            <span
+              aria-hidden
+              className="absolute right-5 top-5 z-10 grid size-9 place-items-center rounded-full bg-white/15 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100"
+            >
+              <ArrowUpRight className="size-4" />
+            </span>
+          </Link>
+        </li>
+      )}
+    </ul>
   )
 }

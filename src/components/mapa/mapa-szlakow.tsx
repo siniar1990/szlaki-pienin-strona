@@ -42,8 +42,14 @@ type WlasciwosciSladu = {
   podejscieM: number
   trudnosc: 'latwa' | 'srednia' | 'trudna'
   petla: boolean
+  /** Trasa z przewodnika PTTK „Szlaki pełne zdrowia". */
+  pttk: boolean
   /** Czy trasa ma zdigitalizowany ślad. Bez niego zostaje sam punkt szczytu. */
   maSlad: boolean
+  /** Kategoria z aplikacji — po niej grupuje się lista. */
+  kategoria: string
+  kategoriaNazwa: string
+  kategoriaKolejnosc: number
   kolor: string
 }
 
@@ -112,6 +118,34 @@ function Zawartosc() {
       a.properties.nazwa.localeCompare(b.properties.nazwa, 'pl'),
     )
   }, [slady, fraza])
+
+  /**
+   * Lista pogrupowana po kategoriach z aplikacji.
+   *
+   * Pięćdziesiąt trzy nazwy jedna pod drugą to ściana tekstu, w której nic
+   * nie widać. Podzielone na „Piesze trasy krótkie", „Korony Pienin",
+   * „Trasy rowerowe" — od razu wiadomo, gdzie szukać. Kolejność grup jest ta
+   * sama, co na ekranie startowym aplikacji, bo grupy niosą numer porządkowy.
+   */
+  const grupy = useMemo(() => {
+    const wgKategorii = new Map<string, { nazwa: string; kolejnosc: number; slady: Slad[] }>()
+
+    for (const slad of widoczne) {
+      const { kategoria, kategoriaNazwa, kategoriaKolejnosc } = slad.properties
+      const grupa = wgKategorii.get(kategoria)
+      if (grupa) grupa.slady.push(slad)
+      else
+        wgKategorii.set(kategoria, {
+          nazwa: kategoriaNazwa,
+          kolejnosc: kategoriaKolejnosc,
+          slady: [slad],
+        })
+    }
+
+    return [...wgKategorii.entries()]
+      .map(([klucz, grupa]) => ({ klucz, ...grupa }))
+      .sort((a, b) => a.kolejnosc - b.kolejnosc)
+  }, [widoczne])
 
   /** Dojeżdża do wskazanej trasy, zostawiając margines na krawędziach. */
   const pokazSlad = useCallback((slad: Slad) => {
@@ -311,13 +345,31 @@ function Zawartosc() {
           </p>
         </div>
 
-        <ul className="min-h-0 flex-1 divide-y divide-kamien-100 overflow-y-auto">
-          {widoczne.map((slad) => {
-            const w = slad.properties
-            const aktywny = w.id === wybrany
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          {grupy.map((grupa) => (
+            <section key={grupa.klucz} aria-labelledby={`grupa-${grupa.klucz}`}>
+              {/*
+                Nagłówek grupy przykleja się do góry listy przy przewijaniu —
+                po zjechaniu w dwudziestą czwartą Koronę Pienin nadal widać,
+                w której kategorii się jest.
+              */}
+              <h3
+                id={`grupa-${grupa.klucz}`}
+                className="sticky top-0 z-10 flex items-baseline justify-between gap-3 border-y border-kamien-200 bg-kamien-50/95 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-kamien-700 backdrop-blur-sm"
+              >
+                {grupa.nazwa}
+                <span className="font-normal normal-case tracking-normal text-kamien-500">
+                  {grupa.slady.length}
+                </span>
+              </h3>
 
-            return (
-              <li key={w.id} id={`szlak-${w.id}`}>
+              <ul className="divide-y divide-kamien-100">
+                {grupa.slady.map((slad) => {
+                  const w = slad.properties
+                  const aktywny = w.id === wybrany
+
+                  return (
+                    <li key={w.id} id={`szlak-${w.id}`}>
                 <button
                   type="button"
                   onClick={() => {
@@ -374,6 +426,11 @@ function Zawartosc() {
                           pętla
                         </span>
                       )}
+                      {w.pttk && (
+                        <span className="rounded-full bg-las-50 px-2 py-0.5 text-[0.7rem] font-medium text-las-800">
+                          PTTK
+                        </span>
+                      )}
                       {!w.maSlad && (
                         <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.7rem] font-medium text-amber-900">
                           ślad w przygotowaniu
@@ -382,16 +439,19 @@ function Zawartosc() {
                     </span>
                   </span>
                 </button>
-              </li>
-            )
-          })}
+                      </li>
+                  )
+                })}
+              </ul>
+            </section>
+          ))}
 
           {!isPending && widoczne.length === 0 && (
-            <li className="p-8 text-center text-sm text-kamien-500">
+            <p className="p-8 text-center text-sm text-kamien-500">
               Żaden szlak nie pasuje do wpisanej nazwy.
-            </li>
+            </p>
           )}
-        </ul>
+        </div>
       </div>
 
       {/* ── Mapa ──────────────────────────────────────────────────────── */}

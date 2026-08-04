@@ -2,12 +2,11 @@ import Link from 'next/link'
 import { Map as MapIcon, Mountain, Sparkles } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
-import { KafelekAtrakcji, KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
+import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { Powitanie } from '@/components/glowna/powitanie'
-import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
-import { naListe, pobierzAtrakcje, pobierzStatystyki, pobierzTrasy } from '@/lib/dane/zrodlo'
+import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy } from '@/lib/dane/zrodlo'
 import { liczba, metry } from '@/lib/format'
 import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
 
@@ -23,22 +22,6 @@ export default function StronaGlowna() {
   const statystyki = pobierzStatystyki()
   const atrakcje = pobierzAtrakcje()
 
-  /*
-    „Od czego zacząć" zamiast „najpopularniejsze".
-
-    Portal nie zbiera statystyk odwiedzin, więc nie wie, które trasy są
-    popularne — a wpisanie tego z palca byłoby zwykłym zmyślaniem. Zamiast
-    tego pokazujemy trasy najlepiej opisane: takie, które mają ślad na mapie,
-    komplet segmentów i ciekawostki. To akurat da się policzyć uczciwie.
-  */
-  const polecane = [...trasy]
-    .filter((trasa) => trasa.slad !== null && trasa.opis !== null)
-    .sort(
-      (a, b) =>
-        b.segmenty.length + b.ciekawostki.length - (a.segmenty.length + a.ciekawostki.length),
-    )
-    .slice(0, 6)
-
   const szczyty = atrakcje
     .filter((a) => a.typ === 'szczyt' && a.wysokoscM !== null)
     .sort((a, b) => (b.wysokoscM ?? 0) - (a.wysokoscM ?? 0))
@@ -52,26 +35,8 @@ export default function StronaGlowna() {
     <>
       <Powitanie statystyki={statystyki} />
 
-      {/* ── Od czego zacząć ─────────────────────────────────────────────── */}
-      <section id="odkrywaj" className="sekcja">
-        <div className="obszar">
-          <NaglowekSekcji
-            nadtytul="Trasy"
-            tytul="Od czego zacząć w Pieninach"
-            opis="Trasy z pełnym opisem odcinek po odcinku, śladem na mapie i ciekawostkami z przewodnika PTTK."
-            odnosnik={{ adres: '/szlaki', etykieta: `Wszystkie trasy (${trasy.length})` }}
-          />
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {polecane.map((trasa, indeks) => (
-              <KafelekTrasy key={trasa.id} trasa={naListe(trasa)} priorytet={indeks < 3} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Kategorie ───────────────────────────────────────────────────── */}
-      <section className="sekcja bg-kamien-50">
+      <section id="odkrywaj" className="sekcja bg-kamien-50">
         <div className="obszar">
           <NaglowekSekcji
             nadtytul="Wybierz po swojemu"
@@ -80,17 +45,20 @@ export default function StronaGlowna() {
             odnosnik={{ adres: '/szlaki', etykieta: 'Wszystkie trasy' }}
           />
 
+          {/*
+            Osiem kategorii z aplikacji plus atrakcje daje równe dziewięć —
+            stąd siatka trzy na trzy. Kafelek atrakcji jest ostatni w tej
+            samej siatce, a nie w osobnej pod spodem: dwie siatki jedna nad
+            drugą łamały rytm i zostawiały dziurę po prawej stronie.
+          */}
           <div className="mt-12">
             <KafelkiKategorii
               kategorie={KATEGORIE_APLIKACJI}
               liczba={(kategoria) => trasy.filter(kategoria.pasuje).length}
-            />
-          </div>
-
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <KafelekAtrakcji
-              ilustracja="/dane/ilustracje/DP.webp"
-              ile={ATRAKCJE_TURYSTYCZNE.length}
+              atrakcje={{
+                ilustracja: '/dane/ilustracje/DP.webp',
+                ile: ATRAKCJE_TURYSTYCZNE.length,
+              }}
             />
           </div>
         </div>

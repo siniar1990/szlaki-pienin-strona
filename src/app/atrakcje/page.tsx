@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { MapPin, Mountain } from 'lucide-react'
+import { Mountain } from 'lucide-react'
 
+import { SekcjaGrupy, SkrotyDoGrup } from '@/components/atrakcje/sekcja-atrakcji'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { pobierzAtrakcje } from '@/lib/dane/zrodlo'
 import { etykietaTypuMnoga, kolorTypu, metry } from '@/lib/format'
@@ -65,46 +66,32 @@ export default function StronaAtrakcji() {
         tytul="Atrakcje Pienin"
         tytulOpis="Co zobaczyć w Szczawnicy, Krościenku i okolicy"
         lead={`${ATRAKCJE_TURYSTYCZNE.length} atrakcji turystycznych — od spływu Dunajcem po zamki nad jeziorem — oraz ${punktyTras.length} szczytów i punktów widokowych z opisanych u nas tras.`}
+        dodatek={
+          <SkrotyDoGrup
+            grupy={GRUPY_ATRAKCJI.filter((g) => atrakcjeWGrupie(g.klucz).length > 0)}
+          />
+        }
       />
 
       <div className="obszar py-14 lg:py-20">
         {/* ── Atrakcje turystyczne ─────────────────────────────────────── */}
-        {GRUPY_ATRAKCJI.map((grupa) => {
-          const wGrupie = atrakcjeWGrupie(grupa.klucz)
-          if (wGrupie.length === 0) return null
+        <div className="space-y-24">
+          {GRUPY_ATRAKCJI.map((grupa, indeks) => {
+            const wGrupie = atrakcjeWGrupie(grupa.klucz)
+            if (wGrupie.length === 0) return null
 
-          return (
-            <section key={grupa.klucz} className="mb-16">
-              <h2 className="text-sekcja font-semibold text-kamien-900">{grupa.nazwa}</h2>
-              <p className="mt-2 max-w-[62ch] text-kamien-600">{grupa.opis}</p>
-
-              <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {wGrupie.map((atrakcja) => (
-                  <li key={atrakcja.slug}>
-                    <Link
-                      href={`/atrakcje/${atrakcja.slug}`}
-                      className="group flex h-full flex-col rounded-2xl border border-kamien-200 bg-white p-6 shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
-                    >
-                      <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-las-600">
-                        <MapPin className="size-3.5" aria-hidden />
-                        {atrakcja.miejscowosc}
-                      </p>
-                      <h3 className="mt-3 font-heading text-lg font-semibold leading-snug text-kamien-900 group-hover:text-las-700">
-                        {atrakcja.nazwa}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-kamien-600">
-                        {atrakcja.skrot}
-                      </p>
-                      {atrakcja.sezon && (
-                        <p className="mt-4 text-xs text-kamien-500">Sezon: {atrakcja.sezon}</p>
-                      )}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )
-        })}
+            return (
+              <SekcjaGrupy
+                key={grupa.klucz}
+                grupa={grupa.klucz}
+                nazwa={grupa.nazwa}
+                opis={grupa.opis}
+                atrakcje={wGrupie}
+                numer={indeks + 1}
+              />
+            )
+          })}
+        </div>
 
         {/* ── Szczyty i punkty z tras ──────────────────────────────────── */}
         <div className="mt-24 border-t border-kamien-200 pt-16">
