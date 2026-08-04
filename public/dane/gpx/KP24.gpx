@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Majerz</name>
+    <desc>1 km, 18 min, 31 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/majerz</desc>
+    <link href="https://szlakipienin.pl/szlaki/majerz"><text>Majerz</text></link>
+  </metadata>
+  <trk>
+    <name>Majerz</name>
+    <trkseg>
+      <trkpt lat="49.4381" lon="20.33141"></trkpt>
+      <trkpt lat="49.43805" lon="20.3315"></trkpt>
+      <trkpt lat="49.43773" lon="20.33204"></trkpt>
+      <trkpt lat="49.43757" lon="20.3325"></trkpt>
+      <trkpt lat="49.43753" lon="20.33262"></trkpt>
+      <trkpt lat="49.43743" lon="20.33262"></trkpt>
+      <trkpt lat="49.43732" lon="20.33268"></trkpt>
+      <trkpt lat="49.43726" lon="20.33275"></trkpt>
+      <trkpt lat="49.43723" lon="20.33285"></trkpt>
+      <trkpt lat="49.43725" lon="20.33296"></trkpt>
+      <trkpt lat="49.43738" lon="20.33325"></trkpt>
+      <trkpt lat="49.43723" lon="20.33343"></trkpt>
+      <trkpt lat="49.43718" lon="20.33351"></trkpt>
+      <trkpt lat="49.43718" lon="20.3336"></trkpt>
+      <trkpt lat="49.4372" lon="20.33367"></trkpt>
+      <trkpt lat="49.43723" lon="20.3337"></trkpt>
+      <trkpt lat="49.43739" lon="20.33376"></trkpt>
+      <trkpt lat="49.43732" lon="20.33393"></trkpt>
+      <trkpt lat="49.43723" lon="20.33409"></trkpt>
+      <trkpt lat="49.43712" lon="20.33425"></trkpt>
+      <trkpt lat="49.43694" lon="20.33437"></trkpt>
+      <trkpt lat="49.43666" lon="20.33447"></trkpt>
+      <trkpt lat="49.43653" lon="20.33456"></trkpt>
+      <trkpt lat="49.4363" lon="20.3347"></trkpt>
+      <trkpt lat="49.43624" lon="20.33477"></trkpt>
+      <trkpt lat="49.43607" lon="20.33499"></trkpt>
+      <trkpt lat="49.43576" lon="20.33557"></trkpt>
+      <trkpt lat="49.43554" lon="20.33606"></trkpt>
+      <trkpt lat="49.43523" lon="20.33672"></trkpt>
+      <trkpt lat="49.43492" lon="20.33756"></trkpt>
+      <trkpt lat="49.43476" lon="20.33794"></trkpt>
+      <trkpt lat="49.43468" lon="20.33829"></trkpt>
+      <trkpt lat="49.43452" lon="20.33877"></trkpt>
+      <trkpt lat="49.4339" lon="20.34039"></trkpt>
+      <trkpt lat="49.43357" lon="20.34139"></trkpt>
+      <trkpt lat="49.43353" lon="20.34151"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

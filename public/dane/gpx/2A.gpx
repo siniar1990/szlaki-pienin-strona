@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Durbaszka</name>
+    <desc>12 km, 220 min, 540 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/durbaszka</desc>
+    <link href="https://szlakipienin.pl/szlaki/durbaszka"><text>Durbaszka</text></link>
+  </metadata>
+  <trk>
+    <name>Durbaszka</name>
+    <trkseg>
+      <trkpt lat="49.42522" lon="20.48256"></trkpt>
+      <trkpt lat="49.42575" lon="20.48121"></trkpt>
+      <trkpt lat="49.42574" lon="20.48101"></trkpt>
+      <trkpt lat="49.42561" lon="20.48101"></trkpt>
+      <trkpt lat="49.42565" lon="20.48045"></trkpt>
+      <trkpt lat="49.42554" lon="20.48036"></trkpt>
+      <trkpt lat="49.42521" lon="20.48031"></trkpt>
+      <trkpt lat="49.42501" lon="20.4806"></trkpt>
+      <trkpt lat="49.42432" lon="20.48022"></trkpt>
+      <trkpt lat="49.42414" lon="20.48129"></trkpt>
+      <trkpt lat="49.42362" lon="20.48191"></trkpt>
+      <trkpt lat="49.42356" lon="20.48145"></trkpt>
+      <trkpt lat="49.42312" lon="20.4819"></trkpt>
+      <trkpt lat="49.42227" lon="20.4823"></trkpt>
+      <trkpt lat="49.4222" lon="20.4822"></trkpt>
+      <trkpt lat="49.42237" lon="20.48106"></trkpt>
+      <trkpt lat="49.42231" lon="20.48071"></trkpt>
+      <trkpt lat="49.42219" lon="20.48035"></trkpt>
+      <trkpt lat="49.4216" lon="20.48022"></trkpt>
+      <trkpt lat="49.42126" lon="20.47989"></trkpt>
+      <trkpt lat="49.42132" lon="20.47876"></trkpt>
+      <trkpt lat="49.42096" lon="20.47797"></trkpt>
+      <trkpt lat="49.42079" lon="20.47716"></trkpt>
+      <trkpt lat="49.42047" lon="20.47671"></trkpt>
+      <trkpt lat="49.42006" lon="20.47687"></trkpt>
+      <trkpt lat="49.41986" lon="20.47671"></trkpt>
+      <trkpt lat="49.41947" lon="20.47702"></trkpt>
+      <trkpt lat="49.41939" lon="20.47672"></trkpt>
+      <trkpt lat="49.41929" lon="20.47687"></trkpt>
+      <trkpt lat="49.41899" lon="20.47634"></trkpt>
+      <trkpt lat="49.41883" lon="20.47628"></trkpt>
+      <trkpt lat="49.41872" lon="20.47653"></trkpt>
+      <trkpt lat="49.41843" lon="20.47643"></trkpt>
+      <trkpt lat="49.41821" lon="20.47657"></trkpt>
+      <trkpt lat="49.4178" lon="20.47585"></trkpt>
+      <trkpt lat="49.41684" lon="20.47676"></trkpt>
+      <trkpt lat="49.4164" lon="20.4769"></trkpt>
+      <trkpt lat="49.41359" lon="20.47674"></trkpt>
+      <trkpt lat="49.41258" lon="20.47724"></trkpt>
+      <trkpt lat="49.41196" lon="20.47786"></trkpt>
+      <trkpt lat="49.41024" lon="20.4809"></trkpt>
+      <trkpt lat="49.40973" lon="20.48244"></trkpt>
+      <trkpt lat="49.40957" lon="20.48425"></trkpt>
+      <trkpt lat="49.40893" lon="20.48583"></trkpt>
+      <trkpt lat="49.40827" lon="20.48829"></trkpt>
+      <trkpt lat="49.40729" lon="20.48918"></trkpt>
+      <trkpt lat="49.40687" lon="20.49006"></trkpt>
+      <trkpt lat="49.40663" lon="20.49087"></trkpt>
+      <trkpt lat="49.40674" lon="20.49184"></trkpt>
+      <trkpt lat="49.40657" lon="20.49309"></trkpt>
+      <trkpt lat="49.40625" lon="20.49413"></trkpt>
+      <trkpt lat="49.40567" lon="20.49535"></trkpt>
+      <trkpt lat="49.40553" lon="20.49688"></trkpt>
+      <trkpt lat="49.40525" lon="20.4975"></trkpt>
+      <trkpt lat="49.40446" lon="20.50034"></trkpt>
+      <trkpt lat="49.40405" lon="20.50337"></trkpt>
+      <trkpt lat="49.4036" lon="20.50491"></trkpt>
+      <trkpt lat="49.40267" lon="20.50583"></trkpt>
+      <trkpt lat="49.4017" lon="20.50748"></trkpt>
+      <trkpt lat="49.40094" lon="20.50919"></trkpt>
+      <trkpt lat="49.39988" lon="20.51091"></trkpt>
+      <trkpt lat="49.39651" lon="20.51252"></trkpt>
+      <trkpt lat="49.39528" lon="20.51453"></trkpt>
+      <trkpt lat="49.39436" lon="20.51646"></trkpt>
+      <trkpt lat="49.39368" lon="20.51721"></trkpt>
+      <trkpt lat="49.39319" lon="20.51825"></trkpt>
+      <trkpt lat="49.39193" lon="20.52185"></trkpt>
+      <trkpt lat="49.39073" lon="20.52392"></trkpt>
+      <trkpt lat="49.38929" lon="20.52835"></trkpt>
+      <trkpt lat="49.3889" lon="20.5303"></trkpt>
+      <trkpt lat="49.38862" lon="20.53325"></trkpt>
+      <trkpt lat="49.38862" lon="20.53417"></trkpt>
+      <trkpt lat="49.3888" lon="20.53509"></trkpt>
+      <trkpt lat="49.38912" lon="20.53553"></trkpt>
+      <trkpt lat="49.39059" lon="20.53627"></trkpt>
+      <trkpt lat="49.39078" lon="20.53764"></trkpt>
+      <trkpt lat="49.39094" lon="20.53799"></trkpt>
+      <trkpt lat="49.39283" lon="20.53777"></trkpt>
+      <trkpt lat="49.39313" lon="20.53803"></trkpt>
+      <trkpt lat="49.3941" lon="20.53956"></trkpt>
+      <trkpt lat="49.39454" lon="20.53946"></trkpt>
+      <trkpt lat="49.39495" lon="20.53896"></trkpt>
+      <trkpt lat="49.39526" lon="20.53898"></trkpt>
+      <trkpt lat="49.39564" lon="20.53982"></trkpt>
+      <trkpt lat="49.39563" lon="20.54076"></trkpt>
+      <trkpt lat="49.39616" lon="20.54161"></trkpt>
+      <trkpt lat="49.39897" lon="20.54096"></trkpt>
+      <trkpt lat="49.39928" lon="20.54142"></trkpt>
+      <trkpt lat="49.39944" lon="20.54221"></trkpt>
+      <trkpt lat="49.40015" lon="20.54287"></trkpt>
+      <trkpt lat="49.40174" lon="20.54295"></trkpt>
+      <trkpt lat="49.40386" lon="20.54494"></trkpt>
+      <trkpt lat="49.40397" lon="20.54438"></trkpt>
+      <trkpt lat="49.40438" lon="20.54404"></trkpt>
+      <trkpt lat="49.4046" lon="20.54348"></trkpt>
+      <trkpt lat="49.40536" lon="20.54287"></trkpt>
+      <trkpt lat="49.40601" lon="20.54273"></trkpt>
+      <trkpt lat="49.40608" lon="20.54119"></trkpt>
+      <trkpt lat="49.40643" lon="20.5404"></trkpt>
+      <trkpt lat="49.40678" lon="20.54018"></trkpt>
+      <trkpt lat="49.40726" lon="20.5405"></trkpt>
+      <trkpt lat="49.40768" lon="20.54188"></trkpt>
+      <trkpt lat="49.40798" lon="20.54232"></trkpt>
+      <trkpt lat="49.40793" lon="20.54285"></trkpt>
+      <trkpt lat="49.40742" lon="20.54501"></trkpt>
+      <trkpt lat="49.40689" lon="20.54608"></trkpt>
+      <trkpt lat="49.40617" lon="20.54675"></trkpt>
+      <trkpt lat="49.40596" lon="20.54781"></trkpt>
+      <trkpt lat="49.40665" lon="20.55065"></trkpt>
+      <trkpt lat="49.40668" lon="20.5526"></trkpt>
+      <trkpt lat="49.40691" lon="20.55354"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

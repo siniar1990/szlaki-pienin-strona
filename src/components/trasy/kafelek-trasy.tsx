@@ -1,25 +1,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight, Clock, MoveUpRight, RefreshCw, Route } from 'lucide-react'
+import {
+  ArrowUpRight,
+  Bike,
+  Clock,
+  Footprints,
+  MapPin,
+  MoveUpRight,
+  RefreshCw,
+  Route,
+} from 'lucide-react'
 
 import type { TrasaNaLiscie } from '@/lib/dane/typy'
-import {
-  KOLORY_SZLAKOW,
-  TRUDNOSC_ETYKIETY,
-  TRUDNOSC_STYLE,
-  czas,
-  kilometry,
-  metry,
-} from '@/lib/format'
+import { TRUDNOSC_ETYKIETY, TRUDNOSC_STYLE, czas, kilometry, metry } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
 /**
- * Kafelek trasy — podstawowa cegiełka wszystkich list w portalu.
+ * Karta trasy — podstawowa cegiełka wszystkich list w portalu.
+ *
+ * Zawiera to, na podstawie czego człowiek naprawdę wybiera trasę: obrazek,
+ * skąd się zaczyna, nazwę, jedno zdanie o czym to jest, ile trwa i jak bardzo
+ * zmęczy. Kolory szlaków zeszły z karty na stronę trasy — na liście
+ * pięćdziesięciu pozycji pięć kolorowych kropek przy każdej robiło szum,
+ * a nikt nie wybiera trasy dlatego, że jest znakowana na żółto.
  *
  * Cały kafelek jest klikalny, ale odnośnik obejmuje wyłącznie tytuł, a resztę
  * przykrywa rozciągnięta warstwa (`after:absolute inset-0`). Dzięki temu
- * czytnik ekranu ogłasza jeden sensowny odnośnik „Słowacki akcent", a nie
- * całą treść kafelka jako nazwę odnośnika — i da się zaznaczyć tekst myszą.
+ * czytnik ekranu ogłasza jeden sensowny odnośnik, a nie całą treść kafelka
+ * jako jego nazwę — i nadal da się zaznaczyć tekst myszą.
  */
 export function KafelekTrasy({
   trasa,
@@ -31,30 +39,31 @@ export function KafelekTrasy({
   priorytet?: boolean
   className?: string
 }) {
+  const rowerowa = trasa.kategoria === 'rowerowa'
+  const Ikona = rowerowa ? Bike : Footprints
+
   return (
     <article
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl border border-kamien-200 bg-white',
+        'group relative flex h-full flex-col overflow-hidden rounded-2xl border border-kamien-200 bg-white',
         'shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:shadow-wysoki',
         'focus-within:-translate-y-1 focus-within:shadow-wysoki',
         className,
       )}
     >
-      <div className="relative aspect-[16/11] overflow-hidden bg-kamien-100">
+      <div className="relative aspect-[16/10] overflow-hidden bg-kamien-100">
         {trasa.ilustracja ? (
           <Image
             src={trasa.ilustracja}
             alt=""
             fill
-            // Kafelki stoją w siatce: jeden na wąskim ekranie, dwa na tablecie,
-            // trzy na monitorze. Bez tej podpowiedzi przeglądarka pobrałaby
-            // obrazek w szerokości całego okna i zmarnowała transfer.
             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
             priority={priorytet}
+            loading={priorytet ? undefined : 'lazy'}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : (
-          <div className="grid h-full place-items-center text-kamien-400">
+          <div className="grid h-full place-items-center bg-gradient-to-br from-las-700 to-las-900 text-white/30">
             <Route className="size-10" aria-hidden />
           </div>
         )}
@@ -68,16 +77,26 @@ export function KafelekTrasy({
           {TRUDNOSC_ETYKIETY[trasa.trudnosc]}
         </span>
 
-        {trasa.petla && (
-          <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-kamien-700 backdrop-blur-sm">
-            <RefreshCw className="size-3" aria-hidden />
-            Pętla
-          </span>
-        )}
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-kamien-700 backdrop-blur-sm">
+          <Ikona className="size-3" aria-hidden />
+          {rowerowa ? 'Rowerowa' : 'Piesza'}
+        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-heading text-xl font-semibold leading-snug text-kamien-900">
+        <p className="flex flex-wrap items-center gap-x-1.5 text-xs font-medium uppercase tracking-wider text-kamien-500">
+          <MapPin className="size-3.5" aria-hidden />
+          {trasa.miejscowoscStartu}
+          {trasa.petla && (
+            <>
+              <span aria-hidden>·</span>
+              <RefreshCw className="size-3" aria-hidden />
+              Pętla
+            </>
+          )}
+        </p>
+
+        <h3 className="mt-2 font-heading text-xl font-semibold leading-snug text-kamien-900">
           <Link
             href={`/szlaki/${trasa.slug}`}
             className="after:absolute after:inset-0 after:content-[''] hover:text-las-700"
@@ -86,22 +105,9 @@ export function KafelekTrasy({
           </Link>
         </h3>
 
-        {trasa.szlaki.length > 0 && (
-          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-kamien-500">
-            <span className="sr-only">Szlaki: </span>
-            {trasa.szlaki.map((szlak) => {
-              const kolor = KOLORY_SZLAKOW[szlak]
-              return (
-                <span key={szlak} className="inline-flex items-center gap-1.5">
-                  <span
-                    aria-hidden
-                    className="size-2.5 rounded-full ring-1 ring-black/10"
-                    style={{ backgroundColor: kolor?.tlo ?? '#94a3b8' }}
-                  />
-                  {kolor?.nazwa ?? szlak}
-                </span>
-              )
-            })}
+        {trasa.podsumowanie && (
+          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-kamien-600">
+            {trasa.podsumowanie}
           </p>
         )}
 
@@ -132,7 +138,7 @@ export function KafelekTrasy({
 
       <span
         aria-hidden
-        className="pointer-events-none absolute bottom-5 right-5 grid size-9 place-items-center rounded-full bg-las-700 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100"
+        className="pointer-events-none absolute bottom-5 right-5 grid size-9 place-items-center rounded-full bg-las-700 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100"
       >
         <ArrowUpRight className="size-4" />
       </span>

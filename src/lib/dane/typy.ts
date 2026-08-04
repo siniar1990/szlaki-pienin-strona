@@ -107,6 +107,14 @@ export type Trasa = {
   /** Adres śladu GeoJSON albo null, gdy ślad nie został jeszcze zdigitalizowany. */
   slad: string | null
   trudnosc: Trudnosc
+  /** Miejscowość, z której trasa się zaczyna — do filtrowania i kart. */
+  miejscowoscStartu: string
+  /** Najwyższy punkt na trasie w metrach n.p.m. */
+  najwyzszyPunktM: number | null
+  /** Pierwsze zdanie opisu — streszczenie na kartę. */
+  podsumowanie: string | null
+  /** Adres pliku GPX do pobrania albo null, gdy trasa nie ma śladu. */
+  gpx: string | null
   /** Skąd pochodzą czasy i geometria — pokazujemy to na stronie trasy. */
   zrodla: {
     czasy: string | null
@@ -130,7 +138,12 @@ export type TrasaNaLiscie = Pick<
   | 'granica'
   | 'szlaki'
   | 'wysokoscSzczytuM'
+  | 'miejscowoscStartu'
+  | 'najwyzszyPunktM'
+  | 'podsumowanie'
+  | 'kategorieDodatkowe'
 >
+
 
 /**
  * Miejsce na mapie: szczyt, punkt widokowy, schronisko, zamek.

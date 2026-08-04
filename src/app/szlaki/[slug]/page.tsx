@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
+import { DzialaniaTrasy } from '@/components/trasy/dzialania-trasy'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { ProfilWysokosciWykres } from '@/components/trasy/profil-wysokosci'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
@@ -156,6 +157,20 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
           </div>
         }
       />
+
+      <div className="obszar pt-8">
+        <DzialaniaTrasy
+          nazwa={trasa.nazwa}
+          gpx={trasa.gpx}
+          opis={`${kilometry(trasa.dlugoscKm)}, ${czas(trasa.czasMin.tam)}, ${metry(trasa.sumaPodejscM.tam)} podejść.`}
+        />
+        {!trasa.gpx && (
+          <p className="mt-3 text-sm text-kamien-500">
+            Ślad tej trasy czeka na zdigitalizowanie — plik GPX pojawi się tu,
+            gdy tylko powstanie w aplikacji.
+          </p>
+        )}
+      </div>
 
       <div className="obszar py-14 lg:py-20">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">

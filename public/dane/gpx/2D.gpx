@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Deptak nad Grajcarkiem</name>
+    <desc>1.8 km, 28 min, 7 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/deptak-nad-grajcarkiem</desc>
+    <link href="https://szlakipienin.pl/szlaki/deptak-nad-grajcarkiem"><text>Deptak nad Grajcarkiem</text></link>
+  </metadata>
+  <trk>
+    <name>Deptak nad Grajcarkiem</name>
+    <trkseg>
+      <trkpt lat="49.42497" lon="20.48057"></trkpt>
+      <trkpt lat="49.42468" lon="20.48038"></trkpt>
+      <trkpt lat="49.42467" lon="20.48037"></trkpt>
+      <trkpt lat="49.42465" lon="20.48036"></trkpt>
+      <trkpt lat="49.42441" lon="20.48025"></trkpt>
+      <trkpt lat="49.42436" lon="20.48023"></trkpt>
+      <trkpt lat="49.42433" lon="20.48021"></trkpt>
+      <trkpt lat="49.42439" lon="20.4798"></trkpt>
+      <trkpt lat="49.42479" lon="20.4778"></trkpt>
+      <trkpt lat="49.42523" lon="20.47559"></trkpt>
+      <trkpt lat="49.4253" lon="20.47522"></trkpt>
+      <trkpt lat="49.42539" lon="20.4747"></trkpt>
+      <trkpt lat="49.42542" lon="20.47449"></trkpt>
+      <trkpt lat="49.42544" lon="20.47432"></trkpt>
+      <trkpt lat="49.42548" lon="20.47362"></trkpt>
+      <trkpt lat="49.42551" lon="20.47292"></trkpt>
+      <trkpt lat="49.42552" lon="20.47265"></trkpt>
+      <trkpt lat="49.42546" lon="20.47125"></trkpt>
+      <trkpt lat="49.42543" lon="20.47071"></trkpt>
+      <trkpt lat="49.42542" lon="20.47051"></trkpt>
+      <trkpt lat="49.42543" lon="20.47033"></trkpt>
+      <trkpt lat="49.42546" lon="20.47013"></trkpt>
+      <trkpt lat="49.42567" lon="20.46929"></trkpt>
+      <trkpt lat="49.42581" lon="20.46877"></trkpt>
+      <trkpt lat="49.42599" lon="20.46809"></trkpt>
+      <trkpt lat="49.42603" lon="20.46787"></trkpt>
+      <trkpt lat="49.42605" lon="20.46768"></trkpt>
+      <trkpt lat="49.42605" lon="20.4675"></trkpt>
+      <trkpt lat="49.42604" lon="20.46735"></trkpt>
+      <trkpt lat="49.42601" lon="20.46718"></trkpt>
+      <trkpt lat="49.42597" lon="20.46705"></trkpt>
+      <trkpt lat="49.42591" lon="20.46691"></trkpt>
+      <trkpt lat="49.42585" lon="20.4668"></trkpt>
+      <trkpt lat="49.42577" lon="20.46671"></trkpt>
+      <trkpt lat="49.4257" lon="20.46665"></trkpt>
+      <trkpt lat="49.42562" lon="20.46659"></trkpt>
+      <trkpt lat="49.42544" lon="20.46651"></trkpt>
+      <trkpt lat="49.42513" lon="20.46639"></trkpt>
+      <trkpt lat="49.42482" lon="20.46625"></trkpt>
+      <trkpt lat="49.42466" lon="20.46616"></trkpt>
+      <trkpt lat="49.42458" lon="20.46608"></trkpt>
+      <trkpt lat="49.42454" lon="20.46602"></trkpt>
+      <trkpt lat="49.42449" lon="20.4659"></trkpt>
+      <trkpt lat="49.42444" lon="20.46571"></trkpt>
+      <trkpt lat="49.42433" lon="20.46519"></trkpt>
+      <trkpt lat="49.42422" lon="20.46473"></trkpt>
+      <trkpt lat="49.42409" lon="20.46417"></trkpt>
+      <trkpt lat="49.42406" lon="20.46402"></trkpt>
+      <trkpt lat="49.42402" lon="20.46373"></trkpt>
+      <trkpt lat="49.42402" lon="20.46364"></trkpt>
+      <trkpt lat="49.42402" lon="20.46338"></trkpt>
+      <trkpt lat="49.42403" lon="20.46316"></trkpt>
+      <trkpt lat="49.42402" lon="20.46305"></trkpt>
+      <trkpt lat="49.42401" lon="20.46288"></trkpt>
+      <trkpt lat="49.42398" lon="20.46258"></trkpt>
+      <trkpt lat="49.42396" lon="20.46225"></trkpt>
+      <trkpt lat="49.42396" lon="20.46181"></trkpt>
+      <trkpt lat="49.42395" lon="20.4617"></trkpt>
+      <trkpt lat="49.42367" lon="20.4608"></trkpt>
+      <trkpt lat="49.42352" lon="20.4605"></trkpt>
+      <trkpt lat="49.42347" lon="20.46042"></trkpt>
+      <trkpt lat="49.42347" lon="20.46033"></trkpt>
+      <trkpt lat="49.42349" lon="20.4602"></trkpt>
+      <trkpt lat="49.42345" lon="20.4602"></trkpt>
+      <trkpt lat="49.42335" lon="20.46013"></trkpt>
+      <trkpt lat="49.42316" lon="20.45995"></trkpt>
+      <trkpt lat="49.42286" lon="20.4597"></trkpt>
+      <trkpt lat="49.42263" lon="20.45953"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

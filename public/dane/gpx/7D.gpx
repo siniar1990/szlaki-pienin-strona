@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Palenica wyciągiem</name>
+    <desc>0.6 km, 19 min, 35 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/palenica-wyciagiem</desc>
+    <link href="https://szlakipienin.pl/szlaki/palenica-wyciagiem"><text>Palenica wyciągiem</text></link>
+  </metadata>
+  <trk>
+    <name>Palenica wyciągiem</name>
+    <trkseg>
+      <trkpt lat="49.41884" lon="20.47655"></trkpt>
+      <trkpt lat="49.41882" lon="20.47659"></trkpt>
+      <trkpt lat="49.41875" lon="20.47655"></trkpt>
+      <trkpt lat="49.41871" lon="20.47645"></trkpt>
+      <trkpt lat="49.41863" lon="20.47655"></trkpt>
+      <trkpt lat="49.41871" lon="20.47645"></trkpt>
+      <trkpt lat="49.41848" lon="20.47641"></trkpt>
+      <trkpt lat="49.41842" lon="20.47642"></trkpt>
+      <trkpt lat="49.41837" lon="20.47657"></trkpt>
+      <trkpt lat="49.4183" lon="20.47658"></trkpt>
+      <trkpt lat="49.41821" lon="20.47658"></trkpt>
+      <trkpt lat="49.41791" lon="20.47643"></trkpt>
+      <trkpt lat="49.41777" lon="20.47641"></trkpt>
+      <trkpt lat="49.41719" lon="20.47631"></trkpt>
+      <trkpt lat="49.41692" lon="20.47662"></trkpt>
+      <trkpt lat="49.41675" lon="20.47679"></trkpt>
+      <trkpt lat="49.41648" lon="20.47689"></trkpt>
+      <trkpt lat="49.41638" lon="20.4769"></trkpt>
+      <trkpt lat="49.41633" lon="20.47689"></trkpt>
+      <trkpt lat="49.41624" lon="20.47691"></trkpt>
+      <trkpt lat="49.41575" lon="20.4769"></trkpt>
+      <trkpt lat="49.41567" lon="20.47691"></trkpt>
+      <trkpt lat="49.41554" lon="20.47687"></trkpt>
+      <trkpt lat="49.41547" lon="20.47688"></trkpt>
+      <trkpt lat="49.41531" lon="20.47691"></trkpt>
+      <trkpt lat="49.41483" lon="20.4769"></trkpt>
+      <trkpt lat="49.41474" lon="20.47686"></trkpt>
+      <trkpt lat="49.41463" lon="20.47685"></trkpt>
+      <trkpt lat="49.41427" lon="20.47688"></trkpt>
+      <trkpt lat="49.41409" lon="20.47668"></trkpt>
+      <trkpt lat="49.41409" lon="20.47664"></trkpt>
+      <trkpt lat="49.41409" lon="20.47654"></trkpt>
+      <trkpt lat="49.41415" lon="20.47644"></trkpt>
+      <trkpt lat="49.41422" lon="20.47634"></trkpt>
+      <trkpt lat="49.41428" lon="20.47623"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

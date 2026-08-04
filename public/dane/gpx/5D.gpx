@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Wąwóz Homole</name>
+    <desc>1.6 km, 38 min, 146 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/wawoz-homole</desc>
+    <link href="https://szlakipienin.pl/szlaki/wawoz-homole"><text>Wąwóz Homole</text></link>
+  </metadata>
+  <trk>
+    <name>Wąwóz Homole</name>
+    <trkseg>
+      <trkpt lat="49.40598" lon="20.54762"></trkpt>
+      <trkpt lat="49.40599" lon="20.54746"></trkpt>
+      <trkpt lat="49.40568" lon="20.54723"></trkpt>
+      <trkpt lat="49.40565" lon="20.54723"></trkpt>
+      <trkpt lat="49.40562" lon="20.54724"></trkpt>
+      <trkpt lat="49.40557" lon="20.54725"></trkpt>
+      <trkpt lat="49.40542" lon="20.54749"></trkpt>
+      <trkpt lat="49.40532" lon="20.54765"></trkpt>
+      <trkpt lat="49.40518" lon="20.54778"></trkpt>
+      <trkpt lat="49.40476" lon="20.54804"></trkpt>
+      <trkpt lat="49.40454" lon="20.54805"></trkpt>
+      <trkpt lat="49.40437" lon="20.54798"></trkpt>
+      <trkpt lat="49.40425" lon="20.54791"></trkpt>
+      <trkpt lat="49.40415" lon="20.54799"></trkpt>
+      <trkpt lat="49.40402" lon="20.54806"></trkpt>
+      <trkpt lat="49.40394" lon="20.54795"></trkpt>
+      <trkpt lat="49.40386" lon="20.54796"></trkpt>
+      <trkpt lat="49.40376" lon="20.54802"></trkpt>
+      <trkpt lat="49.40361" lon="20.54816"></trkpt>
+      <trkpt lat="49.40341" lon="20.54817"></trkpt>
+      <trkpt lat="49.40324" lon="20.54809"></trkpt>
+      <trkpt lat="49.40312" lon="20.54805"></trkpt>
+      <trkpt lat="49.40307" lon="20.54811"></trkpt>
+      <trkpt lat="49.40273" lon="20.54855"></trkpt>
+      <trkpt lat="49.40259" lon="20.54875"></trkpt>
+      <trkpt lat="49.40248" lon="20.54895"></trkpt>
+      <trkpt lat="49.40238" lon="20.549"></trkpt>
+      <trkpt lat="49.40235" lon="20.54898"></trkpt>
+      <trkpt lat="49.40235" lon="20.54898"></trkpt>
+      <trkpt lat="49.40233" lon="20.54896"></trkpt>
+      <trkpt lat="49.4023" lon="20.54894"></trkpt>
+      <trkpt lat="49.40227" lon="20.54892"></trkpt>
+      <trkpt lat="49.40208" lon="20.54891"></trkpt>
+      <trkpt lat="49.40195" lon="20.54895"></trkpt>
+      <trkpt lat="49.40181" lon="20.549"></trkpt>
+      <trkpt lat="49.40169" lon="20.54906"></trkpt>
+      <trkpt lat="49.4015" lon="20.54925"></trkpt>
+      <trkpt lat="49.40139" lon="20.54951"></trkpt>
+      <trkpt lat="49.4013" lon="20.54966"></trkpt>
+      <trkpt lat="49.40122" lon="20.54979"></trkpt>
+      <trkpt lat="49.40075" lon="20.55016"></trkpt>
+      <trkpt lat="49.40067" lon="20.5503"></trkpt>
+      <trkpt lat="49.40053" lon="20.55031"></trkpt>
+      <trkpt lat="49.40034" lon="20.55039"></trkpt>
+      <trkpt lat="49.4001" lon="20.55045"></trkpt>
+      <trkpt lat="49.39953" lon="20.55056"></trkpt>
+      <trkpt lat="49.39939" lon="20.55054"></trkpt>
+      <trkpt lat="49.39925" lon="20.55054"></trkpt>
+      <trkpt lat="49.39915" lon="20.55058"></trkpt>
+      <trkpt lat="49.39908" lon="20.5506"></trkpt>
+      <trkpt lat="49.39884" lon="20.55066"></trkpt>
+      <trkpt lat="49.39878" lon="20.55073"></trkpt>
+      <trkpt lat="49.39859" lon="20.55098"></trkpt>
+      <trkpt lat="49.3983" lon="20.55152"></trkpt>
+      <trkpt lat="49.39818" lon="20.55174"></trkpt>
+      <trkpt lat="49.39818" lon="20.55193"></trkpt>
+      <trkpt lat="49.39811" lon="20.55207"></trkpt>
+      <trkpt lat="49.39808" lon="20.55224"></trkpt>
+      <trkpt lat="49.39798" lon="20.55233"></trkpt>
+      <trkpt lat="49.39785" lon="20.55238"></trkpt>
+      <trkpt lat="49.39759" lon="20.55252"></trkpt>
+      <trkpt lat="49.39732" lon="20.55275"></trkpt>
+      <trkpt lat="49.39708" lon="20.55314"></trkpt>
+      <trkpt lat="49.39682" lon="20.55318"></trkpt>
+      <trkpt lat="49.39677" lon="20.55327"></trkpt>
+      <trkpt lat="49.39676" lon="20.55354"></trkpt>
+      <trkpt lat="49.39676" lon="20.55367"></trkpt>
+      <trkpt lat="49.39685" lon="20.55392"></trkpt>
+      <trkpt lat="49.39687" lon="20.55398"></trkpt>
+      <trkpt lat="49.39696" lon="20.55423"></trkpt>
+      <trkpt lat="49.39696" lon="20.55436"></trkpt>
+      <trkpt lat="49.39714" lon="20.55468"></trkpt>
+      <trkpt lat="49.39719" lon="20.55487"></trkpt>
+      <trkpt lat="49.39728" lon="20.55492"></trkpt>
+      <trkpt lat="49.39736" lon="20.55506"></trkpt>
+      <trkpt lat="49.39739" lon="20.55556"></trkpt>
+      <trkpt lat="49.39743" lon="20.55597"></trkpt>
+      <trkpt lat="49.39754" lon="20.55611"></trkpt>
+      <trkpt lat="49.39766" lon="20.55608"></trkpt>
+      <trkpt lat="49.39776" lon="20.55597"></trkpt>
+      <trkpt lat="49.39778" lon="20.55593"></trkpt>
+      <trkpt lat="49.39788" lon="20.5562"></trkpt>
+      <trkpt lat="49.39794" lon="20.55626"></trkpt>
+      <trkpt lat="49.39826" lon="20.55637"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

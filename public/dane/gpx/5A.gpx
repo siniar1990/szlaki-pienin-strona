@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Od „Pitoniakówki” do „Stefana”</name>
+    <desc>6.6 km, 115 min, 310 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/od-pitoniakowki-do-stefana</desc>
+    <link href="https://szlakipienin.pl/szlaki/od-pitoniakowki-do-stefana"><text>Od „Pitoniakówki” do „Stefana”</text></link>
+  </metadata>
+  <trk>
+    <name>Od „Pitoniakówki” do „Stefana”</name>
+    <trkseg>
+      <trkpt lat="49.42647" lon="20.46807"></trkpt>
+      <trkpt lat="49.42604" lon="20.46789"></trkpt>
+      <trkpt lat="49.42543" lon="20.47032"></trkpt>
+      <trkpt lat="49.42552" lon="20.47281"></trkpt>
+      <trkpt lat="49.42542" lon="20.47449"></trkpt>
+      <trkpt lat="49.42432" lon="20.48022"></trkpt>
+      <trkpt lat="49.42501" lon="20.4806"></trkpt>
+      <trkpt lat="49.42521" lon="20.48031"></trkpt>
+      <trkpt lat="49.42565" lon="20.48045"></trkpt>
+      <trkpt lat="49.42561" lon="20.48101"></trkpt>
+      <trkpt lat="49.42574" lon="20.48101"></trkpt>
+      <trkpt lat="49.42575" lon="20.48121"></trkpt>
+      <trkpt lat="49.42522" lon="20.48256"></trkpt>
+      <trkpt lat="49.42617" lon="20.48466"></trkpt>
+      <trkpt lat="49.4277" lon="20.4863"></trkpt>
+      <trkpt lat="49.42863" lon="20.48685"></trkpt>
+      <trkpt lat="49.42915" lon="20.48809"></trkpt>
+      <trkpt lat="49.42942" lon="20.48819"></trkpt>
+      <trkpt lat="49.43133" lon="20.48682"></trkpt>
+      <trkpt lat="49.43176" lon="20.48599"></trkpt>
+      <trkpt lat="49.43211" lon="20.48564"></trkpt>
+      <trkpt lat="49.43227" lon="20.48512"></trkpt>
+      <trkpt lat="49.43218" lon="20.48486"></trkpt>
+      <trkpt lat="49.43086" lon="20.48452"></trkpt>
+      <trkpt lat="49.4304" lon="20.48303"></trkpt>
+      <trkpt lat="49.43037" lon="20.48265"></trkpt>
+      <trkpt lat="49.43142" lon="20.47965"></trkpt>
+      <trkpt lat="49.4327" lon="20.47923"></trkpt>
+      <trkpt lat="49.43399" lon="20.4791"></trkpt>
+      <trkpt lat="49.43433" lon="20.4788"></trkpt>
+      <trkpt lat="49.43458" lon="20.47879"></trkpt>
+      <trkpt lat="49.43488" lon="20.47916"></trkpt>
+      <trkpt lat="49.43535" lon="20.47879"></trkpt>
+      <trkpt lat="49.43485" lon="20.47625"></trkpt>
+      <trkpt lat="49.43423" lon="20.47447"></trkpt>
+      <trkpt lat="49.43437" lon="20.47438"></trkpt>
+      <trkpt lat="49.43469" lon="20.47458"></trkpt>
+      <trkpt lat="49.43488" lon="20.47368"></trkpt>
+      <trkpt lat="49.43479" lon="20.47342"></trkpt>
+      <trkpt lat="49.43489" lon="20.47231"></trkpt>
+      <trkpt lat="49.43474" lon="20.47174"></trkpt>
+      <trkpt lat="49.43442" lon="20.47134"></trkpt>
+      <trkpt lat="49.43471" lon="20.47139"></trkpt>
+      <trkpt lat="49.43539" lon="20.47097"></trkpt>
+      <trkpt lat="49.43642" lon="20.47076"></trkpt>
+      <trkpt lat="49.43653" lon="20.47053"></trkpt>
+      <trkpt lat="49.43648" lon="20.46916"></trkpt>
+      <trkpt lat="49.43644" lon="20.46896"></trkpt>
+      <trkpt lat="49.43553" lon="20.46836"></trkpt>
+      <trkpt lat="49.43545" lon="20.46797"></trkpt>
+      <trkpt lat="49.43574" lon="20.46742"></trkpt>
+      <trkpt lat="49.43527" lon="20.46736"></trkpt>
+      <trkpt lat="49.43474" lon="20.46754"></trkpt>
+      <trkpt lat="49.43357" lon="20.46731"></trkpt>
+      <trkpt lat="49.43264" lon="20.46761"></trkpt>
+      <trkpt lat="49.43206" lon="20.46738"></trkpt>
+      <trkpt lat="49.43068" lon="20.46794"></trkpt>
+      <trkpt lat="49.42989" lon="20.46789"></trkpt>
+      <trkpt lat="49.42864" lon="20.46906"></trkpt>
+      <trkpt lat="49.42742" lon="20.46927"></trkpt>
+      <trkpt lat="49.42729" lon="20.46823"></trkpt>
+      <trkpt lat="49.42697" lon="20.46802"></trkpt>
+      <trkpt lat="49.42647" lon="20.46807"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

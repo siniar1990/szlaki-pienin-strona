@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { ListaTras } from '@/components/trasy/lista-tras'
+import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { KATEGORIE_TRAS, znajdzKategorie } from '@/lib/dane/kategorie'
 import { naListe, pobierzTrasy } from '@/lib/dane/zrodlo'
@@ -94,7 +94,11 @@ export default async function StronaKategorii({
 
       <div className="obszar py-14 lg:py-20">
         {trasy.length > 0 ? (
-          <ListaTras trasy={trasy.map(naListe)} />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {trasy.map((trasa, indeks) => (
+              <KafelekTrasy key={trasa.id} trasa={naListe(trasa)} priorytet={indeks < 3} />
+            ))}
+          </div>
         ) : (
           <p className="rounded-2xl border border-dashed border-kamien-300 p-12 text-center text-kamien-500">
             W tej kategorii nie ma jeszcze żadnej trasy.

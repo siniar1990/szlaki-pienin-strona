@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Droga Pienińska</name>
+    <desc>2 km, 30 min, 27 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/droga-pieninska</desc>
+    <link href="https://szlakipienin.pl/szlaki/droga-pieninska"><text>Droga Pienińska</text></link>
+  </metadata>
+  <trk>
+    <name>Droga Pienińska</name>
+    <trkseg>
+      <trkpt lat="49.42506" lon="20.45909"></trkpt>
+      <trkpt lat="49.42444" lon="20.45956"></trkpt>
+      <trkpt lat="49.4239" lon="20.46001"></trkpt>
+      <trkpt lat="49.42375" lon="20.46012"></trkpt>
+      <trkpt lat="49.42358" lon="20.46022"></trkpt>
+      <trkpt lat="49.42349" lon="20.4602"></trkpt>
+      <trkpt lat="49.42345" lon="20.4602"></trkpt>
+      <trkpt lat="49.42335" lon="20.46013"></trkpt>
+      <trkpt lat="49.42316" lon="20.45995"></trkpt>
+      <trkpt lat="49.42286" lon="20.4597"></trkpt>
+      <trkpt lat="49.42263" lon="20.45953"></trkpt>
+      <trkpt lat="49.42232" lon="20.45929"></trkpt>
+      <trkpt lat="49.42209" lon="20.45915"></trkpt>
+      <trkpt lat="49.42131" lon="20.45898"></trkpt>
+      <trkpt lat="49.42115" lon="20.45892"></trkpt>
+      <trkpt lat="49.42074" lon="20.45868"></trkpt>
+      <trkpt lat="49.42042" lon="20.45843"></trkpt>
+      <trkpt lat="49.42008" lon="20.45812"></trkpt>
+      <trkpt lat="49.41986" lon="20.45793"></trkpt>
+      <trkpt lat="49.41965" lon="20.45767"></trkpt>
+      <trkpt lat="49.41924" lon="20.4571"></trkpt>
+      <trkpt lat="49.41865" lon="20.4564"></trkpt>
+      <trkpt lat="49.41856" lon="20.45627"></trkpt>
+      <trkpt lat="49.41837" lon="20.456"></trkpt>
+      <trkpt lat="49.41829" lon="20.45588"></trkpt>
+      <trkpt lat="49.41806" lon="20.4554"></trkpt>
+      <trkpt lat="49.4179" lon="20.455"></trkpt>
+      <trkpt lat="49.41777" lon="20.45459"></trkpt>
+      <trkpt lat="49.41764" lon="20.45421"></trkpt>
+      <trkpt lat="49.41752" lon="20.45381"></trkpt>
+      <trkpt lat="49.41748" lon="20.4537"></trkpt>
+      <trkpt lat="49.41746" lon="20.45359"></trkpt>
+      <trkpt lat="49.41743" lon="20.45341"></trkpt>
+      <trkpt lat="49.41734" lon="20.45293"></trkpt>
+      <trkpt lat="49.41729" lon="20.45268"></trkpt>
+      <trkpt lat="49.41725" lon="20.45251"></trkpt>
+      <trkpt lat="49.41719" lon="20.45235"></trkpt>
+      <trkpt lat="49.41713" lon="20.45223"></trkpt>
+      <trkpt lat="49.41709" lon="20.45214"></trkpt>
+      <trkpt lat="49.41703" lon="20.45203"></trkpt>
+      <trkpt lat="49.41698" lon="20.45191"></trkpt>
+      <trkpt lat="49.41695" lon="20.45174"></trkpt>
+      <trkpt lat="49.41695" lon="20.45155"></trkpt>
+      <trkpt lat="49.41694" lon="20.45136"></trkpt>
+      <trkpt lat="49.41691" lon="20.4512"></trkpt>
+      <trkpt lat="49.41685" lon="20.45093"></trkpt>
+      <trkpt lat="49.41676" lon="20.45071"></trkpt>
+      <trkpt lat="49.41667" lon="20.45051"></trkpt>
+      <trkpt lat="49.41658" lon="20.45027"></trkpt>
+      <trkpt lat="49.41652" lon="20.45006"></trkpt>
+      <trkpt lat="49.4165" lon="20.44985"></trkpt>
+      <trkpt lat="49.41649" lon="20.44969"></trkpt>
+      <trkpt lat="49.41651" lon="20.4494"></trkpt>
+      <trkpt lat="49.41653" lon="20.44909"></trkpt>
+      <trkpt lat="49.41656" lon="20.44885"></trkpt>
+      <trkpt lat="49.4166" lon="20.44865"></trkpt>
+      <trkpt lat="49.41663" lon="20.44846"></trkpt>
+      <trkpt lat="49.41664" lon="20.44822"></trkpt>
+      <trkpt lat="49.41665" lon="20.44804"></trkpt>
+      <trkpt lat="49.41664" lon="20.44777"></trkpt>
+      <trkpt lat="49.41663" lon="20.44752"></trkpt>
+      <trkpt lat="49.4166" lon="20.44728"></trkpt>
+      <trkpt lat="49.41656" lon="20.44715"></trkpt>
+      <trkpt lat="49.41652" lon="20.44701"></trkpt>
+      <trkpt lat="49.41647" lon="20.44684"></trkpt>
+      <trkpt lat="49.4164" lon="20.44664"></trkpt>
+      <trkpt lat="49.41633" lon="20.44653"></trkpt>
+      <trkpt lat="49.41627" lon="20.44652"></trkpt>
+      <trkpt lat="49.41625" lon="20.44652"></trkpt>
+      <trkpt lat="49.41604" lon="20.44662"></trkpt>
+      <trkpt lat="49.416" lon="20.44661"></trkpt>
+      <trkpt lat="49.4159" lon="20.44668"></trkpt>
+      <trkpt lat="49.41573" lon="20.4468"></trkpt>
+      <trkpt lat="49.41557" lon="20.44707"></trkpt>
+      <trkpt lat="49.41538" lon="20.44736"></trkpt>
+      <trkpt lat="49.41513" lon="20.44766"></trkpt>
+      <trkpt lat="49.41482" lon="20.44806"></trkpt>
+      <trkpt lat="49.41451" lon="20.44844"></trkpt>
+      <trkpt lat="49.41428" lon="20.44881"></trkpt>
+      <trkpt lat="49.41422" lon="20.44889"></trkpt>
+      <trkpt lat="49.41415" lon="20.44892"></trkpt>
+      <trkpt lat="49.41413" lon="20.44896"></trkpt>
+      <trkpt lat="49.41406" lon="20.44905"></trkpt>
+      <trkpt lat="49.41397" lon="20.44917"></trkpt>
+      <trkpt lat="49.41392" lon="20.44926"></trkpt>
+      <trkpt lat="49.41387" lon="20.44938"></trkpt>
+      <trkpt lat="49.41385" lon="20.44954"></trkpt>
+      <trkpt lat="49.41385" lon="20.4497"></trkpt>
+      <trkpt lat="49.41386" lon="20.44981"></trkpt>
+      <trkpt lat="49.41388" lon="20.4499"></trkpt>
+      <trkpt lat="49.41398" lon="20.45011"></trkpt>
+      <trkpt lat="49.4139" lon="20.45028"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

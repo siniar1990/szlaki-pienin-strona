@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Cel – Muzeum Pienińskie</name>
+    <desc>9 km, 180 min, 425 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/cel-muzeum-pieninskie</desc>
+    <link href="https://szlakipienin.pl/szlaki/cel-muzeum-pieninskie"><text>Cel – Muzeum Pienińskie</text></link>
+  </metadata>
+  <trk>
+    <name>Cel – Muzeum Pienińskie</name>
+    <trkseg>
+      <trkpt lat="49.42522" lon="20.48256"></trkpt>
+      <trkpt lat="49.42575" lon="20.48121"></trkpt>
+      <trkpt lat="49.42574" lon="20.48101"></trkpt>
+      <trkpt lat="49.42561" lon="20.48101"></trkpt>
+      <trkpt lat="49.42565" lon="20.48045"></trkpt>
+      <trkpt lat="49.42521" lon="20.48031"></trkpt>
+      <trkpt lat="49.42501" lon="20.4806"></trkpt>
+      <trkpt lat="49.42432" lon="20.48022"></trkpt>
+      <trkpt lat="49.42542" lon="20.47449"></trkpt>
+      <trkpt lat="49.42552" lon="20.47281"></trkpt>
+      <trkpt lat="49.42543" lon="20.47032"></trkpt>
+      <trkpt lat="49.42604" lon="20.46789"></trkpt>
+      <trkpt lat="49.42603" lon="20.46728"></trkpt>
+      <trkpt lat="49.4259" lon="20.46689"></trkpt>
+      <trkpt lat="49.42453" lon="20.46601"></trkpt>
+      <trkpt lat="49.42404" lon="20.46397"></trkpt>
+      <trkpt lat="49.42396" lon="20.46172"></trkpt>
+      <trkpt lat="49.42343" lon="20.46021"></trkpt>
+      <trkpt lat="49.4234" lon="20.46047"></trkpt>
+      <trkpt lat="49.42259" lon="20.46098"></trkpt>
+      <trkpt lat="49.42219" lon="20.46045"></trkpt>
+      <trkpt lat="49.42193" lon="20.46161"></trkpt>
+      <trkpt lat="49.42133" lon="20.46238"></trkpt>
+      <trkpt lat="49.42038" lon="20.46216"></trkpt>
+      <trkpt lat="49.41951" lon="20.46273"></trkpt>
+      <trkpt lat="49.41884" lon="20.46289"></trkpt>
+      <trkpt lat="49.41871" lon="20.46271"></trkpt>
+      <trkpt lat="49.41875" lon="20.4619"></trkpt>
+      <trkpt lat="49.41796" lon="20.46201"></trkpt>
+      <trkpt lat="49.41732" lon="20.46258"></trkpt>
+      <trkpt lat="49.41693" lon="20.46348"></trkpt>
+      <trkpt lat="49.41603" lon="20.46426"></trkpt>
+      <trkpt lat="49.41605" lon="20.46661"></trkpt>
+      <trkpt lat="49.41547" lon="20.46981"></trkpt>
+      <trkpt lat="49.41571" lon="20.47084"></trkpt>
+      <trkpt lat="49.41542" lon="20.47208"></trkpt>
+      <trkpt lat="49.41405" lon="20.47624"></trkpt>
+      <trkpt lat="49.41359" lon="20.47674"></trkpt>
+      <trkpt lat="49.41258" lon="20.47724"></trkpt>
+      <trkpt lat="49.41196" lon="20.47786"></trkpt>
+      <trkpt lat="49.41024" lon="20.4809"></trkpt>
+      <trkpt lat="49.40973" lon="20.48244"></trkpt>
+      <trkpt lat="49.40957" lon="20.48425"></trkpt>
+      <trkpt lat="49.40893" lon="20.48583"></trkpt>
+      <trkpt lat="49.40827" lon="20.48829"></trkpt>
+      <trkpt lat="49.40729" lon="20.48918"></trkpt>
+      <trkpt lat="49.40663" lon="20.49087"></trkpt>
+      <trkpt lat="49.40674" lon="20.49184"></trkpt>
+      <trkpt lat="49.40657" lon="20.49309"></trkpt>
+      <trkpt lat="49.40625" lon="20.49413"></trkpt>
+      <trkpt lat="49.40567" lon="20.49535"></trkpt>
+      <trkpt lat="49.40553" lon="20.49688"></trkpt>
+      <trkpt lat="49.40525" lon="20.4975"></trkpt>
+      <trkpt lat="49.40446" lon="20.50034"></trkpt>
+      <trkpt lat="49.40405" lon="20.50337"></trkpt>
+      <trkpt lat="49.4036" lon="20.50491"></trkpt>
+      <trkpt lat="49.40267" lon="20.50583"></trkpt>
+      <trkpt lat="49.4017" lon="20.50748"></trkpt>
+      <trkpt lat="49.40122" lon="20.50867"></trkpt>
+      <trkpt lat="49.40177" lon="20.50905"></trkpt>
+      <trkpt lat="49.40188" lon="20.5094"></trkpt>
+      <trkpt lat="49.40202" lon="20.51332"></trkpt>
+      <trkpt lat="49.40224" lon="20.51466"></trkpt>
+      <trkpt lat="49.40283" lon="20.51629"></trkpt>
+      <trkpt lat="49.40334" lon="20.51647"></trkpt>
+      <trkpt lat="49.40462" lon="20.51569"></trkpt>
+      <trkpt lat="49.40498" lon="20.51584"></trkpt>
+      <trkpt lat="49.40559" lon="20.51548"></trkpt>
+      <trkpt lat="49.40574" lon="20.51563"></trkpt>
+      <trkpt lat="49.40572" lon="20.51601"></trkpt>
+      <trkpt lat="49.40653" lon="20.51697"></trkpt>
+      <trkpt lat="49.40738" lon="20.51881"></trkpt>
+      <trkpt lat="49.40783" lon="20.51931"></trkpt>
+      <trkpt lat="49.40819" lon="20.51931"></trkpt>
+      <trkpt lat="49.4082" lon="20.51819"></trkpt>
+      <trkpt lat="49.40842" lon="20.51842"></trkpt>
+      <trkpt lat="49.40905" lon="20.51848"></trkpt>
+      <trkpt lat="49.40915" lon="20.52046"></trkpt>
+      <trkpt lat="49.4094" lon="20.52067"></trkpt>
+      <trkpt lat="49.40971" lon="20.52067"></trkpt>
+      <trkpt lat="49.40994" lon="20.52105"></trkpt>
+      <trkpt lat="49.40933" lon="20.52373"></trkpt>
+      <trkpt lat="49.40952" lon="20.52482"></trkpt>
+      <trkpt lat="49.40935" lon="20.52592"></trkpt>
+      <trkpt lat="49.40968" lon="20.52641"></trkpt>
+      <trkpt lat="49.41068" lon="20.52661"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

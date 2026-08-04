@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Wąwóz Szopczański</name>
+    <desc>1 km, 30 min, 149 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/wawoz-szopczanski</desc>
+    <link href="https://szlakipienin.pl/szlaki/wawoz-szopczanski"><text>Wąwóz Szopczański</text></link>
+  </metadata>
+  <trk>
+    <name>Wąwóz Szopczański</name>
+    <trkseg>
+      <trkpt lat="49.40519" lon="20.41109"></trkpt>
+      <trkpt lat="49.40561" lon="20.41111"></trkpt>
+      <trkpt lat="49.40572" lon="20.41108"></trkpt>
+      <trkpt lat="49.40593" lon="20.41109"></trkpt>
+      <trkpt lat="49.40622" lon="20.41109"></trkpt>
+      <trkpt lat="49.40639" lon="20.41108"></trkpt>
+      <trkpt lat="49.4066" lon="20.41102"></trkpt>
+      <trkpt lat="49.4068" lon="20.41091"></trkpt>
+      <trkpt lat="49.40704" lon="20.41073"></trkpt>
+      <trkpt lat="49.40709" lon="20.41072"></trkpt>
+      <trkpt lat="49.40716" lon="20.41063"></trkpt>
+      <trkpt lat="49.40725" lon="20.41058"></trkpt>
+      <trkpt lat="49.40741" lon="20.41056"></trkpt>
+      <trkpt lat="49.40754" lon="20.41053"></trkpt>
+      <trkpt lat="49.40766" lon="20.41044"></trkpt>
+      <trkpt lat="49.40783" lon="20.41024"></trkpt>
+      <trkpt lat="49.40798" lon="20.40999"></trkpt>
+      <trkpt lat="49.40819" lon="20.40977"></trkpt>
+      <trkpt lat="49.40859" lon="20.40937"></trkpt>
+      <trkpt lat="49.40871" lon="20.40926"></trkpt>
+      <trkpt lat="49.40908" lon="20.40891"></trkpt>
+      <trkpt lat="49.40925" lon="20.40875"></trkpt>
+      <trkpt lat="49.40935" lon="20.40866"></trkpt>
+      <trkpt lat="49.4095" lon="20.40862"></trkpt>
+      <trkpt lat="49.40982" lon="20.40862"></trkpt>
+      <trkpt lat="49.4104" lon="20.40848"></trkpt>
+      <trkpt lat="49.41045" lon="20.40841"></trkpt>
+      <trkpt lat="49.41057" lon="20.40809"></trkpt>
+      <trkpt lat="49.41063" lon="20.40802"></trkpt>
+      <trkpt lat="49.41087" lon="20.40781"></trkpt>
+      <trkpt lat="49.41112" lon="20.40762"></trkpt>
+      <trkpt lat="49.41131" lon="20.40724"></trkpt>
+      <trkpt lat="49.41141" lon="20.40711"></trkpt>
+      <trkpt lat="49.41151" lon="20.40703"></trkpt>
+      <trkpt lat="49.41168" lon="20.4067"></trkpt>
+      <trkpt lat="49.41204" lon="20.40633"></trkpt>
+      <trkpt lat="49.41215" lon="20.40615"></trkpt>
+      <trkpt lat="49.41225" lon="20.40602"></trkpt>
+      <trkpt lat="49.4126" lon="20.40567"></trkpt>
+      <trkpt lat="49.41277" lon="20.40537"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

@@ -100,6 +100,46 @@ function naWspolrzedne(coord: readonly number[]): Wspolrzedne {
   return [coord[0], coord[1]]
 }
 
+/**
+ * Sprowadza punkt startowy do nazwy miejscowości.
+ *
+ * W danych start bywa opisany precyzyjnie — „Szczawnica, ul. Szalaya",
+ * „Dolna stacja kolei na Palenicę", „Przeprawa przez Dunajec (Szczawnica)".
+ * Na trasie to zaleta, ale jako filtr dałoby szesnaście pozycji, z czego
+ * połowa po jednej trasie. Sprowadzamy więc do miejscowości; czego nie
+ * rozpoznamy, zostawiamy jak jest — lepsza jedna dziwna pozycja na liście
+ * niż trasa przypisana do niewłaściwego miasta.
+ */
+const MIEJSCOWOSCI: { wzorzec: RegExp; nazwa: string }[] = [
+  { wzorzec: /szczawnic|palenic|szalaya/i, nazwa: 'Szczawnica' },
+  { wzorzec: /krościenk/i, nazwa: 'Krościenko nad Dunajcem' },
+  { wzorzec: /jaworki|homol/i, nazwa: 'Jaworki' },
+  { wzorzec: /szlachtow/i, nazwa: 'Szlachtowa' },
+  { wzorzec: /niedzic/i, nazwa: 'Niedzica' },
+  { wzorzec: /czorsztyn/i, nazwa: 'Czorsztyn' },
+  { wzorzec: /sromowc/i, nazwa: 'Sromowce' },
+]
+
+function miejscowoscStartu(punkty: Punkt[]): string {
+  const pierwszaMiejscowosc = punkty.find((p) => p.typ === 'miejscowosc')
+  const surowa = pierwszaMiejscowosc?.nazwa ?? punkty[0]?.nazwa ?? 'Pieniny'
+  return MIEJSCOWOSCI.find((m) => m.wzorzec.test(surowa))?.nazwa ?? surowa
+}
+
+/**
+ * Pierwsze zdanie opisu — streszczenie na kartę trasy.
+ *
+ * Dzielimy po kropce, po której następuje spacja i wielka litera. Sam
+ * podział po kropce ucinałby zdanie na skrótach w rodzaju „ok." albo „m n.p.m.".
+ */
+function pierwszeZdanie(opis: string | null): string | null {
+  if (!opis) return null
+  // `[\s\S]` zamiast flagi `s` — cel kompilacji jest starszy niż ES2018,
+  // a ta klasa znaków robi dokładnie to samo: dopasowuje też złamania wiersza.
+  const dopasowanie = opis.match(/^[\s\S]*?[.!?](?=\s+[A-ZĄĆĘŁŃÓŚŻŹ])/)
+  return (dopasowanie?.[0] ?? opis).trim()
+}
+
 function naTrase(surowa: SurowaTrasa, slug: string): Trasa {
   const punkty: Punkt[] = surowa.punkty.map((p) => ({
     nazwa: p.nazwa,
@@ -157,6 +197,16 @@ function naTrase(surowa: SurowaTrasa, slug: string): Trasa {
       ? adresPubliczny('slady', path.basename(surowa.geometry))
       : null,
     trudnosc: ustalTrudnosc(surowa.dlugosc_km, surowa.suma_podejsc_m.tam),
+    miejscowoscStartu: miejscowoscStartu(punkty),
+    najwyzszyPunktM:
+      punkty.reduce<number | null>(
+        (naj, p) => (p.wysokoscM !== null && (naj === null || p.wysokoscM > naj) ? p.wysokoscM : naj),
+        null,
+      ) ?? surowa.wysokosc_szczytu_m ?? null,
+    podsumowanie: pierwszeZdanie(surowa.opis ?? null),
+    // Plik GPX powstaje przy budowaniu ze śladu GeoJSON — patrz
+    // `narzedzia/zbuduj-geojson.ts`. Bez śladu nie ma czego eksportować.
+    gpx: surowa.geometry ? `/dane/gpx/${surowa.id}.gpx` : null,
     zrodla: {
       czasy: surowa._zrodlo_czasow ?? null,
       geometria: surowa._zrodlo_geometrii ?? null,
@@ -227,6 +277,10 @@ export function naListe(trasa: Trasa): TrasaNaLiscie {
     granica: trasa.granica,
     szlaki: trasa.szlaki,
     wysokoscSzczytuM: trasa.wysokoscSzczytuM,
+    miejscowoscStartu: trasa.miejscowoscStartu,
+    najwyzszyPunktM: trasa.najwyzszyPunktM,
+    podsumowanie: trasa.podsumowanie,
+    kategorieDodatkowe: trasa.kategorieDodatkowe,
   }
 }
 

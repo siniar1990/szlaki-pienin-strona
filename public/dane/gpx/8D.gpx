@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Lawendowe Wzgórza</name>
+    <desc>1.9 km, 42 min, 137 m podejść. Opis trasy: https://szlakipienin.pl/szlaki/lawendowe-wzgorza</desc>
+    <link href="https://szlakipienin.pl/szlaki/lawendowe-wzgorza"><text>Lawendowe Wzgórza</text></link>
+  </metadata>
+  <trk>
+    <name>Lawendowe Wzgórza</name>
+    <trkseg>
+      <trkpt lat="49.42514" lon="20.48259"></trkpt>
+      <trkpt lat="49.42579" lon="20.48378"></trkpt>
+      <trkpt lat="49.42611" lon="20.48461"></trkpt>
+      <trkpt lat="49.42639" lon="20.48484"></trkpt>
+      <trkpt lat="49.42688" lon="20.48553"></trkpt>
+      <trkpt lat="49.42764" lon="20.48624"></trkpt>
+      <trkpt lat="49.42871" lon="20.48699"></trkpt>
+      <trkpt lat="49.42883" lon="20.48728"></trkpt>
+      <trkpt lat="49.42875" lon="20.48752"></trkpt>
+      <trkpt lat="49.42882" lon="20.48774"></trkpt>
+      <trkpt lat="49.42872" lon="20.48785"></trkpt>
+      <trkpt lat="49.42846" lon="20.4874"></trkpt>
+      <trkpt lat="49.42796" lon="20.48717"></trkpt>
+      <trkpt lat="49.42746" lon="20.48719"></trkpt>
+      <trkpt lat="49.42742" lon="20.48792"></trkpt>
+      <trkpt lat="49.4277" lon="20.48819"></trkpt>
+      <trkpt lat="49.42762" lon="20.49062"></trkpt>
+      <trkpt lat="49.42767" lon="20.49109"></trkpt>
+      <trkpt lat="49.42924" lon="20.49156"></trkpt>
+      <trkpt lat="49.42933" lon="20.49175"></trkpt>
+      <trkpt lat="49.42944" lon="20.49287"></trkpt>
+      <trkpt lat="49.42975" lon="20.49374"></trkpt>
+      <trkpt lat="49.42999" lon="20.49432"></trkpt>
+      <trkpt lat="49.43074" lon="20.49523"></trkpt>
+      <trkpt lat="49.43089" lon="20.49532"></trkpt>
+      <trkpt lat="49.43207" lon="20.49528"></trkpt>
+      <trkpt lat="49.43296" lon="20.49538"></trkpt>
+      <trkpt lat="49.43363" lon="20.49562"></trkpt>
+      <trkpt lat="49.4337" lon="20.49543"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

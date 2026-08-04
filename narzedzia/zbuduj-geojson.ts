@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { KATEGORIE_APLIKACJI } from '../src/lib/dane/kategorie'
@@ -141,6 +141,55 @@ for (const trasa of wszystkie) {
   })
 }
 
+/* ── Pliki GPX ────────────────────────────────────────────────────────────
+   GPX to format, który rozumie każdy zegarek, nawigacja i Strava — a którego
+   aplikacja nie trzyma, bo sama pracuje na GeoJSON-ie. Zamiast dokładać drugi
+   zestaw plików do repozytorium aplikacji, wytwarzamy je tutaj, przy
+   budowaniu, z tego samego śladu. Nie ma więc ryzyka, że kiedyś się rozjadą.
+
+   Znaki `&`, `<` i `>` w nazwie trasy trzeba uciec — GPX to XML i jedna
+   nieuciekniona ampersanda psuje cały plik.                                */
+
+function ucieknijXml(tekst: string): string {
+  return tekst
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
+const katalogGpx = path.join(process.cwd(), 'public', 'dane', 'gpx')
+mkdirSync(katalogGpx, { recursive: true })
+
+let zapisanychGpx = 0
+
+for (const cecha of cechy) {
+  if (cecha.geometry.type !== 'LineString') continue
+  const w = cecha.properties as Record<string, string | number | boolean>
+
+  const punkty = (cecha.geometry.coordinates as number[][])
+    .map(([lon, lat]) => `      <trkpt lat="${lat}" lon="${lon}"></trkpt>`)
+    .join('\n')
+
+  const gpx = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="szlakipienin.pl" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>${ucieknijXml(String(w.nazwa))}</name>
+    <desc>${w.dlugoscKm} km, ${w.czasMin} min, ${w.podejscieM} m podejść. Opis trasy: https://szlakipienin.pl${w.adres}</desc>
+    <link href="https://szlakipienin.pl${w.adres}"><text>${ucieknijXml(String(w.nazwa))}</text></link>
+  </metadata>
+  <trk>
+    <name>${ucieknijXml(String(w.nazwa))}</name>
+    <trkseg>
+${punkty}
+    </trkseg>
+  </trk>
+</gpx>
+`
+  writeFileSync(path.join(katalogGpx, `${w.id}.gpx`), gpx)
+  zapisanychGpx += 1
+}
+
 const cel = path.join(process.cwd(), 'public', 'dane', 'szlaki.geojson')
 writeFileSync(cel, JSON.stringify({ type: 'FeatureCollection', features: cechy }))
 
@@ -150,6 +199,7 @@ const punkty = cechy.length - linie
 console.log(
   `szlaki.geojson: ${cechy.length} tras (${linie} ze śladem, ${punkty} jako punkt), ${waga} kB`,
 )
+console.log(`gpx: ${zapisanychGpx} plików`)
 if (pominiete.length > 0) {
   console.log(`pominięto: ${pominiete.join(', ')}`)
 }
