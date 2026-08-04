@@ -1,8 +1,10 @@
-# Publikuje stronę na GitHub Pages po każdym wysłaniu zmian do gałęzi `main`.
+# Buduje portal i publikuje go na GitHub Pages.
 #
-# Strona jest statyczna (same pliki HTML/CSS), więc nie ma tu żadnego budowania
-# — bierzemy katalog jak stoi i oddajemy go Pages. Dzięki temu nie ma czego
-# zepsuć aktualizacją narzędzi.
+# Portal jest aplikacją Next.js eksportowaną do plików statycznych, więc tu
+# dzieją się dwie rzeczy: najpierw `next build` zamienia dane tras w komplet
+# stron HTML, potem gotowy katalog `out/` trafia na Pages. Publikujemy wynik
+# budowania, a nie katalog źródłowy — wrzucenie tego drugiego dałoby stronę
+# pokazującą pliki .tsx zamiast tras.
 #
 # Witrynę Pages workflow włącza sobie sam (`enablement` niżej), więc nie trzeba
 # nic klikać w ustawieniach. Gdyby ten krok kiedyś odmówił — znaczy, że token
@@ -15,6 +17,10 @@ on:
     branches: [main]
   # Pozwala wypchnąć stronę ręcznie, bez zmiany w plikach.
   workflow_dispatch:
+  # Pozwala przebudować portal z zewnątrz — repozytorium aplikacji może
+  # wysłać takie zdarzenie po zmianie danych tras i strona odświeży się sama.
+  repository_dispatch:
+    types: [dane-zmienione]
 
 permissions:
   contents: read
@@ -37,6 +43,22 @@ jobs:
       - name: Pobierz pliki
         uses: actions/checkout@v4
 
+      - name: Przygotuj Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          # Pamięć podręczna npm skraca instalację z ~40 s do kilku sekund.
+          cache: npm
+
+      - name: Zainstaluj zależności
+        # `npm ci` zamiast `npm install`: instaluje dokładnie te wersje, które
+        # są w package-lock.json. Publikacja nie jest miejscem na niespodzianki
+        # w postaci świeżo wydanej wersji biblioteki.
+        run: npm ci
+
+      - name: Zbuduj portal
+        run: npm run build
+
       - name: Przygotuj Pages
         uses: actions/configure-pages@v5
         with:
@@ -46,7 +68,7 @@ jobs:
       - name: Spakuj stronę
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: out
 
       - name: Wdróż
         id: wdrozenie

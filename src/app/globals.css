@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Barwy portalu
+
+   Trzy rodziny, wszystkie wzięte z tego, co widać w Pieninach:
+
+     las      — zieleń jodły i buczyny; kolor wiodący, przyciski, akcenty
+     dunajec  — błękit rzeki; drugi głos, mapy, oznaczenia szlaków wodnych
+     kamien   — jasne szarości wapienia; tła, obramowania, tekst pomocniczy
+
+   Zapisane w OKLCH, bo w tej przestrzeni jasność zachowuje się przewidywalnie:
+   krok o 0,05 wygląda tak samo daleko w zieleni i w błękicie. Przy HSL trzeba
+   to zgadywać na oko i połowa odcieni wychodzi za ciemna.
+
+   Kontrasty sprawdzone pod WCAG 2.2 AA: --las-700 i --kamien-700 na bieli
+   przekraczają 4,5:1, więc nadają się na tekst. Jaśniejsze odcienie służą
+   wyłącznie jako tła i obramowania.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-las-50: oklch(0.976 0.012 155);
+  --color-las-100: oklch(0.945 0.028 155);
+  --color-las-200: oklch(0.892 0.052 154);
+  --color-las-300: oklch(0.815 0.078 153);
+  --color-las-400: oklch(0.714 0.098 152);
+  --color-las-500: oklch(0.611 0.104 152);
+  --color-las-600: oklch(0.512 0.096 152);
+  --color-las-700: oklch(0.428 0.081 153);
+  --color-las-800: oklch(0.352 0.064 154);
+  --color-las-900: oklch(0.284 0.048 155);
+  --color-las-950: oklch(0.196 0.034 156);
+
+  --color-dunajec-50: oklch(0.977 0.013 220);
+  --color-dunajec-100: oklch(0.944 0.030 220);
+  --color-dunajec-200: oklch(0.888 0.054 219);
+  --color-dunajec-300: oklch(0.808 0.080 222);
+  --color-dunajec-400: oklch(0.704 0.104 226);
+  --color-dunajec-500: oklch(0.612 0.113 230);
+  --color-dunajec-600: oklch(0.518 0.106 233);
+  --color-dunajec-700: oklch(0.436 0.089 235);
+  --color-dunajec-800: oklch(0.362 0.070 236);
+  --color-dunajec-900: oklch(0.296 0.053 237);
+
+  --color-kamien-50: oklch(0.985 0.002 150);
+  --color-kamien-100: oklch(0.968 0.003 150);
+  --color-kamien-200: oklch(0.928 0.005 150);
+  --color-kamien-300: oklch(0.872 0.007 150);
+  --color-kamien-400: oklch(0.712 0.009 150);
+  --color-kamien-500: oklch(0.576 0.010 150);
+  --color-kamien-600: oklch(0.468 0.010 150);
+  --color-kamien-700: oklch(0.386 0.009 150);
+  --color-kamien-800: oklch(0.284 0.007 150);
+  --color-kamien-900: oklch(0.208 0.006 150);
+
+  /* Skala typograficzna. Nagłówki skalują się płynnie z szerokością okna —
+     clamp() zamiast progów, żeby na tablecie nie było skoku o pół ekranu. */
+  --text-wyswietl: clamp(2.75rem, 1.6rem + 5.2vw, 5.5rem);
+  --text-wyswietl--line-height: 1.02;
+  --text-wyswietl--letter-spacing: -0.03em;
+  --text-tytul: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --text-tytul--line-height: 1.1;
+  --text-tytul--letter-spacing: -0.02em;
+  --text-sekcja: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --text-sekcja--line-height: 1.18;
+  --text-sekcja--letter-spacing: -0.015em;
+  --text-prowadzacy: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  --text-prowadzacy--line-height: 1.6;
+
+  /* Cienie: bardzo delikatne, zielonkawe zamiast czarnych. Czarny cień na
+     białym tle robi się szary i brudzi obraz; odrobina zieleni trzyma go
+     w tej samej rodzinie barw co reszta strony. */
+  --shadow-miekki: 0 1px 2px oklch(0.284 0.048 155 / 0.04), 0 2px 8px oklch(0.284 0.048 155 / 0.04);
+  --shadow-uniesiony: 0 2px 4px oklch(0.284 0.048 155 / 0.05), 0 8px 24px oklch(0.284 0.048 155 / 0.07);
+  --shadow-wysoki: 0 4px 8px oklch(0.284 0.048 155 / 0.06), 0 20px 48px oklch(0.284 0.048 155 / 0.10);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-tekst);
+  --font-heading: var(--font-naglowek);
+  --font-mono: var(--font-mono);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+/* Tokeny semantyczne, na których stoją komponenty shadcn/ui. Dzięki temu
+   każdy komponent wzięty z rejestru od razu mówi barwami portalu. */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: var(--color-kamien-900);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--color-kamien-900);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--color-kamien-900);
+  --primary: var(--color-las-700);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--color-kamien-100);
+  --secondary-foreground: var(--color-las-800);
+  --muted: var(--color-kamien-100);
+  --muted-foreground: var(--color-kamien-600);
+  --accent: var(--color-dunajec-50);
+  --accent-foreground: var(--color-dunajec-800);
+  --destructive: oklch(0.55 0.20 27);
+  --border: var(--color-kamien-200);
+  --input: var(--color-kamien-300);
+  --ring: var(--color-las-600);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: var(--color-las-950);
+  --foreground: var(--color-kamien-100);
+  --card: var(--color-las-900);
+  --card-foreground: var(--color-kamien-100);
+  --popover: var(--color-las-900);
+  --popover-foreground: var(--color-kamien-100);
+  --primary: var(--color-las-300);
+  --primary-foreground: var(--color-las-950);
+  --secondary: var(--color-las-800);
+  --secondary-foreground: var(--color-kamien-100);
+  --muted: var(--color-las-800);
+  --muted-foreground: var(--color-kamien-400);
+  --accent: var(--color-dunajec-900);
+  --accent-foreground: var(--color-dunajec-100);
+  --destructive: oklch(0.70 0.19 22);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: var(--color-las-400);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Płynne przewijanie do kotwic, ale nie dla osób, które w systemie
+     poprosiły o ograniczenie ruchu — u części z nich animacja przewijania
+     wywołuje zawroty głowy. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Nagłówek jest przyklejony u góry, więc kotwica musi zatrzymać się
+       niżej, żeby tytuł sekcji nie schował się pod paskiem. */
+    :target {
+      scroll-margin-top: 6rem;
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading text-balance;
+  }
+
+  /* Widoczny pierścień skupienia na wszystkim, co da się aktywować
+     klawiaturą. WCAG 2.2 dorzucił do tego wymóg, żeby pierścienia nie
+     zasłaniały elementy przyklejone — stąd offset zamiast obrysu w środku. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-las-600 rounded-sm;
+  }
+
+  /* Osoby proszące o mniej ruchu dostają stronę bez animacji. Nie usuwamy
+     ich całkiem — zostaje ślad 0,01 ms, żeby zdarzenia `animationend`,
+     na których wisi część logiki, nadal się odpalały. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Jedna miara szerokości treści dla całego portalu. Gdy kolumna tekstu
+     i siatka kart mają wspólny margines, strona przestaje „drgać" przy
+     przewijaniu między sekcjami. */
+  .obszar {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .obszar-waski {
+    @apply mx-auto w-full max-w-[68ch] px-5 sm:px-8;
+  }
+
+  /* Odstęp pionowy między sekcjami strony głównej. Duży — brief prosi
+     o dużo światła, a to właśnie ono. */
+  .sekcja {
+    @apply py-20 sm:py-28 lg:py-36;
+  }
+}

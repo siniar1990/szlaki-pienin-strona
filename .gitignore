@@ -1,1 +1,18 @@
+# Zależności
+/node_modules
+
+# Wynik budowania
+/.next
+/out
+next-env.d.ts
+
+# Środowisko
+.env*
+!.env.example
+
+# System
 .DS_Store
+*.pem
+
+# Zrzuty ekranu wrzucane roboczo do katalogu projektu
+Screenshot*.png
