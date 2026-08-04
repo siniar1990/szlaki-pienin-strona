@@ -70,7 +70,18 @@ export function KafelkiKategorii({
                 )}
               />
 
-              <div className="relative z-10 p-6">
+              {/*
+                Cień pod tekstem tylko na zdjęciach. Gradient wystarcza nad
+                rysunkiem, ale fotografia potrafi mieć u dołu jasną trawę albo
+                białe owce — wtedy sam gradient nie ratuje białego napisu,
+                a delikatny cień tak, nie brudząc przy tym ciemnych kadrów.
+              */}
+              <div
+                className={cn(
+                  'relative z-10 p-6',
+                  zdjecie && '[text-shadow:0_1px_10px_rgb(11_58_38_/_0.55)]',
+                )}
+              >
                 <h3 className="font-heading text-xl font-semibold text-white">
                   {kategoria.nazwa}
                 </h3>
