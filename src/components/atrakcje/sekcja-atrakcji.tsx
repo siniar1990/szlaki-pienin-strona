@@ -1,50 +1,38 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, MapPin } from 'lucide-react'
 
+import { zdjecieAtrakcji } from '@/lib/dane/zdjecia-atrakcji'
 import type { AtrakcjaTurystyczna, GrupaAtrakcji } from '@/lib/tresc/atrakcje-turystyczne'
 import { cn } from '@/lib/utils'
 
 /**
- * Sekcja atrakcji w duchu folderu gminy.
+ * Lista atrakcji w jednej grupie.
  *
- * Trzy rzeczy stamtąd: wielkie wąskie wersaliki, pełnoformatowe barwne
- * płaszczyzny zamiast białych prostokątów i okrągła wstawka wychodząca poza
- * krawędź panelu. Czwarta — góralski haft — wraca jako subtelna tekstura
- * w tle każdej płaszczyzny.
+ * Poprzednia wersja dawała każdej z siedmiu grup własny barwny pas i własny
+ * kolor przewodni. Siedem kolorów na jednej stronie to nie system, tylko
+ * bałagan — strona wyglądała jak siedem różnych stron sklejonych razem.
+ * Teraz obowiązuje jedna barwa i jeden kształt kafelka; grupy rozróżnia
+ * numer i tytuł, a nie kolor.
  *
- * Fotografii tych atrakcji nie mamy, a zdjęcia z folderu są cudze. Zamiast
- * udawać zdjęcia szarym prostokątem, każda grupa dostaje własną barwę
- * i wielką inicjał-cyfrę — to czytelny, celowy język graficzny, a nie
- * dziura po obrazku.
+ * Kafelek jest przygotowany na zdjęcie. Dopóki go nie ma, pole obrazka
+ * wypełnia spokojna zielona płaszczyzna z góralskim haftem i inicjałem —
+ * czytelny znak zastępczy, a nie dziura.
  */
-
-/** Barwy grup. Każda ciemna na tyle, by biały tekst trzymał kontrast AA. */
-const BARWY: Record<GrupaAtrakcji, { od: string; do: string; jasny: string }> = {
-  rzeka: { od: '#1F6DAD', do: '#12314A', jasny: '#7CC0EA' },
-  wody: { od: '#0F8B8D', do: '#0B3A3B', jasny: '#8FD6D7' },
-  rozrywka: { od: '#B5651D', do: '#5C3210', jasny: '#F0B87A' },
-  konie: { od: '#7A5230', do: '#3B2617', jasny: '#D8B08C' },
-  zabytki: { od: '#6B4C9A', do: '#2E1F47', jasny: '#C4AEE6' },
-  przyroda: { od: '#1F8060', do: '#0B3A26', jasny: '#8FD8BC' },
-  rower: { od: '#2F7DBB', do: '#14532D', jasny: '#A9D8F0' },
-}
 
 /**
- * Haft góralski jako tekstura tła.
- *
- * Ten sam ząbek z listkiem, co na ilustracjach kategorii, powielony wzorem
- * SVG. Przy 8% krycia nie czyta się jako ornament, tylko jako faktura —
- * i o to chodzi: ma podnosić płaszczyznę, a nie odciągać wzrok od napisu.
+ * Haft góralski jako faktura pola bez zdjęcia. Ten sam motyw, co na
+ * ilustracjach — przy niskim kryciu czyta się jako tło, nie jako ornament.
  */
-function Haft({ kolor, id }: { kolor: string; id: string }) {
+function Haft({ id }: { id: string }) {
   return (
-    <svg aria-hidden className="pointer-events-none absolute inset-0 size-full opacity-[0.14]">
+    <svg aria-hidden className="absolute inset-0 size-full opacity-[0.18]">
       <defs>
-        <pattern id={id} width="48" height="48" patternUnits="userSpaceOnUse">
+        <pattern id={id} width="44" height="44" patternUnits="userSpaceOnUse">
           <path
-            d="M 0 34 l 24 -16 l 24 16 M 24 18 l 0 -9 M 16 13 l 8 -6 l 8 6"
-            stroke={kolor}
-            strokeWidth="2"
+            d="M 0 32 l 22 -15 l 22 15 M 22 17 l 0 -8 M 15 12 l 7 -5 l 7 5"
+            stroke="#F5F0E3"
+            strokeWidth="1.8"
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -53,6 +41,64 @@ function Haft({ kolor, id }: { kolor: string; id: string }) {
       </defs>
       <rect width="100%" height="100%" fill={`url(#${id})`} />
     </svg>
+  )
+}
+
+function KafelekAtrakcji({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
+  const zdjecie = zdjecieAtrakcji(atrakcja.slug)
+
+  return (
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-kamien-200 bg-white shadow-miekki transition-all duration-300 hover:-translate-y-1 hover:shadow-uniesiony focus-within:-translate-y-1 focus-within:shadow-uniesiony">
+      <div className="relative aspect-[16/10] overflow-hidden bg-las-800">
+        {zdjecie ? (
+          <Image
+            src={zdjecie}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-las-700 to-las-900" />
+            <Haft id={`haft-${atrakcja.slug}`} />
+            <span
+              aria-hidden
+              className="absolute inset-0 grid place-items-center font-plakat text-6xl text-white/25"
+            >
+              {atrakcja.nazwa.charAt(0)}
+            </span>
+          </>
+        )}
+
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/92 px-2.5 py-1 text-xs font-semibold text-kamien-700 backdrop-blur-sm">
+          <MapPin className="size-3" aria-hidden />
+          {atrakcja.miejscowosc}
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="font-plakat text-xl uppercase leading-tight text-kamien-900">
+          <Link
+            href={`/atrakcje/${atrakcja.slug}`}
+            className="after:absolute after:inset-0 after:content-[''] group-hover:text-las-700"
+          >
+            {atrakcja.nazwa}
+          </Link>
+        </h3>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-kamien-600">{atrakcja.skrot}</p>
+        {atrakcja.sezon && (
+          <p className="mt-5 text-xs uppercase tracking-wider text-kamien-400">{atrakcja.sezon}</p>
+        )}
+      </div>
+
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-5 right-5 grid size-9 place-items-center rounded-full bg-las-700 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100"
+      >
+        <ArrowUpRight className="size-4" />
+      </span>
+    </article>
   )
 }
 
@@ -67,119 +113,36 @@ export function SekcjaGrupy({
   nazwa: string
   opis: string
   atrakcje: AtrakcjaTurystyczna[]
-  /** Numer grupy — sekcje idą w ustalonej kolejności, więc numer coś znaczy. */
   numer: number
 }) {
-  const barwa = BARWY[grupa]
-  const [pierwsza, ...reszta] = atrakcje
-
   return (
     <section aria-labelledby={`grupa-${grupa}`} className="scroll-mt-28" id={grupa}>
-      {/* ── Pas tytułowy ─────────────────────────────────────────────── */}
-      <div
-        className="relative overflow-hidden rounded-3xl px-8 py-14 sm:px-12 sm:py-16"
-        style={{ background: `linear-gradient(135deg, ${barwa.od}, ${barwa.do})` }}
-      >
-        <Haft kolor="#FFFFFF" id={`haft-${grupa}`} />
-
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p
-              className="text-sm font-semibold uppercase tracking-[0.24em]"
-              style={{ color: barwa.jasny }}
-            >
-              {String(numer).padStart(2, '0')} · {atrakcje.length}{' '}
-              {atrakcje.length === 1 ? 'miejsce' : atrakcje.length < 5 ? 'miejsca' : 'miejsc'}
-            </p>
-            <h2
-              id={`grupa-${grupa}`}
-              className="mt-4 font-plakat text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-[0.92] tracking-[0.01em] text-white"
-            >
-              {nazwa}
-            </h2>
-            <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-white/85">{opis}</p>
-          </div>
+      <div className="flex items-end justify-between gap-8 border-b border-kamien-200 pb-6">
+        <div className="max-w-2xl">
+          <p className="font-plakat text-sm uppercase tracking-[0.22em] text-las-600">
+            {String(numer).padStart(2, '0')}
+          </p>
+          <h2
+            id={`grupa-${grupa}`}
+            className="mt-2 font-plakat text-[clamp(1.9rem,4vw,3rem)] uppercase leading-[0.98] text-kamien-900"
+          >
+            {nazwa}
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-kamien-600">{opis}</p>
         </div>
+        <p className="hidden shrink-0 text-sm text-kamien-500 sm:block">
+          {atrakcje.length}{' '}
+          {atrakcje.length === 1 ? 'miejsce' : atrakcje.length < 5 ? 'miejsca' : 'miejsc'}
+        </p>
       </div>
 
-      {/* ── Wyróżniona atrakcja ──────────────────────────────────────── */}
-      {pierwsza && (
-        <Link
-          href={`/atrakcje/${pierwsza.slug}`}
-          className="group relative -mt-10 ml-4 mr-4 flex flex-col overflow-hidden rounded-2xl border border-kamien-200 bg-white shadow-uniesiony transition-all duration-300 hover:-translate-y-1 hover:shadow-wysoki sm:ml-12 sm:mr-12 lg:flex-row"
-        >
-          {/* Okrągła wstawka wychodząca poza krawędź — cytat z folderu. */}
-          <div
-            className="relative grid shrink-0 place-items-center px-10 py-10 lg:w-64"
-            style={{ background: `linear-gradient(160deg, ${barwa.od}, ${barwa.do})` }}
-          >
-            <Haft kolor="#FFFFFF" id={`haft-w-${grupa}`} />
-            <span
-              className="relative grid size-28 place-items-center rounded-full border-4 border-white/25 font-plakat text-4xl text-white"
-              aria-hidden
-            >
-              {pierwsza.nazwa.charAt(0)}
-            </span>
-          </div>
-
-          <div className="flex flex-1 flex-col justify-center p-8 sm:p-10">
-            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-kamien-500">
-              <MapPin className="size-3.5" aria-hidden />
-              {pierwsza.miejscowosc}
-            </p>
-            <h3 className="mt-3 font-plakat text-[clamp(1.6rem,3vw,2.4rem)] uppercase leading-[1.02] text-kamien-900 transition-colors group-hover:text-las-700">
-              {pierwsza.nazwa}
-            </h3>
-            <p className="mt-4 max-w-[58ch] leading-relaxed text-kamien-600">{pierwsza.skrot}</p>
-            <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-las-700">
-              Czytaj dalej
-              <ArrowUpRight
-                className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                aria-hidden
-              />
-            </span>
-          </div>
-        </Link>
-      )}
-
-      {/* ── Pozostałe ────────────────────────────────────────────────── */}
-      {reszta.length > 0 && (
-        <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {reszta.map((atrakcja) => (
-            <li key={atrakcja.slug}>
-              <Link
-                href={`/atrakcje/${atrakcja.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-kamien-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-uniesiony"
-              >
-                {/* Wąski pasek barwy grupy rozlewa się przy najechaniu —
-                    drobny ruch, który pokazuje, że kafelek jest klikalny. */}
-                <span
-                  aria-hidden
-                  className="h-1.5 w-full transition-all duration-300 group-hover:h-2.5"
-                  style={{ background: `linear-gradient(90deg, ${barwa.od}, ${barwa.do})` }}
-                />
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-kamien-500">
-                    <MapPin className="size-3.5" aria-hidden />
-                    {atrakcja.miejscowosc}
-                  </p>
-                  <h3 className="mt-3 font-plakat text-xl uppercase leading-tight text-kamien-900 transition-colors group-hover:text-las-700">
-                    {atrakcja.nazwa}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-kamien-600">
-                    {atrakcja.skrot}
-                  </p>
-                  {atrakcja.sezon && (
-                    <p className="mt-5 text-xs uppercase tracking-wider text-kamien-400">
-                      {atrakcja.sezon}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {atrakcje.map((atrakcja) => (
+          <li key={atrakcja.slug}>
+            <KafelekAtrakcji atrakcja={atrakcja} />
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

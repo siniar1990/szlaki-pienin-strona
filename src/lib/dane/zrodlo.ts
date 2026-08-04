@@ -236,36 +236,29 @@ export function naListe(trasa: Trasa): TrasaNaLiscie {
    po nazwie i zapamiętujemy, którędy da się tam dojść.                     */
 
 /**
- * Typy punktów, które zasługują na własną stronę.
+ * Typy punktów, które dostają własną stronę.
  *
- * Nie ma tu typu „atrakcja" z danych aplikacji — trafiały do niego rzeczy
- * nieporównywalne: grota, przydrożna kaplica i zamek obok siebie. Naprawdę
- * warte osobnej strony spośród nich (wodospad, zamek, muzeum) opisujemy
- * w katalogu atrakcji turystycznych. Nie ma też „źródła": jedno wystąpienie
- * i to nazwane doliną, więc jako atrakcja wprowadzałoby w błąd.
+ * Wyłącznie szczyty. Przełęcze, punkty widokowe, schroniska i stacje kolei są
+ * ważne na trasie — i tam je pokazujemy, w wykazie punktów i na mapie — ale
+ * jako osobne „atrakcje" tworzyły listę bez ładu: przystanek autobusowy obok
+ * Trzech Koron. Rzeczy naprawdę warte osobnej strony (zamki, muzea, wąwozy,
+ * spływ) opisuje katalog atrakcji turystycznych, pisany ręcznie.
  */
-const TYPY_ATRAKCJI: ReadonlySet<TypPunktu> = new Set<TypPunktu>([
-  'szczyt', 'punkt_widokowy', 'przelecz', 'schronisko', 'zamek', 'muzeum',
-  'kolej_linowa',
-])
+const TYPY_ATRAKCJI: ReadonlySet<TypPunktu> = new Set<TypPunktu>(['szczyt'])
 
 /**
- * Koleje linowe scalone do jednego wpisu.
+ * Szczyty występujące w danych pod dwiema nazwami.
  *
- * W danych trasy stacja dolna i górna to osobne punkty — słusznie, bo to dwa
- * różne miejsca na szlaku. Ale jako atrakcja jest to jedna kolej i nikt nie
- * szuka „górnej stacji" osobno. Sprowadzamy więc obie do wspólnej nazwy;
- * pozycję dostaje ta, która trafi pierwsza, czyli stacja dolna — i dobrze,
- * bo to od niej się zaczyna.
+ * „Wysoka" i „Wysoka (Wysokie Skałki)" to ta sama góra — 1050 m, najwyższy
+ * szczyt Małych Pienin. Bez scalenia stałaby na wykresie pasma dwa razy
+ * obok siebie, co wygląda jak błąd, bo nim jest.
  */
-const SCALONE_KOLEJE: { wzorzec: RegExp; nazwa: string }[] = [
-  { wzorzec: /stacj[ai].*kolei na Palenic/i, nazwa: 'Kolej krzesełkowa na Palenicę' },
-  { wzorzec: /stacj[ai].*wyciągu w Jaworkach/i, nazwa: 'Wyciąg krzesełkowy w Jaworkach' },
-]
+const ALIASY_SZCZYTOW: Record<string, string> = {
+  Wysoka: 'Wysoka (Wysokie Skałki)',
+}
 
-function scalNazwe(nazwa: string, typ: TypPunktu): string {
-  if (typ !== 'kolej_linowa') return nazwa
-  return SCALONE_KOLEJE.find((k) => k.wzorzec.test(nazwa))?.nazwa ?? nazwa
+function scalNazwe(nazwa: string): string {
+  return ALIASY_SZCZYTOW[nazwa] ?? nazwa
 }
 
 /**
@@ -311,7 +304,7 @@ export function pobierzAtrakcje(): Atrakcja[] {
     for (const punkt of trasa.punkty) {
       if (!TYPY_ATRAKCJI.has(punkt.typ)) continue
 
-      const nazwa = scalNazwe(punkt.nazwa, punkt.typ)
+      const nazwa = scalNazwe(punkt.nazwa)
       const klucz = naSlug(nazwa)
       const istniejacy = wgNazwy.get(klucz)
 
@@ -496,14 +489,31 @@ export function pobierzProfil(trasa: Trasa): ProfilWysokosci | null {
  */
 export function pobierzStatystyki(): StatystykiPortalu {
   const trasy = pobierzTrasy()
-  const atrakcje = pobierzAtrakcje()
+
+  /*
+    Liczymy wprost z punktów tras, a nie z listy atrakcji.
+
+    Atrakcje obejmują dziś wyłącznie szczyty, ale punkty widokowe i schroniska
+    nadal istnieją na trasach i nadal są prawdziwą miarą tego, co opisaliśmy —
+    tyle że nie zasługują na osobne strony. Gdyby statystyki brały je z listy
+    atrakcji, sekcja powitalna pokazywałaby zera.
+  */
+  const unikalne = (typ: TypPunktu) => {
+    const nazwy = new Set<string>()
+    for (const trasa of trasy) {
+      for (const punkt of trasa.punkty) {
+        if (punkt.typ === typ) nazwy.add(naSlug(punkt.nazwa))
+      }
+    }
+    return nazwy.size
+  }
 
   return {
     liczbaTras: trasy.length,
     sumaKm: Math.round(trasy.reduce((suma, t) => suma + t.dlugoscKm, 0)),
-    liczbaSzczytow: atrakcje.filter((a) => a.typ === 'szczyt').length,
-    liczbaPunktowWidokowych: atrakcje.filter((a) => a.typ === 'punkt_widokowy').length,
+    liczbaSzczytow: unikalne('szczyt'),
+    liczbaPunktowWidokowych: unikalne('punkt_widokowy'),
     liczbaCiekawostek: trasy.reduce((suma, t) => suma + t.ciekawostki.length, 0),
-    liczbaSchronisk: atrakcje.filter((a) => a.typ === 'schronisko').length,
+    liczbaSchronisk: unikalne('schronisko'),
   }
 }
