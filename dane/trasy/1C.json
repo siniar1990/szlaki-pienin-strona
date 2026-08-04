@@ -1,0 +1,197 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "1C",
+ "nazwa": "Mnisia ścieżka",
+ "kategoria": "dluga",
+ "dlugosc_km": 23.0,
+ "suma_podejsc_m": {
+  "tam": 620,
+  "powrot": 620
+ },
+ "czas_min": {
+  "tam": 380,
+  "powrot": 380
+ },
+ "kcal": {
+  "70kg": 2650,
+  "80kg": 3030,
+  "90kg": 3410
+ },
+ "granica": true,
+ "petla": true,
+ "szlaki": [
+  "zolty",
+  "niebieski",
+  "czerwony"
+ ],
+ "pttk": true,
+ "opis": "Przez Palenicę i Szafranówkę na słowacką stronę, doliną Leśnickiego Potoku pod Czerwony Klasztor, a z powrotem Drogą Pienińską wzdłuż Dunajca. Najdłuższa pętla z pieszych tras przewodnika.",
+ "ostrzezenia": [
+  "Większość trasy biegnie po Słowacji. Miej przy sobie dowód osobisty lub paszport — brak dokumentu skutkuje mandatem i procedurą ustalania tożsamości."
+ ],
+ "geometry": "assets/trasy/gpx/1C.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 380
+   },
+   "wysokosc_m": 448
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47653,
+    49.41872
+   ],
+   "czas_narast_min": {
+    "tam": 60,
+    "powrot": 320
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.47624,
+    49.41405
+   ],
+   "czas_narast_min": {
+    "tam": 75,
+    "powrot": 305
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Przełęcz pod Szafranówką",
+   "typ": "przelecz",
+   "coord": [
+    20.46426,
+    49.41603
+   ],
+   "czas_narast_min": {
+    "tam": 90,
+    "powrot": 290
+   },
+   "wysokosc_m": 630
+  },
+  {
+   "nazwa": "Leśnica",
+   "typ": "miejscowosc",
+   "coord": [
+    20.45957,
+    49.39686
+   ],
+   "czas_narast_min": {
+    "tam": 115,
+    "powrot": 265
+   },
+   "wysokosc_m": 706
+  },
+  {
+   "nazwa": "Grota słowackiego turysty",
+   "typ": "atrakcja",
+   "coord": [
+    20.4298,
+    49.41134
+   ],
+   "czas_narast_min": {
+    "tam": 275,
+    "powrot": 105
+   },
+   "wysokosc_m": 444
+  },
+  {
+   "nazwa": "Schronisko PTTK „Orlica”",
+   "typ": "schronisko",
+   "coord": [
+    20.45795,
+    49.41985
+   ],
+   "czas_narast_min": {
+    "tam": 350,
+    "powrot": 30
+   },
+   "wysokosc_m": 440
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 380,
+    "powrot": 0
+   },
+   "wysokosc_m": 444
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Promenadą nad Grajcarkiem do dolnej stacji kolei krzesełkowej, a stamtąd szlakiem żółtym przez kładkę, w lewo w ul. Zawodzie i po stu metrach w prawo na kamienistą drogę leśną, która zakosami pnie się na Palenicę. Odcinek wspólny z trasą 1A.",
+   "wskazowka": "Promenadą do stacji kolei, potem szlakiem żółtym na Palenicę."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Grzbietem przez trawiastą przełęcz Maćkówki na Szafranówkę (742 m).",
+   "wskazowka": "Grzbietem przez przełęcz Maćkówki."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Przełęcz pod Szafranówką",
+   "tekst": "Na granicy szlak niebieski, w prawo przez skalisty wierzchołek, potem ostrożnie po skałkach i wygodną grzbietową ścieżką do przełęczy pod Szafranówką (608 m), gdzie zaczyna się słowacki szlak żółty.",
+   "wskazowka": "Granicą w prawo, przy tablicy w lewo za żółtymi na stronę słowacką."
+  },
+  {
+   "od": "Przełęcz pod Szafranówką",
+   "do": "Leśnica",
+   "tekst": "Żółtym w dół, przez las i łąki z wiatą turystyczną, do szosy na dolnym końcu wsi Leśnica, przy drewnianej szkole i murowanej kapliczce. Na szosie skręcasz w lewo za znakami niebieskimi i idziesz przez wieś w górę Leśnickiego Potoku; po lewej mijasz kościół parafialny pw. św. Michała Archanioła.",
+   "wskazowka": "Na szosie w Leśnicy w lewo za niebieskimi, w górę potoku."
+  },
+  {
+   "od": "Leśnica",
+   "do": "Grota słowackiego turysty",
+   "tekst": "Dalej niebieskim przez przełęcz Limierz (Targov) i przełęcz Cyrhla (Cerla) w stronę Czerwonego Klasztoru. To najdłuższy odcinek trasy — prowadzi słowacką stroną Pienin, z dala od zabudowy.",
+   "wskazowka": "Przez przełęcze Limierz i Cyrhla w stronę Czerwonego Klasztoru."
+  },
+  {
+   "od": "Grota słowackiego turysty",
+   "do": "Schronisko PTTK „Orlica”",
+   "tekst": "Spod Czerwonego Klasztoru wchodzisz na Drogę Pienińską i wzdłuż Dunajca, przełomem, wracasz na wschód. Po polskiej stronie mijasz Białą Skałę i dochodzisz do schroniska Orlica.",
+   "wskazowka": "Drogą Pienińską wzdłuż Dunajca w prawo."
+  },
+  {
+   "od": "Schronisko PTTK „Orlica”",
+   "do": "Szczawnica, centrum",
+   "tekst": "Od schroniska Drogą Pienińską, obok przystani flisackiej, i promenadą do centrum Szczawnicy.",
+   "wskazowka": "Wzdłuż Dunajca do przystani, dalej promenadą."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.45957,
+    49.39686
+   ],
+   "tytul": "Kościół w Leśnicy",
+   "tekst": "Zbudowany w 1753 r. na gotyckich fundamentach; po pożarze w 1792 r. dostawiono dzwonnicę. Stoi przy szosie w górę Leśnickiego Potoku, kilkaset metrów za miejscem, w którym szlak żółty ze Szafranówki wychodzi z lasu."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "1C.webp"
+}

@@ -1,0 +1,116 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP21",
+ "nazwa": "Witkula",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 736,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 2.6,
+ "suma_podejsc_m": {
+  "tam": 280,
+  "powrot": 48
+ },
+ "czas_min": {
+  "tam": 67,
+  "powrot": 43
+ },
+ "kcal": {
+  "70kg": 335,
+  "80kg": 382,
+  "90kg": 430
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "zolty",
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Jak na Szafranówkę, dalej niebieskim — pierwsza kulminacja za nią.",
+ "ostrzezenia": [
+  "Kulminacja mało wybitna. Większość źródeł mówi, że szlak przez nią przechodzi, jedno — że obok. Położenie słupka DO WERYFIKACJI W TERENIE.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 43
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 48,
+    "powrot": 18
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.4761,
+    49.41412
+   ],
+   "czas_narast_min": {
+    "tam": 62,
+    "powrot": 6
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Witkula",
+   "typ": "szczyt",
+   "coord": [
+    20.47817,
+    49.41185
+   ],
+   "czas_narast_min": {
+    "tam": 67,
+    "powrot": 0
+   },
+   "wysokosc_m": 736
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Jak na Szafranówkę, dalej niebieskim — pierwsza kulminacja za nią.",
+   "wskazowka": "Do: Palenica."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Dalej do punktu „Szafranówka\".",
+   "wskazowka": "Do: Szafranówka."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Witkula",
+   "tekst": "Dalej do punktu „Witkula\".",
+   "wskazowka": "Do: Witkula."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP21.webp",
+ "geometry": "assets/trasy/gpx/KP21.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

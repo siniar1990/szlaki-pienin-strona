@@ -1,0 +1,188 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "2C",
+ "nazwa": "Spacer Harnasia",
+ "kategoria": "dluga",
+ "dlugosc_km": 21.0,
+ "suma_podejsc_m": {
+  "tam": 765,
+  "powrot": 765
+ },
+ "czas_min": {
+  "tam": 400,
+  "powrot": 400
+ },
+ "kcal": {
+  "70kg": 2860,
+  "80kg": 3270,
+  "90kg": 3680
+ },
+ "granica": true,
+ "petla": true,
+ "szlaki": [
+  "zielony",
+  "niebieski",
+  "zolty",
+  "czerwony"
+ ],
+ "pttk": true,
+ "opis": "Wąwozem Homole na Wysoką — najwyższy szczyt Pienin — i całym granicznym grzbietem Małych Pienin przez Rozdzielę i Przełęcz Gromadzką, z powrotem doliną Białej Wody.",
+ "ostrzezenia": [
+  "Grzbiet biegnie granicą państwa. Miej przy sobie dowód osobisty lub paszport.",
+  "Najdłuższa trasa w przewodniku — prawie siedem godzin samego marszu."
+ ],
+ "geometry": "assets/trasy/gpx/2C.geojson",
+ "punkty": [
+  {
+   "nazwa": "Jaworki, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 400
+   },
+   "wysokosc_m": 572
+  },
+  {
+   "nazwa": "Wysoka",
+   "typ": "szczyt",
+   "coord": [
+    20.55747,
+    49.38033
+   ],
+   "czas_narast_min": {
+    "tam": 130,
+    "powrot": 270
+   },
+   "wysokosc_m": 1050
+  },
+  {
+   "nazwa": "Wierchliczka",
+   "typ": "szczyt",
+   "coord": [
+    20.59184,
+    49.38408
+   ],
+   "czas_narast_min": {
+    "tam": 190,
+    "powrot": 210
+   },
+   "wysokosc_m": 966
+  },
+  {
+   "nazwa": "Przełęcz Rozdziela",
+   "typ": "przelecz",
+   "coord": [
+    20.6014,
+    49.39026
+   ],
+   "czas_narast_min": {
+    "tam": 215,
+    "powrot": 185
+   },
+   "wysokosc_m": 803
+  },
+  {
+   "nazwa": "Przełęcz Gromadzka",
+   "typ": "przelecz",
+   "coord": [
+    20.61122,
+    49.4122
+   ],
+   "czas_narast_min": {
+    "tam": 275,
+    "powrot": 125
+   },
+   "wysokosc_m": 935
+  },
+  {
+   "nazwa": "Ruski Wierch",
+   "typ": "szczyt",
+   "coord": [
+    20.59466,
+    49.42014
+   ],
+   "czas_narast_min": {
+    "tam": 330,
+    "powrot": 70
+   },
+   "wysokosc_m": 935
+  },
+  {
+   "nazwa": "Jaworki, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "czas_narast_min": {
+    "tam": 400,
+    "powrot": 0
+   },
+   "wysokosc_m": 580
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Jaworki, centrum",
+   "do": "Wysoka",
+   "tekst": "Z centrum Jaworek ruszasz szlakiem zielonym: przez plac odpoczynkowy, potem na asfaltową szosę biegnącą z Grajcarkiem do Szczawnicy. Po 400 metrach mijasz połemkowską kapliczkę domkową po lewej i zaraz za nią schodzisz z szosy w lewo nad potok Kamionkę. Jesteś u wylotu wąwozu Homole, przy granicy rezerwatu. Wąwozem, a dalej pod górę na Wysoką (1050 m) — najwyższy szczyt całych Pienin.",
+   "wskazowka": "Za kapliczką w lewo nad Kamionkę, wąwozem Homole i pod górę."
+  },
+  {
+   "od": "Wysoka",
+   "do": "Wierchliczka",
+   "tekst": "Z Wysokiej granicznym grzbietem na wschód, przez Jaworzynę, w stronę Wierchliczki (966 m).",
+   "wskazowka": "Grzbietem granicznym przez Jaworzynę."
+  },
+  {
+   "od": "Wierchliczka",
+   "do": "Przełęcz Rozdziela",
+   "tekst": "Dalej grzbietem, łagodnie w dół, na przełęcz Rozdziela (803 m).",
+   "wskazowka": "Grzbietem w dół na Rozdzielę."
+  },
+  {
+   "od": "Przełęcz Rozdziela",
+   "do": "Przełęcz Gromadzka",
+   "tekst": "Z Rozdzieli przez Hurcałki na Przełęcz Gromadzką, mijając Szczob i Syhłę.",
+   "wskazowka": "Przez Hurcałki na Przełęcz Gromadzką."
+  },
+  {
+   "od": "Przełęcz Gromadzka",
+   "do": "Ruski Wierch",
+   "tekst": "Z przełęczy przez Polanę Litawcową i Pokrywisko na Ruski Wierch (935 m).",
+   "wskazowka": "Przez Polanę Litawcową i Pokrywisko na Ruski Wierch."
+  },
+  {
+   "od": "Ruski Wierch",
+   "do": "Jaworki, centrum",
+   "tekst": "Zejście do doliny Białej Wody i nią z powrotem do Jaworek — obok pasterskich szałasów, stadniny Rajd i Muzycznej Owczarni.",
+   "wskazowka": "W dół do doliny Białej Wody, doliną do Jaworek."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "tytul": "Skąd nazwa trasy",
+   "tekst": "Spacer Harnasia nawiązuje do zbójnickiego hetmana Józefa Baczyńskiego, rodem ze Skawicy pod Babią Górą. Jego kompania grasowała cztery lata na Orawie, w Beskidach i w Pieninach, a poza sezonem rabunków — głównie zimą — Baczyński mieszkał z żoną w pobliskiej Białej Wodzie. Znał więc tutejsze ścieżki, w tym tę. A że był kawał chłopa, siedmiogodzinną trasę zapewne traktował jak spacer. Ujęto go w 1735 r. w Wilczyskach koło Dobrej i osadzono na zamku w Krakowie; egzekucja odbyła się prawdopodobnie wiosną 1736 r."
+  },
+  {
+   "coord": [
+    20.55747,
+    49.38033
+   ],
+   "tytul": "Rezerwat Wąwóz Homole",
+   "tekst": "Rezerwat nosi imię piewcy Pienin Jana Wiktora (1890–1967) i jest najpiękniejszym wąwozem Małych Pienin — latem odwiedza go nawet ponad 2000 osób dziennie. Utworzono go w 1963 r. na obszarze prawie 60 ha. Wąwóz, którego dnem płynie potok Kamionka, ma 800 metrów długości, a jego wapienne ściany sięgają 120 metrów. Wejścia strzeże skalna baszta zwana Wapiennikiem."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "2C.webp"
+}

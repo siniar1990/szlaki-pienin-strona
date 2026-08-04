@@ -1,0 +1,167 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "4B",
+ "nazwa": "Co tam u baców?",
+ "kategoria": "srednia",
+ "dlugosc_km": 16.0,
+ "suma_podejsc_m": {
+  "tam": 440,
+  "powrot": 440
+ },
+ "czas_min": {
+  "tam": 285,
+  "powrot": 285
+ },
+ "kcal": {
+  "70kg": 1970,
+  "80kg": 2250,
+  "90kg": 2530
+ },
+ "granica": true,
+ "petla": true,
+ "szlaki": [
+  "zolty",
+  "czerwony",
+  "niebieski"
+ ],
+ "pttk": true,
+ "opis": "Doliną Białej Wody na przełęcz Rozdziela i granicznym grzbietem Małych Pienin przez Przełęcz Gromadzką i Ruski Wierch. Trasa przez zagłębie owczarstwa — przy samej Białej Wodzie stoi pięć pasterskich szałasów.",
+ "ostrzezenia": [
+  "Grzbietowy odcinek biegnie granicą państwa. Miej przy sobie dowód osobisty lub paszport."
+ ],
+ "geometry": "assets/trasy/gpx/4B.geojson",
+ "punkty": [
+  {
+   "nazwa": "Jaworki, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 285
+   },
+   "wysokosc_m": 580
+  },
+  {
+   "nazwa": "Ruski Wierch",
+   "typ": "szczyt",
+   "coord": [
+    20.59466,
+    49.42014
+   ],
+   "czas_narast_min": {
+    "tam": 105,
+    "powrot": 180
+   },
+   "wysokosc_m": 935
+  },
+  {
+   "nazwa": "Pokrywisko",
+   "typ": "szczyt",
+   "coord": [
+    20.59571,
+    49.42518
+   ],
+   "czas_narast_min": {
+    "tam": 125,
+    "powrot": 160
+   },
+   "wysokosc_m": 975
+  },
+  {
+   "nazwa": "Przełęcz Gromadzka",
+   "typ": "przelecz",
+   "coord": [
+    20.61122,
+    49.4122
+   ],
+   "czas_narast_min": {
+    "tam": 175,
+    "powrot": 110
+   },
+   "wysokosc_m": 935
+  },
+  {
+   "nazwa": "Szczob",
+   "typ": "szczyt",
+   "coord": [
+    20.60576,
+    49.40121
+   ],
+   "czas_narast_min": {
+    "tam": 205,
+    "powrot": 80
+   },
+   "wysokosc_m": 920
+  },
+  {
+   "nazwa": "Jaworki, Biała Woda",
+   "typ": "miejscowosc",
+   "coord": [
+    20.57207,
+    49.40351
+   ],
+   "czas_narast_min": {
+    "tam": 285,
+    "powrot": 0
+   },
+   "wysokosc_m": 634
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Jaworki, centrum",
+   "do": "Ruski Wierch",
+   "tekst": "Z centrum Jaworek — pętla busów, karczma Bacówka — ruszasz szlakami żółtym i czerwonym, asfaltową drogą w górę doliny Białej Wody. Po 200 metrach na rozdrożu w lewo, mijasz murowaną kapliczkę domkową po lewej. Sto metrów dalej stadnina koni Rajd po prawej i szeroko znana Muzyczna Owczarnia po lewej. Dalej doliną, obok kolejnych pasterskich szałasów, w stronę grzbietu.",
+   "wskazowka": "Szlakiem żółtym i czerwonym w górę doliny Białej Wody."
+  },
+  {
+   "od": "Ruski Wierch",
+   "do": "Pokrywisko",
+   "tekst": "Z Ruskiego Wierchu grzbietem, mijając Polanę Litawcową, na Pokrywisko (975 m).",
+   "wskazowka": "Grzbietem przez Polanę Litawcową."
+  },
+  {
+   "od": "Pokrywisko",
+   "do": "Przełęcz Gromadzka",
+   "tekst": "Dalej granicznym grzbietem przez Hurcałki na Przełęcz Gromadzką — węzeł szlaków w głównym grzbiecie Małych Pienin.",
+   "wskazowka": "Grzbietem przez Hurcałki na Przełęcz Gromadzką."
+  },
+  {
+   "od": "Przełęcz Gromadzka",
+   "do": "Szczob",
+   "tekst": "Z przełęczy dalej grzbietem na Szczob (920 m), skąd zaczyna się zejście z powrotem ku dolinie Białej Wody.",
+   "wskazowka": "Grzbietem na Szczob."
+  },
+  {
+   "od": "Szczob",
+   "do": "Jaworki, Biała Woda",
+   "tekst": "Zejście do doliny Białej Wody i nią z powrotem w stronę Jaworek, obok kolejnych szałasów.",
+   "wskazowka": "W dół do doliny Białej Wody, doliną do Jaworek."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "tytul": "Zagłębie owczarstwa",
+   "tekst": "Małe Pieniny to zagłębie owczarstwa — sprzyjają temu rozległe polany, trochę podobne do bieszczadzkich połonin. Pasterze i owce przybywają tu z Podhala. W samym rejonie Białej Wody stoi pięć pasterskich gospodarstw; centrum każdego stanowi szałas, czyli bacówka. Gospodaruje w niej baca, któremu podlega kilku juhasów — ich liczba zależy od wielkości stada. Baca sam nie wypasa, choć wypas nadzoruje; od tego są juhasi."
+  },
+  {
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "tytul": "Muzyczna Owczarnia",
+   "tekst": "Stowarzyszenie i klub muzyczny działający od stycznia 1999 r. w starej owczarni przeniesionej z hali pasterskiej. Organizuje koncerty i warsztaty, często z udziałem wykonawców zagranicznych — od 2004 r. ponad sto koncertów rocznie. Grali tu m.in. Hanna Banaszak, Kasia Kowalska, Nigel Kennedy, Włodzimierz Nahorny, Zbigniew Namysłowski i Jan Ptaszyn Wróblewski."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "4B.webp"
+}

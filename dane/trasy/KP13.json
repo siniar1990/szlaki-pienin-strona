@@ -1,0 +1,117 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP13",
+ "nazwa": "Huściawa",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 818,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 5.5,
+ "suma_podejsc_m": {
+  "tam": 406,
+  "powrot": 100
+ },
+ "czas_min": {
+  "tam": 123,
+  "powrot": 93
+ },
+ "kcal": {
+  "70kg": 553,
+  "80kg": 632,
+  "90kg": 711
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Niebieskim granią do rejonu węzła Pod Huściawą (748 m). Najkrócej żółtym ze Szlachtowej.",
+ "ostrzezenia": [
+  "Wierzchołek POZA szlakiem — niebieski przechodzi przełączką obok.",
+  "Nieznakowane podejście percią, około 70 m przewyższenia, 5–10 minut.",
+  "Miejsce odejścia DO WERYFIKACJI W TERENIE.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 93
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 48,
+    "powrot": 67
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.4761,
+    49.41412
+   ],
+   "czas_narast_min": {
+    "tam": 62,
+    "powrot": 55
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Huściawa",
+   "typ": "szczyt",
+   "coord": [
+    20.51134,
+    49.39929
+   ],
+   "czas_narast_min": {
+    "tam": 123,
+    "powrot": 0
+   },
+   "wysokosc_m": 818
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Niebieskim granią do rejonu węzła Pod Huściawą (748 m). Najkrócej żółtym ze Szlachtowej.",
+   "wskazowka": "Do: Palenica."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Dalej do punktu „Szafranówka\".",
+   "wskazowka": "Do: Szafranówka."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Huściawa",
+   "tekst": "Dalej do punktu „Huściawa\".",
+   "wskazowka": "Do: Huściawa."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP13.webp",
+ "geometry": "assets/trasy/gpx/KP13.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

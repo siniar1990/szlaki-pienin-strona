@@ -1,0 +1,154 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP03",
+ "nazwa": "Wierchliczka",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 966,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 13.6,
+ "suma_podejsc_m": {
+  "tam": 823,
+  "powrot": 350
+ },
+ "czas_min": {
+  "tam": 286,
+  "powrot": 239
+ },
+ "kcal": {
+  "70kg": 1215,
+  "80kg": 1388,
+  "90kg": 1562
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Granią graniczną na wschód za Wysoką. Znacznie szybciej busem do Jaworek i żółtym przez Białą Wodę na Przełęcz Rozdziela, a stamtąd niebieskim.",
+ "ostrzezenia": [
+  "Źródła rozbieżne: szlak przechodzi przez kopułę albo tuż obok (odejście poniżej 2 min). DO WERYFIKACJI W TERENIE.",
+  "Nie mylić ze Smerekową (1014 m) po stronie słowackiej.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 239
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 48,
+    "powrot": 214
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Huściawa",
+   "typ": "szczyt",
+   "coord": [
+    20.51134,
+    49.39929
+   ],
+   "czas_narast_min": {
+    "tam": 121,
+    "powrot": 149
+   },
+   "wysokosc_m": 818
+  },
+  {
+   "nazwa": "Durbaszka",
+   "typ": "szczyt",
+   "coord": [
+    20.53676,
+    49.38701
+   ],
+   "czas_narast_min": {
+    "tam": 173,
+    "powrot": 112
+   },
+   "wysokosc_m": 942
+  },
+  {
+   "nazwa": "Wysoka (Wysokie Skałki)",
+   "typ": "szczyt",
+   "coord": [
+    20.5555,
+    49.38026
+   ],
+   "czas_narast_min": {
+    "tam": 209,
+    "powrot": 84
+   },
+   "wysokosc_m": 1050
+  },
+  {
+   "nazwa": "Wierchliczka",
+   "typ": "szczyt",
+   "coord": [
+    20.59252,
+    49.38397
+   ],
+   "czas_narast_min": {
+    "tam": 286,
+    "powrot": 0
+   },
+   "wysokosc_m": 966
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Granią graniczną na wschód za Wysoką. Znacznie szybciej busem do Jaworek i żółtym przez Białą Wodę na Przełęcz Rozdziela, a stamtąd niebieskim.",
+   "wskazowka": "Do: Palenica."
+  },
+  {
+   "od": "Palenica",
+   "do": "Huściawa",
+   "tekst": "Dalej do punktu „Huściawa\".",
+   "wskazowka": "Do: Huściawa."
+  },
+  {
+   "od": "Huściawa",
+   "do": "Durbaszka",
+   "tekst": "Dalej do punktu „Durbaszka\".",
+   "wskazowka": "Do: Durbaszka."
+  },
+  {
+   "od": "Durbaszka",
+   "do": "Wysoka (Wysokie Skałki)",
+   "tekst": "Dalej do punktu „Wysoka (Wysokie Skałki)\".",
+   "wskazowka": "Do: Wysoka (Wysokie Skałki)."
+  },
+  {
+   "od": "Wysoka (Wysokie Skałki)",
+   "do": "Wierchliczka",
+   "tekst": "Dalej do punktu „Wierchliczka\".",
+   "wskazowka": "Do: Wierchliczka."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP03.webp",
+ "geometry": "assets/trasy/gpx/KP03.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

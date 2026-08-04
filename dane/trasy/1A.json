@@ -1,0 +1,187 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "1A",
+ "nazwa": "Słowacki akcent",
+ "kategoria": "krotka",
+ "dlugosc_km": 10.5,
+ "suma_podejsc_m": {
+  "tam": 350,
+  "powrot": 350
+ },
+ "czas_min": {
+  "tam": 175,
+  "powrot": 175
+ },
+ "kcal": {
+  "70kg": 1250,
+  "80kg": 1430,
+  "90kg": 1610
+ },
+ "granica": true,
+ "petla": true,
+ "szlaki": [
+  "zolty",
+  "niebieski",
+  "czerwony"
+ ],
+ "pttk": true,
+ "opis": "Pętla przez granicę: żółtym szlakiem na Palenicę i Szafranówkę, potem granicznym niebieskim, a stamtąd żółtym na słowacką stronę i w dół do doliny Leśnickiego Potoku. Powrót Drogą Pienińską wzdłuż Dunajca.",
+ "ostrzezenia": [
+  "Trasa przekracza granicę państwa. Brak dowodu osobistego lub paszportu skutkuje mandatem i procedurą ustalania tożsamości.",
+  "UWAGA: ślad na mapie omija zejście do Leśnicy, które opisuje przewodnik — różnica to około kilometra."
+ ],
+ "geometry": "assets/trasy/gpx/1A.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 175
+   },
+   "wysokosc_m": 448
+  },
+  {
+   "nazwa": "Dolna stacja kolei na Palenicę",
+   "typ": "inny",
+   "coord": [
+    20.48056,
+    49.42513
+   ],
+   "czas_narast_min": {
+    "tam": 15,
+    "powrot": 160
+   },
+   "wysokosc_m": 461
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47653,
+    49.41872
+   ],
+   "czas_narast_min": {
+    "tam": 60,
+    "powrot": 115
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.47624,
+    49.41405
+   ],
+   "czas_narast_min": {
+    "tam": 75,
+    "powrot": 100
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Przełęcz pod Szafranówką",
+   "typ": "przelecz",
+   "coord": [
+    20.46426,
+    49.41603
+   ],
+   "czas_narast_min": {
+    "tam": 90,
+    "powrot": 85
+   },
+   "wysokosc_m": 630
+  },
+  {
+   "nazwa": "Schronisko PTTK „Orlica”",
+   "typ": "schronisko",
+   "coord": [
+    20.45795,
+    49.41985
+   ],
+   "czas_narast_min": {
+    "tam": 145,
+    "powrot": 30
+   },
+   "wysokosc_m": 440
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 175,
+    "powrot": 0
+   },
+   "wysokosc_m": 443
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Dolna stacja kolei na Palenicę",
+   "tekst": "Promenadą uzdrowiskową w górę Grajcarka. Po lewej okazała willa „Wanda”, zabytek architektury uzdrowiskowej z okresu międzywojennego, dalej tablica ku czci hr. Jánosa Esterházyego. Przed samą stacją mijasz altanę zdroju „Szymon”, a nad Grajcarkiem obelisk 200-lecia uzdrowiska.",
+   "wskazowka": "Promenadą wzdłuż Grajcarka do dolnej stacji kolei krzesełkowej."
+  },
+  {
+   "od": "Dolna stacja kolei na Palenicę",
+   "do": "Palenica",
+   "tekst": "Przy stacji i restauracji Pod Kolejką łapiesz szlak żółty, który prowadzi na kładkę nad Grajcarkiem. Za kładką w lewo w ulicę Zawodzie, po stu metrach w prawo na kamienistą drogę leśną, która zakosami pnie się do góry. Wyżej przechodzisz na ścieżkę, mijasz liny kolejki i przy górnej stacji stajesz na szczycie Palenicy (722 m).",
+   "wskazowka": "Za żółtymi znakami przez kładkę, w lewo, po 100 m w prawo pod górę."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Z Palenicy kwadrans do Szafranówki (742 m), która wznosi się za trawiastą przełęczą Maćkówki (ok. 690 m). Schodząc na przełęcz mijasz drewniany bar Groń i zjeżdżalnię grawitacyjną po prawej. Z wypłaszczenia poniżej wierzchołka rozciąga się panorama na zachód, północ i wschód.",
+   "wskazowka": "Grzbietem przez przełęcz Maćkówki na Szafranówkę."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Przełęcz pod Szafranówką",
+   "tekst": "Krótkie zejście sprowadza do granicy, gdzie łapiesz graniczny szlak niebieski. W prawo, przez skalisty wierzchołek Szafranówki, dalej ostrożnie po skałkach, a niżej wygodną grzbietową ścieżką. W rejonie przełęczy pod Szafranówką (608 m) zaczyna się słowacki szlak żółty — drogowskazy i tablica.",
+   "wskazowka": "Na granicy w prawo szlakiem niebieskim, przy tablicy w lewo za żółtymi."
+  },
+  {
+   "od": "Przełęcz pod Szafranówką",
+   "do": "Schronisko PTTK „Orlica”",
+   "tekst": "Za znakami żółtymi przekraczasz granicę i wchodzisz na teren słowackiego Pieninského národného parku. Dróżka sprowadza na południe ku dolinie Leśnickiego Potoku, najpierw lasem, niżej łąkami z wiatą turystyczną. Przewodnik prowadzi stąd przez Leśnicę i Drogę Pienińską wzdłuż Dunajca; przy Orlicy wracasz na polski brzeg.",
+   "wskazowka": "Żółtym w dół do doliny, potem Drogą Pienińską wzdłuż Dunajca w prawo."
+  },
+  {
+   "od": "Schronisko PTTK „Orlica”",
+   "do": "Szczawnica, centrum",
+   "tekst": "Od schroniska Drogą Pienińską i promenadą wracasz do centrum Szczawnicy. Po drodze przystań flisacka — stąd do centrum jeszcze dziesięć minut.",
+   "wskazowka": "Wzdłuż Dunajca do przystani, dalej promenadą do centrum."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.47624,
+    49.41405
+   ],
+   "tytul": "Panorama z Szafranówki",
+   "tekst": "Od lewej Trzy Korony (982 m) i Sokolica (747 m), Gorce z Lubaniem (1211 m) i Pasterskim Wierchem (1100 m) oraz dolina Dunajca. W zamknięciu doliny Beskid Wyspowy ze stożkiem Mogielicy (1171 m). Za Palenicą zaczyna się Beskid Sądecki: Dzwonkówka (983 m), Bereśnik (843 m), Skałka (1163 m), Czeremcha (1146 m), a całkiem na prawo obła Radziejowa (1262 m)."
+  },
+  {
+   "coord": [
+    20.46426,
+    49.41603
+   ],
+   "tytul": "Osada filmowa pod Szafranówką",
+   "tekst": "Na łąkach po słowackiej stronie stała przed laty mała osada z drewnianych chat i szałasów, zbudowana do filmu „Ostatni legion” Douga Leflera z 2007 r. Dziś nie ma po niej śladu, została sama panorama: Holica (824 m), masyw Trzech Koron, Sokolica i najeżony skałami Bystrzyk (704 m)."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "1A.webp"
+}

@@ -1,0 +1,106 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "5A",
+ "nazwa": "Od „Pitoniakówki” do „Stefana”",
+ "kategoria": "krotka",
+ "dlugosc_km": 6.6,
+ "suma_podejsc_m": {
+  "tam": 310,
+  "powrot": 310
+ },
+ "czas_min": {
+  "tam": 115,
+  "powrot": 115
+ },
+ "kcal": {
+  "70kg": 760,
+  "80kg": 870,
+  "90kg": 970
+ },
+ "granica": false,
+ "petla": true,
+ "szlaki": [
+  "zolty"
+ ],
+ "pttk": true,
+ "opis": "Najkrótsza pętla w przewodniku: doliną Skotnickiego Potoku obok zdroju Pitoniakówka na stoki Gucki, a z powrotem przez Bryjarkę i Plac Dietla.",
+ "ostrzezenia": [],
+ "geometry": "assets/trasy/gpx/5A.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 115
+   },
+   "wysokosc_m": 451
+  },
+  {
+   "nazwa": "Bryjarka",
+   "typ": "szczyt",
+   "coord": [
+    20.47965,
+    49.43142
+   ],
+   "czas_narast_min": {
+    "tam": 65,
+    "powrot": 50
+   },
+   "wysokosc_m": 679
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 115,
+    "powrot": 0
+   },
+   "wysokosc_m": 450
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Bryjarka",
+   "tekst": "Ruszasz spod karczmy przy promenadzie, u ujścia Skotnickiego Potoku do Grajcarka. Krótką uliczką do ul. Głównej, tam w prawo i zaraz w lewo w ul. Skotnicką, cały czas w górę potoku. Po kwadransie mijasz po prawej zdrój Pitoniakówka ujęty w kamiennym murze — stolik z ławkami. Przy zdroju przekraczasz mostek, wyżej drugim wracasz na lewy brzeg i opuszczasz zabudowę. Dwieście metrów za drugim mostkiem schodzisz z wygodnej drogi w prawo, na drogę gruntową i placyk pod modrzewiami. Stamtąd droga wiedzie lasem, zatacza łuk w prawo i na wyraźnym grzbiecie skręca ostro w lewo; dalej wzdłuż polan Tomasówek do zabudowań, przez leszczynowy las w prawo i przez polanę na Gronik (630 m), ramię Gucki. W górę polany szpalerem brzóz, przez polanę z letnim domkiem, stromo lasem na widokowy stok pod Gucką — tu szlak żółty i drogowskaz na wielopiennym jaworze.",
+   "wskazowka": "Ul. Skotnicką w górę potoku, za Pitoniakówką w prawo na gruntową."
+  },
+  {
+   "od": "Bryjarka",
+   "do": "Szczawnica, centrum",
+   "tekst": "Skręcasz za żółtymi w prawo. Ścieżka schodzi, mija opuszczoną zagrodę i wchodzi w sosnowy lasek pod Bryjarką. Warto zboczyć w lewo do krzyża na szczycie — pięć minut. Dalej szlak sprowadza do Placu Dietla, a stamtąd przez centrum wracasz na promenadę.",
+   "wskazowka": "Za żółtymi w prawo, pod Bryjarką w lewo do krzyża, potem w dół."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "tytul": "Zdrój „Pitoniakówka”",
+   "tekst": "Źródło odkryto w latach 30. XX w., gdy wójtem Szczawnicy Niżnej był Jan Pitoniak — od jego nazwiska wzięła się nazwa wody. W 1952 r. wykonano odwiert Józefina II o głębokości ponad 14 m, ponowne ujęcie w 1968 r. Pitoniakówka to szczawa wodoro-chlorkowo-sodowa o rekordowej zawartości wolnego dwutlenku węgla — 2290 mg na litr, przy wydajności 21 litrów na minutę. Skuteczna w chorobach układu trawienia, nieżytach górnych dróg oddechowych i w leczeniu nerwic. Latem ogólnodostępna."
+  },
+  {
+   "coord": [
+    20.47965,
+    49.43142
+   ],
+   "tytul": "Bryjarka — góra wód",
+   "tekst": "Nie jest zbudowana ani z fliszu karpackiego, ani z wapieni, lecz z andezytów — wylewnych skał magmowych. Pod wierzchołkiem zachowało się andezytowe gołoborze, niestety zarastające. Z tymi właśnie skałami wiąże się występowanie szczawnickich wód mineralnych, dlatego Bryjarkę bywa się nazywać „górą wód”."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "5A.webp"
+}

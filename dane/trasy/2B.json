@@ -1,0 +1,162 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "2B",
+ "nazwa": "Z wizytą u św. Kingi",
+ "kategoria": "srednia",
+ "dlugosc_km": 13.0,
+ "suma_podejsc_m": {
+  "tam": 780,
+  "powrot": 800
+ },
+ "czas_min": {
+  "tam": 295,
+  "powrot": 295
+ },
+ "kcal": {
+  "70kg": 2070,
+  "80kg": 2370,
+  "90kg": 2670
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "niebieski",
+  "zielony",
+  "zolty"
+ ],
+ "pttk": true,
+ "opis": "Przeprawa łodzią przez Dunajec pod Sokolicą, wejście na jej turnię, potem Sokolą Percią przez Czertezik i Zamek Pieniński na Trzy Korony i przełęcz Szopka. Wariant krościeński — przewodnik podaje też zejście do Sromowiec.",
+ "ostrzezenia": [
+  "Trasa biegnie przez Pieniński Park Narodowy — obowiązuje regulamin PPN i bilety wstępu (jeden bilet obejmuje Sokolicę i Trzy Korony).",
+  "Wierzchołek Sokolicy jest ubezpieczony barierkami, których nie wolno przekraczać. W razie burzy natychmiast zejdź ze szczytu.",
+  "Przeprawa łodzią kursuje sezonowo: 15 IV–30 VI godz. 8–19, 1 VII–31 VIII godz. 8–20, 1 IX–30 IX godz. 8–18, 1 X–31 X godz. 8–17.",
+  "UWAGA: ślad na mapie prowadzi do Sokolicy grzbietem przez Palenicę i Szafranówkę, a przewodnik — Drogą Pienińską i przeprawą przez Dunajec."
+ ],
+ "geometry": "assets/trasy/gpx/2B.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48749,
+    49.4288
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 295
+   },
+   "wysokosc_m": 526
+  },
+  {
+   "nazwa": "Schronisko PTTK „Orlica”",
+   "typ": "schronisko",
+   "coord": [
+    20.45756,
+    49.41923
+   ],
+   "czas_narast_min": {
+    "tam": 20,
+    "powrot": 275
+   },
+   "wysokosc_m": 453
+  },
+  {
+   "nazwa": "Sokolica",
+   "typ": "szczyt",
+   "coord": [
+    20.44077,
+    49.41808
+   ],
+   "czas_narast_min": {
+    "tam": 75,
+    "powrot": 220
+   },
+   "wysokosc_m": 747
+  },
+  {
+   "nazwa": "Czertezik",
+   "typ": "szczyt",
+   "coord": [
+    20.43425,
+    49.42224
+   ],
+   "czas_narast_min": {
+    "tam": 125,
+    "powrot": 170
+   },
+   "wysokosc_m": 772
+  },
+  {
+   "nazwa": "Przełęcz Szopka",
+   "typ": "przelecz",
+   "coord": [
+    20.40807,
+    49.419
+   ],
+   "czas_narast_min": {
+    "tam": 195,
+    "powrot": 100
+   },
+   "wysokosc_m": 779
+  },
+  {
+   "nazwa": "Zamek Pieniński",
+   "typ": "atrakcja",
+   "coord": [
+    20.41991,
+    49.41982
+   ],
+   "czas_narast_min": {
+    "tam": 295,
+    "powrot": 0
+   },
+   "wysokosc_m": 751
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Schronisko PTTK „Orlica”",
+   "tekst": "Z centrum promenadą do przystani flisackiej i dalej Drogą Pienińską wzdłuż Dunajca do Nowego Przewozu pod Białą Skałą i Sokolicą.",
+   "wskazowka": "Promenadą do przystani, potem Drogą Pienińską wzdłuż Dunajca."
+  },
+  {
+   "od": "Schronisko PTTK „Orlica”",
+   "do": "Sokolica",
+   "tekst": "Przeprawiasz się łodzią przez Dunajec — około siedmiu minut, do 16 osób naraz — i idziesz dalej szlakiem niebieskim. Czeka strome podejście na Sokolicę: po dwudziestu minutach wypłaszczenie z polaną i widokiem na Szczawnicę, potem mozolne wyjście po schodach. Po wykupieniu biletów skręcasz w lewo i boczną odnogą szlaku, skalistą ścieżką z poręczami, wchodzisz na grań Sokolicy.",
+   "wskazowka": "Za przeprawą niebieskim stromo w górę; przy kasie w lewo na grań."
+  },
+  {
+   "od": "Sokolica",
+   "do": "Czertezik",
+   "tekst": "Z Sokolicy Sokolą Percią — eksponowaną, ubezpieczoną ścieżką grzbietową — przez przełęcz Sosnów na Czertezik (772 m).",
+   "wskazowka": "Sokolą Percią przez przełęcz Sosnów na Czertezik."
+  },
+  {
+   "od": "Czertezik",
+   "do": "Przełęcz Szopka",
+   "tekst": "Dalej grzbietem przez Ociemny Wierch i Białe Skały, obok Bajkowego Gronia, na przełęcz Szopka — węzeł szlaków pod masywem Trzech Koron. Stąd znakowane podejście na Okrąglicę.",
+   "wskazowka": "Grzbietem przez Białe Skały na przełęcz Szopka."
+  },
+  {
+   "od": "Przełęcz Szopka",
+   "do": "Zamek Pieniński",
+   "tekst": "Z Szopki na Zamkową Górę, gdzie stoją resztki Zamku Pienińskiego — zwanego też zamkiem św. Kingi.",
+   "wskazowka": "Z przełęczy na Zamkową Górę."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.41991,
+    49.41982
+   ],
+   "tytul": "Zamek św. Kingi",
+   "tekst": "Warownia na Zamkowej Górze miała być schronieniem dla św. Kingi i klarysek ze Starego Sącza w czasie najazdu tatarskiego. Do dziś zachowały się resztki murów na skalnym garbie wśród lasu — i to od tej historii wzięła się nazwa trasy."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "2B.webp"
+}

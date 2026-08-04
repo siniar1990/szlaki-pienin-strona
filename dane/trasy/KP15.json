@@ -1,0 +1,74 @@
+{
+ "_uwaga": "Dane z researchu (lipiec 2026) do kategorii Korony Pienin. Ślad na mapie i profil wysokościowy: DO ZROBIENIA.",
+ "id": "KP15",
+ "nazwa": "Jarmuta",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 794,
+ "grupa_gorska": "Pieniny (poza PPN)",
+ "dlugosc_km": 4.0,
+ "suma_podejsc_m": {
+  "tam": 330,
+  "powrot": 330
+ },
+ "czas_min": {
+  "tam": 85,
+  "powrot": 85
+ },
+ "kcal": {
+  "70kg": 431,
+  "80kg": 493,
+  "90kg": 554
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [],
+ "pttk": false,
+ "opis": "Ścieżką gminną imienia ks. Jana Kozioła: ulicą Szalaya w stronę Jaworek, za mostkiem na Grajcarku początek ścieżki przy Klimontowskim Potoku, przez osiedle Potok stromo na przełączkę i w lewo lasem na szczyt z masztem.",
+ "ostrzezenia": [
+  "To ścieżka gminna, nie szlak PTTK — jakość oznakowania DO WERYFIKACJI W TERENIE.",
+  "Poza Pienińskim Parkiem Narodowym: bez opłat i bez ograniczeń godzinowych.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 85
+   },
+   "wysokosc_m": 470
+  },
+  {
+   "nazwa": "Jarmuta",
+   "typ": "szczyt",
+   "coord": [
+    20.50588,
+    49.41098
+   ],
+   "czas_narast_min": {
+    "tam": 85,
+    "powrot": 0
+   },
+   "wysokosc_m": 794
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Jarmuta",
+   "tekst": "Ścieżką gminną imienia ks. Jana Kozioła: ulicą Szalaya w stronę Jaworek, za mostkiem na Grajcarku początek ścieżki przy Klimontowskim Potoku, przez osiedle Potok stromo na przełączkę i w lewo lasem na szczyt z masztem.\n\nWierzchołek leży POZA znakowanym szlakiem.",
+   "wskazowka": "Ścieżką gminną imienia ks."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Research 24 szczytów Korony Pienin (lipiec 2026)",
+ "ilustracja": "KP15.webp"
+}

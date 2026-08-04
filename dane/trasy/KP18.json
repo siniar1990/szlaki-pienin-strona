@@ -1,0 +1,97 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP18",
+ "nazwa": "Czertezik",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 772,
+ "grupa_gorska": "Pieniny Właściwe",
+ "dlugosc_km": 3.7,
+ "suma_podejsc_m": {
+  "tam": 362,
+  "powrot": 37
+ },
+ "czas_min": {
+  "tam": 92,
+  "powrot": 60
+ },
+ "kcal": {
+  "70kg": 448,
+  "80kg": 512,
+  "90kg": 576
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "czerwony",
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Przez Sokolicę i Sokolą Perć, przez Przełęcz Sosnów, potem podejście na punkt widokowy z barierkami.",
+ "ostrzezenia": [
+  "Sokola Perć jest eksponowana — łańcuchy i barierki, śliska po deszczu.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Krościenko nad Dunajcem",
+   "typ": "miejscowosc",
+   "coord": [
+    20.42791,
+    49.44058
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 60
+   },
+   "wysokosc_m": 427
+  },
+  {
+   "nazwa": "Przełęcz Sosnów",
+   "typ": "przelecz",
+   "coord": [
+    20.43925,
+    49.41937
+   ],
+   "czas_narast_min": {
+    "tam": 72,
+    "powrot": 11
+   },
+   "wysokosc_m": 662
+  },
+  {
+   "nazwa": "Czertezik",
+   "typ": "szczyt",
+   "coord": [
+    20.43425,
+    49.42224
+   ],
+   "czas_narast_min": {
+    "tam": 92,
+    "powrot": 0
+   },
+   "wysokosc_m": 772
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Krościenko nad Dunajcem",
+   "do": "Przełęcz Sosnów",
+   "tekst": "Przez Sokolicę i Sokolą Perć, przez Przełęcz Sosnów, potem podejście na punkt widokowy z barierkami.",
+   "wskazowka": "Do: Przełęcz Sosnów."
+  },
+  {
+   "od": "Przełęcz Sosnów",
+   "do": "Czertezik",
+   "tekst": "Dalej do punktu „Czertezik\".",
+   "wskazowka": "Do: Czertezik."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP18.webp",
+ "geometry": "assets/trasy/gpx/KP18.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

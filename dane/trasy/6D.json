@@ -1,0 +1,90 @@
+{
+  "_uwaga": "Trasa dla dzieci. Ślad: routing po ścieżkach OpenStreetMap (tools/digitalizacja/trasa_z_punktow.py) albo plik GPX, wysokości z EU-DEM 25 m. Grupa wiekowa i opisy — autorskie, na podstawie charakteru trasy; sprawdź je z własnym dzieckiem, bo możliwości bywają bardzo różne.",
+  "id": "6D",
+  "nazwa": "Wąwóz Szopczański",
+  "kategoria": "dzieci",
+  "dlugosc_km": 1.0,
+  "suma_podejsc_m": {
+    "tam": 149,
+    "powrot": 0
+  },
+  "czas_min": {
+    "tam": 30,
+    "powrot": 15
+  },
+  "kcal": {
+    "70kg": 163,
+    "80kg": 186,
+    "90kg": 209
+  },
+  "granica": false,
+  "szlaki": [
+    "niebieski"
+  ],
+  "pttk": false,
+  "opis": "Dla dzieci od 5 lat. Kilometr w głąb wąwozu spod schroniska „Trzy Korony\" w Sromowcach Niżnych. Ścieżka wchodzi między skalne ściany, wije się wzdłuż potoku i stale pnie w górę — krótko, ale konkretnie. Dobra trasa na pół dnia, także jako rozgrzewka przed wejściem na Trzy Korony.",
+  "ostrzezenia": [
+    "Kilometr trasy to 149 m podejścia — jest stromo, mimo krótkiego dystansu.",
+    "Pieniński Park Narodowy: obowiązuje ruch wyłącznie po znakowanych szlakach i zakaz schodzenia do koryta potoku.",
+    "Po deszczu ścieżka bywa błotnista i śliska."
+  ],
+  "geometry": "assets/trasy/gpx/6D.geojson",
+  "punkty": [
+    {
+      "nazwa": "Schronisko PTTK „Trzy Korony\"",
+      "typ": "schronisko",
+      "coord": [
+        20.41109,
+        49.40519
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 15
+      },
+      "wysokosc_m": 479
+    },
+    {
+      "nazwa": "W głębi Wąwozu Szopczańskiego",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.40537,
+        49.41277
+      ],
+      "czas_narast_min": {
+        "tam": 30,
+        "powrot": 0
+      },
+      "wysokosc_m": 628
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Schronisko PTTK „Trzy Korony\"",
+      "do": "W głębi Wąwozu Szopczańskiego",
+      "tekst": "Spod schroniska niebieski szlak wchodzi w Wąwóz Szopczański. Ściany zbliżają się do siebie, robi się cieniście i chłodno, a ścieżka cały czas pnie się w górę wzdłuż potoku. Po kilometrze wąwóz się rozszerza — to dobre miejsce na odpoczynek i powrót.",
+      "wskazowka": "Za niebieskimi znakami w górę wąwozu. Wracasz tą samą ścieżką albo idziesz dalej w stronę Przełęczy Szopka."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.41109,
+        49.40519
+      ],
+      "tytul": "Schronisko PTTK „Trzy Korony\"",
+      "tekst": "Schronisko w Sromowcach Niżnych, u podnóża Trzech Koron. Dobra baza wypadowa: stąd zaczyna się zarówno najkrótsze wejście na Trzy Korony, jak i spacer w Wąwóz Szopczański."
+    },
+    {
+      "coord": [
+        20.40537,
+        49.41277
+      ],
+      "tytul": "W głębi Wąwozu Szopczańskiego",
+      "tekst": "Wąwóz wycięty przez potok w wapieniach Pienin. Ściany są miejscami niemal pionowe, a mikroklimat wewnątrz jest wyraźnie chłodniejszy i wilgotniejszy niż na zewnątrz — dlatego rosną tu rośliny typowe dla znacznie wyższych pięter gór."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "OpenStreetMap / GPX + EU-DEM 25 m",
+  "_zrodlo_czasow": "Wzór Naismitha: 4 km/h + 10 min na 100 m podejścia.",
+  "ilustracja": "6D.webp"
+}

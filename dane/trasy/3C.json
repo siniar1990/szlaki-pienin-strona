@@ -1,0 +1,217 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "3C",
+ "nazwa": "Śladem św. Kingi",
+ "kategoria": "dluga",
+ "dlugosc_km": 24.0,
+ "suma_podejsc_m": {
+  "tam": 950,
+  "powrot": 950
+ },
+ "czas_min": {
+  "tam": 400,
+  "powrot": 400
+ },
+ "kcal": {
+  "70kg": 2860,
+  "80kg": 3270,
+  "90kg": 3680
+ },
+ "granica": false,
+ "petla": true,
+ "szlaki": [
+  "niebieski",
+  "zielony",
+  "czerwony",
+  "zolty"
+ ],
+ "pttk": true,
+ "opis": "Najdłuższa i najwyżej prowadząca trasa przewodnika: doliną Jastrzębiego Potoku pod Czeremchę, przez Przehybę i Krzesło św. Kingi, potem grzbietem Pasma Radziejowej przez Przysłop, Dzwonkówkę i Bereśnik z powrotem do Szczawnicy.",
+ "ostrzezenia": [
+  "Prawie siedem godzin marszu i 950 m sumy podejść — wyrusz wcześnie."
+ ],
+ "geometry": "assets/trasy/gpx/3C.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 400
+   },
+   "wysokosc_m": 508
+  },
+  {
+   "nazwa": "Wodospad Zaskalnik",
+   "typ": "atrakcja",
+   "coord": [
+    20.50336,
+    49.43687
+   ],
+   "czas_narast_min": {
+    "tam": 45,
+    "powrot": 355
+   },
+   "wysokosc_m": 565
+  },
+  {
+   "nazwa": "Czeremcha",
+   "typ": "szczyt",
+   "coord": [
+    20.53382,
+    49.45946
+   ],
+   "czas_narast_min": {
+    "tam": 185,
+    "powrot": 215
+   },
+   "wysokosc_m": 1141
+  },
+  {
+   "nazwa": "Schronisko PTTK na Przehybie",
+   "typ": "schronisko",
+   "coord": [
+    20.55371,
+    49.46683
+   ],
+   "czas_narast_min": {
+    "tam": 215,
+    "powrot": 185
+   },
+   "wysokosc_m": 1155
+  },
+  {
+   "nazwa": "Przełęcz Minkowska",
+   "typ": "przelecz",
+   "coord": [
+    20.53991,
+    49.47528
+   ],
+   "czas_narast_min": {
+    "tam": 250,
+    "powrot": 150
+   },
+   "wysokosc_m": 1087
+  },
+  {
+   "nazwa": "Przełęcz Przysłop",
+   "typ": "przelecz",
+   "coord": [
+    20.48158,
+    49.46458
+   ],
+   "czas_narast_min": {
+    "tam": 305,
+    "powrot": 95
+   },
+   "wysokosc_m": 991
+  },
+  {
+   "nazwa": "Bereśnik",
+   "typ": "szczyt",
+   "coord": [
+    20.49,
+    49.44236
+   ],
+   "czas_narast_min": {
+    "tam": 355,
+    "powrot": 45
+   },
+   "wysokosc_m": 843
+  },
+  {
+   "nazwa": "Bryjarka",
+   "typ": "szczyt",
+   "coord": [
+    20.47966,
+    49.4316
+   ],
+   "czas_narast_min": {
+    "tam": 380,
+    "powrot": 20
+   },
+   "wysokosc_m": 679
+  },
+  {
+   "nazwa": "Szczawnica, Plac Dietla",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48732,
+    49.42885
+   ],
+   "czas_narast_min": {
+    "tam": 400,
+    "powrot": 0
+   },
+   "wysokosc_m": 536
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Wodospad Zaskalnik",
+   "tekst": "Z centrum przez Plac Dietla, Park Górny i osiedle Połoniny schodzisz w dolinę Sopotnickiego Potoku i idziesz w górę, do wodospadu Zaskalnik.",
+   "wskazowka": "Przez Plac Dietla i os. Połoniny w górę Sopotnickiego Potoku."
+  },
+  {
+   "od": "Wodospad Zaskalnik",
+   "do": "Czeremcha",
+   "tekst": "Za wodospadem mijasz zajazd Czarda, ujęcie wody i most u zbiegu potoków. Za mostem na wprost drogą gruntową do kaplicy na Sewerynówce, tam w prawo za szlaban, w górę Jastrzębiego Potoku. Po 35 minutach droga skręca ostro w prawo i wyprowadza na grzbiet Koszarka–Czeremcha. Sto metrów za polaną Koszarki skręcasz na boczną drogę w prawo, stromo do góry, nadal za niebieskimi; na kolejnym rozdrożu znowu w prawo, do połączenia ze szlakiem zielonym — jesteś na rozdrożu pod Czeremchą. Dalej niebieskim i zielonym stromo pod górę, przez kulminację Czeremchy (1146 m).",
+   "wskazowka": "Za polaną Koszarki dwa razy w prawo, stromo na rozdroże pod Czeremchą."
+  },
+  {
+   "od": "Czeremcha",
+   "do": "Schronisko PTTK na Przehybie",
+   "tekst": "Z Czeremchy schodzisz łagodnie przez nieduży zrąb; przed sobą masz maszt przekaźnika na Małej Przehybie (1155 m), a na prawo od niego budynek schroniska PTTK.",
+   "wskazowka": "Grzbietem w stronę masztu na Małej Przehybie."
+  },
+  {
+   "od": "Schronisko PTTK na Przehybie",
+   "do": "Przełęcz Minkowska",
+   "tekst": "Od schroniska dalej grzbietem, obok Krzesła św. Kingi, do Przełęczy Minkowskiej.",
+   "wskazowka": "Grzbietem obok Krzesła św. Kingi na Przełęcz Minkowską."
+  },
+  {
+   "od": "Przełęcz Minkowska",
+   "do": "Przełęcz Przysłop",
+   "tekst": "Z przełęczy przez Krótką Polanę grzbietem na przełęcz Przysłop (832 m), gdzie stoi kaplica partyzancka i pomnik poległych żołnierzy AK.",
+   "wskazowka": "Przez Krótką Polanę na przełęcz Przysłop."
+  },
+  {
+   "od": "Przełęcz Przysłop",
+   "do": "Bereśnik",
+   "tekst": "Z Przysłopu szlakiem czerwonym w lewo, stromo pod Dzwonkówkę, a dalej żółtym grzbietem przez siodło pod Kotelnicą na Bereśnik.",
+   "wskazowka": "Na przełęczy w lewo za czerwonymi, potem żółtym przez Bereśnik."
+  },
+  {
+   "od": "Bereśnik",
+   "do": "Bryjarka",
+   "tekst": "Od Bereśnika żółtym do łąk pod Gucką i w dół, obok opuszczonej zagrody, w sosnowy lasek pod Bryjarką. Do krzyża na szczycie pięć minut w lewo.",
+   "wskazowka": "Żółtym w dół pod Bryjarkę."
+  },
+  {
+   "od": "Bryjarka",
+   "do": "Szczawnica, Plac Dietla",
+   "tekst": "Spod Bryjarki szlak sprowadza do Placu Dietla i centrum Szczawnicy.",
+   "wskazowka": "W dół do Placu Dietla i centrum."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.55371,
+    49.46683
+   ],
+   "tytul": "Krzesło św. Kingi",
+   "tekst": "Nazwa trasy nawiązuje do legendy o św. Kindze, która miała odpoczywać na skalnym występie w grzbiecie Pasma Radziejowej, uciekając przed Tatarami. Miejsce nosi od tego czasu nazwę Krzesła św. Kingi i leży przy szlaku niedaleko schroniska na Przehybie."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "3C.webp"
+}

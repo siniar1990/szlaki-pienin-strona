@@ -1,0 +1,181 @@
+{
+  "_uwaga": "Metryka (42,0 km, 1700 m) pochodzi z regulaminu odznaki. Nasz pomiar dostarczonego śladu daje 40,8 km i +1319 m — różnica bierze się z innego modelu terenu i z tego, że ślad z planera nie wchodzi na wszystkie wierzchołki.",
+  "id": "RUBIN",
+  "nazwa": "Rubin Szczawnicy",
+  "kategoria": "wyzwania",
+  "dlugosc_km": 42.0,
+  "suma_podejsc_m": {
+    "tam": 1700,
+    "powrot": 1700
+  },
+  "czas_min": {
+    "tam": 800,
+    "powrot": 800
+  },
+  "kcal": {
+    "70kg": 2510,
+    "80kg": 2868,
+    "90kg": 3226
+  },
+  "granica": false,
+  "szlaki": [
+    "niebieski",
+    "czerwony",
+    "zolty",
+    "zielony"
+  ],
+  "pttk": true,
+  "petla": true,
+  "opis": "Dla tych, którzy szukają prawdziwego górskiego wyzwania: trasa łącząca najpiękniejsze zakątki Małych Pienin i Beskidu Sądeckiego. Długodystansowy szlak o długości 42 km, który — niczym maraton — trzeba pokonać w całości jednego dnia. Start i meta znajdują się w Szczawnicy, a pętla prowadzi przez górskie grzbiety, malownicze doliny i szczyty, z których roztaczają się widoki na Tatry, Pieniny i Beskid Sądecki.\n\nTrasa jest wymagająca — łączy strome podejścia w Beskidzie Sądeckim z łagodniejszymi, ale widokowymi odcinkami Małych Pienin. Łącznie do pokonania jest ponad 1700 m przewyższeń, więc wymaga dobrej kondycji, wcześniejszego przygotowania i odpowiedniego wyposażenia.\n\nJeden dzień, a tyle różnych krajobrazów — od beskidzkich lasów po pienińskie łąki. Kilka ważnych szczytów w jednym marszu. I pętla: zaczynasz i kończysz w tym samym miejscu, bez organizowania transportu.",
+  "ostrzezenia": [
+    "42 km i ponad 1700 m podejść w jeden dzień. Startuj wcześnie rano, żeby zdążyć przed zmrokiem.",
+    "Punkty gastronomiczne na trasie są rzadkie — zabierz odpowiednią ilość wody i prowiantu.",
+    "Część szlaku prowadzi mniej uczęszczanymi odcinkami. Miej ze sobą mapę albo nawigację GPS.",
+    "Pogoda w górach zmienia się szybko — spakuj coś przeciwdeszczowego i ciepłego."
+  ],
+  "geometry": "assets/trasy/gpx/RUBIN.geojson",
+  "punkty": [
+    {
+      "nazwa": "Szczawnica",
+      "typ": "inny",
+      "coord": [
+        20.45793,
+        49.41986
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 0
+      }
+    },
+    {
+      "nazwa": "Dzwonkówka",
+      "typ": "szczyt",
+      "coord": [
+        20.47454,
+        49.46639
+      ],
+      "czas_narast_min": {
+        "tam": 151,
+        "powrot": 0
+      },
+      "wysokosc_m": 982
+    },
+    {
+      "nazwa": "Przehyba",
+      "typ": "szczyt",
+      "coord": [
+        20.56011,
+        49.46561
+      ],
+      "czas_narast_min": {
+        "tam": 308,
+        "powrot": 0
+      },
+      "wysokosc_m": 1175
+    },
+    {
+      "nazwa": "Radziejowa",
+      "typ": "szczyt",
+      "coord": [
+        20.60412,
+        49.4493
+      ],
+      "czas_narast_min": {
+        "tam": 396,
+        "powrot": 0
+      },
+      "wysokosc_m": 1266
+    },
+    {
+      "nazwa": "Wysoka (Wysokie Skałki)",
+      "typ": "szczyt",
+      "coord": [
+        20.5555,
+        49.38026
+      ],
+      "czas_narast_min": {
+        "tam": 640,
+        "powrot": 0
+      },
+      "wysokosc_m": 1050
+    },
+    {
+      "nazwa": "Wysoki Wierch",
+      "typ": "szczyt",
+      "coord": [
+        20.51388,
+        49.39326
+      ],
+      "czas_narast_min": {
+        "tam": 704,
+        "powrot": 0
+      },
+      "wysokosc_m": 899
+    },
+    {
+      "nazwa": "Szczawnica (meta)",
+      "typ": "inny",
+      "coord": [
+        20.45793,
+        49.41971
+      ],
+      "czas_narast_min": {
+        "tam": 800,
+        "powrot": 0
+      }
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Szczawnica",
+      "do": "Dzwonkówka",
+      "tekst": "Ze Szczawnicy w górę, na beskidzki grzbiet. Pierwsze podejście jest długie i to ono decyduje o tempie całego dnia — na Dzwonkówce (982 m) stykają się grzbiety, a przed sobą ma się jeszcze cztery piąte trasy."
+    },
+    {
+      "od": "Dzwonkówka",
+      "do": "Przehyba",
+      "tekst": "Głównym grzbietem Pasma Radziejowej na wschód, przez lasy i polany. Przehyba (1175 m) to serce Beskidu Sądeckiego — rozległa panorama i schronisko, w którym warto uzupełnić wodę."
+    },
+    {
+      "od": "Przehyba",
+      "do": "Radziejowa",
+      "tekst": "Dalej granią na najwyższy szczyt Beskidu Sądeckiego. Na Radziejowej (1266 m) stoi wieża widokowa — przy dobrej pogodzie widać z niej Tatry."
+    },
+    {
+      "od": "Radziejowa",
+      "do": "Wysoka (Wysokie Skałki)",
+      "tekst": "Najdłuższy odcinek dnia: zejście z Radziejowej, przejście doliny i podejście na grań Małych Pienin. Wysoka (1050 m) to najwyższy szczyt Pienin, słynny z widokowych łąk."
+    },
+    {
+      "od": "Wysoka (Wysokie Skałki)",
+      "do": "Wysoki Wierch",
+      "tekst": "Granią Małych Pienin na zachód, wzdłuż granicy państwa. Wysoki Wierch (899 m) zdobywa się żółtym szlakiem; niebieski trawersuje kilka minut poniżej wierzchołka."
+    },
+    {
+      "od": "Wysoki Wierch",
+      "do": "Szczawnica (meta)",
+      "tekst": "Zejście z grani z powrotem do Szczawnicy. Ostatnie kilometry idą w dół, ale po czterdziestu kilometrach kolana wiedzą o tym lepiej niż mapa."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.45793,
+        49.41986
+      ],
+      "tytul": "Maraton, nie spacer",
+      "tekst": "Czterdzieści dwa kilometry to dystans maratonu, tylko z 1700 m podejść. Wyjście o świcie nie jest tu poradą, lecz warunkiem dojścia przed zmrokiem."
+    },
+    {
+      "coord": [
+        20.60412,
+        49.4493
+      ],
+      "tytul": "Schronisko na Przehybie",
+      "tekst": "Jedyne pewne miejsce na trasie, gdzie da się dokupić wodę i coś ciepłego. Dalej, aż po Małe Pieniny, trzeba liczyć na to, co w plecaku."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "Ślad: PTTK Szczawnica / mapa-turystyczna.pl",
+  "_zrodlo_czasow": "Naismith z metryki regulaminowej; rozkład czasu wzdłuż śladu wg dystansu i podejść."
+}

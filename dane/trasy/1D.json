@@ -1,0 +1,109 @@
+{
+  "_uwaga": "Trasa dla dzieci. Ślad: routing po ścieżkach OpenStreetMap (tools/digitalizacja/trasa_z_punktow.py) albo plik GPX, wysokości z EU-DEM 25 m. Grupa wiekowa i opisy — autorskie, na podstawie charakteru trasy; sprawdź je z własnym dzieckiem, bo możliwości bywają bardzo różne.",
+  "id": "1D",
+  "nazwa": "Wodospad Zaskalnik",
+  "kategoria": "dzieci",
+  "dlugosc_km": 2.7,
+  "suma_podejsc_m": {
+    "tam": 121,
+    "powrot": 24
+  },
+  "czas_min": {
+    "tam": 53,
+    "powrot": 43
+  },
+  "kcal": {
+    "70kg": 206,
+    "80kg": 235,
+    "90kg": 264
+  },
+  "granica": false,
+  "szlaki": [
+    "zielony"
+  ],
+  "pttk": false,
+  "opis": "Dla dzieci od 4 lat. Najkrótsza droga do prawdziwego wodospadu w okolicy Szczawnicy. Niecałe trzy kilometry doliną Skalskiego Potoku, z jednym dłuższym, ale łagodnym podejściem. Na końcu woda spada z kilkumetrowego wapiennego progu do zielonego kotła — widok, który dzieciom zapada w pamięć mocniej niż niejedna panorama ze szczytu.",
+  "ostrzezenia": [
+    "Ostatnie kilkadziesiąt metrów do wodospadu jest kamieniste i po deszczu śliskie — małe dzieci lepiej wziąć za rękę.",
+    "Po ulewach potok potrafi przybrać; nie wchodź z dziećmi do koryta.",
+    "Trasa kończy się przy wodospadzie — wracasz tą samą drogą, licz więc dystans podwójnie."
+  ],
+  "geometry": "assets/trasy/gpx/1D.geojson",
+  "punkty": [
+    {
+      "nazwa": "Szczawnica, ul. Szalaya",
+      "typ": "inny",
+      "coord": [
+        20.48259,
+        49.42514
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 43
+      },
+      "wysokosc_m": 478
+    },
+    {
+      "nazwa": "Dolina Skalskiego Potoku",
+      "typ": "zrodlo",
+      "coord": [
+        20.49724,
+        49.4277
+      ],
+      "czas_narast_min": {
+        "tam": 29,
+        "powrot": 19
+      },
+      "wysokosc_m": 569
+    },
+    {
+      "nazwa": "Wodospad Zaskalnik",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.50379,
+        49.43699
+      ],
+      "czas_narast_min": {
+        "tam": 53,
+        "powrot": 0
+      },
+      "wysokosc_m": 575
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Szczawnica, ul. Szalaya",
+      "do": "Dolina Skalskiego Potoku",
+      "tekst": "Ze Szczawnicy wchodzisz w dolinę Skalskiego Potoku. Asfalt szybko się kończy, robi się cicho i cieniście — to najprzyjemniejsza część drogi w upalny dzień.",
+      "wskazowka": "Idź w górę doliny, cały czas wzdłuż potoku. Ścieżka jest szeroka i wygodna."
+    },
+    {
+      "od": "Dolina Skalskiego Potoku",
+      "do": "Wodospad Zaskalnik",
+      "tekst": "Ostatni odcinek podchodzi wyraźniej i robi się kamienisty. Nagroda czeka za zakrętem: Zaskalnik, najbardziej znany wodospad okolic Szczawnicy, spadający z wapiennego progu do zielonego kotła.",
+      "wskazowka": "Uwaga na mokre kamienie tuż przed wodospadem. Wracasz tą samą ścieżką."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.48259,
+        49.42514
+      ],
+      "tytul": "Szczawnica, ul. Szalaya",
+      "tekst": "Start w centrum uzdrowiska. Do wodospadu i z powrotem to około dwóch godzin z przerwami — dobra pierwsza wycieczka na rozgrzewkę przed trudniejszymi trasami."
+    },
+    {
+      "coord": [
+        20.50379,
+        49.43699
+      ],
+      "tytul": "Wodospad Zaskalnik",
+      "tekst": "Woda spada tu z wapiennego progu do niewielkiego kotła. Zimą wodospad potrafi zamarznąć w lodową kolumnę, a wiosną, po roztopach, jest najokazalszy. Latem bywa skromniejszy — nie obiecuj dzieciom Niagary."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "OpenStreetMap / GPX + EU-DEM 25 m",
+  "_zrodlo_czasow": "Wzór Naismitha: 4 km/h + 10 min na 100 m podejścia.",
+  "ilustracja": "1D.webp"
+}

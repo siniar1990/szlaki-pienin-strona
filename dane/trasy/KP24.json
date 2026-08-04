@@ -1,0 +1,79 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP24",
+ "nazwa": "Majerz",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 689,
+ "grupa_gorska": "Pieniny Właściwe",
+ "dlugosc_km": 1.0,
+ "suma_podejsc_m": {
+  "tam": 31,
+  "powrot": 2
+ },
+ "czas_min": {
+  "tam": 18,
+  "powrot": 15
+ },
+ "kcal": {
+  "70kg": 63,
+  "80kg": 73,
+  "90kg": 82
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Dojazd do Czorsztyna i niebieskim na halę Majerz — łagodne pół godziny. Pieszo ze Szczawnicy oznacza przejście całego grzbietu Pienin, 5–6 godzin.",
+ "ostrzezenia": [
+  "Wariant pieszy ze Szczawnicy jest wyczynowy, nie domyślny.",
+  "Sezonowy wypas owiec i bacówka z oscypkami (V–IX).",
+  "Wariant z Hałuszowej: brak potwierdzonego znakowanego dojścia. DO WERYFIKACJI W TERENIE.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Czorsztyn",
+   "typ": "miejscowosc",
+   "coord": [
+    20.33141,
+    49.4381
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 15
+   },
+   "wysokosc_m": 654
+  },
+  {
+   "nazwa": "Majerz",
+   "typ": "szczyt",
+   "coord": [
+    20.34151,
+    49.43353
+   ],
+   "czas_narast_min": {
+    "tam": 18,
+    "powrot": 0
+   },
+   "wysokosc_m": 689
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Czorsztyn",
+   "do": "Majerz",
+   "tekst": "Dojazd do Czorsztyna i niebieskim na halę Majerz — łagodne pół godziny. Pieszo ze Szczawnicy oznacza przejście całego grzbietu Pienin, 5–6 godzin.",
+   "wskazowka": "Do: Majerz."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP24.webp",
+ "geometry": "assets/trasy/gpx/KP24.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

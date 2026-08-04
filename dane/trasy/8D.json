@@ -1,0 +1,88 @@
+{
+  "_uwaga": "Trasa dla dzieci. Ślad: routing po ścieżkach OpenStreetMap (tools/digitalizacja/trasa_z_punktow.py) albo plik GPX, wysokości z EU-DEM 25 m. Grupa wiekowa i opisy — autorskie, na podstawie charakteru trasy; sprawdź je z własnym dzieckiem, bo możliwości bywają bardzo różne.",
+  "id": "8D",
+  "nazwa": "Lawendowe Wzgórza",
+  "kategoria": "dzieci",
+  "dlugosc_km": 1.9,
+  "suma_podejsc_m": {
+    "tam": 137,
+    "powrot": 0
+  },
+  "czas_min": {
+    "tam": 42,
+    "powrot": 29
+  },
+  "kcal": {
+    "70kg": 188,
+    "80kg": 215,
+    "90kg": 242
+  },
+  "granica": false,
+  "szlaki": [],
+  "pttk": false,
+  "opis": "Dla dzieci od 5 lat. Krótkie, ale konsekwentne podejście z centrum Szczawnicy na stok pod Bereśnikiem, gdzie latem kwitnie lawendowe pole. Niecałe dwa kilometry i 137 m w górę — dystans mały, ale cały czas pod górę, więc młodsze dzieci będą prosić o przerwy. Nagrodą jest widok na całą dolinę i, w sezonie, fioletowy stok.",
+  "ostrzezenia": [
+    "Lawenda kwitnie od końca czerwca do sierpnia — poza sezonem zostaje sam widok.",
+    "Podejście jest krótkie, ale bez wytchnienia: 137 m w niecałe 2 km.",
+    "Stok jest odsłonięty i w upalny dzień nie ma tam cienia — woda i czapka obowiązkowo."
+  ],
+  "geometry": "assets/trasy/gpx/8D.geojson",
+  "punkty": [
+    {
+      "nazwa": "Szczawnica, ul. Szalaya",
+      "typ": "inny",
+      "coord": [
+        20.48259,
+        49.42514
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 29
+      },
+      "wysokosc_m": 492
+    },
+    {
+      "nazwa": "Lawendowe Wzgórza pod Bereśnikiem",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.49543,
+        49.4337
+      ],
+      "czas_narast_min": {
+        "tam": 42,
+        "powrot": 0
+      },
+      "wysokosc_m": 628
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Szczawnica, ul. Szalaya",
+      "do": "Lawendowe Wzgórza pod Bereśnikiem",
+      "tekst": "Z centrum ulice zaczynają się piąć na stok Bereśnika. Zabudowa rzednie, otwierają się widoki na dolinę, a droga cały czas idzie pod górę. Na końcu wychodzisz na łagodny stok z lawendowym polem i widokiem na całą Szczawnicę.",
+      "wskazowka": "Z centrum kieruj się w górę, w stronę Bereśnika. Podejście jest równomierne — narzuć wolne tempo od początku."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.48259,
+        49.42514
+      ],
+      "tytul": "Szczawnica, ul. Szalaya",
+      "tekst": "Start w centrum uzdrowiska. Podejście zaczyna się niemal od razu — do lawendowego pola jest niecałe 2 km, ale cały czas pod górę."
+    },
+    {
+      "coord": [
+        20.49543,
+        49.4337
+      ],
+      "tytul": "Lawendowe Wzgórza pod Bereśnikiem",
+      "tekst": "Lawendowe pole na stoku pod Bereśnikiem (809 m). Kwitnie od końca czerwca do sierpnia i w pełni sezonu barwi cały stok na fioletowo. Poza sezonem zostaje sam widok na dolinę Grajcarka i grzbiet Małych Pienin."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "OpenStreetMap / GPX + EU-DEM 25 m",
+  "_zrodlo_czasow": "Wzór Naismitha: 4 km/h + 10 min na 100 m podejścia.",
+  "ilustracja": "8D.webp"
+}

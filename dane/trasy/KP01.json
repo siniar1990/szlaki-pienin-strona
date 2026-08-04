@@ -1,0 +1,193 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP01",
+ "nazwa": "Wysoka (Wysokie Skałki)",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 1050,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 10.8,
+ "suma_podejsc_m": {
+  "tam": 714,
+  "powrot": 171
+ },
+ "czas_min": {
+  "tam": 233,
+  "powrot": 179
+ },
+ "kcal": {
+  "70kg": 1014,
+  "80kg": 1159,
+  "90kg": 1304
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "zolty",
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Najwyższy szczyt całych Pienin. Osią grzbietową przez Durbaszkę i Borsuczyny, a od węzła Pod Wysoką stromo po stopniach i poręczach na wierzchołek.",
+ "ostrzezenia": [
+  "Rezerwat Wysokie Skałki — obowiązuje zakaz schodzenia ze szlaku.",
+  "Nie mylić z Wysokim Wierchem (899 m).",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 179
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 48,
+    "powrot": 153
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.4761,
+    49.41412
+   ],
+   "czas_narast_min": {
+    "tam": 62,
+    "powrot": 141
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Przełęcz pod Huściawą",
+   "typ": "przelecz",
+   "coord": [
+    20.51134,
+    49.39929
+   ],
+   "czas_narast_min": {
+    "tam": 124,
+    "powrot": 86
+   },
+   "wysokosc_m": 787
+  },
+  {
+   "nazwa": "Schronisko pod Durbaszką",
+   "typ": "schronisko",
+   "coord": [
+    20.53619,
+    49.39055
+   ],
+   "czas_narast_min": {
+    "tam": 171,
+    "powrot": 46
+   },
+   "wysokosc_m": 834
+  },
+  {
+   "nazwa": "Durbaszka",
+   "typ": "szczyt",
+   "coord": [
+    20.53676,
+    49.38701
+   ],
+   "czas_narast_min": {
+    "tam": 196,
+    "powrot": 28
+   },
+   "wysokosc_m": 942
+  },
+  {
+   "nazwa": "Borsuczyny",
+   "typ": "szczyt",
+   "coord": [
+    20.54648,
+    49.38556
+   ],
+   "czas_narast_min": {
+    "tam": 209,
+    "powrot": 15
+   },
+   "wysokosc_m": 939
+  },
+  {
+   "nazwa": "Wysoka (Wysokie Skałki)",
+   "typ": "szczyt",
+   "coord": [
+    20.5555,
+    49.38026
+   ],
+   "czas_narast_min": {
+    "tam": 233,
+    "powrot": 0
+   },
+   "wysokosc_m": 1050
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Najwyższy szczyt całych Pienin. Osią grzbietową przez Durbaszkę i Borsuczyny, a od węzła Pod Wysoką stromo po stopniach i poręczach na wierzchołek.",
+   "wskazowka": "Do: Palenica."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Dalej do punktu „Szafranówka\".",
+   "wskazowka": "Do: Szafranówka."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Przełęcz pod Huściawą",
+   "tekst": "Dalej do punktu „Przełęcz pod Huściawą\".",
+   "wskazowka": "Do: Przełęcz pod Huściawą."
+  },
+  {
+   "od": "Przełęcz pod Huściawą",
+   "do": "Schronisko pod Durbaszką",
+   "tekst": "Dalej do punktu „Schronisko pod Durbaszką\".",
+   "wskazowka": "Do: Schronisko pod Durbaszką."
+  },
+  {
+   "od": "Schronisko pod Durbaszką",
+   "do": "Durbaszka",
+   "tekst": "Dalej do punktu „Durbaszka\".",
+   "wskazowka": "Do: Durbaszka."
+  },
+  {
+   "od": "Durbaszka",
+   "do": "Borsuczyny",
+   "tekst": "Dalej do punktu „Borsuczyny\".",
+   "wskazowka": "Do: Borsuczyny."
+  },
+  {
+   "od": "Borsuczyny",
+   "do": "Wysoka (Wysokie Skałki)",
+   "tekst": "Dalej do punktu „Wysoka (Wysokie Skałki)\".",
+   "wskazowka": "Do: Wysoka (Wysokie Skałki)."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP01.webp",
+ "geometry": "assets/trasy/gpx/KP01.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

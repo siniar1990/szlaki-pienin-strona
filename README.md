@@ -36,3 +36,14 @@ potem <http://localhost:8000>.
 | `wsparcie.html` | pomoc i kontakt — adres podawany w App Store Connect |
 | `styl.css` | wygląd; barwy wzięte z aplikacji |
 | `ikona.png` | ikona aplikacji, ta sama co na telefonie |
+
+## Dane z aplikacji
+
+Katalog `dane/` to kopia z repozytorium aplikacji, przynoszona skryptem:
+
+```
+./narzedzia/synchronizuj-dane.sh
+```
+
+Kopiowanie idzie w jedną stronę — aplikacja jest źródłem prawdy. Szczegóły
+i wprowadzenie do samej aplikacji: [CLAUDE.md](CLAUDE.md).

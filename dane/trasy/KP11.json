@@ -1,0 +1,98 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP11",
+ "nazwa": "Aksamitka",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 840,
+ "grupa_gorska": "Pieniny Słowackie",
+ "dlugosc_km": 10.6,
+ "suma_podejsc_m": {
+  "tam": 810,
+  "powrot": 476
+ },
+ "czas_min": {
+  "tam": 239,
+  "powrot": 206
+ },
+ "kcal": {
+  "70kg": 1087,
+  "80kg": 1242,
+  "90kg": 1397
+ },
+ "granica": true,
+ "petla": false,
+ "szlaki": [
+  "niebieski",
+  "czerwony"
+ ],
+ "pttk": false,
+ "opis": "Przez granicę i Lesnicę na Lesnickie sedlo, stamtąd czerwonym 0905 na zachód — pół godziny z siodła. Na szczycie tablica panoramiczna i maszt.",
+ "ostrzezenia": [
+  "Nie mylić szczytu z jaskinią Aksamitka — jest zamknięta i leży 480 m od szlaku.",
+  "Obok rezerwat ścisły NPR Haligovské skaly, niedostępny dla turystów. Wejście legalne wyłącznie po znakach.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 206
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Granica — ujście Leśnickiego Potoku",
+   "typ": "przejscie_graniczne",
+   "coord": [
+    20.45028,
+    49.4139
+   ],
+   "czas_narast_min": {
+    "tam": 107,
+    "powrot": 97
+   },
+   "wysokosc_m": 457
+  },
+  {
+   "nazwa": "Aksamitka",
+   "typ": "szczyt",
+   "coord": [
+    20.4708,
+    49.38513
+   ],
+   "czas_narast_min": {
+    "tam": 239,
+    "powrot": 0
+   },
+   "wysokosc_m": 840
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Granica — ujście Leśnickiego Potoku",
+   "tekst": "Przez granicę i Lesnicę na Lesnickie sedlo, stamtąd czerwonym 0905 na zachód — pół godziny z siodła. Na szczycie tablica panoramiczna i maszt.",
+   "wskazowka": "Do: Granica — ujście Leśnickiego Potoku."
+  },
+  {
+   "od": "Granica — ujście Leśnickiego Potoku",
+   "do": "Aksamitka",
+   "tekst": "Dalej do punktu „Aksamitka\".",
+   "wskazowka": "Do: Aksamitka."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP11.webp",
+ "geometry": "assets/trasy/gpx/KP11.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

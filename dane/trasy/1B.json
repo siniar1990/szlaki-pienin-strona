@@ -1,0 +1,158 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "1B",
+ "nazwa": "„Wilcza Chata”",
+ "kategoria": "srednia",
+ "dlugosc_km": 16.0,
+ "suma_podejsc_m": {
+  "tam": 730,
+  "powrot": 730
+ },
+ "czas_min": {
+  "tam": 290,
+  "powrot": 290
+ },
+ "kcal": {
+  "70kg": 2070,
+  "80kg": 2370,
+  "90kg": 2670
+ },
+ "granica": false,
+ "petla": true,
+ "szlaki": [
+  "niebieski",
+  "zielony"
+ ],
+ "pttk": true,
+ "opis": "Doliną Jastrzębiego Potoku pod Czeremchę — najwyższy punkt trasy, około 1110 m — a stamtąd zielonym przez Łysiny i Kuni Wierch do schronu „Wilcza Chata” i w dół doliną Grajcarka.",
+ "ostrzezenia": [
+  "Zejście z rozdroża pod Czeremchą wymaga uwagi — ścieżka dwukrotnie odbija od drogi i łatwo ją przeoczyć."
+ ],
+ "geometry": "assets/trasy/gpx/1B.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 290
+   },
+   "wysokosc_m": 508
+  },
+  {
+   "nazwa": "Wodospad Zaskalnik",
+   "typ": "atrakcja",
+   "coord": [
+    20.50336,
+    49.43687
+   ],
+   "czas_narast_min": {
+    "tam": 45,
+    "powrot": 245
+   },
+   "wysokosc_m": 565
+  },
+  {
+   "nazwa": "Rozdroże pod Czeremchą",
+   "typ": "przelecz",
+   "coord": [
+    20.53082,
+    49.45284
+   ],
+   "czas_narast_min": {
+    "tam": 175,
+    "powrot": 115
+   },
+   "wysokosc_m": 1052
+  },
+  {
+   "nazwa": "Kuni Wierch",
+   "typ": "szczyt",
+   "coord": [
+    20.53047,
+    49.44763
+   ],
+   "czas_narast_min": {
+    "tam": 220,
+    "powrot": 70
+   },
+   "wysokosc_m": 982
+  },
+  {
+   "nazwa": "Gabańka",
+   "typ": "szczyt",
+   "coord": [
+    20.49546,
+    49.42063
+   ],
+   "czas_narast_min": {
+    "tam": 260,
+    "powrot": 30
+   },
+   "wysokosc_m": 545
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 290,
+    "powrot": 0
+   },
+   "wysokosc_m": 474
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Wodospad Zaskalnik",
+   "tekst": "Z centrum przez Plac Dietla i osiedle Połoniny w dolinę Sopotnickiego Potoku. Za mini parkingiem, po prawej stronie drogi, ukryty jest wodospad Zaskalnik — największy w Beskidzie Sądeckim, pięć metrów wysokości.",
+   "wskazowka": "Przez Plac Dietla i os. Połoniny w górę Sopotnickiego Potoku."
+  },
+  {
+   "od": "Wodospad Zaskalnik",
+   "do": "Rozdroże pod Czeremchą",
+   "tekst": "Za wodospadem mijasz zajazd Czarda i ujęcie wody dla Szczawnicy, potem most u zbiegu Sopotnickiego Potoku i potoku Pod Górami. Za mostem kończy się asfalt: szlak niebieski skręca w prawo na Przehybę, ty idziesz na wprost drogą gruntową do kaplicy na Sewerynówce. Przy kaplicy w prawo odbiega droga za szlabanem, w górę Jastrzębiego Potoku — nią właśnie idziesz. Po 35 minutach droga zakręca ostro w prawo, opuszcza dolinę i wyprowadza na grzbiet Koszarka–Czeremcha przy dużym składzie drewna. Dalej na polanę Koszarki, a stamtąd stromo pod górę na rozdroże pod Czeremchą — najwyższy punkt trasy, około 1110 m.",
+   "wskazowka": "Przy kaplicy na Sewerynówce w prawo za szlaban, doliną Jastrzębiego."
+  },
+  {
+   "od": "Rozdroże pod Czeremchą",
+   "do": "Kuni Wierch",
+   "tekst": "Na rozdrożu zwrot w prawo, na szlak zielony. Pięćdziesiąt metrów leśną dróżką, potem uwaga — skręcasz na ścieżkę w lewo do góry, przekraczasz małą polanę i zachodnim trawersem Czeremchy schodzisz do wyraźnego grzbietu, którym stromo na przełęcz pod Łysinami. Na Łysiny nie wchodzisz: ścieżka obchodzi szczyt trawersem w prawo (znowu uwaga) i wyprowadza na przełęcz przed Kunim Wierchem, gdzie biegnie leśna droga. Drogą tylko sto metrów, potem w prawo na ścieżkę.",
+   "wskazowka": "W prawo na zielony; dwa razy zejdź ze ścieżki wedle ostrzeżeń."
+  },
+  {
+   "od": "Kuni Wierch",
+   "do": "Gabańka",
+   "tekst": "Ścieżka obchodzi Kuni Wierch od zachodu i zaraz za wierzchołkiem wraca na grzbiet. Dalej grzbietem, raz w górę, raz w dół, do małej podgrzbietowej polany z widokiem na Trzy Korony i Tatry. Za polanką drożyna prowadzi w dół i przecina szeroką drogę stokową; za nią obszerna polana, po lewej wierzchołek Gabańki (829 m). Tu w lewo, trawersem zachodniego stoku, do schronu „Wilcza Chata”.",
+   "wskazowka": "Grzbietem przez Kuni Wierch, na polanie w lewo trawersem Gabańki."
+  },
+  {
+   "od": "Gabańka",
+   "do": "Szczawnica, centrum",
+   "tekst": "Kamienistą drogą przez osiedle, na skrzyżowaniu w prawo, poniżej zabudowań na widokowe łąki. Przez łąki do pierwszych domów Szczawnicy — na drodze pojawiają się betonowe płyty, niżej kostka. Przez mostek nad Sopotnickim Potokiem dochodzisz do ul. Sopotnickiej i mostu na Grajcarku.",
+   "wskazowka": "Drogą przez osiedle, na skrzyżowaniu w prawo, łąkami do Szczawnicy."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.49546,
+    49.42063
+   ],
+   "tytul": "„Wilcza Chata”",
+   "tekst": "Schron turystyczny Klubu Przodowników Turystyki Górskiej przy Krakowskim Oddziale PTTK, kupiony w 1991 r. Stanowi bazę dla turystyki rodzinnej i środowiskowej. Warunki pobytu surowe. Kilkadziesiąt metrów za schronem, z terenowego progu, otwiera się panorama: całe Małe Pieniny z Wysoką (1050 m) — najwyższym szczytem Pienin — Wysokim Wierchem, Rabsztynem, Jarmutą, Szafranówką i Palenicą, dalej słowacka Holica i Trzy Korony, a horyzont zamyka postrzępiony łańcuch Tatr Wysokich i Bielskich."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "1B.webp"
+}

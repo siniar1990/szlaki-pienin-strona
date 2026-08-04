@@ -1,0 +1,99 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP02",
+ "nazwa": "Trzy Korony — Okrąglica",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 982,
+ "grupa_gorska": "Pieniny Właściwe",
+ "dlugosc_km": 4.2,
+ "suma_podejsc_m": {
+  "tam": 515,
+  "powrot": 4
+ },
+ "czas_min": {
+  "tam": 114,
+  "powrot": 63
+ },
+ "kcal": {
+  "70kg": 594,
+  "80kg": 679,
+  "90kg": 764
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "czerwony",
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Granią z Sokolicy przez Czertezik, Czerteż i Bajków Groń, potem od kasy PPN schodami na platformę widokową.",
+ "ostrzezenia": [
+  "Bilet PPN 10/5 zł (1.04–15.11), wspólny z Sokolicą tego samego dnia.",
+  "W szczycie sezonu kolejka na platformę trwa od 30 min do 2 godzin — wyrusz rano.",
+  "Wariant graniowy wymaga przeprawy łodzią (15.04–31.10). Poza sezonem przez most w Krościenku.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Krościenko nad Dunajcem",
+   "typ": "miejscowosc",
+   "coord": [
+    20.42791,
+    49.44058
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 63
+   },
+   "wysokosc_m": 426
+  },
+  {
+   "nazwa": "Przełęcz Szopka",
+   "typ": "przelecz",
+   "coord": [
+    20.40807,
+    49.419
+   ],
+   "czas_narast_min": {
+    "tam": 87,
+    "powrot": 12
+   },
+   "wysokosc_m": 787
+  },
+  {
+   "nazwa": "Trzy Korony (Okrąglica)",
+   "typ": "szczyt",
+   "coord": [
+    20.41465,
+    49.41464
+   ],
+   "czas_narast_min": {
+    "tam": 114,
+    "powrot": 0
+   },
+   "wysokosc_m": 982
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Krościenko nad Dunajcem",
+   "do": "Przełęcz Szopka",
+   "tekst": "Granią z Sokolicy przez Czertezik, Czerteż i Bajków Groń, potem od kasy PPN schodami na platformę widokową.",
+   "wskazowka": "Do: Przełęcz Szopka."
+  },
+  {
+   "od": "Przełęcz Szopka",
+   "do": "Trzy Korony (Okrąglica)",
+   "tekst": "Dalej do punktu „Trzy Korony (Okrąglica)\".",
+   "wskazowka": "Do: Trzy Korony (Okrąglica)."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP02.webp",
+ "geometry": "assets/trasy/gpx/KP02.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

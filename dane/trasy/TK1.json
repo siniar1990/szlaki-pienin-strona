@@ -1,0 +1,129 @@
+{
+  "_uwaga": "Trzy Korony — wariant. Ślad: OpenStreetMap (BRouter, profil hiking-mountain) + SRTM. Punkty i kolory zweryfikowane z przewodnikami i OSM.",
+  "id": "TK1",
+  "nazwa": "Trzy Korony ze Szczawnicy (przez przewóz i Sokolicę)",
+  "kategoria": "trzy-korony",
+  "dlugosc_km": 7.8,
+  "suma_podejsc_m": {
+    "tam": 909,
+    "powrot": 381
+  },
+  "czas_min": {
+    "tam": 209,
+    "powrot": 156
+  },
+  "kcal": {
+    "70kg": 1066,
+    "80kg": 1218,
+    "90kg": 1370
+  },
+  "granica": false,
+  "szlaki": [
+    "niebieski"
+  ],
+  "ostrzezenia": [
+    "Przeprawa przez Dunajec tratwą (Nowy Przewóz) — czynna ok. 15 IV–31 X.",
+    "Wejście na Sokolicę i na platformę Okrąglicy płatne w sezonie; bywają kolejki.",
+    "Podejście na Sokolicę (Sokola Perć) strome, z poręczami."
+  ],
+  "geometry": "assets/trasy/gpx/TK1.geojson",
+  "punkty": [
+    {
+      "nazwa": "Przeprawa przez Dunajec (Szczawnica)",
+      "typ": "inny",
+      "coord": [
+        20.45954,
+        49.423
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 156
+      },
+      "wysokosc_m": 430
+    },
+    {
+      "nazwa": "Sokolica",
+      "typ": "punktWidokowy",
+      "coord": [
+        20.4404,
+        49.41768
+      ],
+      "czas_narast_min": {
+        "tam": 52,
+        "powrot": 117
+      },
+      "wysokosc_m": 712
+    },
+    {
+      "nazwa": "Czertezik",
+      "typ": "szczyt",
+      "coord": [
+        20.43424,
+        49.42257
+      ],
+      "czas_narast_min": {
+        "tam": 79,
+        "powrot": 97
+      },
+      "wysokosc_m": 744
+    },
+    {
+      "nazwa": "Czerteż",
+      "typ": "szczyt",
+      "coord": [
+        20.43243,
+        49.42306
+      ],
+      "czas_narast_min": {
+        "tam": 83,
+        "powrot": 94
+      },
+      "wysokosc_m": 762
+    },
+    {
+      "nazwa": "Trzy Korony (Okrąglica)",
+      "typ": "szczyt",
+      "coord": [
+        20.41422,
+        49.41383
+      ],
+      "czas_narast_min": {
+        "tam": 209,
+        "powrot": 0
+      },
+      "wysokosc_m": 958
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Przeprawa przez Dunajec (Szczawnica)",
+      "do": "Sokolica",
+      "tekst": "Przeprawa tratwą flisacką przez Dunajec (Nowy Przewóz), a potem strome podejście Sokolą Percią z poręczami na taras widokowy Sokolicy (747 m) nad przełomem Dunajca.",
+      "wskazowka": null
+    },
+    {
+      "od": "Sokolica",
+      "do": "Czertezik",
+      "tekst": "Niebieskim szlakiem granią Pieninek — z Sokolicy przez Przełęcz Sosnów na Czertezik (772 m). Grań mocno pofalowana, liczne podejścia i zejścia.",
+      "wskazowka": null
+    },
+    {
+      "od": "Czertezik",
+      "do": "Czerteż",
+      "tekst": "Dalej granią przez Czerteż (774 m), leśnym odcinkiem z okazjonalnymi widokami.",
+      "wskazowka": null
+    },
+    {
+      "od": "Czerteż",
+      "do": "Trzy Korony (Okrąglica)",
+      "tekst": "Granią nad Zamkową Górą do rejonu Przełęczy Szopka i końcowe podejście na Okrąglicę (982 m) — galeria widokowa Trzech Koron.",
+      "wskazowka": null
+    }
+  ],
+  "ramki": [],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "© OpenStreetMap contributors, ODbL; routing © BRouter (hiking-mountain)",
+  "_zrodlo_czasow": "Naismith: 4 km/h + 10 min na 100 m podejścia.",
+  "pttk": false,
+  "ilustracja": "TK1.webp"
+}

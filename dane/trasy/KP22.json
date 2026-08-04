@@ -1,0 +1,97 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP22",
+ "nazwa": "Barwinkowa Góra",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 725,
+ "grupa_gorska": "Pieniny Spiskie",
+ "dlugosc_km": 5.1,
+ "suma_podejsc_m": {
+  "tam": 200,
+  "powrot": 50
+ },
+ "czas_min": {
+  "tam": 96,
+  "powrot": 81
+ },
+ "kcal": {
+  "70kg": 363,
+  "80kg": 415,
+  "90kg": 467
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "czerwony"
+ ],
+ "pttk": false,
+ "opis": "Czerwonym za Cisówkę w stronę Przełęczy Przesła; szczyt leży pół kilometra na wschód od przełęczy.",
+ "ostrzezenia": [
+  "Wierzchołek POZA szlakiem — czerwony prowadzi północnymi stokami.",
+  "Z płytkiej przełęczy 691 m nieznakowane podejście łąką, 30–35 m przewyższenia, 5–10 minut. DO WERYFIKACJI W TERENIE.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Niedzica-Zamek",
+   "typ": "miejscowosc",
+   "coord": [
+    20.3191,
+    49.42151
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 81
+   },
+   "wysokosc_m": 548
+  },
+  {
+   "nazwa": "Cisówka",
+   "typ": "szczyt",
+   "coord": [
+    20.27888,
+    49.41628
+   ],
+   "czas_narast_min": {
+    "tam": 69,
+    "powrot": 29
+   },
+   "wysokosc_m": 777
+  },
+  {
+   "nazwa": "Barwinkowa Góra",
+   "typ": "szczyt",
+   "coord": [
+    20.25967,
+    49.41513
+   ],
+   "czas_narast_min": {
+    "tam": 96,
+    "powrot": 0
+   },
+   "wysokosc_m": 725
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Niedzica-Zamek",
+   "do": "Cisówka",
+   "tekst": "Czerwonym za Cisówkę w stronę Przełęczy Przesła; szczyt leży pół kilometra na wschód od przełęczy.",
+   "wskazowka": "Do: Cisówka."
+  },
+  {
+   "od": "Cisówka",
+   "do": "Barwinkowa Góra",
+   "tekst": "Dalej do punktu „Barwinkowa Góra\".",
+   "wskazowka": "Do: Barwinkowa Góra."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP22.webp",
+ "geometry": "assets/trasy/gpx/KP22.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

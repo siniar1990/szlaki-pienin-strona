@@ -1,0 +1,155 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP04",
+ "nazwa": "Watrisko",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 960,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 12.6,
+ "suma_podejsc_m": {
+  "tam": 807,
+  "powrot": 327
+ },
+ "czas_min": {
+  "tam": 270,
+  "powrot": 222
+ },
+ "kcal": {
+  "70kg": 1165,
+  "80kg": 1331,
+  "90kg": 1498
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Za Wysoką niebieskim trawersem pod Smerekową. Wariant przez Jaworki i Przełęcz Rozdzielę jest o połowę krótszy.",
+ "ostrzezenia": [
+  "Wierzchołek POZA szlakiem — niebieski omija go, odbicie nieznakowane 2–5 min.",
+  "Miejsce odejścia DO WERYFIKACJI W TERENIE.",
+  "Czas odcinka ze Szczawnicy DO WERYFIKACJI.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 222
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 48,
+    "powrot": 197
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Huściawa",
+   "typ": "szczyt",
+   "coord": [
+    20.51134,
+    49.39929
+   ],
+   "czas_narast_min": {
+    "tam": 121,
+    "powrot": 132
+   },
+   "wysokosc_m": 818
+  },
+  {
+   "nazwa": "Durbaszka",
+   "typ": "szczyt",
+   "coord": [
+    20.53676,
+    49.38701
+   ],
+   "czas_narast_min": {
+    "tam": 173,
+    "powrot": 95
+   },
+   "wysokosc_m": 942
+  },
+  {
+   "nazwa": "Wysoka (Wysokie Skałki)",
+   "typ": "szczyt",
+   "coord": [
+    20.5555,
+    49.38026
+   ],
+   "czas_narast_min": {
+    "tam": 209,
+    "powrot": 67
+   },
+   "wysokosc_m": 1050
+  },
+  {
+   "nazwa": "Watrisko",
+   "typ": "szczyt",
+   "coord": [
+    20.58094,
+    49.3835
+   ],
+   "czas_narast_min": {
+    "tam": 270,
+    "powrot": 0
+   },
+   "wysokosc_m": 960
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Za Wysoką niebieskim trawersem pod Smerekową. Wariant przez Jaworki i Przełęcz Rozdzielę jest o połowę krótszy.",
+   "wskazowka": "Do: Palenica."
+  },
+  {
+   "od": "Palenica",
+   "do": "Huściawa",
+   "tekst": "Dalej do punktu „Huściawa\".",
+   "wskazowka": "Do: Huściawa."
+  },
+  {
+   "od": "Huściawa",
+   "do": "Durbaszka",
+   "tekst": "Dalej do punktu „Durbaszka\".",
+   "wskazowka": "Do: Durbaszka."
+  },
+  {
+   "od": "Durbaszka",
+   "do": "Wysoka (Wysokie Skałki)",
+   "tekst": "Dalej do punktu „Wysoka (Wysokie Skałki)\".",
+   "wskazowka": "Do: Wysoka (Wysokie Skałki)."
+  },
+  {
+   "od": "Wysoka (Wysokie Skałki)",
+   "do": "Watrisko",
+   "tekst": "Dalej do punktu „Watrisko\".",
+   "wskazowka": "Do: Watrisko."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP04.webp",
+ "geometry": "assets/trasy/gpx/KP04.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

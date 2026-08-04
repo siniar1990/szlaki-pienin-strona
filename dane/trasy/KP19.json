@@ -1,0 +1,98 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP19",
+ "nazwa": "Sokolica",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 747,
+ "grupa_gorska": "Pieniny Właściwe",
+ "dlugosc_km": 3.2,
+ "suma_podejsc_m": {
+  "tam": 292,
+  "powrot": 25
+ },
+ "czas_min": {
+  "tam": 78,
+  "powrot": 51
+ },
+ "kcal": {
+  "70kg": 370,
+  "80kg": 423,
+  "90kg": 476
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "czerwony",
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Promenadą do pawilonu PPN, Drogą Pienińską do przystani, przeprawa łodzią i stromo schodami na szczyt ze słynną sosną reliktową.",
+ "ostrzezenia": [
+  "Przeprawa łodzią czynna 15.04–31.10, bilet 6/3 zł. Poza sezonem trzeba nadkładać przez most w Krościenku.",
+  "Platforma widokowa: bilet PPN 10/5 zł (1.04–15.11).",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Krościenko nad Dunajcem",
+   "typ": "miejscowosc",
+   "coord": [
+    20.42791,
+    49.44058
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 51
+   },
+   "wysokosc_m": 427
+  },
+  {
+   "nazwa": "Przełęcz Sosnów",
+   "typ": "przelecz",
+   "coord": [
+    20.43925,
+    49.41937
+   ],
+   "czas_narast_min": {
+    "tam": 72,
+    "powrot": 3
+   },
+   "wysokosc_m": 668
+  },
+  {
+   "nazwa": "Sokolica",
+   "typ": "szczyt",
+   "coord": [
+    20.44077,
+    49.41808
+   ],
+   "czas_narast_min": {
+    "tam": 78,
+    "powrot": 0
+   },
+   "wysokosc_m": 747
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Krościenko nad Dunajcem",
+   "do": "Przełęcz Sosnów",
+   "tekst": "Promenadą do pawilonu PPN, Drogą Pienińską do przystani, przeprawa łodzią i stromo schodami na szczyt ze słynną sosną reliktową.",
+   "wskazowka": "Do: Przełęcz Sosnów."
+  },
+  {
+   "od": "Przełęcz Sosnów",
+   "do": "Sokolica",
+   "tekst": "Dalej do punktu „Sokolica\".",
+   "wskazowka": "Do: Sokolica."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP19.webp",
+ "geometry": "assets/trasy/gpx/KP19.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

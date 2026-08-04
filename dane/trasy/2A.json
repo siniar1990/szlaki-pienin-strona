@@ -1,0 +1,193 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "2A",
+ "nazwa": "Durbaszka",
+ "kategoria": "krotka",
+ "dlugosc_km": 12.0,
+ "suma_podejsc_m": {
+  "tam": 540,
+  "powrot": 430
+ },
+ "czas_min": {
+  "tam": 220,
+  "powrot": 210
+ },
+ "kcal": {
+  "70kg": 1580,
+  "80kg": 1800,
+  "90kg": 2020
+ },
+ "granica": true,
+ "petla": false,
+ "szlaki": [
+  "zolty",
+  "niebieski"
+ ],
+ "pttk": true,
+ "opis": "Granicznym grzbietem Małych Pienin z Palenicy przez Łaźne Skały i przełęcz Pod Huściawą do schroniska Pod Durbaszką, a stamtąd w dół do Jaworek.",
+ "ostrzezenia": [
+  "Trasa biegnie granicą państwa. Miej przy sobie dowód osobisty lub paszport."
+ ],
+ "geometry": "assets/trasy/gpx/2A.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 210
+   },
+   "wysokosc_m": 469
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47653,
+    49.41872
+   ],
+   "czas_narast_min": {
+    "tam": 45,
+    "powrot": 165
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.47674,
+    49.41359
+   ],
+   "czas_narast_min": {
+    "tam": 65,
+    "powrot": 145
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Łaźne Skały",
+   "typ": "szczyt",
+   "coord": [
+    20.49309,
+    49.40657
+   ],
+   "czas_narast_min": {
+    "tam": 105,
+    "powrot": 105
+   },
+   "wysokosc_m": 770
+  },
+  {
+   "nazwa": "Przełęcz pod Huściawą",
+   "typ": "przelecz",
+   "coord": [
+    20.51091,
+    49.39988
+   ],
+   "czas_narast_min": {
+    "tam": 135,
+    "powrot": 75
+   },
+   "wysokosc_m": 818
+  },
+  {
+   "nazwa": "Schronisko pod Durbaszką",
+   "typ": "schronisko",
+   "coord": [
+    20.53627,
+    49.39059
+   ],
+   "czas_narast_min": {
+    "tam": 180,
+    "powrot": 30
+   },
+   "wysokosc_m": 834
+  },
+  {
+   "nazwa": "Jaworki, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "czas_narast_min": {
+    "tam": 220,
+    "powrot": 0
+   },
+   "wysokosc_m": 571
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Start na przystanku busów w centrum Szczawnicy, przy drogowskazach obok restauracji Halka. Schodami w dół do doliny Grajcarka, do stacji kolei na Palenicę, a dalej szlakiem żółtym pod górę — tak samo jak na trasie 1A Słowacki akcent.",
+   "wskazowka": "Schodami do Grajcarka, potem szlakiem żółtym na Palenicę."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Z Palenicy grzbietem przez trawiastą przełęcz Maćkówki na Szafranówkę (742 m). Pod jej kulminacją wychodzisz na polsko-słowacką granicę państwa.",
+   "wskazowka": "Grzbietem na Szafranówkę, do granicy państwa."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Łaźne Skały",
+   "tekst": "Granicą biegnie szlak niebieski — skręcasz w lewo (w prawo do schroniska Orlica 35 minut). Ścieżka prowadzi młodym lasem, pokonuje skalisty grzbiet Witkuli (736 m) i łagodnie obniża się na skraj polan z widokiem na Szczawnicę i całe Pasmo Radziejowej. Odkrytym grzbietem wchodzisz na Załazie (731 m) — wierzchołek leży 50 m po lewej, warto zboczyć.",
+   "wskazowka": "Na granicy w lewo, szlakiem niebieskim przez Witkulę i Załazie."
+  },
+  {
+   "od": "Łaźne Skały",
+   "do": "Przełęcz pod Huściawą",
+   "tekst": "Lesisty grzbiet Łaźnych Skał obchodzisz trawersem w dół, odchodząc na chwilę od granicy. Zaraz potem łąkowa przełęcz między Łaźnymi Skałami a Cyrhlami (774 m), skąd wzdłuż granicy podchodzisz na Cyrhle. Na skraju lasu i łąk szlak odbija w lewo i obniża się na przełęcz Pod Huściawą (745 m).",
+   "wskazowka": "Trawersem pod Łaźne Skały, przez Cyrhle na przełęcz Pod Huściawą."
+  },
+  {
+   "od": "Przełęcz pod Huściawą",
+   "do": "Schronisko pod Durbaszką",
+   "tekst": "Z przełęczy idziesz szlakiem niebieskim i żółtym na wprost, mijasz niepostrzeżenie przełęcz między Huściawą a Wysokim Wierchem (810 m) i trawersujesz poziomo północny stok Wysokiego Wierchu. Za owczarskim szałasem osiągasz przełęcz Pod Durbaszką (825 m) i granicę państwa. Stąd zaczynasz podejście na Durbaszkę, ale na szczyt nie wchodzisz: w połowie podejścia odbijasz w lewo na nieznakowaną dróżkę (drogowskaz), która po dziesięciu minutach sprowadza do schroniska. W pogodny dzień warto wcześniej wejść na Wysoki Wierch — szlakiem żółtym 10 minut.",
+   "wskazowka": "Trawersem Wysokiego Wierchu na przełęcz Pod Durbaszką, potem w połowie podejścia w lewo do schroniska."
+  },
+  {
+   "od": "Schronisko pod Durbaszką",
+   "do": "Jaworki, centrum",
+   "tekst": "Do Jaworek schodzisz utwardzoną drogą gruntową, którą dowozi się zaopatrzenie dla schroniska. Mijasz owczarski szałas, a pod koniec odsłania się dolina Grajcarka z bielejącymi cerkwiami Szlachtowej i Jaworek. W dolinie wychodzisz na szosę przy parkingu Homole.",
+   "wskazowka": "Drogą gruntową w dół do szosy przy parkingu Homole, dalej do centrum."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.49309,
+    49.40657
+   ],
+   "tytul": "Panorama z Załazia",
+   "tekst": "Na zachodzie lesisty stożek Holicy (824 m), masyw Trzech Koron (982 m), skalne żebro Góry Zamkowej (779 m) i turnia Sokolicy (747 m). Na północy, za doliną Grajcarka, całe Pasmo Radziejowej: Dzwonkówka (983 m), Skałka (1163 m), Czeremcha (1146 m), Prehyba, Radziejowa (1262 m) i bliźniacze Rogacze. Blisko po prawej masywna Jarmuta (794 m) z masztem telewizyjnym."
+  },
+  {
+   "coord": [
+    20.53627,
+    49.39059
+   ],
+   "tytul": "Schronisko Pod Durbaszką",
+   "tekst": "Stała tu jedna z tzw. wzorcowych bacówek — ogromny drewniany budynek z około 1950 r. Pomysł się nie sprawdził i bacówkę porzucono. W 1973 r. niszczejący dom przeznaczono na bazę harcerską; remont zainicjował krakowski instruktor Władysław Piliński „Pucek”, patron schroniska. Dziś to filia „Domu Harcerza” z Krakowa, ogólnodostępna: 86 miejsc, kuchnia, jadalnia, taras widokowy i punkt ratowniczy GOPR."
+  },
+  {
+   "coord": [
+    20.55354,
+    49.40691
+   ],
+   "tytul": "Cerkiew w Jaworkach",
+   "tekst": "Murowana, jednonawowa cerkiew z 1798 r. w stylu józefińskim, zbudowana dla Rusinów-Łemków wyznania greckokatolickiego pw. św. Jana Chryzostoma. W środku pięknie odrestaurowany rokokowy ikonostas z czasu budowy świątyni i ambona z tego samego warsztatu, polichromia z 1926 r. Obok stary łemkowski cmentarz. Na poddaszu chronione stanowisko podkowca małego — najmniejszego nietoperza w Polsce."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "2A.webp"
+}

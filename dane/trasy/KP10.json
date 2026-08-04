@@ -1,0 +1,97 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP10",
+ "nazwa": "Żar",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 883,
+ "grupa_gorska": "Pieniny Spiskie",
+ "dlugosc_km": 7.7,
+ "suma_podejsc_m": {
+  "tam": 391,
+  "powrot": 71
+ },
+ "czas_min": {
+  "tam": 155,
+  "powrot": 123
+ },
+ "kcal": {
+  "70kg": 627,
+  "80kg": 716,
+  "90kg": 806
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "czerwony"
+ ],
+ "pttk": false,
+ "opis": "Dojazd do Niedzicy-Zamku, potem czerwonym przez Cisówkę, Przełęcz Przesła i Polanę Wapienne. Na szczycie drewniana platforma „Zor\" i pieczątka.",
+ "ostrzezenia": [
+  "Najlepsza panorama Tatr otwiera się z Polany Wapienne, nie z samego szczytu.",
+  "Południowy stok bywa błotnisty po deszczu.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Niedzica-Zamek",
+   "typ": "miejscowosc",
+   "coord": [
+    20.3191,
+    49.42151
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 123
+   },
+   "wysokosc_m": 548
+  },
+  {
+   "nazwa": "Cisówka",
+   "typ": "szczyt",
+   "coord": [
+    20.27888,
+    49.41628
+   ],
+   "czas_narast_min": {
+    "tam": 69,
+    "powrot": 72
+   },
+   "wysokosc_m": 777
+  },
+  {
+   "nazwa": "Żar",
+   "typ": "szczyt",
+   "coord": [
+    20.23003,
+    49.41816
+   ],
+   "czas_narast_min": {
+    "tam": 155,
+    "powrot": 0
+   },
+   "wysokosc_m": 883
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Niedzica-Zamek",
+   "do": "Cisówka",
+   "tekst": "Dojazd do Niedzicy-Zamku, potem czerwonym przez Cisówkę, Przełęcz Przesła i Polanę Wapienne. Na szczycie drewniana platforma „Zor\" i pieczątka.",
+   "wskazowka": "Do: Cisówka."
+  },
+  {
+   "od": "Cisówka",
+   "do": "Żar",
+   "tekst": "Dalej do punktu „Żar\".",
+   "wskazowka": "Do: Żar."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP10.webp",
+ "geometry": "assets/trasy/gpx/KP10.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

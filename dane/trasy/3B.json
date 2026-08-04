@@ -1,0 +1,160 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "3B",
+ "nazwa": "Słowackie widoki",
+ "kategoria": "srednia",
+ "dlugosc_km": 18.0,
+ "suma_podejsc_m": {
+  "tam": 540,
+  "powrot": 600
+ },
+ "czas_min": {
+  "tam": 310,
+  "powrot": 310
+ },
+ "kcal": {
+  "70kg": 2140,
+  "80kg": 2450,
+  "90kg": 2760
+ },
+ "granica": true,
+ "petla": false,
+ "szlaki": [
+  "zolty",
+  "niebieski",
+  "zielony",
+  "czerwony"
+ ],
+ "pttk": true,
+ "opis": "Ze Szlachtowej granicznym grzbietem Małych Pienin, potem na słowacką stronę przez Aksamitkę i pod Płaśną do Leśnicy, a z powrotem Drogą Pienińską wzdłuż Dunajca.",
+ "ostrzezenia": [
+  "Znaczna część trasy biegnie po Słowacji. Miej przy sobie dowód osobisty lub paszport."
+ ],
+ "geometry": "assets/trasy/gpx/3B.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szlachtowa",
+   "typ": "miejscowosc",
+   "coord": [
+    20.52661,
+    49.41068
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 310
+   },
+   "wysokosc_m": 526
+  },
+  {
+   "nazwa": "Przełęcz pod Huściawą",
+   "typ": "przelecz",
+   "coord": [
+    20.51091,
+    49.39988
+   ],
+   "czas_narast_min": {
+    "tam": 50,
+    "powrot": 260
+   },
+   "wysokosc_m": 818
+  },
+  {
+   "nazwa": "Wysoki Wierch",
+   "typ": "szczyt",
+   "coord": [
+    20.51487,
+    49.39307
+   ],
+   "czas_narast_min": {
+    "tam": 80,
+    "powrot": 230
+   },
+   "wysokosc_m": 898
+  },
+  {
+   "nazwa": "Aksamitka",
+   "typ": "szczyt",
+   "coord": [
+    20.47154,
+    49.38496
+   ],
+   "czas_narast_min": {
+    "tam": 165,
+    "powrot": 145
+   },
+   "wysokosc_m": 801
+  },
+  {
+   "nazwa": "Schronisko PTTK „Orlica”",
+   "typ": "schronisko",
+   "coord": [
+    20.45795,
+    49.41985
+   ],
+   "czas_narast_min": {
+    "tam": 280,
+    "powrot": 30
+   },
+   "wysokosc_m": 440
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 310,
+    "powrot": 0
+   },
+   "wysokosc_m": 469
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szlachtowa",
+   "do": "Przełęcz pod Huściawą",
+   "tekst": "Start na przystanku w Szlachtowej przy ul. Łemkowskiej, gdzie zaczyna się szlak żółty. Idziesz ul. Łemkowską w stronę Jaworek; po 300 m mijasz drewnianą Karczmę Szlachtowską i starą murowaną kapliczkę wciśniętą poniżej poziomu chodnika — tu skręcasz za żółtymi w prawo, w asfaltową uliczkę. Przez most nad Grajcarkiem i między domami łagodnie pod górę. Za ostatnimi zabudowaniami kończy się asfalt; droga polna prowadzi przez łąki i zagajniki, trochę stromo, po stokach Opalańczyka (711 m) i Huściawy (818 m), z masywną Jarmutą po prawej.",
+   "wskazowka": "Przy Karczmie Szlachtowskiej w prawo za żółtymi, przez most na Grajcarku."
+  },
+  {
+   "od": "Przełęcz pod Huściawą",
+   "do": "Wysoki Wierch",
+   "tekst": "Na przełęczy Pod Huściawą spotykasz szlak niebieski, biegnący granicą. Idziesz nim na wprost, mijasz przełęcz między Huściawą a Wysokim Wierchem i trawersujesz północny stok — obok owczarskiego szałasu.",
+   "wskazowka": "Na przełęczy na wprost, szlakiem niebieskim i żółtym."
+  },
+  {
+   "od": "Wysoki Wierch",
+   "do": "Aksamitka",
+   "tekst": "Z Wysokiego Wierchu grzbietem przez przełęcz Pod Durbaszką i zachodni stok, dalej na przełęcz Pod Tokarnem, gdzie przekraczasz granicę i schodzisz na słowacką stronę w stronę Aksamitki (850 m).",
+   "wskazowka": "Przez przełęcz Pod Durbaszką i Pod Tokarnem na stronę słowacką."
+  },
+  {
+   "od": "Aksamitka",
+   "do": "Schronisko PTTK „Orlica”",
+   "tekst": "Z Aksamitki dalej grzbietem do rozdroża pod Płaśną (889 m), a stamtąd w dół do Leśnicy. We wsi wychodzisz na szosę i idziesz z biegiem Leśnickiego Potoku do jego ujścia, gdzie zaczyna się Droga Pienińska. Nią, wzdłuż Dunajca, w prawo do Szczawnicy.",
+   "wskazowka": "Spod Płaśnej w dół do Leśnicy, potem Drogą Pienińską w prawo."
+  },
+  {
+   "od": "Schronisko PTTK „Orlica”",
+   "do": "Szczawnica, centrum",
+   "tekst": "Od schroniska Drogą Pienińską i promenadą do centrum Szczawnicy.",
+   "wskazowka": "Wzdłuż Dunajca i promenadą do centrum."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.52661,
+    49.41068
+   ],
+   "tytul": "Cerkiew w Szlachtowej",
+   "tekst": "Murowana, wzniesiona na planie krzyża, trójkopułowa, nawiązująca do wzorów rosyjskich. Budowano ją w latach 1895–1920 — tak długo z powodu kosztów i błędów architektonicznych: zawaliła się jedna z kopuł. Nosiła wezwanie Opieki Matki Bożej; polichromie i ikonostas pochodzą z czasu budowy, obok stoi murowana dzwonnica parawanowa z 1920 r. Po wysiedleniu Rusinów-Łemków w latach 1947–1950 świątynię przejęli polscy osadnicy."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "3B.webp"
+}

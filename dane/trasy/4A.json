@@ -1,0 +1,185 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "4A",
+ "nazwa": "Cel – Muzeum Pienińskie",
+ "kategoria": "krotka",
+ "dlugosc_km": 9.0,
+ "suma_podejsc_m": {
+  "tam": 425,
+  "powrot": 330
+ },
+ "czas_min": {
+  "tam": 180,
+  "powrot": 180
+ },
+ "kcal": {
+  "70kg": 1290,
+  "80kg": 1470,
+  "90kg": 1650
+ },
+ "granica": true,
+ "petla": false,
+ "szlaki": [
+  "zolty",
+  "niebieski"
+ ],
+ "pttk": true,
+ "opis": "Ścieżką pieszo-rowerową nad Grajcarkiem do Szczawnicy Niżnej, stamtąd podejście na graniczny grzbiet Małych Pienin i grzbietem do Szlachtowej, gdzie czeka Muzeum Pienińskie.",
+ "ostrzezenia": [
+  "Odcinek grzbietowy biegnie granicą państwa. Miej przy sobie dowód osobisty lub paszport."
+ ],
+ "geometry": "assets/trasy/gpx/4A.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 180
+   },
+   "wysokosc_m": 469
+  },
+  {
+   "nazwa": "Szczawnica Niżna, ul. Pienińska",
+   "typ": "inny",
+   "coord": [
+    20.46045,
+    49.42219
+   ],
+   "czas_narast_min": {
+    "tam": 30,
+    "powrot": 150
+   },
+   "wysokosc_m": 464
+  },
+  {
+   "nazwa": "Przełęcz pod Szafranówką",
+   "typ": "przelecz",
+   "coord": [
+    20.46426,
+    49.41603
+   ],
+   "czas_narast_min": {
+    "tam": 55,
+    "powrot": 125
+   },
+   "wysokosc_m": 630
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.47624,
+    49.41405
+   ],
+   "czas_narast_min": {
+    "tam": 75,
+    "powrot": 105
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Łaźne Skały",
+   "typ": "szczyt",
+   "coord": [
+    20.49309,
+    49.40657
+   ],
+   "czas_narast_min": {
+    "tam": 115,
+    "powrot": 65
+   },
+   "wysokosc_m": 770
+  },
+  {
+   "nazwa": "Przełęcz pod Huściawą",
+   "typ": "przelecz",
+   "coord": [
+    20.50491,
+    49.4036
+   ],
+   "czas_narast_min": {
+    "tam": 145,
+    "powrot": 35
+   },
+   "wysokosc_m": 774
+  },
+  {
+   "nazwa": "Szlachtowa, Muzeum Pienińskie",
+   "typ": "atrakcja",
+   "coord": [
+    20.52661,
+    49.41068
+   ],
+   "czas_narast_min": {
+    "tam": 180,
+    "powrot": 0
+   },
+   "wysokosc_m": 526
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Szczawnica Niżna, ul. Pienińska",
+   "tekst": "Start na przystanku busów w centrum, przy restauracji Halka. Pierwsze 250 m szlakiem żółtym: schodami do doliny Grajcarka, obok stacji kolei na Palenicę i restauracji Pod Kolejką, przez kładkę nad Grajcarkiem do dzielnicy Zawodzie. Tam opuszczasz żółty szlak i skręcasz w prawo na asfaltową ścieżkę pieszo-rowerową im. Anny i Artura Wernerów, biegnącą lewym brzegiem Grajcarka aż do ul. Pienińskiej w Szczawnicy Niżnej.",
+   "wskazowka": "Przez kładkę do Zawodzia, w prawo na ścieżkę pieszo-rowerową."
+  },
+  {
+   "od": "Szczawnica Niżna, ul. Pienińska",
+   "do": "Przełęcz pod Szafranówką",
+   "tekst": "Pięć metrów przed ul. Pienińską, przy willi Pieniny (nr 6d), skręcasz w boczną uliczkę w lewo. Po stu metrach asfalt się kończy — w prawo przez mostek nad Głębokim Potokiem i drogą gruntową w las. Po 50 m na rozwidleniu idziesz w lewo. Na łąkach, na rozdrożu przy ich górnym skraju, w prawo; przez lasek na polankę, dalej zagajnikiem na łąki Kacze i nimi do grzbietu i granicy w rejonie przełęczy pod Szafranówką (608 m).",
+   "wskazowka": "Przy willi Pieniny w lewo, potem w prawo przez mostek i pod górę."
+  },
+  {
+   "od": "Przełęcz pod Szafranówką",
+   "do": "Szafranówka",
+   "tekst": "Na przełęczy stoją drogowskazy i tablica Pienińskiego Parku Narodowego. Skręcasz w graniczny szlak niebieski i podchodzisz na skalisty wierzchołek Szafranówki (742 m) — ten odcinek opisuje trasa 1A, tyle że w przeciwną stronę.",
+   "wskazowka": "Szlakiem niebieskim wzdłuż granicy na Szafranówkę."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Łaźne Skały",
+   "tekst": "Dalej granicznym niebieskim przez Witkulę i Załazie, potem trawersem pod Łaźne Skały — tak jak na trasie 2A Durbaszka.",
+   "wskazowka": "Granicą przez Witkulę i Załazie pod Łaźne Skały."
+  },
+  {
+   "od": "Łaźne Skały",
+   "do": "Przełęcz pod Huściawą",
+   "tekst": "Przez łąkową przełęcz i Cyrhle dochodzisz do przełęczy Pod Huściawą (745 m), gdzie spotykasz szlak żółty.",
+   "wskazowka": "Przez Cyrhle na przełęcz Pod Huściawą."
+  },
+  {
+   "od": "Przełęcz pod Huściawą",
+   "do": "Szlachtowa, Muzeum Pienińskie",
+   "tekst": "Z przełęczy schodzisz szlakiem żółtym do Szlachtowej — pół godziny w dół (odcinek opisuje trasa 3B, w przeciwnym kierunku). Muzeum mieści się w budynku dawnej strażnicy Straży Granicznej.",
+   "wskazowka": "Z przełęczy w lewo, szlakiem żółtym w dół do Szlachtowej."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.46045,
+    49.42219
+   ],
+   "tytul": "Szlak Podróżników i Odkrywców",
+   "tekst": "Ścieżka pieszo-rowerowa im. Anny i Artura Wernerów bywa nazywana Szlakiem Podróżników i Odkrywców: przy trasie ustawiono głazy z tabliczkami i biogramami Pawła Strzeleckiego, Arkadego Fiedlera, Bronisława Malinowskiego, Kazimierza Nowaka, Olgierda Budrewicza i Antoniego Halika."
+  },
+  {
+   "coord": [
+    20.52661,
+    49.41068
+   ],
+   "tytul": "Muzeum Pienińskie im. Józefa Szalaya",
+   "tekst": "Nosi imię twórcy uzdrowiska w Szczawnicy (1802–1876) i pierwotnie tam miało siedzibę; do Szlachtowej przeniesiono je w 2014 r. Dzieli się na część etnograficzną — stroje Górali Pienińskich i Rusinów Szlachtowskich, łemkowskie druciarstwo, pasterstwo i flisactwo — oraz historyczną, z dziejami uzdrowiska i II wojny światowej w Pieninach. Obok stoi drewniana Karczma Szlachtowska."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "4A.webp"
+}

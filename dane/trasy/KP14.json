@@ -1,0 +1,97 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP14",
+ "nazwa": "Góra Zamkowa",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 799,
+ "grupa_gorska": "Pieniny Właściwe",
+ "dlugosc_km": 5.0,
+ "suma_podejsc_m": {
+  "tam": 437,
+  "powrot": 101
+ },
+ "czas_min": {
+  "tam": 119,
+  "powrot": 85
+ },
+ "kcal": {
+  "70kg": 560,
+  "80kg": 640,
+  "90kg": 720
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Granią jak na Trzy Korony do węzła Zamek Pieniny (750 m), stamtąd krótka odnoga do ruin zamku i Groty św. Kingi.",
+ "ostrzezenia": [
+  "Kulminacja jest turystycznie niedostępna: urwiska i teren PPN bez ścieżki. W rozumieniu Korony Pienin zdobyciem jest dojście do RUIN ZAMKU.",
+  "Rozbieżność wysokości 799 / 779 m DO WERYFIKACJI.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Krościenko nad Dunajcem",
+   "typ": "miejscowosc",
+   "coord": [
+    20.42791,
+    49.44058
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 85
+   },
+   "wysokosc_m": 426
+  },
+  {
+   "nazwa": "Przełęcz Szopka",
+   "typ": "przelecz",
+   "coord": [
+    20.40807,
+    49.419
+   ],
+   "czas_narast_min": {
+    "tam": 87,
+    "powrot": 34
+   },
+   "wysokosc_m": 785
+  },
+  {
+   "nazwa": "Zamkowa Góra",
+   "typ": "zamek",
+   "coord": [
+    20.42024,
+    49.41951
+   ],
+   "czas_narast_min": {
+    "tam": 119,
+    "powrot": 0
+   },
+   "wysokosc_m": 799
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Krościenko nad Dunajcem",
+   "do": "Przełęcz Szopka",
+   "tekst": "Granią jak na Trzy Korony do węzła Zamek Pieniny (750 m), stamtąd krótka odnoga do ruin zamku i Groty św. Kingi.",
+   "wskazowka": "Do: Przełęcz Szopka."
+  },
+  {
+   "od": "Przełęcz Szopka",
+   "do": "Zamkowa Góra",
+   "tekst": "Dalej do punktu „Zamkowa Góra\".",
+   "wskazowka": "Do: Zamkowa Góra."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP14.webp",
+ "geometry": "assets/trasy/gpx/KP14.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

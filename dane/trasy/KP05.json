@@ -1,0 +1,155 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP05",
+ "nazwa": "Durbaszka",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 942,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 9.1,
+ "suma_podejsc_m": {
+  "tam": 595,
+  "powrot": 141
+ },
+ "czas_min": {
+  "tam": 196,
+  "powrot": 151
+ },
+ "kcal": {
+  "70kg": 851,
+  "80kg": 972,
+  "90kg": 1094
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "zolty",
+  "niebieski"
+ ],
+ "pttk": false,
+ "opis": "Osią grzbietową przez skrzyżowanie pod Wysokim Wierchem i schronisko Pod Durbaszką. Wariant z Jaworek przez wąwóz Homole skraca marsz do dwóch godzin.",
+ "ostrzezenia": [
+  "Schronisko leży 10–15 minut PONIŻEJ szczytu — łatwo pomylić je z wierzchołkiem.",
+  "Węzeł na mapie podaje 934 m, tabliczka szczytowa 942 m.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 151
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 48,
+    "powrot": 126
+   },
+   "wysokosc_m": 722
+  },
+  {
+   "nazwa": "Szafranówka",
+   "typ": "szczyt",
+   "coord": [
+    20.4761,
+    49.41412
+   ],
+   "czas_narast_min": {
+    "tam": 62,
+    "powrot": 113
+   },
+   "wysokosc_m": 742
+  },
+  {
+   "nazwa": "Huściawa",
+   "typ": "szczyt",
+   "coord": [
+    20.51134,
+    49.39929
+   ],
+   "czas_narast_min": {
+    "tam": 124,
+    "powrot": 58
+   },
+   "wysokosc_m": 818
+  },
+  {
+   "nazwa": "Schronisko pod Durbaszką",
+   "typ": "schronisko",
+   "coord": [
+    20.53619,
+    49.39055
+   ],
+   "czas_narast_min": {
+    "tam": 171,
+    "powrot": 18
+   },
+   "wysokosc_m": 834
+  },
+  {
+   "nazwa": "Durbaszka",
+   "typ": "szczyt",
+   "coord": [
+    20.53676,
+    49.38701
+   ],
+   "czas_narast_min": {
+    "tam": 196,
+    "powrot": 0
+   },
+   "wysokosc_m": 942
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Osią grzbietową przez skrzyżowanie pod Wysokim Wierchem i schronisko Pod Durbaszką. Wariant z Jaworek przez wąwóz Homole skraca marsz do dwóch godzin.",
+   "wskazowka": "Do: Palenica."
+  },
+  {
+   "od": "Palenica",
+   "do": "Szafranówka",
+   "tekst": "Dalej do punktu „Szafranówka\".",
+   "wskazowka": "Do: Szafranówka."
+  },
+  {
+   "od": "Szafranówka",
+   "do": "Huściawa",
+   "tekst": "Dalej do punktu „Huściawa\".",
+   "wskazowka": "Do: Huściawa."
+  },
+  {
+   "od": "Huściawa",
+   "do": "Schronisko pod Durbaszką",
+   "tekst": "Dalej do punktu „Schronisko pod Durbaszką\".",
+   "wskazowka": "Do: Schronisko pod Durbaszką."
+  },
+  {
+   "od": "Schronisko pod Durbaszką",
+   "do": "Durbaszka",
+   "tekst": "Dalej do punktu „Durbaszka\".",
+   "wskazowka": "Do: Durbaszka."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP05.webp",
+ "geometry": "assets/trasy/gpx/KP05.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

@@ -1,0 +1,1196 @@
+{
+  "_uwaga": "DANE TYMCZASOWE. Nazwy tras pochodzą z przewodnika PTTK, ale wszystkie liczby (długość, czas, granica) są PLACEHOLDERAMI do zastąpienia podczas digitalizacji — krok 3 planu. Wypełnione realnie: tylko 1A.",
+  "trasy": [
+    {
+      "id": "1A",
+      "nazwa": "Słowacki akcent",
+      "kategoria": "krotka",
+      "dlugosc_km": 10.5,
+      "czas_min_tam": 175,
+      "suma_podejsc_tam": 350,
+      "granica": true,
+      "szlaki": [
+        "zolty",
+        "niebieski",
+        "czerwony"
+      ],
+      "plik": "1A.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Dolna stacja kolei na Palenicę",
+        "Palenica",
+        "Szafranówka",
+        "Przełęcz pod Szafranówką",
+        "Schronisko PTTK „Orlica”",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "1A.webp",
+      "petla": true
+    },
+    {
+      "id": "2A",
+      "nazwa": "Durbaszka",
+      "kategoria": "krotka",
+      "dlugosc_km": 12.0,
+      "czas_min_tam": 220,
+      "granica": true,
+      "plik": "2A.json",
+      "suma_podejsc_tam": 540,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Łaźne Skały",
+        "Przełęcz pod Huściawą",
+        "Schronisko pod Durbaszką",
+        "Jaworki, centrum"
+      ],
+      "ilustracja": "2A.webp"
+    },
+    {
+      "id": "3A",
+      "nazwa": "Bereśnik",
+      "kategoria": "krotka",
+      "dlugosc_km": 15.5,
+      "czas_min_tam": 235,
+      "granica": false,
+      "plik": "3A.json",
+      "suma_podejsc_tam": 560,
+      "szlaki": [
+        "niebieski",
+        "czerwony",
+        "zolty"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Dolina Skalskiego Potoku",
+        "Przełęcz Przysłop",
+        "Dzwonkówka",
+        "Bereśnik",
+        "Bryjarka",
+        "Szczawnica, Plac Dietla"
+      ],
+      "ilustracja": "3A.webp",
+      "petla": true
+    },
+    {
+      "id": "4A",
+      "nazwa": "Cel – Muzeum Pienińskie",
+      "kategoria": "krotka",
+      "dlugosc_km": 9.0,
+      "czas_min_tam": 180,
+      "granica": true,
+      "plik": "4A.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Szczawnica Niżna, ul. Pienińska",
+        "Przełęcz pod Szafranówką",
+        "Szafranówka",
+        "Łaźne Skały",
+        "Przełęcz pod Huściawą",
+        "Szlachtowa, Muzeum Pienińskie"
+      ],
+      "ilustracja": "4A.webp",
+      "suma_podejsc_tam": 425,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ]
+    },
+    {
+      "id": "5A",
+      "nazwa": "Od „Pitoniakówki” do „Stefana”",
+      "kategoria": "krotka",
+      "dlugosc_km": 6.6,
+      "czas_min_tam": 115,
+      "granica": false,
+      "plik": "5A.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Bryjarka",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "5A.webp",
+      "suma_podejsc_tam": 310,
+      "szlaki": [
+        "zolty"
+      ],
+      "petla": true
+    },
+    {
+      "id": "6A",
+      "nazwa": "Mało znany Średniak",
+      "kategoria": "krotka",
+      "dlugosc_km": 12.0,
+      "czas_min_tam": 195,
+      "granica": false,
+      "plik": "6A.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Średniak",
+        "Bereśnik",
+        "Bryjarka",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "6A.webp",
+      "suma_podejsc_tam": 490,
+      "szlaki": [
+        "zolty"
+      ],
+      "petla": true
+    },
+    {
+      "id": "1B",
+      "nazwa": "„Wilcza Chata”",
+      "kategoria": "srednia",
+      "dlugosc_km": 16.0,
+      "czas_min_tam": 290,
+      "granica": false,
+      "plik": "1B.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Wodospad Zaskalnik",
+        "Rozdroże pod Czeremchą",
+        "Kuni Wierch",
+        "Gabańka",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "1B.webp",
+      "suma_podejsc_tam": 730,
+      "szlaki": [
+        "niebieski",
+        "zielony"
+      ],
+      "petla": true
+    },
+    {
+      "id": "2B",
+      "nazwa": "Z wizytą u św. Kingi",
+      "kategoria": "srednia",
+      "dlugosc_km": 13.0,
+      "czas_min_tam": 295,
+      "granica": false,
+      "plik": "2B.json",
+      "suma_podejsc_tam": 780,
+      "szlaki": [
+        "niebieski",
+        "zielony",
+        "zolty"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Schronisko PTTK „Orlica”",
+        "Sokolica",
+        "Czertezik",
+        "Przełęcz Szopka",
+        "Zamek Pieniński"
+      ],
+      "ilustracja": "2B.webp"
+    },
+    {
+      "id": "3B",
+      "nazwa": "Słowackie widoki",
+      "kategoria": "srednia",
+      "dlugosc_km": 18.0,
+      "czas_min_tam": 310,
+      "granica": true,
+      "plik": "3B.json",
+      "suma_podejsc_tam": 540,
+      "szlaki": [
+        "zolty",
+        "niebieski",
+        "zielony",
+        "czerwony"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Szlachtowa",
+        "Przełęcz pod Huściawą",
+        "Wysoki Wierch",
+        "Aksamitka",
+        "Schronisko PTTK „Orlica”",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "3B.webp"
+    },
+    {
+      "id": "4B",
+      "nazwa": "Co tam u baców?",
+      "kategoria": "srednia",
+      "dlugosc_km": 16.0,
+      "czas_min_tam": 285,
+      "granica": true,
+      "plik": "4B.json",
+      "suma_podejsc_tam": 440,
+      "szlaki": [
+        "zolty",
+        "czerwony",
+        "niebieski"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Jaworki, centrum",
+        "Ruski Wierch",
+        "Pokrywisko",
+        "Przełęcz Gromadzka",
+        "Szczob",
+        "Jaworki, Biała Woda"
+      ],
+      "ilustracja": "4B.webp",
+      "petla": true
+    },
+    {
+      "id": "5B",
+      "nazwa": "Nie mam roweru",
+      "kategoria": "srednia",
+      "dlugosc_km": 21.0,
+      "czas_min_tam": 305,
+      "granica": false,
+      "plik": "5B.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Wodospad Zaskalnik",
+        "Kaplica na Sewerynówce",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "5B.webp",
+      "suma_podejsc_tam": 610,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "petla": true
+    },
+    {
+      "id": "1C",
+      "nazwa": "Mnisia ścieżka",
+      "kategoria": "dluga",
+      "dlugosc_km": 23.0,
+      "czas_min_tam": 380,
+      "granica": true,
+      "plik": "1C.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Przełęcz pod Szafranówką",
+        "Leśnica",
+        "Grota słowackiego turysty",
+        "Schronisko PTTK „Orlica”",
+        "Szczawnica, centrum"
+      ],
+      "ilustracja": "1C.webp",
+      "suma_podejsc_tam": 620,
+      "szlaki": [
+        "zolty",
+        "niebieski",
+        "czerwony"
+      ],
+      "petla": true
+    },
+    {
+      "id": "2C",
+      "nazwa": "Spacer Harnasia",
+      "kategoria": "dluga",
+      "dlugosc_km": 21.0,
+      "czas_min_tam": 400,
+      "granica": true,
+      "plik": "2C.json",
+      "suma_podejsc_tam": 765,
+      "szlaki": [
+        "zielony",
+        "niebieski",
+        "zolty",
+        "czerwony"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Jaworki, centrum",
+        "Wysoka",
+        "Wierchliczka",
+        "Przełęcz Rozdziela",
+        "Przełęcz Gromadzka",
+        "Ruski Wierch",
+        "Jaworki, centrum"
+      ],
+      "ilustracja": "2C.webp",
+      "petla": true
+    },
+    {
+      "id": "3C",
+      "nazwa": "Śladem św. Kingi",
+      "kategoria": "dluga",
+      "dlugosc_km": 24.0,
+      "czas_min_tam": 400,
+      "granica": false,
+      "plik": "3C.json",
+      "suma_podejsc_tam": 950,
+      "szlaki": [
+        "niebieski",
+        "zielony",
+        "czerwony",
+        "zolty"
+      ],
+      "pttk": true,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Wodospad Zaskalnik",
+        "Czeremcha",
+        "Schronisko PTTK na Przehybie",
+        "Przełęcz Minkowska",
+        "Przełęcz Przysłop",
+        "Bereśnik",
+        "Bryjarka",
+        "Szczawnica, Plac Dietla"
+      ],
+      "ilustracja": "3C.webp",
+      "petla": true
+    },
+    {
+      "id": "DP",
+      "nazwa": "Droga Pienińska",
+      "kategoria": "krotka",
+      "dlugosc_km": 2.0,
+      "czas_min_tam": 30,
+      "suma_podejsc_tam": 27,
+      "granica": true,
+      "szlaki": [],
+      "pttk": false,
+      "plik": "DP.json",
+      "punkty": [
+        "Skała Kotońka",
+        "Przystań flisacka",
+        "Schronisko PTTK „Orlica”",
+        "Piec Majki (Grota Zyblikiewicza)",
+        "Figura Matki Boskiej",
+        "Pawilon Wejściowy PPN",
+        "Nowy przewóz pod Sokolicą",
+        "Ujście Potoku Leśnickiego"
+      ],
+      "kategorie_dodatkowe": [
+        "dzieci"
+      ],
+      "ilustracja": "DP.webp"
+    },
+    {
+      "id": "TK1",
+      "nazwa": "Trzy Korony ze Szczawnicy (przez przewóz i Sokolicę)",
+      "kategoria": "trzy-korony",
+      "dlugosc_km": 7.8,
+      "czas_min_tam": 209,
+      "suma_podejsc_tam": 909,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "TK1.json",
+      "pttk": false,
+      "punkty": [
+        "Przeprawa przez Dunajec (Szczawnica)",
+        "Sokolica",
+        "Czertezik",
+        "Czerteż",
+        "Trzy Korony (Okrąglica)"
+      ],
+      "ilustracja": "TK1.webp"
+    },
+    {
+      "id": "TK2",
+      "nazwa": "Trzy Korony z Krościenka (przez Przełęcz Szopka)",
+      "kategoria": "trzy-korony",
+      "dlugosc_km": 4.6,
+      "czas_min_tam": 128,
+      "suma_podejsc_tam": 595,
+      "granica": false,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "plik": "TK2.json",
+      "pttk": false,
+      "punkty": [
+        "Krościenko nad Dunajcem",
+        "Bajków Groń",
+        "Przełęcz Szopka",
+        "Trzy Korony (Okrąglica)"
+      ],
+      "ilustracja": "TK2.webp"
+    },
+    {
+      "id": "TK3",
+      "nazwa": "Trzy Korony ze Sromowiec Niżnych (spod schroniska)",
+      "kategoria": "trzy-korony",
+      "dlugosc_km": 2.8,
+      "czas_min_tam": 93,
+      "suma_podejsc_tam": 500,
+      "granica": false,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "plik": "TK3.json",
+      "pttk": false,
+      "punkty": [
+        "Schronisko PTTK „Trzy Korony”",
+        "Wąwóz Szopczański",
+        "Przełęcz Szopka",
+        "Trzy Korony (Okrąglica)"
+      ],
+      "ilustracja": "TK3.webp"
+    },
+    {
+      "id": "R1",
+      "nazwa": "Rowerem do Czerwonego Klasztoru",
+      "kategoria": "rowerowa",
+      "dlugosc_km": 9.7,
+      "czas_min_tam": 58,
+      "suma_podejsc_tam": 219,
+      "granica": true,
+      "szlaki": [],
+      "pttk": false,
+      "plik": "R1.json",
+      "punkty": [
+        "Skała Kotońka",
+        "Przystań flisacka w Szczawnicy",
+        "Pawilon Wejściowy PPN",
+        "Nowy przewóz pod Sokolicą",
+        "Przejście graniczne pod Cyplem",
+        "Ujście Potoku Leśnickiego",
+        "Siedmiu Mnichów",
+        "Janosikowy Skok",
+        "Czerwony Klasztor"
+      ],
+      "ilustracja": "R1.webp"
+    },
+    {
+      "id": "R2",
+      "nazwa": "Velo Czorsztyn",
+      "kategoria": "rowerowa",
+      "dlugosc_km": 27.1,
+      "czas_min_tam": 136,
+      "suma_podejsc_tam": 177,
+      "granica": false,
+      "szlaki": [],
+      "pttk": false,
+      "plik": "R2.json",
+      "punkty": [
+        "Zamek Dunajec w Niedzicy",
+        "Falsztyn",
+        "Frydman",
+        "Kościół św. Michała Archanioła w Dębnie",
+        "Maniowy",
+        "Kluszkowce",
+        "Zamek Czorsztyn"
+      ],
+      "ilustracja": "R2.webp"
+    },
+    {
+      "id": "1D",
+      "nazwa": "Wodospad Zaskalnik",
+      "kategoria": "dzieci",
+      "dlugosc_km": 2.7,
+      "czas_min_tam": 53,
+      "suma_podejsc_tam": 121,
+      "granica": false,
+      "szlaki": [
+        "zielony"
+      ],
+      "pttk": false,
+      "plik": "1D.json",
+      "punkty": [
+        "Szczawnica, ul. Szalaya",
+        "Dolina Skalskiego Potoku",
+        "Wodospad Zaskalnik"
+      ],
+      "ilustracja": "1D.webp"
+    },
+    {
+      "id": "2D",
+      "nazwa": "Deptak nad Grajcarkiem",
+      "kategoria": "dzieci",
+      "dlugosc_km": 1.8,
+      "czas_min_tam": 28,
+      "suma_podejsc_tam": 7,
+      "granica": false,
+      "szlaki": [],
+      "pttk": false,
+      "plik": "2D.json",
+      "punkty": [
+        "Dolna stacja kolei na Palenicę",
+        "Deptak nad Grajcarkiem",
+        "Przystań flisacka"
+      ],
+      "ilustracja": "2D.webp"
+    },
+    {
+      "id": "4D",
+      "nazwa": "Rezerwat Biała Woda",
+      "kategoria": "dzieci",
+      "dlugosc_km": 3.8,
+      "czas_min_tam": 79,
+      "suma_podejsc_tam": 218,
+      "granica": false,
+      "szlaki": [
+        "zielony"
+      ],
+      "pttk": false,
+      "plik": "4D.json",
+      "punkty": [
+        "Jaworki",
+        "Wejście do rezerwatu Biała Woda",
+        "W głębi doliny Białej Wody"
+      ],
+      "ilustracja": "4D.webp"
+    },
+    {
+      "id": "5D",
+      "nazwa": "Wąwóz Homole",
+      "kategoria": "dzieci",
+      "dlugosc_km": 1.6,
+      "czas_min_tam": 38,
+      "suma_podejsc_tam": 146,
+      "granica": false,
+      "szlaki": [
+        "zielony"
+      ],
+      "pttk": false,
+      "plik": "5D.json",
+      "punkty": [
+        "Jaworki, ul. Pod Homolami",
+        "Wejście do Wąwozu Homole",
+        "Dno wąwozu",
+        "Górna stacja wyciągu w Jaworkach"
+      ],
+      "ilustracja": "5D.webp"
+    },
+    {
+      "id": "6D",
+      "nazwa": "Wąwóz Szopczański",
+      "kategoria": "dzieci",
+      "dlugosc_km": 1.0,
+      "czas_min_tam": 30,
+      "suma_podejsc_tam": 149,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "pttk": false,
+      "plik": "6D.json",
+      "punkty": [
+        "Schronisko PTTK „Trzy Korony\"",
+        "W głębi Wąwozu Szopczańskiego"
+      ],
+      "ilustracja": "6D.webp"
+    },
+    {
+      "id": "7D",
+      "nazwa": "Palenica wyciągiem",
+      "kategoria": "dzieci",
+      "dlugosc_km": 0.6,
+      "czas_min_tam": 19,
+      "suma_podejsc_tam": 35,
+      "granica": false,
+      "szlaki": [],
+      "pttk": false,
+      "plik": "7D.json",
+      "punkty": [
+        "Dolna stacja kolei na Palenicę",
+        "Górna stacja kolei na Palenicę",
+        "Ścieżka „Mali odkrywcy Gór\"",
+        "Polana pod Szafranówką"
+      ],
+      "ilustracja": "7D.webp"
+    },
+    {
+      "id": "8D",
+      "nazwa": "Lawendowe Wzgórza",
+      "kategoria": "dzieci",
+      "dlugosc_km": 1.9,
+      "czas_min_tam": 42,
+      "suma_podejsc_tam": 137,
+      "granica": false,
+      "szlaki": [],
+      "pttk": false,
+      "plik": "8D.json",
+      "punkty": [
+        "Szczawnica, ul. Szalaya",
+        "Lawendowe Wzgórza pod Bereśnikiem"
+      ],
+      "ilustracja": "8D.webp"
+    },
+    {
+      "id": "KP01",
+      "nazwa": "Wysoka (Wysokie Skałki)",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 10.8,
+      "czas_min_tam": 233,
+      "suma_podejsc_tam": 714,
+      "granica": false,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "plik": "KP01.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Przełęcz pod Huściawą",
+        "Schronisko pod Durbaszką",
+        "Durbaszka",
+        "Borsuczyny",
+        "Wysoka (Wysokie Skałki)"
+      ],
+      "ilustracja": "KP01.webp"
+    },
+    {
+      "id": "KP02",
+      "nazwa": "Trzy Korony — Okrąglica",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 4.2,
+      "czas_min_tam": 114,
+      "suma_podejsc_tam": 515,
+      "granica": false,
+      "szlaki": [
+        "czerwony",
+        "niebieski"
+      ],
+      "plik": "KP02.json",
+      "pttk": false,
+      "punkty": [
+        "Krościenko nad Dunajcem",
+        "Przełęcz Szopka",
+        "Trzy Korony (Okrąglica)"
+      ],
+      "ilustracja": "KP02.webp"
+    },
+    {
+      "id": "KP03",
+      "nazwa": "Wierchliczka",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 13.6,
+      "czas_min_tam": 286,
+      "suma_podejsc_tam": 823,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP03.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Huściawa",
+        "Durbaszka",
+        "Wysoka (Wysokie Skałki)",
+        "Wierchliczka"
+      ],
+      "ilustracja": "KP03.webp"
+    },
+    {
+      "id": "KP04",
+      "nazwa": "Watrisko",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 12.6,
+      "czas_min_tam": 270,
+      "suma_podejsc_tam": 807,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP04.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Huściawa",
+        "Durbaszka",
+        "Wysoka (Wysokie Skałki)",
+        "Watrisko"
+      ],
+      "ilustracja": "KP04.webp"
+    },
+    {
+      "id": "KP05",
+      "nazwa": "Durbaszka",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 9.1,
+      "czas_min_tam": 196,
+      "suma_podejsc_tam": 595,
+      "granica": false,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "plik": "KP05.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Huściawa",
+        "Schronisko pod Durbaszką",
+        "Durbaszka"
+      ],
+      "ilustracja": "KP05.webp"
+    },
+    {
+      "id": "KP06",
+      "nazwa": "Borsuczyny",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 9.8,
+      "czas_min_tam": 209,
+      "suma_podejsc_tam": 610,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP06.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Huściawa",
+        "Schronisko pod Durbaszką",
+        "Durbaszka",
+        "Borsuczyny"
+      ],
+      "ilustracja": "KP06.webp"
+    },
+    {
+      "id": "KP07",
+      "nazwa": "Fakľovka",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 13.0,
+      "czas_min_tam": 290,
+      "suma_podejsc_tam": 820,
+      "granica": true,
+      "szlaki": [],
+      "plik": "KP07.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Fakľovka"
+      ],
+      "ilustracja": "KP07.webp"
+    },
+    {
+      "id": "KP08",
+      "nazwa": "Wysoki Wierch",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 7.0,
+      "czas_min_tam": 156,
+      "suma_podejsc_tam": 512,
+      "granica": false,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "plik": "KP08.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Huściawa",
+        "Wysoki Wierch"
+      ],
+      "ilustracja": "KP08.webp"
+    },
+    {
+      "id": "KP09",
+      "nazwa": "Plašná (Płaśnie)",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 12.0,
+      "czas_min_tam": 269,
+      "suma_podejsc_tam": 899,
+      "granica": true,
+      "szlaki": [
+        "niebieski",
+        "czerwony"
+      ],
+      "plik": "KP09.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Granica — ujście Leśnickiego Potoku",
+        "Aksamitka",
+        "Plašná"
+      ],
+      "ilustracja": "KP09.webp"
+    },
+    {
+      "id": "KP10",
+      "nazwa": "Żar",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 7.7,
+      "czas_min_tam": 155,
+      "suma_podejsc_tam": 391,
+      "granica": false,
+      "szlaki": [
+        "czerwony"
+      ],
+      "plik": "KP10.json",
+      "pttk": false,
+      "punkty": [
+        "Niedzica-Zamek",
+        "Cisówka",
+        "Żar"
+      ],
+      "ilustracja": "KP10.webp"
+    },
+    {
+      "id": "KP11",
+      "nazwa": "Aksamitka",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 10.6,
+      "czas_min_tam": 239,
+      "suma_podejsc_tam": 810,
+      "granica": true,
+      "szlaki": [
+        "niebieski",
+        "czerwony"
+      ],
+      "plik": "KP11.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Granica — ujście Leśnickiego Potoku",
+        "Aksamitka"
+      ],
+      "ilustracja": "KP11.webp"
+    },
+    {
+      "id": "KP12",
+      "nazwa": "Hombark Łapszański",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 9.0,
+      "czas_min_tam": 180,
+      "suma_podejsc_tam": 450,
+      "granica": false,
+      "szlaki": [],
+      "plik": "KP12.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Hombark Łapszański"
+      ],
+      "ilustracja": "KP12.webp"
+    },
+    {
+      "id": "KP13",
+      "nazwa": "Huściawa",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 5.5,
+      "czas_min_tam": 123,
+      "suma_podejsc_tam": 406,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP13.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Huściawa"
+      ],
+      "ilustracja": "KP13.webp"
+    },
+    {
+      "id": "KP14",
+      "nazwa": "Góra Zamkowa",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 5.0,
+      "czas_min_tam": 119,
+      "suma_podejsc_tam": 437,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP14.json",
+      "pttk": false,
+      "punkty": [
+        "Krościenko nad Dunajcem",
+        "Przełęcz Szopka",
+        "Zamkowa Góra"
+      ],
+      "ilustracja": "KP14.webp"
+    },
+    {
+      "id": "KP15",
+      "nazwa": "Jarmuta",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 4.0,
+      "czas_min_tam": 85,
+      "suma_podejsc_tam": 330,
+      "granica": false,
+      "szlaki": [],
+      "plik": "KP15.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Jarmuta"
+      ],
+      "ilustracja": "KP15.webp"
+    },
+    {
+      "id": "KP16",
+      "nazwa": "Cisówka",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 3.4,
+      "czas_min_tam": 69,
+      "suma_podejsc_tam": 183,
+      "granica": false,
+      "szlaki": [
+        "czerwony"
+      ],
+      "plik": "KP16.json",
+      "pttk": false,
+      "punkty": [
+        "Niedzica-Zamek",
+        "Cisówka"
+      ],
+      "ilustracja": "KP16.webp"
+    },
+    {
+      "id": "KP17",
+      "nazwa": "Czerteż",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 4.5,
+      "czas_min_tam": 110,
+      "suma_podejsc_tam": 480,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP17.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Czerteż"
+      ],
+      "ilustracja": "KP17.webp"
+    },
+    {
+      "id": "KP18",
+      "nazwa": "Czertezik",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 3.7,
+      "czas_min_tam": 92,
+      "suma_podejsc_tam": 362,
+      "granica": false,
+      "szlaki": [
+        "czerwony",
+        "niebieski"
+      ],
+      "plik": "KP18.json",
+      "pttk": false,
+      "punkty": [
+        "Krościenko nad Dunajcem",
+        "Przełęcz Sosnów",
+        "Czertezik"
+      ],
+      "ilustracja": "KP18.webp"
+    },
+    {
+      "id": "KP19",
+      "nazwa": "Sokolica",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 3.2,
+      "czas_min_tam": 78,
+      "suma_podejsc_tam": 292,
+      "granica": false,
+      "szlaki": [
+        "czerwony",
+        "niebieski"
+      ],
+      "plik": "KP19.json",
+      "pttk": false,
+      "punkty": [
+        "Krościenko nad Dunajcem",
+        "Przełęcz Sosnów",
+        "Sokolica"
+      ],
+      "ilustracja": "KP19.webp"
+    },
+    {
+      "id": "KP20",
+      "nazwa": "Szafranówka",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 2.3,
+      "czas_min_tam": 62,
+      "suma_podejsc_tam": 278,
+      "granica": false,
+      "szlaki": [
+        "zolty"
+      ],
+      "plik": "KP20.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka"
+      ],
+      "ilustracja": "KP20.webp"
+    },
+    {
+      "id": "KP21",
+      "nazwa": "Witkula",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 2.6,
+      "czas_min_tam": 67,
+      "suma_podejsc_tam": 280,
+      "granica": false,
+      "szlaki": [
+        "zolty",
+        "niebieski"
+      ],
+      "plik": "KP21.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica",
+        "Szafranówka",
+        "Witkula"
+      ],
+      "ilustracja": "KP21.webp"
+    },
+    {
+      "id": "KP22",
+      "nazwa": "Barwinkowa Góra",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 5.1,
+      "czas_min_tam": 96,
+      "suma_podejsc_tam": 200,
+      "granica": false,
+      "szlaki": [
+        "czerwony"
+      ],
+      "plik": "KP22.json",
+      "pttk": false,
+      "punkty": [
+        "Niedzica-Zamek",
+        "Cisówka",
+        "Barwinkowa Góra"
+      ],
+      "ilustracja": "KP22.webp"
+    },
+    {
+      "id": "KP23",
+      "nazwa": "Palenica",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 1.6,
+      "czas_min_tam": 47,
+      "suma_podejsc_tam": 240,
+      "granica": false,
+      "szlaki": [
+        "zolty"
+      ],
+      "plik": "KP23.json",
+      "pttk": false,
+      "punkty": [
+        "Szczawnica, centrum",
+        "Palenica"
+      ],
+      "ilustracja": "KP23.webp"
+    },
+    {
+      "id": "KP24",
+      "nazwa": "Majerz",
+      "kategoria": "korony-pienin",
+      "dlugosc_km": 1.0,
+      "czas_min_tam": 18,
+      "suma_podejsc_tam": 31,
+      "granica": false,
+      "szlaki": [
+        "niebieski"
+      ],
+      "plik": "KP24.json",
+      "pttk": false,
+      "punkty": [
+        "Czorsztyn",
+        "Majerz"
+      ],
+      "ilustracja": "KP24.webp"
+    },
+    {
+      "id": "DIAMENT",
+      "nazwa": "Diament Pienin",
+      "kategoria": "wyzwania",
+      "dlugosc_km": 50.5,
+      "czas_min_tam": 963,
+      "suma_podejsc_tam": 2052,
+      "granica": false,
+      "szlaki": [
+        "niebieski",
+        "zolty",
+        "czerwony",
+        "zielony"
+      ],
+      "plik": "DIAMENT.json",
+      "pttk": true,
+      "punkty": [
+        "Jaworki",
+        "Wysoka (Wysokie Skałki)",
+        "Durbaszka",
+        "Wysoki Wierch",
+        "Sokolica",
+        "Czertezik",
+        "Zamkowa Góra",
+        "Trzy Korony (Okrąglica)",
+        "Przeprawa przez Jezioro Czorsztyńskie",
+        "Żar",
+        "Przeprawa przez Dunajec",
+        "Nowa Biała"
+      ],
+      "petla": false,
+      "ilustracja": "DIAMENT.webp"
+    },
+    {
+      "id": "RUBIN",
+      "nazwa": "Rubin Szczawnicy",
+      "kategoria": "wyzwania",
+      "dlugosc_km": 42.0,
+      "czas_min_tam": 800,
+      "suma_podejsc_tam": 1700,
+      "granica": false,
+      "szlaki": [
+        "niebieski",
+        "czerwony",
+        "zolty",
+        "zielony"
+      ],
+      "plik": "RUBIN.json",
+      "pttk": true,
+      "punkty": [
+        "Szczawnica",
+        "Dzwonkówka",
+        "Przehyba",
+        "Radziejowa",
+        "Wysoka (Wysokie Skałki)",
+        "Wysoki Wierch",
+        "Szczawnica (meta)"
+      ],
+      "petla": true,
+      "ilustracja": "RUBIN.webp"
+    }
+  ]
+}

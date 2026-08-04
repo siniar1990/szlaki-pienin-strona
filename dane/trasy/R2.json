@@ -1,0 +1,225 @@
+{
+  "_uwaga": "Ślad z gotowego pliku GPX (VeloPlanner, velo_czorsztyn.gpx), wciągnięty przez tools/digitalizacja/trasa_z_gpx.py — uproszczony z 1084 do 271 punktów, wysokości z EU-DEM 25 m. Położenie miejscowości i zabytków sprawdzone w Nominatim: Falsztyn, Frydman, Maniowy i Kluszkowce leżą przy samym śladzie, kościół w Dębnie 450 m od niego. Czasy z modelu rowerowego (13 km/h + 6 min na 100 m podejścia), liczone osobno dla każdego odcinka, więc podjazd pod Falsztyn jest w nich uwzględniony. Opis własny, na podstawie materiałów o szlaku.",
+  "id": "R2",
+  "nazwa": "Velo Czorsztyn",
+  "kategoria": "rowerowa",
+  "dlugosc_km": 27.1,
+  "suma_podejsc_m": {
+    "tam": 177,
+    "powrot": 193
+  },
+  "czas_min": {
+    "tam": 136,
+    "powrot": 137
+  },
+  "kcal": {
+    "70kg": 873,
+    "80kg": 997,
+    "90kg": 1122
+  },
+  "granica": false,
+  "szlaki": [],
+  "pttk": false,
+  "opis": "Dwa zamki patrzą na siebie przez Jezioro Czorsztyńskie, a Velo Czorsztyn łączy je dookoła wody — od Dunajca w Niedzicy po ruiny w Czorsztynie. Asfalt na całej długości i niemal bez samochodów: najpierw krótki, ostry podjazd pod Falsztyn po tatrzańską panoramę, potem kilometry jazdy koroną wałów z taflą jeziora tuż obok, a na koniec najładniejszy odcinek nad Kluszkowcami. Po drodze gotycki kościół w Dębnie z listy UNESCO. Pętlę domyka rejs promem spod Czorsztyna z powrotem do Niedzicy — kursuje od maja do października.",
+  "ostrzezenia": [
+    "Prom między zamkami pływa sezonowo (maj–październik). Poza sezonem powrót do Niedzicy prowadzi ruchliwą drogą przez Sromowce Wyżne i Przełęcz Osice — ok. 11 km, bez ścieżki rowerowej.",
+    "Niskie słupki na mostkach i zwężeniach bywają trudne do wypatrzenia przy większej prędkości — zwalniaj przed przewężeniami i przy mijaniu się.",
+    "Czerwony asfalt po deszczu robi się śliski. Sprawdź hamulce przed wyjazdem, zjazd z Falsztyna jest stromy.",
+    "Woda i jedzenie tylko w miejscowościach, nie wzdłuż całej trasy — najdłuższy odcinek bez zaplecza to wały między Frydmanem a Maniowami.",
+    "W wakacje i długie weekendy przy zamkach, zaporze i plaży w Kluszkowcach robi się bardzo tłoczno."
+  ],
+  "geometry": "assets/trasy/gpx/R2.geojson",
+  "punkty": [
+    {
+      "nazwa": "Zamek Dunajec w Niedzicy",
+      "typ": "zamek",
+      "coord": [
+        20.31966,
+        49.42253
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 137
+      },
+      "wysokosc_m": 549
+    },
+    {
+      "nazwa": "Falsztyn",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.27462,
+        49.42987
+      ],
+      "czas_narast_min": {
+        "tam": 29,
+        "powrot": 108
+      },
+      "wysokosc_m": 621
+    },
+    {
+      "nazwa": "Frydman",
+      "typ": "inny",
+      "coord": [
+        20.23328,
+        49.45232
+      ],
+      "czas_narast_min": {
+        "tam": 55,
+        "powrot": 82
+      },
+      "wysokosc_m": 526
+    },
+    {
+      "nazwa": "Kościół św. Michała Archanioła w Dębnie",
+      "typ": "kosciol",
+      "coord": [
+        20.21201,
+        49.46648
+      ],
+      "czas_narast_min": {
+        "tam": 68,
+        "powrot": 69
+      },
+      "wysokosc_m": 534
+    },
+    {
+      "nazwa": "Maniowy",
+      "typ": "inny",
+      "coord": [
+        20.26432,
+        49.45142
+      ],
+      "czas_narast_min": {
+        "tam": 97,
+        "powrot": 40
+      },
+      "wysokosc_m": 537
+    },
+    {
+      "nazwa": "Kluszkowce",
+      "typ": "inny",
+      "coord": [
+        20.30243,
+        49.44466
+      ],
+      "czas_narast_min": {
+        "tam": 128,
+        "powrot": 9
+      },
+      "wysokosc_m": 538
+    },
+    {
+      "nazwa": "Zamek Czorsztyn",
+      "typ": "zamek",
+      "coord": [
+        20.31311,
+        49.43494
+      ],
+      "czas_narast_min": {
+        "tam": 136,
+        "powrot": 0
+      },
+      "wysokosc_m": 533
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Zamek Dunajec w Niedzicy",
+      "do": "Falsztyn",
+      "tekst": "Pierwsze pięć kilometrów to od razu najtrudniejszy fragment całej trasy: krótkie, ale ostre wzniesienie o nachyleniu dochodzącym do 7%, na którym mniej wprawni bez wstydu prowadzą rower. Nagroda czeka na górze — Falsztyn leży na 621 m, najwyżej na całym szlaku, i to stąd otwiera się panorama Tatr nad taflą jeziora.",
+      "wskazowka": "Wyjeżdżasz spod zamku i trzymasz się znaków Velo Czorsztyn. Podjazd zaczyna się od razu — rozłóż siły, ma niecałe 100 m przewyższenia."
+    },
+    {
+      "od": "Falsztyn",
+      "do": "Frydman",
+      "tekst": "Z Falsztyna zjeżdżasz blisko sto metrów w dół, do Frydmana nad zachodnim krańcem jeziora. Wieś ma zabytkowy kościół i przystań jachtową, a przy okazji jest ostatnim miejscem z zapleczem przed długim odcinkiem wałów.",
+      "wskazowka": "Zjazd jest stromy i kręty — hamuj wcześniej, zwłaszcza po deszczu na czerwonym asfalcie."
+    },
+    {
+      "od": "Frydman",
+      "do": "Kościół św. Michała Archanioła w Dębnie",
+      "tekst": "Krótki odskok od jeziora do jednego z najcenniejszych zabytków Podhala. Drewniany kościół z XV w., z zachowaną gotycką polichromią, wpisany na Listę Światowego Dziedzictwa UNESCO. Stoi jakieś 450 m od szlaku — warto zostawić rower i wejść.",
+      "wskazowka": "Kościół jest na uboczu trasy; wypatruj drogowskazu na Dębno i zjedź w prawo."
+    },
+    {
+      "od": "Kościół św. Michała Archanioła w Dębnie",
+      "do": "Maniowy",
+      "tekst": "Najbardziej „jeziorny” fragment przejazdu. Szlak wchodzi na korony wałów przeciwpowodziowych i prowadzi nimi kilometrami — płasko, bez skrzyżowań, z wodą po jednej stronie i Pieninami na horyzoncie. To tutaj najłatwiej złapać rytm.",
+      "wskazowka": "Na wałach nie ma sklepów ani kranu — uzupełnij wodę we Frydmanie albo w Dębnie."
+    },
+    {
+      "od": "Maniowy",
+      "do": "Kluszkowce",
+      "tekst": "Za Maniowami nowoczesna kładka pieszo-rowerowa przenosi szlak na drugą stronę i zaczyna się najładniejsza widokowo część trasy. W Kluszkowcach czeka plaża, punkty gastronomiczne i wypożyczalnie — dobre miejsce na dłuższy postój przed ostatnim odcinkiem.",
+      "wskazowka": "Na kładce uważaj na niskie słupki i pieszych — bywa wąsko przy mijaniu."
+    },
+    {
+      "od": "Kluszkowce",
+      "do": "Zamek Czorsztyn",
+      "tekst": "Ostatnie półtora kilometra brzegiem, pod ruiny zamku w Czorsztynie. Z murów widać naraz Tatry, Pieniny i Niedzicę po drugiej stronie wody — a spod zamku odpływa prom, którym domkniesz pętlę bez wracania tą samą drogą.",
+      "wskazowka": "Prom kursuje od maja do października z przystani pod zamkiem. Poza sezonem zaplanuj powrót drogą przez Sromowce Wyżne."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.31966,
+        49.42253
+      ],
+      "tytul": "Zamek Dunajec w Niedzicy",
+      "tekst": "Warowna rezydencja nad zaporą, jeden z najlepiej zachowanych zamków Podhala. Stoi wysoko nad wodą, więc z dziedzińca widać niemal całe jezioro i ruiny Czorsztyna na przeciwległym brzegu."
+    },
+    {
+      "coord": [
+        20.27462,
+        49.42987
+      ],
+      "tytul": "Falsztyn",
+      "tekst": "Najwyższy punkt szlaku — 621 m n.p.m. Podjazd stąd jest jedyną naprawdę wymagającą częścią trasy, ale to również jedyne miejsce, z którego widać Tatry ponad taflą Jeziora Czorsztyńskiego."
+    },
+    {
+      "coord": [
+        20.23328,
+        49.45232
+      ],
+      "tytul": "Frydman",
+      "tekst": "Spiska wieś nad zachodnim krańcem jeziora, z zabytkowym kościołem i przystanią jachtową. Ostatnie miejsce z zapleczem przed długim odcinkiem po koronach wałów."
+    },
+    {
+      "coord": [
+        20.21201,
+        49.46648
+      ],
+      "tytul": "Kościół św. Michała Archanioła w Dębnie",
+      "tekst": "Drewniany kościół z XV w. z zachowaną gotycką polichromią, wpisany na Listę Światowego Dziedzictwa UNESCO. Jeden z najcenniejszych zabytków drewnianej architektury w Polsce — stoi 450 m od szlaku."
+    },
+    {
+      "coord": [
+        20.26432,
+        49.45142
+      ],
+      "tytul": "Maniowy",
+      "tekst": "Wieś przeniesiona w nowe miejsce, gdy w latach 90. dolinę zalały wody zbiornika. Szlak mija ją górą, wałami; samo centrum leży około kilometra od trasy."
+    },
+    {
+      "coord": [
+        20.30243,
+        49.44466
+      ],
+      "tytul": "Kluszkowce",
+      "tekst": "Najbardziej turystyczna miejscowość nad jeziorem — plaża, gastronomia i wypożyczalnie rowerów. Stąd zaczyna się ostatni, najładniejszy widokowo odcinek do Czorsztyna."
+    },
+    {
+      "coord": [
+        20.31311,
+        49.43494
+      ],
+      "tytul": "Zamek Czorsztyn",
+      "tekst": "Ruiny zamku strzegącego niegdyś granicy z Węgrami. Z murów rozciąga się panorama na Tatry, Pieniny i Niedzicę. Spod zamku odpływa sezonowy prom, którym można wrócić na drugi brzeg."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "Ślad GPX (VeloPlanner) + EU-DEM 25 m",
+  "_zrodlo_czasow": "Model rowerowy: 13 km/h na płaskim + 6 min na każde 100 m podejścia, liczony osobno dla każdego odcinka. Kcal wg MET 5,5 („bicycling, leisure”).",
+  "ilustracja": "R2.webp"
+}

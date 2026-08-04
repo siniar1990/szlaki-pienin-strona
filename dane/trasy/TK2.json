@@ -1,0 +1,118 @@
+{
+  "_uwaga": "Trzy Korony — wariant. Ślad: OpenStreetMap (BRouter, profil hiking-mountain) + SRTM. Punkty i kolory zweryfikowane z przewodnikami i OSM.",
+  "id": "TK2",
+  "nazwa": "Trzy Korony z Krościenka (przez Przełęcz Szopka)",
+  "kategoria": "trzy-korony",
+  "dlugosc_km": 4.6,
+  "suma_podejsc_m": {
+    "tam": 595,
+    "powrot": 59
+  },
+  "czas_min": {
+    "tam": 128,
+    "powrot": 74
+  },
+  "kcal": {
+    "70kg": 676,
+    "80kg": 772,
+    "90kg": 869
+  },
+  "granica": false,
+  "szlaki": [
+    "zolty",
+    "niebieski"
+  ],
+  "ostrzezenia": [
+    "Wejście na platformę Okrąglicy płatne w sezonie; bywają kolejki."
+  ],
+  "geometry": "assets/trasy/gpx/TK2.geojson",
+  "punkty": [
+    {
+      "nazwa": "Krościenko nad Dunajcem",
+      "typ": "inny",
+      "coord": [
+        20.42856,
+        49.44071
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 74
+      },
+      "wysokosc_m": 422
+    },
+    {
+      "nazwa": "Bajków Groń",
+      "typ": "szczyt",
+      "coord": [
+        20.41443,
+        49.42625
+      ],
+      "czas_narast_min": {
+        "tam": 69,
+        "powrot": 34
+      },
+      "wysokosc_m": 694
+    },
+    {
+      "nazwa": "Przełęcz Szopka",
+      "typ": "przelecz",
+      "coord": [
+        20.40807,
+        49.419
+      ],
+      "czas_narast_min": {
+        "tam": 101,
+        "powrot": 16
+      },
+      "wysokosc_m": 779
+    },
+    {
+      "nazwa": "Trzy Korony (Okrąglica)",
+      "typ": "szczyt",
+      "coord": [
+        20.41422,
+        49.41383
+      ],
+      "czas_narast_min": {
+        "tam": 128,
+        "powrot": 0
+      },
+      "wysokosc_m": 958
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Krościenko nad Dunajcem",
+      "do": "Bajków Groń",
+      "tekst": "Żółtym szlakiem (najstarszym, wytyczonym w 1906 r.) od mostu w Krościenku łagodnie w górę doliną na Bajków Groń (716 m).",
+      "wskazowka": null
+    },
+    {
+      "od": "Bajków Groń",
+      "do": "Przełęcz Szopka",
+      "tekst": "Dalej żółtym przez las na Przełęcz Szopka (Chwała Bogu, 780 m) — węzeł szlaków pod szczytem.",
+      "wskazowka": null
+    },
+    {
+      "od": "Przełęcz Szopka",
+      "do": "Trzy Korony (Okrąglica)",
+      "tekst": "Z przełęczy w lewo niebieskim, końcowe podejście schodami na Okrąglicę (982 m) — galeria widokowa.",
+      "wskazowka": null
+    }
+  ],
+  "ramki": [],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "© OpenStreetMap contributors, ODbL; routing © BRouter (hiking-mountain)",
+  "_zrodlo_czasow": "Naismith: 4 km/h + 10 min na 100 m podejścia.",
+  "pttk": false,
+  "kolory_odcinkow": [
+    {
+      "kolor": "zolty",
+      "do": "Przełęcz Szopka"
+    },
+    {
+      "kolor": "niebieski"
+    }
+  ],
+  "ilustracja": "TK2.webp"
+}

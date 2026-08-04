@@ -1,0 +1,57 @@
+#!/bin/bash
+# Kopiuje dane tras z repozytorium aplikacji do `dane/` na stronie.
+#
+#     ./narzedzia/synchronizuj-dane.sh
+#
+# Dlaczego kopiujemy, a nie robimy dowiązania (symlink): GitHub Pages publikuje
+# to, co leży w TYM repozytorium. W maszynie budującej repozytorium aplikacji
+# nie istnieje, więc dowiązanie wskazywałoby w pustkę i strona pokazałaby
+# błędy zamiast tras. Kopie są prawdziwymi plikami i po prostu działają.
+#
+# Kopiujemy w JEDNĄ stronę: aplikacja → strona. Aplikacja jest źródłem prawdy;
+# gdyby dało się edytować dane po stronie WWW, po tygodniu nikt by nie wiedział,
+# która wersja opisu trasy jest właściwa.
+set -eu
+
+APLIKACJA="${APLIKACJA:-$HOME/Desktop/Szczawnica/Aplikacja Szlaki}"
+CEL="dane"
+
+if [ ! -d "$APLIKACJA/assets/trasy" ]; then
+  echo "Nie widzę aplikacji w: $APLIKACJA" >&2
+  echo "Podaj ścieżkę:  APLIKACJA=/gdzie/lezy ./narzedzia/synchronizuj-dane.sh" >&2
+  exit 1
+fi
+
+echo "Źródło: $APLIKACJA"
+mkdir -p "$CEL"/{trasy,slady,ilustracje,wyzwania}
+
+# Opisy tras i indeks — sedno danych.
+rsync -a --delete "$APLIKACJA/assets/trasy/"*.json "$CEL/trasy/"
+# Ślady GPX (GeoJSON) — do rysowania trasy na mapie.
+rsync -a --delete "$APLIKACJA/assets/trasy/gpx/" "$CEL/slady/"
+# Malowane ilustracje tras — te same, które widać na liście w aplikacji.
+rsync -a --delete "$APLIKACJA/assets/ilustracje/" "$CEL/ilustracje/"
+# Odznaki pienińskich wyzwań.
+rsync -a --delete --exclude='*.json' "$APLIKACJA/assets/wyzwania/" "$CEL/wyzwania/"
+cp "$APLIKACJA/assets/wyzwania/wyzwania.json" "$CEL/wyzwania.json"
+
+# Znacznik pochodzenia — żeby po miesiącach było wiadomo, z czego to jest.
+cat > "$CEL/SKAD_TO.md" <<INFO
+# Dane skopiowane z aplikacji
+
+Nie edytuj tych plików ręcznie — przy najbliższej synchronizacji zmiany
+przepadną. Poprawki nanoś w repozytorium aplikacji, potem uruchom:
+
+    ./narzedzia/synchronizuj-dane.sh
+
+Ostatnia synchronizacja: $(date '+%Y-%m-%d %H:%M')
+INFO
+
+echo
+echo "Skopiowano do $CEL/:"
+printf '  %-14s %s\n' \
+  "trasy/"      "$(ls "$CEL/trasy" | wc -l | tr -d ' ') plików" \
+  "slady/"      "$(ls "$CEL/slady" | wc -l | tr -d ' ') śladów" \
+  "ilustracje/" "$(ls "$CEL/ilustracje" | wc -l | tr -d ' ') obrazów" \
+  "wyzwania/"   "$(ls "$CEL/wyzwania" | wc -l | tr -d ' ') odznak"
+echo "  razem        $(du -sh "$CEL" | cut -f1)"

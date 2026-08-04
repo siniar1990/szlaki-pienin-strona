@@ -1,0 +1,77 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP23",
+ "nazwa": "Palenica",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 722,
+ "grupa_gorska": "Małe Pieniny",
+ "dlugosc_km": 1.6,
+ "suma_podejsc_m": {
+  "tam": 240,
+  "powrot": 18
+ },
+ "czas_min": {
+  "tam": 47,
+  "powrot": 25
+ },
+ "kcal": {
+  "70kg": 262,
+  "80kg": 299,
+  "90kg": 337
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "zolty"
+ ],
+ "pttk": false,
+ "opis": "Żółtym z centrum, od dolnej stacji kolei przez Zawodzie. Można też wyjechać wyciągiem PKL prosto na szczyt w cztery do ośmiu minut.",
+ "ostrzezenia": [
+  "Niebieski szlak graniczny omija szczyt trawersem przez Salomonowe Doliny.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "inny",
+   "coord": [
+    20.48259,
+    49.42514
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 25
+   },
+   "wysokosc_m": 476
+  },
+  {
+   "nazwa": "Palenica",
+   "typ": "szczyt",
+   "coord": [
+    20.47645,
+    49.41871
+   ],
+   "czas_narast_min": {
+    "tam": 47,
+    "powrot": 0
+   },
+   "wysokosc_m": 722
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Palenica",
+   "tekst": "Żółtym z centrum, od dolnej stacji kolei przez Zawodzie. Można też wyjechać wyciągiem PKL prosto na szczyt w cztery do ośmiu minut.",
+   "wskazowka": "Do: Palenica."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP23.webp",
+ "geometry": "assets/trasy/gpx/KP23.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}

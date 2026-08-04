@@ -1,0 +1,268 @@
+{
+  "_uwaga": "Metryka (50,5 km, 2052 m) pochodzi z regulaminu odznaki. Nasz pomiar dostarczonego śladu daje 53,4 km i +1591 m — różnica bierze się z innego modelu terenu i z tego, że ślad z planera nie wchodzi na wszystkie wierzchołki.",
+  "id": "DIAMENT",
+  "nazwa": "Diament Pienin",
+  "kategoria": "wyzwania",
+  "dlugosc_km": 50.5,
+  "suma_podejsc_m": {
+    "tam": 2052,
+    "powrot": 2052
+  },
+  "czas_min": {
+    "tam": 963,
+    "powrot": 963
+  },
+  "kcal": {
+    "70kg": 3022,
+    "80kg": 3453,
+    "90kg": 3885
+  },
+  "granica": false,
+  "szlaki": [
+    "niebieski",
+    "zolty",
+    "czerwony",
+    "zielony"
+  ],
+  "pttk": true,
+  "petla": false,
+  "opis": "Pieniny Małe, Pieniny Właściwe i Pieniny Spiskie w jeden dzień. Rozpocznij o wschodzie, zakończ o zachodzie — podążaj za słońcem. Epicka, choć wymagająca trasa dla wprawionych piechurów.\n\nDiament Pienin to najwyższy stopień wśród pienińskich wyróżnień turystycznych. Przyznawany jest za przejście całego pasma Pienin ze wschodu na zachód. Po drodze trzeba zaliczyć wszystkie najważniejsze szczyty pasma: Wysoką (1050 m), Durbaszkę, Wysoki Wierch, Sokolicę, Czertezik, Trzy Korony (982 m), Zamkową Górę oraz Żar w Pieninach Spiskich.\n\nSzlak prowadzi przez najpiękniejsze fragmenty Pienin — od malowniczych polan i grani po przełom Dunajca — pokazując pełne bogactwo przyrody i krajobrazu tego regionu. Do pokonania jest około 50,5 km i 2052 m podejść. Pokonanie tej odległości w jednym dniu jest dla wielu nie lada wyzwaniem — i właśnie dla tych, którzy takie wyzwania lubią, odznaka została przeznaczona.",
+  "ostrzezenia": [
+    "Odznakę można zdobywać TYLKO od 15 kwietnia do 31 października — poza tym okresem nie kursują przeprawy przez Dunajec i Jezioro Czorsztyńskie, bez których trasy nie da się przejść.",
+    "Przed wyjściem sprawdź aktualne warunki: po długotrwałych ulewach przeprawy wodne bywają wstrzymane.",
+    "Około 50 km i 16 godzin marszu. Zaplanuj wodę, jedzenie i czołówkę — dnia może nie starczyć."
+  ],
+  "geometry": "assets/trasy/gpx/DIAMENT.geojson",
+  "punkty": [
+    {
+      "nazwa": "Jaworki",
+      "typ": "inny",
+      "coord": [
+        20.55278,
+        49.40662
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 0
+      }
+    },
+    {
+      "nazwa": "Wysoka (Wysokie Skałki)",
+      "typ": "szczyt",
+      "coord": [
+        20.5555,
+        49.38026
+      ],
+      "czas_narast_min": {
+        "tam": 184,
+        "powrot": 0
+      },
+      "wysokosc_m": 1050
+    },
+    {
+      "nazwa": "Durbaszka",
+      "typ": "szczyt",
+      "coord": [
+        20.53676,
+        49.38701
+      ],
+      "czas_narast_min": {
+        "tam": 214,
+        "powrot": 0
+      },
+      "wysokosc_m": 942
+    },
+    {
+      "nazwa": "Wysoki Wierch",
+      "typ": "szczyt",
+      "coord": [
+        20.51388,
+        49.39326
+      ],
+      "czas_narast_min": {
+        "tam": 241,
+        "powrot": 0
+      },
+      "wysokosc_m": 899
+    },
+    {
+      "nazwa": "Sokolica",
+      "typ": "szczyt",
+      "coord": [
+        20.44077,
+        49.41808
+      ],
+      "czas_narast_min": {
+        "tam": 381,
+        "powrot": 0
+      },
+      "wysokosc_m": 747
+    },
+    {
+      "nazwa": "Czertezik",
+      "typ": "szczyt",
+      "coord": [
+        20.43425,
+        49.42224
+      ],
+      "czas_narast_min": {
+        "tam": 410,
+        "powrot": 0
+      },
+      "wysokosc_m": 772
+    },
+    {
+      "nazwa": "Zamkowa Góra",
+      "typ": "zamek",
+      "coord": [
+        20.42024,
+        49.41951
+      ],
+      "czas_narast_min": {
+        "tam": 487,
+        "powrot": 0
+      },
+      "wysokosc_m": 799
+    },
+    {
+      "nazwa": "Trzy Korony (Okrąglica)",
+      "typ": "szczyt",
+      "coord": [
+        20.41465,
+        49.41464
+      ],
+      "czas_narast_min": {
+        "tam": 500,
+        "powrot": 0
+      },
+      "wysokosc_m": 982
+    },
+    {
+      "nazwa": "Przeprawa przez Jezioro Czorsztyńskie",
+      "typ": "inny",
+      "coord": [
+        20.33672,
+        49.43523
+      ],
+      "czas_narast_min": {
+        "tam": 613,
+        "powrot": 0
+      }
+    },
+    {
+      "nazwa": "Żar",
+      "typ": "szczyt",
+      "coord": [
+        20.23003,
+        49.41816
+      ],
+      "czas_narast_min": {
+        "tam": 826,
+        "powrot": 0
+      },
+      "wysokosc_m": 883
+    },
+    {
+      "nazwa": "Przeprawa przez Dunajec",
+      "typ": "inny",
+      "coord": [
+        20.19288,
+        49.41344
+      ],
+      "czas_narast_min": {
+        "tam": 878,
+        "powrot": 0
+      }
+    },
+    {
+      "nazwa": "Nowa Biała",
+      "typ": "inny",
+      "coord": [
+        20.14402,
+        49.44077
+      ],
+      "czas_narast_min": {
+        "tam": 963,
+        "powrot": 0
+      }
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Jaworki",
+      "do": "Wysoka (Wysokie Skałki)",
+      "tekst": "Start o świcie. Z Jaworek doliną Białej Wody, potem granią Małych Pienin na Wysokie Skałki — najwyższy punkt całego pasma (1050 m). Pierwsze dwie godziny idą w górę i to one ustawiają tempo na resztę dnia."
+    },
+    {
+      "od": "Wysoka (Wysokie Skałki)",
+      "do": "Durbaszka",
+      "tekst": "Granią na zachód, cały czas wzdłuż granicy państwa. Pod Durbaszką mija się schronisko — leży kilkanaście minut poniżej szczytu i to ostatnie takie miejsce na długim odcinku."
+    },
+    {
+      "od": "Durbaszka",
+      "do": "Wysoki Wierch",
+      "tekst": "Dalej granią Małych Pienin. Wysoki Wierch zdobywa się żółtym szlakiem; niebieski trawersuje kilka minut poniżej wierzchołka, więc łatwo go minąć, nie wchodząc na szczyt."
+    },
+    {
+      "od": "Wysoki Wierch",
+      "do": "Sokolica",
+      "tekst": "Zejście do Szczawnicy i przejście na drugą stronę Dunajca — z Pienin Małych w Pieniny Właściwe. Stąd zaczyna się najbardziej znany fragment całej trasy."
+    },
+    {
+      "od": "Sokolica",
+      "do": "Czertezik",
+      "tekst": "Sokolica z sosną nad przełomem Dunajca to widok, dla którego wielu przyjeżdża w Pieniny. Dalej granią przez Czertezik — wąsko, miejscami z łańcuchami."
+    },
+    {
+      "od": "Czertezik",
+      "do": "Zamkowa Góra",
+      "tekst": "Granią przez Bajków Groń w stronę węzła Zamek Pieniny. Zamkowa Góra leży na krótkiej odnodze — kilkaset metrów w bok, do ruin zamku i Groty św. Kingi."
+    },
+    {
+      "od": "Zamkowa Góra",
+      "do": "Trzy Korony (Okrąglica)",
+      "tekst": "Powrót na główną grań i podejście na Okrąglicę (982 m) — najwyższy wierzchołek Trzech Koron. Na platformę widokową wchodzi się po schodach, w sezonie bywa kolejka."
+    },
+    {
+      "od": "Trzy Korony (Okrąglica)",
+      "do": "Przeprawa przez Jezioro Czorsztyńskie",
+      "tekst": "Zejście z masywu i długi odcinek nad Jeziorem Czorsztyńskim. Przeprawę trzeba mieć sprawdzoną WCZEŚNIEJ — bez niej trasy nie da się domknąć w jeden dzień."
+    },
+    {
+      "od": "Przeprawa przez Jezioro Czorsztyńskie",
+      "do": "Żar",
+      "tekst": "Drugi brzeg to już Pieniny Spiskie — trzecia część pasma. Podejście na Żar (883 m) po kilkudziesięciu kilometrach w nogach jest trudniejsze, niż wynika z mapy."
+    },
+    {
+      "od": "Żar",
+      "do": "Przeprawa przez Dunajec",
+      "tekst": "Zejście z Żaru w stronę Dunajca. Zostaje ostatnia przeprawa i kilka kilometrów do mety."
+    },
+    {
+      "od": "Przeprawa przez Dunajec",
+      "do": "Nowa Biała",
+      "tekst": "Ostatni odcinek do Nowej Białej. Jeśli wszystko poszło zgodnie z planem, słońce właśnie zachodzi — a całe pasmo Pienin masz za sobą, od wschodu na zachód."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.55278,
+        49.40662
+      ],
+      "tytul": "Zacznij o wschodzie słońca",
+      "tekst": "Szesnaście godzin marszu to cały dzień. Wyjście o świcie daje zapas na przeprawy i na to, że nogi pod koniec idą wolniej, niż zakłada plan."
+    },
+    {
+      "coord": [
+        20.23003,
+        49.41816
+      ],
+      "tytul": "Przeprawy decydują o wszystkim",
+      "tekst": "Dwie przeprawy wodne wyznaczają okno na całą trasę: od 15 kwietnia do 31 października. Godziny kursowania sprawdź dzień wcześniej."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "Ślad: PTTK Szczawnica / mapa-turystyczna.pl",
+  "_zrodlo_czasow": "Naismith z metryki regulaminowej; rozkład czasu wzdłuż śladu wg dystansu i podejść."
+}

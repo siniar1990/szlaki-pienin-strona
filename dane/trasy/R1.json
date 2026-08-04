@@ -1,0 +1,278 @@
+{
+  "_uwaga": "Ślad: OpenStreetMap (drogi przejezdne rowerem), generowany przez tools/digitalizacja/rower_czerwony_klasztor.py — od skały Kotońki do Czerwonego Klasztoru. Wysokości z EU-DEM 25 m: droga biegnie pod ścianami przełomu, więc model miejscami łapie skałę zamiast jezdni i zawyża profil — w terenie trasa jest łagodna, z jedynym wyraźnym podjazdem pod klasztor.",
+  "id": "R1",
+  "nazwa": "Rowerem do Czerwonego Klasztoru",
+  "kategoria": "rowerowa",
+  "dlugosc_km": 9.7,
+  "suma_podejsc_m": {
+    "tam": 219,
+    "powrot": 176
+  },
+  "czas_min": {
+    "tam": 58,
+    "powrot": 55
+  },
+  "kcal": {
+    "70kg": 372,
+    "80kg": 425,
+    "90kg": 478
+  },
+  "granica": true,
+  "szlaki": [],
+  "pttk": false,
+  "opis": "Klasyczny rowerowy wypad Przełomem Dunajca. Od skały Kotońki przy wjeździe do Szczawnicy Drogą Pienińską pod Sokolicę, przez przejście graniczne pod Cyplem, a dalej słowackim brzegiem aż pod mury Czerwonego Klasztoru. Prawie płasko i cały czas nad wodą — droga jest utwardzona, więc wystarczy zwykły rower. Po drodze Sokolica z samotną sosną, turnie Siedmiu Mnichów i Janosikowy Skok, najwęższe miejsce przełomu.",
+  "ostrzezenia": [
+    "Trasa przekracza granicę ze Słowacją — miej przy sobie dokument tożsamości.",
+    "Droga jest wspólna dla rowerzystów, pieszych i dorożek — w sezonie bywa bardzo tłoczno, jedź wolno i ustępuj pieszym.",
+    "Tuż za przejściem granicznym pod Cyplem krótki odcinek jest oznaczony nakazem prowadzenia roweru.",
+    "Trasa biegnie Pienińskim Parkiem Narodowym i słowackim PIENAPem — obowiązuje zakaz zjeżdżania z wyznaczonej drogi."
+  ],
+  "geometry": "assets/trasy/gpx/R1.geojson",
+  "punkty": [
+    {
+      "nazwa": "Skała Kotońka",
+      "typ": "inny",
+      "coord": [
+        20.4581,
+        49.42519
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 55
+      },
+      "wysokosc_m": 431
+    },
+    {
+      "nazwa": "Przystań flisacka w Szczawnicy",
+      "typ": "inny",
+      "coord": [
+        20.45954,
+        49.423
+      ],
+      "czas_narast_min": {
+        "tam": 2,
+        "powrot": 53
+      },
+      "wysokosc_m": 429
+    },
+    {
+      "nazwa": "Pawilon Wejściowy PPN",
+      "typ": "muzeum",
+      "coord": [
+        20.4563,
+        49.41847
+      ],
+      "czas_narast_min": {
+        "tam": 5,
+        "powrot": 50
+      },
+      "wysokosc_m": 445
+    },
+    {
+      "nazwa": "Nowy przewóz pod Sokolicą",
+      "typ": "inny",
+      "coord": [
+        20.45293,
+        49.41734
+      ],
+      "czas_narast_min": {
+        "tam": 7,
+        "powrot": 48
+      },
+      "wysokosc_m": 433
+    },
+    {
+      "nazwa": "Przejście graniczne pod Cyplem",
+      "typ": "przejscie_graniczne",
+      "coord": [
+        20.44652,
+        49.41625
+      ],
+      "czas_narast_min": {
+        "tam": 10,
+        "powrot": 46
+      },
+      "wysokosc_m": 434
+    },
+    {
+      "nazwa": "Ujście Potoku Leśnickiego",
+      "typ": "inny",
+      "coord": [
+        20.45024,
+        49.41398
+      ],
+      "czas_narast_min": {
+        "tam": 12,
+        "powrot": 43
+      },
+      "wysokosc_m": 449
+    },
+    {
+      "nazwa": "Siedmiu Mnichów",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.43708,
+        49.40729
+      ],
+      "czas_narast_min": {
+        "tam": 34,
+        "powrot": 23
+      },
+      "wysokosc_m": 451
+    },
+    {
+      "nazwa": "Janosikowy Skok",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.4269,
+        49.40274
+      ],
+      "czas_narast_min": {
+        "tam": 48,
+        "powrot": 9
+      },
+      "wysokosc_m": 455
+    },
+    {
+      "nazwa": "Czerwony Klasztor",
+      "typ": "muzeum",
+      "coord": [
+        20.41704,
+        49.39867
+      ],
+      "czas_narast_min": {
+        "tam": 58,
+        "powrot": 0
+      },
+      "wysokosc_m": 475
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Skała Kotońka",
+      "do": "Przystań flisacka w Szczawnicy",
+      "tekst": "Pierwsze 300 m ulicą Pienińską w dół, wzdłuż Dunajca. Mijasz przystań, na której kończy się spływ Przełomem Dunajca — w sezonie tratwy przybijają tu jedna za drugą, a z bramy wysypują się tłumy.",
+      "wskazowka": "Od skały Kotońki jedź ul. Pienińską w dół rzeki, cały czas prosto."
+    },
+    {
+      "od": "Przystań flisacka w Szczawnicy",
+      "do": "Pawilon Wejściowy PPN",
+      "tekst": "Za przystanią zaczyna się droga parkowa. Pawilon edukacyjny Pienińskiego Parku Narodowego (1995) stoi w miejscu, gdzie kończyła się Droga do Pienin, a zaczynała Droga Pienińska — gościniec wykuty w skale w latach 70. XIX w.",
+      "wskazowka": "Za przystanią trzymaj się drogi wzdłuż wody (ul. Zyblikiewicza), nie skręcaj w górę do schroniska."
+    },
+    {
+      "od": "Pawilon Wejściowy PPN",
+      "do": "Nowy przewóz pod Sokolicą",
+      "tekst": "Przystań promowa u stóp Białej Skały. Przewoźnik przeprawia turystów na drugi brzeg, pod Sokolicę (747 m) — jej wierzchołek z samotną sosną widać stąd wysoko nad wodą.",
+      "wskazowka": "Droga trzyma się brzegu Dunajca — mijasz grotę Zyblikiewicza i figurę Matki Boskiej po prawej."
+    },
+    {
+      "od": "Nowy przewóz pod Sokolicą",
+      "do": "Przejście graniczne pod Cyplem",
+      "tekst": "Granica ze Słowacją biegnie środkiem Dunajca, ale pod Cyplem odbija od rzeki i przecina drogę. Przejeżdżasz na słowacką stronę — bez szlabanu i kontroli, ale dokument miej przy sobie.",
+      "wskazowka": "Jedź prosto wzdłuż wody; przy drogowskazie „Prielom Dunajca – Štátna hranica” jesteś już na Słowacji."
+    },
+    {
+      "od": "Przejście graniczne pod Cyplem",
+      "do": "Ujście Potoku Leśnickiego",
+      "tekst": "Krótki odcinek za granicą jest oznaczony nakazem prowadzenia roweru. Dalej droga schodzi do miejsca, w którym Potok Leśnicki wpada do Dunajca — tu Józef Stefan Szalay zakończył w 1875 r. swój odcinek Drogi Pienińskiej.",
+      "wskazowka": "Przy ujściu, na rozstaju z drogą w dolinę Leśnicką, trzymaj się drogi wzdłuż Dunajca — kierunek Červený Kláštor."
+    },
+    {
+      "od": "Ujście Potoku Leśnickiego",
+      "do": "Siedmiu Mnichów",
+      "tekst": "Najdłuższy i najładniejszy odcinek — ponad 3,5 km słowackim brzegiem, wielkimi zakolami przełomu. Nad drogą wyrastają turnie Siedmiu Mnichów; wg legendy to skamieniali zakonnicy z Czerwonego Klasztoru.",
+      "wskazowka": "Cały czas jedna droga wzdłuż rzeki — nie da się zabłądzić. Wąsko i tłoczno, uważaj na pieszych."
+    },
+    {
+      "od": "Siedmiu Mnichów",
+      "do": "Janosikowy Skok",
+      "tekst": "Przełom zaciska się między ścianami Facimiecha i Klasztornej Góry. W najwęższym miejscu Dunajec ma około 12 m szerokości — stąd legenda, że przeskoczył go tędy Janosik.",
+      "wskazowka": "Droga cały czas nad wodą; Janosikowy Skok to najciaśniejsze miejsce przełomu, po prawej stronie."
+    },
+    {
+      "od": "Janosikowy Skok",
+      "do": "Czerwony Klasztor",
+      "tekst": "Ostatnie kilometry, z jedynym wyraźniejszym podjazdem na trasie. Klasztor założyli kartuzi ok. 1320 r., po nich gospodarzyli tu kameduli, a w 1782 r. zgromadzenie rozwiązał Józef II. Dziś mieści się w nim muzeum.",
+      "wskazowka": "Za przystanią flisacką skręć w lewo pod mury klasztoru — parking i wejście do muzeum od strony kościoła."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.4581,
+        49.42519
+      ],
+      "tytul": "Skała Kotońka",
+      "tekst": "Skała u wjazdu do Szczawnicy (9,5 m wys., 438 m n.p.m.). Wg legendy porzucona przez diabła, który chciał nią roztrzaskać Zamek Pieniński. Stoi na niej rzeźba górala witającego gości (nowa figura z 2016 r.)."
+    },
+    {
+      "coord": [
+        20.45954,
+        49.423
+      ],
+      "tytul": "Przystań flisacka w Szczawnicy",
+      "tekst": "Przystań końcowa spływu Przełomem Dunajca w Szczawnicy Niżnej. Ozdobna brama wita turystów wysiadających z tratw flisackich."
+    },
+    {
+      "coord": [
+        20.4563,
+        49.41847
+      ],
+      "tytul": "Pawilon Wejściowy PPN",
+      "tekst": "Pawilon edukacyjny Pienińskiego Parku Narodowego (1995). W tym miejscu kończyła się Droga do Pienin, a zaczynała Droga Pienińska — dawniej stał tu kamienny ostrosłup z numerem jeden."
+    },
+    {
+      "coord": [
+        20.45293,
+        49.41734
+      ],
+      "tytul": "Nowy przewóz pod Sokolicą",
+      "tekst": "Przystań promowa u stóp Białej Skały. Przewoźnik przeprawia turystów na lewy brzeg Dunajca, w stronę Sokolicy (747 m) — szczytu ze słynną, rosnącą wprost ze skały sosną."
+    },
+    {
+      "coord": [
+        20.44652,
+        49.41625
+      ],
+      "tytul": "Przejście graniczne pod Cyplem",
+      "tekst": "Granica polsko-słowacka biegnie tu Dunajcem, ale pod Cyplem odchodzi od rzeki i przecina drogę na lądzie. Przejście jest otwarte i nieobsadzone — mimo to warto mieć przy sobie dowód lub paszport."
+    },
+    {
+      "coord": [
+        20.45024,
+        49.41398
+      ],
+      "tytul": "Ujście Potoku Leśnickiego",
+      "tekst": "Miejsce, w którym Józef Stefan Szalay zakończył w 1875 r. swój odcinek Drogi Pienińskiej. Tu Potok Leśnicki wpada do Dunajca; w bok odchodzi droga w Dolinę Leśnicką, do wsi Lesnica."
+    },
+    {
+      "coord": [
+        20.43708,
+        49.40729
+      ],
+      "tytul": "Siedmiu Mnichów",
+      "tekst": "Grupa skalnych turni (słow. Sedem mníchov) nad słowackim brzegiem Dunajca. Wg legendy to skamieniali zakonnicy z Czerwonego Klasztoru, ukarani za złamanie reguły."
+    },
+    {
+      "coord": [
+        20.4269,
+        49.40274
+      ],
+      "tytul": "Janosikowy Skok",
+      "tekst": "Najwęższe miejsce Przełomu Dunajca — rzeka płynie tu korytem szerokim na około 12 m, ściśnięta między Facimiechem a Klasztorną Górą. Legenda mówi, że przeskoczył je uciekający Janosik."
+    },
+    {
+      "coord": [
+        20.41704,
+        49.39867
+      ],
+      "tytul": "Czerwony Klasztor",
+      "tekst": "Klasztor założony ok. 1320 r. przez kartuzów, od XVIII w. w rękach kamedułów, rozwiązany w 1782 r. przez Józefa II. Żył tu brat Cyprian (1724–1775) — zakonnik, aptekarz i zielarz, autor zielnika z 1766 r. z 283 roślinami Pienin i Tatr, bohater legendy o mnichu, który próbował latać. Dziś muzeum."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "(c) OpenStreetMap contributors, ODbL",
+  "_zrodlo_czasow": "Model rowerowy z tools/digitalizacja/rower_czerwony_klasztor.py: 13 km/h na płaskim + 6 min na każde 100 m podejścia. Kcal wg MET 5,5 („bicycling, leisure”) — spokojna jazda turystyczna, bez postojów.",
+  "ilustracja": "R1.webp"
+}

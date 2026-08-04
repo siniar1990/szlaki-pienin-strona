@@ -1,0 +1,261 @@
+{
+  "_uwaga": "Trasa na podstawie książki R.M. Remiszewskiego „Droga Pienińska — 1800 metrów w 180 minut” (PTTK Oddział Pieniński, 2019). Ślad: OpenStreetMap, generowany przez tools/digitalizacja/droga_pieninska.py, przycięty od skały Kotońki. WSPÓŁRZĘDNE I WYSOKOŚCI SIEDMIU PIERWSZYCH PUNKTÓW — z pomiaru w terenie (GPX, 27.07.2026), nie z OSM: wcześniejsze pozycje były przesunięte o 59–77 m, a Pawilon PPN stał w złej kolejności (jest ostatni przed Nowym Przewozem, nie przed Piecem Majki). Nowy Przewóz i ujście Potoku Leśnickiego pozostają z OSM — ten odcinek nie był jeszcze przechodzony. Profil wysokościowy nadal z EU-DEM 25 m i bywa zawyżony pod ścianami skalnymi.",
+  "id": "DP",
+  "nazwa": "Droga Pienińska",
+  "kategoria": "krotka",
+  "dlugosc_km": 2.0,
+  "suma_podejsc_m": {
+    "tam": 27,
+    "powrot": 15
+  },
+  "czas_min": {
+    "tam": 30,
+    "powrot": 30
+  },
+  "kcal": {
+    "70kg": 101,
+    "80kg": 115,
+    "90kg": 129
+  },
+  "granica": true,
+  "szlaki": [],
+  "pttk": false,
+  "opis": "Najpopularniejszy odcinek Drogi Pienińskiej — gościńca wykutego w latach 70. XIX w. wzdłuż Przełomu Dunajca. Od wjazdu do uzdrowiska przy skale Kotońce do ujścia Potoku Leśnickiego, gdzie Józef Stefan Szalay zakończył swój odcinek drogi. Płasko i brukiem, więc samo przejście to pół godziny — ale R.M. Remiszewski nieprzypadkowo nazwał swoją książkę „1800 metrów w 180 minut”: kto przystanie przy każdej opowieści, spędzi tu całe popołudnie.",
+  "ostrzezenia": [
+    "Trasa biegnie skrajem Dunajca, którym miejscami przebiega granica ze Słowacją — miej przy sobie dokument tożsamości.",
+    "Droga bywa uczęszczana przez rowerzystów i dorożki."
+  ],
+  "geometry": "assets/trasy/gpx/DP.geojson",
+  "punkty": [
+    {
+      "nazwa": "Skała Kotońka",
+      "typ": "inny",
+      "coord": [
+        20.45915,
+        49.42509
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 30
+      },
+      "wysokosc_m": 432,
+      "zdjecie": "dp_kotonka.jpg"
+    },
+    {
+      "nazwa": "Przystań flisacka",
+      "typ": "inny",
+      "coord": [
+        20.45947,
+        49.42246
+      ],
+      "czas_narast_min": {
+        "tam": 5,
+        "powrot": 25
+      },
+      "wysokosc_m": 434,
+      "zdjecie": "dp_przystan.jpg"
+    },
+    {
+      "nazwa": "Schronisko PTTK „Orlica”",
+      "typ": "schronisko",
+      "coord": [
+        20.45721,
+        49.41936
+      ],
+      "czas_narast_min": {
+        "tam": 11,
+        "powrot": 19
+      },
+      "wysokosc_m": 440,
+      "zdjecie": "dp_orlica.jpg"
+    },
+    {
+      "nazwa": "Piec Majki (Grota Zyblikiewicza)",
+      "typ": "inny",
+      "coord": [
+        20.45679,
+        49.41899
+      ],
+      "czas_narast_min": {
+        "tam": 11,
+        "powrot": 19
+      },
+      "wysokosc_m": 441,
+      "zdjecie": "dp_piec_majki.jpg"
+    },
+    {
+      "nazwa": "Figura Matki Boskiej",
+      "typ": "kaplica",
+      "coord": [
+        20.45659,
+        49.41885
+      ],
+      "czas_narast_min": {
+        "tam": 12,
+        "powrot": 18
+      },
+      "wysokosc_m": 441,
+      "zdjecie": "dp_figura.jpg"
+    },
+    {
+      "nazwa": "Pawilon Wejściowy PPN",
+      "typ": "muzeum",
+      "coord": [
+        20.45615,
+        49.41848
+      ],
+      "czas_narast_min": {
+        "tam": 13,
+        "powrot": 17
+      },
+      "wysokosc_m": 442,
+      "zdjecie": "dp_pawilon.jpg"
+    },
+    {
+      "nazwa": "Nowy przewóz pod Sokolicą",
+      "typ": "inny",
+      "coord": [
+        20.45293,
+        49.41734
+      ],
+      "czas_narast_min": {
+        "tam": 17,
+        "powrot": 13
+      },
+      "wysokosc_m": 433,
+      "zdjecie": "dp_przewoz.jpg"
+    },
+    {
+      "nazwa": "Ujście Potoku Leśnickiego",
+      "typ": "inny",
+      "coord": [
+        20.45024,
+        49.41398
+      ],
+      "czas_narast_min": {
+        "tam": 30,
+        "powrot": 0
+      },
+      "wysokosc_m": 449
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Skała Kotońka",
+      "do": "Przystań flisacka",
+      "tekst": "Przystań końcowa spływu Przełomem Dunajca w Szczawnicy Niżnej. Ozdobna brama wita turystów wysiadających z tratw flisackich.",
+      "wskazowka": null
+    },
+    {
+      "od": "Przystań flisacka",
+      "do": "Schronisko PTTK „Orlica”",
+      "tekst": "Schronisko pod Białą Skałą (ok. 450 m), dawny pensjonat z 1932 r. W sierpniu 1954 potajemnie odprawił tu mszę ks. Karol Wojtyła. Dziś nosi imię Józefa Madei, legendarnego pienińskiego przewodnika.",
+      "wskazowka": null
+    },
+    {
+      "od": "Schronisko PTTK „Orlica”",
+      "do": "Piec Majki (Grota Zyblikiewicza)",
+      "tekst": "Duża grota wymyta w wapieniu (okap do 13,5 m). Od 1888 r. zwana Grotą Zyblikiewicza — popularne schronienie przed deszczem na Drodze Pienińskiej. W pobliżu tablica ku czci ks. Karola Wojtyły.",
+      "wskazowka": null
+    },
+    {
+      "od": "Piec Majki (Grota Zyblikiewicza)",
+      "do": "Figura Matki Boskiej",
+      "tekst": "Figurka Matki Bożej Niepokalanie Poczętej we wnęce skalnej ok. 10 m nad drogą, z lat 30. XX w. Wymodlona przez Eugenię Dąbrowską z Orlicy za powrót syna do zdrowia. Zwana Matką Bożą Opiekunką Turystów.",
+      "wskazowka": null
+    },
+    {
+      "od": "Figura Matki Boskiej",
+      "do": "Pawilon Wejściowy PPN",
+      "tekst": "Pawilon edukacyjny Pienińskiego Parku Narodowego (1995). W tym miejscu kończyła się Droga do Pienin, a zaczynała Droga Pienińska — dawniej stał tu kamienny ostrosłup z numerem jeden.",
+      "wskazowka": null
+    },
+    {
+      "od": "Pawilon Wejściowy PPN",
+      "do": "Nowy przewóz pod Sokolicą",
+      "tekst": "Przystań promowa u stóp Białej Skały. Przewoźnik przeprawia turystów na lewy brzeg Dunajca, w stronę Sokolicy; flisacy oferują też przejażdżkę do wylotu przełomu.",
+      "wskazowka": null
+    },
+    {
+      "od": "Nowy przewóz pod Sokolicą",
+      "do": "Ujście Potoku Leśnickiego",
+      "tekst": "Miejsce, w którym Józef Stefan Szalay zakończył w 1875 r. swój odcinek Drogi Pienińskiej. Tu Potok Leśnicki wpada do Dunajca, którym biegnie granica ze Słowacją.",
+      "wskazowka": null
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.45915,
+        49.42509
+      ],
+      "tytul": "Skała Kotońka",
+      "tekst": "Skała u wjazdu do Szczawnicy (9,5 m wys., 438 m n.p.m.). Wg legendy porzucona przez diabła, który chciał nią roztrzaskać Zamek Pieniński. Stoi na niej rzeźba górala witającego gości (nowa figura z 2016 r.)."
+    },
+    {
+      "coord": [
+        20.45947,
+        49.42246
+      ],
+      "tytul": "Przystań flisacka",
+      "tekst": "Przystań końcowa spływu Przełomem Dunajca w Szczawnicy Niżnej. Ozdobna brama wita turystów wysiadających z tratw flisackich."
+    },
+    {
+      "coord": [
+        20.45721,
+        49.41936
+      ],
+      "tytul": "Schronisko PTTK „Orlica”",
+      "tekst": "Schronisko pod Białą Skałą (ok. 450 m), dawny pensjonat z 1932 r. W sierpniu 1954 potajemnie odprawił tu mszę ks. Karol Wojtyła. Dziś nosi imię Józefa Madei, legendarnego pienińskiego przewodnika."
+    },
+    {
+      "coord": [
+        20.45679,
+        49.41899
+      ],
+      "tytul": "Piec Majki (Grota Zyblikiewicza)",
+      "tekst": "Duża grota wymyta w wapieniu (okap do 13,5 m). Od 1888 r. zwana Grotą Zyblikiewicza — popularne schronienie przed deszczem na Drodze Pienińskiej. W pobliżu tablica ku czci ks. Karola Wojtyły."
+    },
+    {
+      "coord": [
+        20.45659,
+        49.41885
+      ],
+      "tytul": "Figura Matki Boskiej",
+      "tekst": "Figurka Matki Bożej Niepokalanie Poczętej we wnęce skalnej ok. 10 m nad drogą, z lat 30. XX w. Wymodlona przez Eugenię Dąbrowską z Orlicy za powrót syna do zdrowia. Zwana Matką Bożą Opiekunką Turystów."
+    },
+    {
+      "coord": [
+        20.45615,
+        49.41848
+      ],
+      "tytul": "Pawilon Wejściowy PPN",
+      "tekst": "Pawilon edukacyjny Pienińskiego Parku Narodowego (1995). W tym miejscu kończyła się Droga do Pienin, a zaczynała Droga Pienińska — dawniej stał tu kamienny ostrosłup z numerem jeden."
+    },
+    {
+      "coord": [
+        20.45293,
+        49.41734
+      ],
+      "tytul": "Nowy przewóz pod Sokolicą",
+      "tekst": "Przystań promowa u stóp Białej Skały. Przewoźnik przeprawia turystów na lewy brzeg Dunajca, w stronę Sokolicy; flisacy oferują też przejażdżkę do wylotu przełomu."
+    },
+    {
+      "coord": [
+        20.45024,
+        49.41398
+      ],
+      "tytul": "Ujście Potoku Leśnickiego",
+      "tekst": "Miejsce, w którym Józef Stefan Szalay zakończył w 1875 r. swój odcinek Drogi Pienińskiej. Tu Potok Leśnicki wpada do Dunajca, którym biegnie granica ze Słowacją."
+    }
+  ],
+  "zdjecia": [
+    {
+      "plik": "dp_droga.jpg",
+      "podpis": "Droga Pienińska — brukowany gościniec nad Dunajcem, wykuty w skale w latach 70. XIX w."
+    }
+  ],
+  "_zrodlo_geometrii": "(c) OpenStreetMap contributors, ODbL",
+  "_zrodlo_czasow": "Czasy z rzeczywistych odległości wzdłuż śladu przy 4 km/h — droga jest płaska i brukowana. „180 minut” z tytułu książki to tempo zwiedzania z zatrzymaniem się przy każdej opowieści, nie czas marszu; samo przejście to pół godziny.",
+  "ilustracja": "DP.webp"
+}

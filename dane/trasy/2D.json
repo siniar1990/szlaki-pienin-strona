@@ -1,0 +1,114 @@
+{
+  "_uwaga": "Trasa dla dzieci. Ślad: routing po ścieżkach OpenStreetMap (tools/digitalizacja/trasa_z_punktow.py) albo plik GPX, wysokości z EU-DEM 25 m. Grupa wiekowa i opisy — autorskie, na podstawie charakteru trasy; sprawdź je z własnym dzieckiem, bo możliwości bywają bardzo różne.",
+  "id": "2D",
+  "nazwa": "Deptak nad Grajcarkiem",
+  "kategoria": "dzieci",
+  "dlugosc_km": 1.8,
+  "suma_podejsc_m": {
+    "tam": 7,
+    "powrot": 35
+  },
+  "czas_min": {
+    "tam": 28,
+    "powrot": 30
+  },
+  "kcal": {
+    "70kg": 75,
+    "80kg": 85,
+    "90kg": 96
+  },
+  "granica": false,
+  "szlaki": [],
+  "pttk": false,
+  "opis": "Dla dzieci od 2 lat, w pełni przejezdna wózkiem. Najłatwiejszy spacer w tym zestawieniu: równa, utwardzona promenada wzdłuż potoku Grajcarek, od dolnej stacji kolei na Palenicę aż do przystani flisackiej nad Dunajcem. Prawie płasko, cały czas w dół, z ławkami, placami zabaw i lodami po drodze.",
+  "ostrzezenia": [
+    "Latem promenada bywa zatłoczona — rowerzyści i hulajnogi jadą tędy szybko.",
+    "Przy przystani flisackiej nie ma barierki nad wodą; z małymi dziećmi trzymaj się środka alejki."
+  ],
+  "geometry": "assets/trasy/gpx/2D.geojson",
+  "punkty": [
+    {
+      "nazwa": "Dolna stacja kolei na Palenicę",
+      "typ": "kolej_linowa",
+      "coord": [
+        20.48057,
+        49.42497
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 30
+      },
+      "wysokosc_m": 458
+    },
+    {
+      "nazwa": "Deptak nad Grajcarkiem",
+      "typ": "inny",
+      "coord": [
+        20.46929,
+        49.42567
+      ],
+      "czas_narast_min": {
+        "tam": 14,
+        "powrot": 15
+      },
+      "wysokosc_m": 447
+    },
+    {
+      "nazwa": "Przystań flisacka",
+      "typ": "inny",
+      "coord": [
+        20.45953,
+        49.42263
+      ],
+      "czas_narast_min": {
+        "tam": 28,
+        "powrot": 0
+      },
+      "wysokosc_m": 429
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Dolna stacja kolei na Palenicę",
+      "do": "Deptak nad Grajcarkiem",
+      "tekst": "Spod dolnej stacji kolei ruszasz wzdłuż Grajcarka. Promenada jest szeroka i równa, potok szumi tuż obok, a po drodze mijasz ławki i miejsca na postój.",
+      "wskazowka": "Cały czas wzdłuż potoku, w dół. Nie da się pomylić drogi."
+    },
+    {
+      "od": "Deptak nad Grajcarkiem",
+      "do": "Przystań flisacka",
+      "tekst": "Grajcarek wpada do Dunajca, a promenada kończy się przy przystani flisackiej — tej samej, na której kończy się spływ Przełomem Dunajca. W sezonie tratwy przybijają tu jedna za drugą; dla dzieci to najlepsza część spaceru.",
+      "wskazowka": "Przy przystani zostań na alejce — nabrzeże nie ma barierki."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.48057,
+        49.42497
+      ],
+      "tytul": "Dolna stacja kolei na Palenicę",
+      "tekst": "Start przy dolnej stacji kolei krzesełkowej na Palenicę. Jeśli macie w planie także wjazd na górę, ten spacer jest naturalnym zakończeniem dnia — cały czas w dół, do przystani nad Dunajcem."
+    },
+    {
+      "coord": [
+        20.46929,
+        49.42567
+      ],
+      "tytul": "Deptak nad Grajcarkiem",
+      "tekst": "Grajcarek to potok, który dzieli Szczawnicę na dwie części i wpada do Dunajca przy przystani. Promenadę wzdłuż niego zbudowano jako główną oś spacerową uzdrowiska — jest utwardzona na całej długości i nadaje się dla wózków."
+    },
+    {
+      "coord": [
+        20.45953,
+        49.42263
+      ],
+      "tytul": "Przystań flisacka",
+      "tekst": "Przystań końcowa spływu Przełomem Dunajca. Ozdobna drewniana brama wita turystów wysiadających z tratw. Warto usiąść i popatrzeć, jak flisacy dobijają do brzegu."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "OpenStreetMap / GPX + EU-DEM 25 m",
+  "_zrodlo_czasow": "Wzór Naismitha: 4 km/h + 10 min na 100 m podejścia.",
+  "ilustracja": "2D.webp"
+}

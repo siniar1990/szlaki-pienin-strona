@@ -1,0 +1,128 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "5B",
+ "nazwa": "Nie mam roweru",
+ "kategoria": "srednia",
+ "dlugosc_km": 21.0,
+ "suma_podejsc_m": {
+  "tam": 610,
+  "powrot": 610
+ },
+ "czas_min": {
+  "tam": 305,
+  "powrot": 305
+ },
+ "kcal": {
+  "70kg": 2210,
+  "80kg": 2530,
+  "90kg": 2850
+ },
+ "granica": false,
+ "petla": true,
+ "szlaki": [
+  "zolty",
+  "niebieski"
+ ],
+ "pttk": true,
+ "opis": "Duża pętla wokół Czeremchy Zachodniej: w górę doliną Jastrzębiego Potoku, z powrotem doliną Sopotnickiego. Po drodze wodospad Zaskalnik i kaplica na Sewerynówce.",
+ "ostrzezenia": [
+  "Środkowy odcinek biegnie bez znaków szlaku — kieruj się logo „Szlaki pełne zdrowia”."
+ ],
+ "geometry": "assets/trasy/gpx/5B.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 305
+   },
+   "wysokosc_m": 508
+  },
+  {
+   "nazwa": "Wodospad Zaskalnik",
+   "typ": "atrakcja",
+   "coord": [
+    20.50336,
+    49.43687
+   ],
+   "czas_narast_min": {
+    "tam": 45,
+    "powrot": 260
+   },
+   "wysokosc_m": 565
+  },
+  {
+   "nazwa": "Kaplica na Sewerynówce",
+   "typ": "atrakcja",
+   "coord": [
+    20.50167,
+    49.44396
+   ],
+   "czas_narast_min": {
+    "tam": 55,
+    "powrot": 250
+   },
+   "wysokosc_m": 607
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.50167,
+    49.44396
+   ],
+   "czas_narast_min": {
+    "tam": 305,
+    "powrot": 0
+   },
+   "wysokosc_m": 613
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Wodospad Zaskalnik",
+   "tekst": "Start na przystanku busów przy ul. Głównej, blisko skrzyżowania z ul. Zdrojową. Do Placu Dietla szlakiem żółtym i niebieskim. Na Placu Dietla zawracasz niemal o 180° w prawo, w ul. Park Górny — tu opuszczasz żółty i idziesz już tylko za niebieskimi. Po lewej mijasz białe sanatorium „Inhalatorium”, przecinasz ul. Jana Wiktora i wchodzisz w alejkę Parku Górnego. Przy figurze Matki Bożej w lewo, w stronę Dworca Gościnnego. Za Dworcem schody i al. 1 Maja na osiedle Połoniny; przez ul. Połoniny do ul. Św. Krzyża, tam w lewo do góry, a na bliskim rozwidleniu w prawo. Asfaltową dróżką schodzisz do doliny Sopotnickiego Potoku i skręcasz w lewo, w górę potoku.",
+   "wskazowka": "Na Placu Dietla zawróć w ul. Park Górny; dalej tylko za niebieskimi."
+  },
+  {
+   "od": "Wodospad Zaskalnik",
+   "do": "Kaplica na Sewerynówce",
+   "tekst": "Za wodospadem mijasz zajazd Czarda — stoi na miejscu dawnej węgierskiej karczmy przy trakcie z Nowego Sącza przez Przysłop — potem ujęcie wody pitnej i most u zbiegu Sopotnickiego Potoku z potokiem Pod Górami. Za mostem koniec asfaltu: szlak niebieski skręca w prawo na Przehybę, ty idziesz na wprost drogą gruntową, w las, do drewnianej kaplicy.",
+   "wskazowka": "Za mostem na wprost drogą gruntową (zakaz ruchu pojazdów)."
+  },
+  {
+   "od": "Kaplica na Sewerynówce",
+   "do": "Szczawnica, centrum",
+   "tekst": "Przy kaplicy w prawo odbiega boczna droga za szlabanem, w górę Jastrzębiego Potoku — wytyczono nią niebieski szlak narciarski. Nią zataczasz dużą pętlę wokół Czeremchy Zachodniej (1015 m) i po niej wrócisz do tej samej kaplicy. Droga jest tu jedynym znakiem cywilizacji; robi się pusto i dziko, woda szumi w wąskim kamienistym korycie. Po 35 minutach droga skręca ostro w prawo, opuszcza dolinę i wyprowadza na grzbiet Koszarka–Czeremcha przy składzie drewna, gdzie dołącza szlak niebieski. Z polany Koszarki wracasz doliną Sopotnickiego Potoku na Sewerynówkę i tą samą drogą do centrum.",
+   "wskazowka": "Przy kaplicy w prawo za szlaban; pętla wraca w to samo miejsce."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.50167,
+    49.44396
+   ],
+   "tytul": "Kaplica i Dom Zdrowia na Sewerynówce",
+   "tekst": "W 1925 r. lwowskie koło Stowarzyszenia Chrześcijańsko-Narodowego Nauczycielstwa postawiło tu sanatorium Dom Zdrowia, a w 1933 r. obok kaplicę mszalną pw. Wniebowzięcia NMP. Sanatorium w czasie okupacji służyło partyzantom, spłonęło w 1944 r., a po odbudowie spłonęło ponownie w 1962 (fundamenty widać obok kaplicy). Kaplica przetrwała — po wojnie ozdobił ją i wyposażył szczawnicki rzeźbiarz Henryk Zachwieja „Baltazar”. Nazwa osiedla pochodzi od domu nazwanego imieniem hr. Seweryna Fredry, brata komediopisarza Aleksandra."
+  },
+  {
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "tytul": "Dworzec Gościnny",
+   "tekst": "Powstał w 1884 r. jako centrum gościnne dla kuracjuszy — koncerty, bale dobroczynne, przedstawienia teatralne, sala bilardowa, traktiernia, salon fryzjerski. Drewniany budynek strawił pożar w 1962 r. W latach 2008–2011 spadkobiercy hr. Adama Stadnickiego, rodzina Mańkowskich, odbudowali go w kubaturze znacznie większej od pierwowzoru. Dziś mieści sale teatralną, kinową, restauracyjną i konferencyjne."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "5B.webp"
+}

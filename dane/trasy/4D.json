@@ -1,0 +1,109 @@
+{
+  "_uwaga": "Trasa dla dzieci. Ślad: routing po ścieżkach OpenStreetMap (tools/digitalizacja/trasa_z_punktow.py) albo plik GPX, wysokości z EU-DEM 25 m. Grupa wiekowa i opisy — autorskie, na podstawie charakteru trasy; sprawdź je z własnym dzieckiem, bo możliwości bywają bardzo różne.",
+  "id": "4D",
+  "nazwa": "Rezerwat Biała Woda",
+  "kategoria": "dzieci",
+  "dlugosc_km": 3.8,
+  "suma_podejsc_m": {
+    "tam": 218,
+    "powrot": 73
+  },
+  "czas_min": {
+    "tam": 79,
+    "powrot": 64
+  },
+  "kcal": {
+    "70kg": 329,
+    "80kg": 376,
+    "90kg": 423
+  },
+  "granica": false,
+  "szlaki": [
+    "zielony"
+  ],
+  "pttk": false,
+  "opis": "Dla dzieci od 6 lat. Wędrówka z Jaworek w głąb rezerwatu Biała Woda — jednej z najładniejszych dolin Małych Pienin. Potok wije się między białymi wapiennymi skałkami, a szlak prowadzi dnem doliny, kilkakrotnie przechodząc na drugą stronę wody. Prawie cztery kilometry w jedną stronę, więc to już wyprawa, a nie spacer.",
+  "ostrzezenia": [
+    "To rezerwat przyrody — nie schodź ze ścieżki, nie zrywaj roślin, psy tylko na smyczy.",
+    "Szlak kilka razy przechodzi przez potok. Po deszczu woda potrafi przybrać — weź buty, których nie szkoda zamoczyć.",
+    "Prawie 4 km w jedną stronę i 218 m podejść. Z młodszymi dziećmi wystarczy wejść w dolinę na kilometr i zawrócić."
+  ],
+  "geometry": "assets/trasy/gpx/4D.geojson",
+  "punkty": [
+    {
+      "nazwa": "Jaworki",
+      "typ": "inny",
+      "coord": [
+        20.55306,
+        49.4066
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 64
+      },
+      "wysokosc_m": 572
+    },
+    {
+      "nazwa": "Wejście do rezerwatu Biała Woda",
+      "typ": "inny",
+      "coord": [
+        20.5644,
+        49.39889
+      ],
+      "czas_narast_min": {
+        "tam": 28,
+        "powrot": 42
+      },
+      "wysokosc_m": 631
+    },
+    {
+      "nazwa": "W głębi doliny Białej Wody",
+      "typ": "punkt_widokowy",
+      "coord": [
+        20.59159,
+        49.39396
+      ],
+      "czas_narast_min": {
+        "tam": 79,
+        "powrot": 0
+      },
+      "wysokosc_m": 717
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Jaworki",
+      "do": "Wejście do rezerwatu Biała Woda",
+      "tekst": "Z Jaworek droga prowadzi w stronę doliny. Zabudowa się kończy, po bokach pojawiają się pierwsze wapienne skałki, a potok robi się coraz bardziej dziki.",
+      "wskazowka": "Z centrum Jaworek kieruj się na wschód, w stronę doliny Białej Wody."
+    },
+    {
+      "od": "Wejście do rezerwatu Biała Woda",
+      "do": "W głębi doliny Białej Wody",
+      "tekst": "Wchodzisz w rezerwat. Dolina zwęża się, białe skałki wyrastają wprost z zieleni, a ścieżka kilka razy przechodzi na drugą stronę potoku. To najładniejszy fragment — i dobre miejsce, żeby zawrócić, jeśli dzieci już mają dosyć.",
+      "wskazowka": "Trzymaj się wyznaczonej ścieżki. Przy przejściach przez potok pomóż młodszym dzieciom."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.55306,
+        49.4066
+      ],
+      "tytul": "Jaworki",
+      "tekst": "Wieś u wylotu dwóch dolin — Białej Wody i Homole. Dawniej zamieszkana przez Rusinów, do dziś stoi tu murowana cerkiew z XIX w., zamieniona po wojnie na kościół."
+    },
+    {
+      "coord": [
+        20.5644,
+        49.39889
+      ],
+      "tytul": "Wejście do rezerwatu Biała Woda",
+      "tekst": "Rezerwat powołano dla ochrony wapiennych skałek i rzadkich roślin. Nazwa bierze się od koloru dna potoku — jasnego wapienia, przez który woda wydaje się mleczna."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "OpenStreetMap / GPX + EU-DEM 25 m",
+  "_zrodlo_czasow": "Wzór Naismitha: 4 km/h + 10 min na 100 m podejścia.",
+  "ilustracja": "4D.webp"
+}

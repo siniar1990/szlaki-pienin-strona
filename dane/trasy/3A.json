@@ -1,0 +1,186 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "3A",
+ "nazwa": "Bereśnik",
+ "kategoria": "krotka",
+ "dlugosc_km": 15.5,
+ "suma_podejsc_m": {
+  "tam": 560,
+  "powrot": 560
+ },
+ "czas_min": {
+  "tam": 235,
+  "powrot": 235
+ },
+ "kcal": {
+  "70kg": 1680,
+  "80kg": 1920,
+  "90kg": 2160
+ },
+ "granica": false,
+ "petla": true,
+ "szlaki": [
+  "niebieski",
+  "czerwony",
+  "zolty"
+ ],
+ "pttk": true,
+ "opis": "Duża pętla Pasmem Radziejowej: doliną Sopotnickiego Potoku na przełęcz Przysłop, grzbietem przez Dzwonkówkę i Bereśnik, a z powrotem przez Bryjarkę i Plac Dietla.",
+ "ostrzezenia": [
+  "Ślad na mapie wraca doliną Skalskiego Potoku, a przewodnik prowadzi przez Sewerynówkę — to dwa warianty tego samego okrążenia."
+ ],
+ "geometry": "assets/trasy/gpx/3A.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48732,
+    49.42885
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 235
+   },
+   "wysokosc_m": 521
+  },
+  {
+   "nazwa": "Dolina Skalskiego Potoku",
+   "typ": "inny",
+   "coord": [
+    20.50336,
+    49.43687
+   ],
+   "czas_narast_min": {
+    "tam": 55,
+    "powrot": 180
+   },
+   "wysokosc_m": 565
+  },
+  {
+   "nazwa": "Przełęcz Przysłop",
+   "typ": "przelecz",
+   "coord": [
+    20.49261,
+    49.46725
+   ],
+   "czas_narast_min": {
+    "tam": 105,
+    "powrot": 130
+   },
+   "wysokosc_m": 844
+  },
+  {
+   "nazwa": "Dzwonkówka",
+   "typ": "szczyt",
+   "coord": [
+    20.48158,
+    49.46458
+   ],
+   "czas_narast_min": {
+    "tam": 125,
+    "powrot": 110
+   },
+   "wysokosc_m": 982
+  },
+  {
+   "nazwa": "Bereśnik",
+   "typ": "szczyt",
+   "coord": [
+    20.49,
+    49.44236
+   ],
+   "czas_narast_min": {
+    "tam": 170,
+    "powrot": 65
+   },
+   "wysokosc_m": 843
+  },
+  {
+   "nazwa": "Bryjarka",
+   "typ": "szczyt",
+   "coord": [
+    20.47965,
+    49.43142
+   ],
+   "czas_narast_min": {
+    "tam": 200,
+    "powrot": 35
+   },
+   "wysokosc_m": 679
+  },
+  {
+   "nazwa": "Szczawnica, Plac Dietla",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 235,
+    "powrot": 0
+   },
+   "wysokosc_m": 508
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Dolina Skalskiego Potoku",
+   "tekst": "Z centrum przez Plac Dietla i osiedle Połoniny wychodzisz w dolinę. Przewodnik prowadzi stąd doliną Sopotnickiego Potoku przez Sewerynówkę; ślad na mapie idzie równoległą doliną Skalskiego Potoku, obok wodospadu Zaskalnik. Obie drogi spotykają się przed podejściem na przełęcz.",
+   "wskazowka": "Przez Plac Dietla i os. Połoniny w górę doliny."
+  },
+  {
+   "od": "Dolina Skalskiego Potoku",
+   "do": "Przełęcz Przysłop",
+   "tekst": "W osadzie Potoki, między domami, skręcasz na boczną drogę w lewo. Prowadzi łagodnie pod górę i zagłębia się w las; po kilku minutach mijasz polanę ze stylowym drewnianym domem letnim po lewej. Dalej stromiej na szeroki grzbiet, potem na łąki, z których widać już osiedle i przełęcz Przysłop (832 m). Po prawej, tuż powyżej drogi, drewniana kaplica w stylu podhalańskim; w siodle przełęczy pomnik poległych partyzantów AK.",
+   "wskazowka": "W osadzie Potoki w lewo, drogą pod górę na przełęcz Przysłop."
+  },
+  {
+   "od": "Przełęcz Przysłop",
+   "do": "Dzwonkówka",
+   "tekst": "Na przełęczy spotykasz szlak czerwony i skręcasz w lewo, w stronę Dzwonkówki (w prawo do schroniska na Przehybie 2 godziny). Grzbietowa droga prowadzi przez osiedle, za nim pnie się stromo do lasu, skręca na boczną drogę w lewo, a potem znowu w lewo — na ścieżkę skrajem lasu i łąk, bardzo stromo do góry. Na małej trawiastej płaśni spotykasz szlak żółty; jesteś przy wschodnim wierzchołku Dzwonkówki (890 m).",
+   "wskazowka": "Na przełęczy w lewo za czerwonymi, stromo pod Dzwonkówkę."
+  },
+  {
+   "od": "Dzwonkówka",
+   "do": "Bereśnik",
+   "tekst": "Skręcasz w lewo na szlak żółty i łagodnie schodzisz bocznym grzbietem na południe. Mijasz dwie zarastające polany — Małą Chrzankę i Bańkową Polanę — z fragmentarycznymi widokami Pienin, Gorców i Tatr. Dalej lasem, przez polankę Przysłopki, trawersem Kotelnicy (847 m) do siodła pod Kotelnicą, skąd w prawo odbiega nieznakowana trasa 6A. Ty idziesz dalej żółtym przez Bereśnik do łąk pod Gucką.",
+   "wskazowka": "W lewo na żółty, grzbietem przez siodło pod Kotelnicą i Bereśnik."
+  },
+  {
+   "od": "Bereśnik",
+   "do": "Bryjarka",
+   "tekst": "Z łąk pod Gucką szlak żółty prowadzi w dół i, minąwszy opuszczoną zagrodę, zmierza do sosnowego lasku na stoku pod Bryjarką (679 m). Warto zboczyć w lewo i wejść do krzyża na szczycie — pięć minut.",
+   "wskazowka": "Żółtym w dół pod Bryjarkę; do krzyża zejście w lewo, 5 minut."
+  },
+  {
+   "od": "Bryjarka",
+   "do": "Szczawnica, Plac Dietla",
+   "tekst": "Spod Bryjarki szlak sprowadza do Placu Dietla i dalej w centrum Szczawnicy.",
+   "wskazowka": "W dół do Placu Dietla i centrum."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.49261,
+    49.46725
+   ],
+   "tytul": "Przysłop — przełęcz kurierów i partyzantów",
+   "tekst": "Najniższe miejsce w głównym grzbiecie Pasma Radziejowej. Już w 1839 r. zaczęto tędy budować drogę, a po 1876 r. większość kuracjuszy jechała do Szczawnicy furkami przez Jazowsko, Obidzę i Przysłop. W czasie okupacji była tu kryjówka partyzantów i przystanek kurierów przeprowadzających ludzi przez granicę. W 1943 r. Niemcy zamęczyli tu bacę Wojciecha Słowika, w lutym 1944 zginęło pięciu partyzantów AK, a w grudniu tego roku spłonął dom rodziny Fijasów — zginęło sześć osób, w tym troje dzieci. Na miejscu spalonego domostwa stoi dziś kaplica z płaskorzeźbą Matki Bożej Partyzantów dłuta Henryka Zachwieji „Baltazara”."
+  },
+  {
+   "coord": [
+    20.48158,
+    49.46458
+   ],
+   "tytul": "Skąd nazwa Dzwonkówki",
+   "tekst": "Na Dzwonkówce schodzą się granice Krościenka, Jazowska i Szczawnicy — dawniej takie zbiegi oznaczano trzema kopcami ziemnymi. Na granice wsi wywożono ciała samobójców, którym odmawiano pochówku na cmentarzu; miejsce to leży 600 m na południowy zachód od szczytu i nosi nazwę Wiselce. Cała góra była kiedyś pokryta polanami, na których wypasano owce — i to zapewne od dźwięku pasterskich dzwonków wzięła się nazwa szczytu."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "3A.webp"
+}

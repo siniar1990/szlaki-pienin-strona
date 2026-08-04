@@ -1,0 +1,138 @@
+{
+ "_uwaga": "Opisy, punkty i czasy: przewodnik „Szlaki pełne zdrowia\" (PTTK Oddział Pieniński, 2019). Przebieg i wysokości: ślad GPX + EU-DEM 25 m.",
+ "id": "6A",
+ "nazwa": "Mało znany Średniak",
+ "kategoria": "krotka",
+ "dlugosc_km": 12.0,
+ "suma_podejsc_m": {
+  "tam": 490,
+  "powrot": 490
+ },
+ "czas_min": {
+  "tam": 195,
+  "powrot": 195
+ },
+ "kcal": {
+  "70kg": 1390,
+  "80kg": 1590,
+  "90kg": 1790
+ },
+ "granica": false,
+ "petla": true,
+ "szlaki": [
+  "zolty"
+ ],
+ "pttk": true,
+ "opis": "Nieznakowanym grzbietem Średniaka, przez Czerteż i siodło pod Kotelnicą do schroniska Pod Bereśnikiem, a z powrotem przez Bryjarkę i Plac Dietla.",
+ "ostrzezenia": [
+  "Odcinek od doliny Skotnickiego Potoku po siodło pod Kotelnicą prowadzi bez znaków szlaku — kieruj się logo „Szlaki pełne zdrowia”."
+ ],
+ "geometry": "assets/trasy/gpx/6A.geojson",
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 195
+   },
+   "wysokosc_m": 450
+  },
+  {
+   "nazwa": "Średniak",
+   "typ": "szczyt",
+   "coord": [
+    20.48145,
+    49.45398
+   ],
+   "czas_narast_min": {
+    "tam": 75,
+    "powrot": 120
+   },
+   "wysokosc_m": 801
+  },
+  {
+   "nazwa": "Bereśnik",
+   "typ": "szczyt",
+   "coord": [
+    20.49,
+    49.44236
+   ],
+   "czas_narast_min": {
+    "tam": 135,
+    "powrot": 60
+   },
+   "wysokosc_m": 843
+  },
+  {
+   "nazwa": "Bryjarka",
+   "typ": "szczyt",
+   "coord": [
+    20.47965,
+    49.43142
+   ],
+   "czas_narast_min": {
+    "tam": 165,
+    "powrot": 30
+   },
+   "wysokosc_m": 679
+  },
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.46807,
+    49.42647
+   ],
+   "czas_narast_min": {
+    "tam": 195,
+    "powrot": 0
+   },
+   "wysokosc_m": 451
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Średniak",
+   "tekst": "Początek jak na trasie 5A: ul. Skotnicką w górę potoku, obok zdroju Pitoniakówka, do placyku pod modrzewiami. Stamtąd nie skręcasz — idziesz drogą na wprost (po prawej kapliczka z Chrystusem Frasobliwym) i po dziesięciu minutach dochodzisz do zbiegu Białego i Czarnego Potoku, gdzie stoi stylowy drewniany dom. Na rozwidleniu wybierasz drogę w lewo, po 50 m schodzisz skosem w prawo na dróżkę pnącą się do lasu, po kolejnych 50 m wychodzisz na kamienistą leśną drogę i skręcasz w prawo. Prowadzi ona do osiedli na grzbiecie Średniaka. Za osiedlem, na rozdrożu, wybierz łagodniejsze podejście w prawo. Dalej grzbietem przez zagajniki na lesistą kulminację Średniaka (790 m).",
+   "wskazowka": "Od placyku pod modrzewiami na wprost, potem w lewo i skosem w prawo w las."
+  },
+  {
+   "od": "Średniak",
+   "do": "Bereśnik",
+   "tekst": "Ze Średniaka schodzisz na przełęcz z polanką i domem osady Ubocz. Osadę opuszczasz koło charakterystycznej rosochatej wierzby; po dwudziestu metrach na rozwidleniu leśnych dróg wybierasz prawą, ale już po kilku krokach schodzisz z niej w prawo na wąską ścieżkę. Trawersem dochodzisz do jaru ze źródliskami Czarnego Potoku. Stamtąd w górę strumyka, potem w prawo do grzbietu Czerteża (801 m) — wierzchołek zostaje po prawej. Szybko w dół do następnego jaru, za nim leśną drogą na polanę Łyszczankę i trawersem do polanki na siodle (790 m) pod Kotelnicą, gdzie spotykasz szlak żółty. Dalej żółtym przez Bereśnik.",
+   "wskazowka": "Koło rosochatej wierzby w prawo na ścieżkę; przez Czerteż na siodło."
+  },
+  {
+   "od": "Bereśnik",
+   "do": "Bryjarka",
+   "tekst": "Od Bereśnika szlakiem żółtym do łąk pod Gucką, dalej w dół, obok opuszczonej zagrody, w sosnowy lasek pod Bryjarką. Do krzyża na szczycie pięć minut w lewo.",
+   "wskazowka": "Żółtym w dół pod Bryjarkę."
+  },
+  {
+   "od": "Bryjarka",
+   "do": "Szczawnica, centrum",
+   "tekst": "Spod Bryjarki szlak sprowadza do Placu Dietla, a stamtąd przez centrum wracasz na promenadę.",
+   "wskazowka": "W dół do Placu Dietla i centrum."
+  }
+ ],
+ "ramki": [
+  {
+   "coord": [
+    20.48145,
+    49.45398
+   ],
+   "tytul": "Pieniny i Tatry ze stoków Średniaka",
+   "tekst": "Z łąk za pierwszym osiedlem otwiera się do tyłu panorama: w Pieninach od lewej długi grzbiet Holicy (824 m), czubek Sokolicy (747 m), garb Łysiny (792 m), obły Czertezik (772 m) i Trzy Korony (982 m). Na drugim planie piętrzą się Tatry — Wysokie, Bielskie i fragment Zachodnich."
+  }
+ ],
+ "zdjecia": [],
+ "_zrodlo_geometrii": "Ślad GPX + EU-DEM 25 m",
+ "_zrodlo_czasow": "Przewodnik PTTK „Szlaki pełne zdrowia\" (2019)",
+ "ilustracja": "6A.webp"
+}

@@ -1,0 +1,75 @@
+{
+ "_uwaga": "Dane z researchu (lipiec 2026) do kategorii Korony Pienin. Ślad na mapie i profil wysokościowy: DO ZROBIENIA.",
+ "id": "KP07",
+ "nazwa": "Fakľovka",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 934,
+ "grupa_gorska": "Małe Pieniny (Słowacja)",
+ "dlugosc_km": 13.0,
+ "suma_podejsc_m": {
+  "tam": 820,
+  "powrot": 820
+ },
+ "czas_min": {
+  "tam": 290,
+  "powrot": 290
+ },
+ "kcal": {
+  "70kg": 1189,
+  "80kg": 1359,
+  "90kg": 1529
+ },
+ "granica": true,
+ "petla": false,
+ "szlaki": [],
+ "pttk": false,
+ "opis": "Busem do Jaworek, żółtym przez Białą Wodę na Przełęcz Rozdziela, a stamtąd słowackim trawiastym grzbietem na południowy wschód — bez znakowanego szlaku.",
+ "ostrzezenia": [
+  "POZA znakowanym szlakiem: 2,2–2,4 km grzbietem, konieczna nawigacja GPS.",
+  "Przebieg przez pastwiska z ogrodzeniami; status ochronny DO WERYFIKACJI W TERENIE.",
+  "Wbrew części źródeł szczyt NIE leży w grupie Holicy, lecz nad Litmanową.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 290
+   },
+   "wysokosc_m": 470
+  },
+  {
+   "nazwa": "Fakľovka",
+   "typ": "szczyt",
+   "coord": [
+    20.60335,
+    49.37286
+   ],
+   "czas_narast_min": {
+    "tam": 290,
+    "powrot": 0
+   },
+   "wysokosc_m": 934
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Fakľovka",
+   "tekst": "Busem do Jaworek, żółtym przez Białą Wodę na Przełęcz Rozdziela, a stamtąd słowackim trawiastym grzbietem na południowy wschód — bez znakowanego szlaku.\n\nWierzchołek leży POZA znakowanym szlakiem.",
+   "wskazowka": "Busem do Jaworek, żółtym przez Białą Wodę na Przełęcz Rozdziela, a stamtąd słowackim trawiastym grzbietem na południowy wschód — bez znakowanego szlaku."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Research 24 szczytów Korony Pienin (lipiec 2026)",
+ "ilustracja": "KP07.webp"
+}

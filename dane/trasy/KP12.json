@@ -1,0 +1,75 @@
+{
+ "_uwaga": "Dane z researchu (lipiec 2026) do kategorii Korony Pienin. Ślad na mapie i profil wysokościowy: DO ZROBIENIA.",
+ "id": "KP12",
+ "nazwa": "Hombark Łapszański",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 825,
+ "grupa_gorska": "Pieniny Spiskie",
+ "dlugosc_km": 9.0,
+ "suma_podejsc_m": {
+  "tam": 450,
+  "powrot": 450
+ },
+ "czas_min": {
+  "tam": 180,
+  "powrot": 180
+ },
+ "kcal": {
+  "70kg": 724,
+  "80kg": 828,
+  "90kg": 932
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [],
+ "pttk": false,
+ "opis": "Dojazd do Niedzicy-Zamku i czerwonym w stronę Dursztyna; z odcinka Żar–Dursztyn odbicie na południe przez las. Naturalnie łączy się z Żarem w jednej wycieczce.",
+ "ostrzezenia": [
+  "POZA znakowanym szlakiem — kilkanaście do 20 minut lasem, wymagany GPS.",
+  "Od zachodu polana Za Czarną Górą to czynne pastwisko i teren gospodarczy.",
+  "Dokładny przebieg podejścia DO WERYFIKACJI W TERENIE.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Szczawnica, centrum",
+   "typ": "miejscowosc",
+   "coord": [
+    20.48256,
+    49.42522
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 180
+   },
+   "wysokosc_m": 470
+  },
+  {
+   "nazwa": "Hombark Łapszański",
+   "typ": "szczyt",
+   "coord": [
+    20.23226,
+    49.41541
+   ],
+   "czas_narast_min": {
+    "tam": 180,
+    "powrot": 0
+   },
+   "wysokosc_m": 825
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Szczawnica, centrum",
+   "do": "Hombark Łapszański",
+   "tekst": "Dojazd do Niedzicy-Zamku i czerwonym w stronę Dursztyna; z odcinka Żar–Dursztyn odbicie na południe przez las. Naturalnie łączy się z Żarem w jednej wycieczce.\n\nWierzchołek leży POZA znakowanym szlakiem.",
+   "wskazowka": "Dojazd do Niedzicy-Zamku i czerwonym w stronę Dursztyna; z odcinka Żar–Dursztyn odbicie na południe przez las."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Research 24 szczytów Korony Pienin (lipiec 2026)",
+ "ilustracja": "KP12.webp"
+}

@@ -1,0 +1,118 @@
+{
+  "_uwaga": "Trzy Korony — wariant. Ślad: OpenStreetMap (BRouter, profil hiking-mountain) + SRTM. Punkty i kolory zweryfikowane z przewodnikami i OSM.",
+  "id": "TK3",
+  "nazwa": "Trzy Korony ze Sromowiec Niżnych (spod schroniska)",
+  "kategoria": "trzy-korony",
+  "dlugosc_km": 2.8,
+  "suma_podejsc_m": {
+    "tam": 500,
+    "powrot": 17
+  },
+  "czas_min": {
+    "tam": 93,
+    "powrot": 44
+  },
+  "kcal": {
+    "70kg": 530,
+    "80kg": 605,
+    "90kg": 681
+  },
+  "granica": false,
+  "szlaki": [
+    "zolty",
+    "niebieski"
+  ],
+  "ostrzezenia": [
+    "Wejście na platformę Okrąglicy płatne w sezonie; bywają kolejki."
+  ],
+  "geometry": "assets/trasy/gpx/TK3.geojson",
+  "punkty": [
+    {
+      "nazwa": "Schronisko PTTK „Trzy Korony”",
+      "typ": "schronisko",
+      "coord": [
+        20.41109,
+        49.40519
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 44
+      },
+      "wysokosc_m": 475
+    },
+    {
+      "nazwa": "Wąwóz Szopczański",
+      "typ": "inny",
+      "coord": [
+        20.40848,
+        49.4104
+      ],
+      "czas_narast_min": {
+        "tam": 21,
+        "powrot": 34
+      },
+      "wysokosc_m": 536
+    },
+    {
+      "nazwa": "Przełęcz Szopka",
+      "typ": "przelecz",
+      "coord": [
+        20.40807,
+        49.419
+      ],
+      "czas_narast_min": {
+        "tam": 61,
+        "powrot": 15
+      },
+      "wysokosc_m": 779
+    },
+    {
+      "nazwa": "Trzy Korony (Okrąglica)",
+      "typ": "szczyt",
+      "coord": [
+        20.41422,
+        49.41383
+      ],
+      "czas_narast_min": {
+        "tam": 93,
+        "powrot": 0
+      },
+      "wysokosc_m": 958
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Schronisko PTTK „Trzy Korony”",
+      "do": "Wąwóz Szopczański",
+      "tekst": "Żółtym szlakiem od schroniska PTTK w Sromowcach Niżnych w malowniczy, wapienny Wąwóz Szopczański.",
+      "wskazowka": null
+    },
+    {
+      "od": "Wąwóz Szopczański",
+      "do": "Przełęcz Szopka",
+      "tekst": "Wąwozem stromo w górę na Przełęcz Szopka (Chwała Bogu, 780 m).",
+      "wskazowka": null
+    },
+    {
+      "od": "Przełęcz Szopka",
+      "do": "Trzy Korony (Okrąglica)",
+      "tekst": "Z przełęczy w prawo niebieskim, końcowe podejście na Okrąglicę (982 m) — galeria widokowa.",
+      "wskazowka": null
+    }
+  ],
+  "ramki": [],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "© OpenStreetMap contributors, ODbL; routing © BRouter (hiking-mountain)",
+  "_zrodlo_czasow": "Naismith: 4 km/h + 10 min na 100 m podejścia.",
+  "pttk": false,
+  "kolory_odcinkow": [
+    {
+      "kolor": "zolty",
+      "do": "Przełęcz Szopka"
+    },
+    {
+      "kolor": "niebieski"
+    }
+  ],
+  "ilustracja": "TK3.webp"
+}

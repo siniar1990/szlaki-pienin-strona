@@ -1,0 +1,77 @@
+{
+ "_uwaga": "Ślad: routing po szlakach z OpenStreetMap + EU-DEM 25 m. Metryka liczona z tego śladu, więc zgadza się z mapą i profilem. Opisy odcinkowe: DO UZUPEŁNIENIA.",
+ "id": "KP16",
+ "nazwa": "Cisówka",
+ "kategoria": "korony-pienin",
+ "wysokosc_szczytu_m": 777,
+ "grupa_gorska": "Pieniny Spiskie",
+ "dlugosc_km": 3.4,
+ "suma_podejsc_m": {
+  "tam": 183,
+  "powrot": 9
+ },
+ "czas_min": {
+  "tam": 69,
+  "powrot": 52
+ },
+ "kcal": {
+  "70kg": 284,
+  "80kg": 325,
+  "90kg": 365
+ },
+ "granica": false,
+ "petla": false,
+ "szlaki": [
+  "czerwony"
+ ],
+ "pttk": false,
+ "opis": "Z Niedzicy-Zamku czerwonym szutrową drogą. Bardzo łatwe, rodzinne wejście; po drodze Polana Cisówka z panoramą jeziora i Tatr.",
+ "ostrzezenia": [
+  "Czerwony trawersuje kopułę tuż pod zalesioną kulminacją — samo najwyższe miejsce to 2–5 minut odbicia w las. DO WERYFIKACJI W TERENIE.",
+  "Punkt startowy: centrum Szczawnicy (pl. Dietla, ~470 m n.p.m.).",
+  "W Szczawnicy nie ma mostu ani kładki przez Dunajec — na grzbiet Pienin Właściwych przeprawa łodziowa pod Sokolicą (15.04–31.10) albo objazd przez most w Krościenku.",
+  "W parkach narodowych (PPN, PIENAP): zakaz psów, zakaz schodzenia ze znakowanych szlaków, ruch wyłącznie za dnia."
+ ],
+ "punkty": [
+  {
+   "nazwa": "Niedzica-Zamek",
+   "typ": "miejscowosc",
+   "coord": [
+    20.3191,
+    49.42151
+   ],
+   "czas_narast_min": {
+    "tam": 0,
+    "powrot": 52
+   },
+   "wysokosc_m": 548
+  },
+  {
+   "nazwa": "Cisówka",
+   "typ": "szczyt",
+   "coord": [
+    20.27888,
+    49.41628
+   ],
+   "czas_narast_min": {
+    "tam": 69,
+    "powrot": 0
+   },
+   "wysokosc_m": 777
+  }
+ ],
+ "segmenty_opisu": [
+  {
+   "od": "Niedzica-Zamek",
+   "do": "Cisówka",
+   "tekst": "Z Niedzicy-Zamku czerwonym szutrową drogą. Bardzo łatwe, rodzinne wejście; po drodze Polana Cisówka z panoramą jeziora i Tatr.",
+   "wskazowka": "Do: Cisówka."
+  }
+ ],
+ "ramki": [],
+ "zdjecia": [],
+ "_zrodlo_czasow": "Naismith z rzeczywistego śladu",
+ "ilustracja": "KP16.webp",
+ "geometry": "assets/trasy/gpx/KP16.geojson",
+ "_zrodlo_geometrii": "OpenStreetMap (route=hiking) + EU-DEM 25 m"
+}
