@@ -7,6 +7,7 @@ import { Download, ExternalLink } from 'lucide-react'
 import { zapiszKod } from '@/app/panel/dzialania'
 import { FormularzKodu } from '@/components/panel/formularz-kodu'
 import { baza } from '@/lib/baza'
+import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
 import { adresKodu, kodJakoDataUrl } from '@/lib/qr/generuj-kod'
 import { liczba } from '@/lib/format'
 
@@ -18,6 +19,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod]'>) {
   const { kod } = await params
+  await przeliczJesliTrzeba()
 
   const tabliczka = await baza.kodQr.findUnique({ where: { kod } })
   if (!tabliczka) notFound()

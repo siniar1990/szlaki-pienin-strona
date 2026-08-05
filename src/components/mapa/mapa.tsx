@@ -36,6 +36,11 @@ export type MarkerMapy = {
   /** Dokąd prowadzi kliknięcie w nazwę w dymku. Puste = dymek bez odnośnika. */
   adres?: string
   opis?: string
+  /**
+   * Krótki podpis widoczny przy znaczniku bez najeżdżania — na tyle krótki,
+   * żeby zmieścił się w pigułce pod punktem. Puste = sam punkt.
+   */
+  etykieta?: string
 }
 
 /** Pieniny w całości — punkt wyjścia, gdy nie ma czego dopasować. */
@@ -153,12 +158,37 @@ export function Mapa({
     if (!m || !gotowa) return
 
     const utworzone = markery.map((marker) => {
+      /*
+        Znacznik to przycisk z kropką w środku, a nie sama kropka. Rozdzielenie
+        jest potrzebne, gdy dochodzi podpis: powiększenie po najechaniu ma objąć
+        wyłącznie kropkę. Gdyby skalował się cały przycisk, rosłaby razem z nim
+        etykieta i po najechaniu na gęsty fragment mapy podpisy zachodziłyby na
+        siebie dokładnie tam, gdzie najbardziej przeszkadzają.
+      */
       const element = document.createElement('button')
       element.type = 'button'
-      element.setAttribute('aria-label', marker.nazwa)
-      element.className =
-        'size-3.5 rounded-full border-2 border-white shadow-md transition-transform hover:scale-150 focus-visible:scale-150'
-      element.style.backgroundColor = marker.kolor
+      element.setAttribute('aria-label', marker.etykieta ? `${marker.nazwa}, ${marker.etykieta}` : marker.nazwa)
+      element.className = 'group relative block size-3.5'
+
+      const kropka = document.createElement('span')
+      kropka.className =
+        'block size-full rounded-full border-2 border-white shadow-md transition-transform group-hover:scale-150 group-focus-visible:scale-150'
+      kropka.style.backgroundColor = marker.kolor
+      element.append(kropka)
+
+      if (marker.etykieta) {
+        /*
+          Podpis pod kropką, wyśrodkowany. Umieszczenie go z boku przesuwałoby
+          wzrok w jedną stronę i przy dwóch tabliczkach obok siebie podpis
+          jednej lądowałby na kropce drugiej. `pointer-events-none` zostawia
+          całe klikanie kropce — podpis ma być widoczny, nie klikalny.
+        */
+        const etykieta = document.createElement('span')
+        etykieta.className =
+          'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/95 px-1.5 py-px text-[11px] font-semibold leading-4 tabular-nums text-kamien-700 shadow-sm ring-1 ring-kamien-300'
+        etykieta.textContent = marker.etykieta
+        element.append(etykieta)
+      }
 
       const dymek = new maplibregl.Popup({ offset: 14, closeButton: false }).setHTML(
         [

@@ -4,7 +4,7 @@ import { unstable_cache } from 'next/cache'
 import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import { after } from 'next/server'
-import { ArrowRight, MapPin, QrCode } from 'lucide-react'
+import { ArrowRight, Mountain } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { baza } from '@/lib/baza'
@@ -52,21 +52,17 @@ export const metadata: Metadata = {
  *
  * Zapis skanu nadal idzie do bazy przy każdym żądaniu — ale dzieje się
  * w `after()`, więc jego powolność nie dotyka użytkownika.
+ *
+ * Pobieramy tylko to, co jest potrzebne do obsłużenia żądania: identyfikator do
+ * zapisu skanu, status do decyzji o przekierowaniu i wariant do statystyk.
+ * Nazwa i opis tabliczki zostają w bazie na użytek panelu — na stronie się nie
+ * pojawiają.
  */
 const pobierzTabliczke = unstable_cache(
   async (kod: string) =>
     baza.kodQr.findUnique({
       where: { kod },
-      select: {
-        id: true,
-        kod: true,
-        nazwa: true,
-        opis: true,
-        nazwaLokalizacji: true,
-        powiazanaStrona: true,
-        status: true,
-        wariant: true,
-      },
+      select: { id: true, status: true, wariant: true },
     }),
   ['tabliczka-qr'],
   { revalidate: 60, tags: [ZNACZNIK_TABLICZEK] },
@@ -110,74 +106,49 @@ export default async function StronaSkanu({ params }: PageProps<'/qr/[kod]'>) {
   // poza blokiem `try`, inaczej zostałby połknięty jako błąd.
   if (przekierowanie) redirect(adresSklepu)
 
-  return <StronaMiejsca tabliczka={tabliczka} />
+  return <ZaproszenieDoAplikacji />
 }
 
 /**
  * Strona pokazywana na komputerze oraz wszędzie tam, gdzie nie ma dokąd
- * przekierować. Turysta ma tu dostać coś wartościowego od razu, a nie
- * komunikat o błędzie: nazwę miejsca, w którym stoi, odnośnik do jego opisu
- * i możliwość pobrania aplikacji.
+ * przekierować.
+ *
+ * Celowo nie ma tu żadnych danych tabliczki — ani nazwy, ani opisu, ani
+ * położenia. Człowiek, który przed chwilą przyłożył telefon do tabliczki, stoi
+ * pod nią i patrzy na to, co jest na niej napisane; powtarzanie mu tego na
+ * ekranie zabiera miejsce jedynej rzeczy, po którą tu przyszedł — aplikacji.
+ * Treść jest ta sama dla wszystkich tabliczek, więc nie musi też pasować
+ * jednocześnie do szlaku, parkingu i przystani flisackiej.
  */
-function StronaMiejsca({
-  tabliczka,
-}: {
-  tabliczka: {
-    kod: string
-    nazwa: string
-    opis: string | null
-    nazwaLokalizacji: string | null
-    powiazanaStrona: string | null
-    status: string
-  }
-}) {
+function ZaproszenieDoAplikacji() {
   return (
     <div className="obszar flex min-h-[70vh] flex-col justify-center py-16">
-      <div className="mx-auto w-full max-w-2xl text-center">
+      <div className="mx-auto w-full max-w-xl text-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-kamien-300 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-kamien-600">
-          <QrCode className="size-3.5" aria-hidden />
-          Tabliczka {tabliczka.kod}
+          <Mountain className="size-3.5" aria-hidden />
+          Szlaki Pienin
         </span>
 
-        <h1 className="mt-6 text-tytul font-semibold text-kamien-900">{tabliczka.nazwa}</h1>
+        <h1 className="mt-6 text-tytul font-semibold text-kamien-900">
+          To miejsce jest opisane w przewodniku
+        </h1>
 
-        {tabliczka.nazwaLokalizacji && (
-          <p className="mt-3 inline-flex items-center gap-1.5 text-kamien-500">
-            <MapPin className="size-4" aria-hidden />
-            {tabliczka.nazwaLokalizacji}
-          </p>
-        )}
+        <p className="mt-5 text-prowadzacy leading-relaxed text-kamien-600">
+          Trasy, dojścia, czasy przejścia i mapa, która działa bez zasięgu.
+          Weź przewodnik ze sobą na całą wędrówkę.
+        </p>
 
-        {tabliczka.opis && (
-          <p className="mt-5 text-prowadzacy leading-relaxed text-kamien-600">{tabliczka.opis}</p>
-        )}
-
-        {tabliczka.status !== 'AKTYWNY' && (
-          <p className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-sm text-amber-900">
-            Ta tabliczka jest chwilowo nieaktywna. Treści o tym miejscu znajdziesz
-            na stronie i w aplikacji.
-          </p>
-        )}
-
-        {tabliczka.powiazanaStrona && (
-          <Link
-            href={tabliczka.powiazanaStrona}
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-las-700 px-6 py-3.5 font-medium text-white transition-colors hover:bg-las-800"
-          >
-            Zobacz to miejsce
-            <ArrowRight className="size-4" aria-hidden />
-          </Link>
-        )}
-
-        <div className="mt-12 border-t border-kamien-200 pt-10">
-          <p className="text-kamien-600">
-            Cały przewodnik po Pieninach — z mapą offline i nawigacją — masz
-            w aplikacji.
-          </p>
-          <div className="mt-6 flex justify-center">
-            <PrzyciskiSklepow wariant="ciemny" />
-          </div>
+        <div className="mt-9 flex justify-center">
+          <PrzyciskiSklepow wariant="ciemny" />
         </div>
+
+        <Link
+          href="/"
+          className="mt-10 inline-flex items-center gap-1.5 text-sm font-medium text-kamien-500 underline-offset-4 transition-colors hover:text-las-700 hover:underline"
+        >
+          Zobacz cały portal
+          <ArrowRight className="size-3.5" aria-hidden />
+        </Link>
       </div>
     </div>
   )
