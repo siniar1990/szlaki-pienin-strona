@@ -43,5 +43,12 @@ export async function middleware(zadanie: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/panel/((?!logowanie).*)', '/api/panel/:path*'],
+  /*
+    Trzy wzorce, bo sam `/panel/((?!logowanie).*)` NIE łapie adresu `/panel`
+    bez ukośnika na końcu — a to właśnie pulpit ze wszystkimi statystykami.
+    Wykryte podczas testów: strona odpowiadała kodem 200 bez sesji.
+    Wzorce w Next.js muszą pasować do całej ścieżki, więc pusty ogon nie
+    wpada pod `.*` po ukośniku.
+  */
+  matcher: ['/panel', '/panel/((?!logowanie).*)', '/api/panel/:path*'],
 }
