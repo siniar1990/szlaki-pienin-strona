@@ -41,6 +41,32 @@ export function liczba(n: number): string {
   return new Intl.NumberFormat('pl-PL').format(n)
 }
 
+/**
+ * Odmiana rzeczownika przez liczbę.
+ *
+ * Polski ma trzy formy tam, gdzie angielski ma dwie: jedna trasa, dwie trasy,
+ * pięć tras. Zasada nie jest oczywista — o formie decyduje ostatnia cyfra,
+ * ale liczby od 12 do 14 są wyjątkiem i biorą formę mnogą mimo końcówki 2, 3
+ * i 4. Stąd 53 trasy, ale 13 tras.
+ *
+ * Potrzebne wszędzie tam, gdzie liczba pochodzi z danych i będzie się zmieniać:
+ * wpisanie formy na sztywno działa do pierwszej nowej trasy w aplikacji.
+ *
+ * @param formy [dla jednego, dla dwóch–czterech, dla pięciu i więcej]
+ */
+export function odmien(n: number, formy: [string, string, string]): string {
+  const bezwzgledna = Math.abs(n)
+  if (bezwzgledna === 1) return formy[0]
+
+  const jednosci = bezwzgledna % 10
+  const dziesiatki = bezwzgledna % 100
+
+  if (jednosci >= 2 && jednosci <= 4 && !(dziesiatki >= 12 && dziesiatki <= 14)) {
+    return formy[1]
+  }
+  return formy[2]
+}
+
 export const TRUDNOSC_ETYKIETY: Record<Trudnosc, string> = {
   latwa: 'Łatwa',
   srednia: 'Średnia',

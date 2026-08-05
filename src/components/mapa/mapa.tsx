@@ -41,6 +41,14 @@ export type MarkerMapy = {
    * żeby zmieścił się w pigułce pod punktem. Puste = sam punkt.
    */
   etykieta?: string
+  /** Średnica kropki w pikselach. Puste = domyślne 14. */
+  rozmiar?: number
+  /**
+   * Barwa obwódki. Domyślnie biała, żeby kropka odcinała się od podkładu.
+   * Podanie barwy razem z białym wypełnieniem daje kółko puste w środku —
+   * kształt czytelny niezależnie od rozpoznawania barw.
+   */
+  obrys?: string
 }
 
 /** Pieniny w całości — punkt wyjścia, gdy nie ma czego dopasować. */
@@ -165,15 +173,22 @@ export function Mapa({
         etykieta i po najechaniu na gęsty fragment mapy podpisy zachodziłyby na
         siebie dokładnie tam, gdzie najbardziej przeszkadzają.
       */
+      const srednica = marker.rozmiar ?? 14
+
       const element = document.createElement('button')
       element.type = 'button'
       element.setAttribute('aria-label', marker.etykieta ? `${marker.nazwa}, ${marker.etykieta}` : marker.nazwa)
-      element.className = 'group relative block size-3.5'
+      element.className = 'group relative block'
+      element.style.width = `${srednica}px`
+      element.style.height = `${srednica}px`
 
       const kropka = document.createElement('span')
       kropka.className =
-        'block size-full rounded-full border-2 border-white shadow-md transition-transform group-hover:scale-150 group-focus-visible:scale-150'
+        'block size-full rounded-full shadow-md transition-transform group-hover:scale-125 group-focus-visible:scale-125'
       kropka.style.backgroundColor = marker.kolor
+      // Obwódka rośnie z kropką, ale nie liniowo — przy dużych znacznikach
+      // dwupikselowa nitka ginie, a przy małych czteropikselowa zjada środek.
+      kropka.style.border = `${Math.max(2, Math.round(srednica / 7))}px solid ${marker.obrys ?? '#ffffff'}`
       element.append(kropka)
 
       if (marker.etykieta) {

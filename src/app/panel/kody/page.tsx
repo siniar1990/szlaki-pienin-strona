@@ -3,8 +3,11 @@ import Link from 'next/link'
 import { Plus } from 'lucide-react'
 
 import { FormularzPaczki } from '@/components/panel/formularz-paczki'
-import { baza } from '@/lib/baza'
+import { PobierzKody } from '@/components/panel/pobierz-kody'
+import { ZakresDat } from '@/components/panel/zakres-dat'
 import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
+import { pobierzKodyNaListe } from '@/lib/qr/statystyki'
+import { odczytajZakres } from '@/lib/qr/zakres'
 import { liczba } from '@/lib/format'
 
 export const metadata: Metadata = {
@@ -36,23 +39,14 @@ function ileTemu(kiedy: Date | null): string {
   return `${Math.floor(sekundy / 86400)} dni temu`
 }
 
-export default async function StronaKodow() {
+export default async function StronaKodow({ searchParams }: PageProps<'/panel/kody'>) {
+  const zakres = odczytajZakres((await searchParams).zakres)
+
   // Ta sama zasada co na pulpicie: liczniki mają być prawdziwe w chwili,
   // w której ktoś na nie patrzy.
   await przeliczJesliTrzeba()
 
-  const kody = await baza.kodQr.findMany({
-    orderBy: [{ liczbaSkanow: 'desc' }, { kod: 'asc' }],
-    select: {
-      kod: true,
-      nazwa: true,
-      kategoria: true,
-      status: true,
-      liczbaSkanow: true,
-      ostatniSkan: true,
-      nazwaLokalizacji: true,
-    },
-  })
+  const kody = await pobierzKodyNaListe(zakres)
 
   return (
     <>
@@ -63,6 +57,8 @@ export default async function StronaKodow() {
         </h1>
 
         <div className="flex flex-wrap items-center gap-3">
+          <ZakresDat sciezka="/panel/kody" aktywny={zakres} />
+          <PobierzKody />
           <FormularzPaczki />
           <Link
             href="/panel/kody/nowy"
@@ -87,7 +83,12 @@ export default async function StronaKodow() {
                 <th scope="col" className="px-5 py-3 font-semibold">Kod</th>
                 <th scope="col" className="px-5 py-3 font-semibold">Nazwa</th>
                 <th scope="col" className="px-5 py-3 font-semibold">Kategoria</th>
-                <th scope="col" className="px-5 py-3 text-right font-semibold">Skany</th>
+                <th scope="col" className="px-5 py-3 text-right font-semibold">
+                  Skany
+                  <span className="block text-[11px] font-normal normal-case tracking-normal text-kamien-400">
+                    {zakres.opis}
+                  </span>
+                </th>
                 <th scope="col" className="px-5 py-3 font-semibold">Ostatni skan</th>
                 <th scope="col" className="px-5 py-3 font-semibold">Status</th>
               </tr>

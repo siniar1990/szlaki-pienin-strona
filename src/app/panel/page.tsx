@@ -3,8 +3,10 @@ import Link from 'next/link'
 import { Activity, MapPin, QrCode, TrendingUp } from 'lucide-react'
 
 import { WykresDzienny } from '@/components/panel/wykres-dzienny'
+import { ZakresDat } from '@/components/panel/zakres-dat'
 import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
 import { pobierzPodsumowanie, pobierzWykresDzienny } from '@/lib/qr/statystyki'
+import { odczytajZakres } from '@/lib/qr/zakres'
 import { liczba } from '@/lib/format'
 
 export const metadata: Metadata = {
@@ -15,7 +17,9 @@ export const metadata: Metadata = {
 // Statystyki mają być bieżące — nie ma czego trzymać w pamięci podręcznej.
 export const dynamic = 'force-dynamic'
 
-export default async function StronaPulpitu() {
+export default async function StronaPulpitu({ searchParams }: PageProps<'/panel'>) {
+  const zakres = odczytajZakres((await searchParams).zakres)
+
   // Statystyki przelicza zadanie dobowe, ale na darmowym planie to za rzadko,
   // żeby pulpit pokazywał prawdę. Sprawdzamy więc przy wejściu, czy doszły
   // nowe skany — jeśli tak, przeliczamy je od razu. Gdy nic się nie zmieniło,
@@ -23,8 +27,8 @@ export default async function StronaPulpitu() {
   await przeliczJesliTrzeba()
 
   const [podsumowanie, wykres] = await Promise.all([
-    pobierzPodsumowanie(),
-    pobierzWykresDzienny(30),
+    pobierzPodsumowanie(zakres),
+    pobierzWykresDzienny(zakres),
   ])
 
   const platformy = podsumowanie.udzialPlatform
@@ -33,13 +37,17 @@ export default async function StronaPulpitu() {
 
   return (
     <>
-      <h1 className="font-heading text-2xl font-semibold text-kamien-900">Pulpit</h1>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="font-heading text-2xl font-semibold text-kamien-900">Pulpit</h1>
+        <ZakresDat sciezka="/panel" aktywny={zakres} />
+      </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Kafelek
           ikona={Activity}
-          etykieta="Łącznie skanów"
+          etykieta="Skanów"
           wartosc={liczba(podsumowanie.lacznieSkanow)}
+          podpis={zakres.opis}
         />
         <Kafelek
           ikona={TrendingUp}
@@ -66,7 +74,7 @@ export default async function StronaPulpitu() {
 
       <section className="mt-10 rounded-2xl border border-kamien-200 bg-white p-6">
         <h2 className="font-heading text-lg font-semibold text-kamien-900">
-          Skany w ostatnich 30 dniach
+          Skany {zakres.opis}
         </h2>
         <div className="mt-6">
           <WykresDzienny punkty={wykres} />

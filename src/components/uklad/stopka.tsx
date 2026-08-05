@@ -52,37 +52,10 @@ export function Stopka() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-kamien-600">
               Przewodnik po Pieninach — szlaki, atrakcje i mapy. Część tras to
               oficjalne szlaki PTTK, część opracowaliśmy na podstawie przewodnika
-              „{ZRODLA.przewodnik.tytul}" ({ZRODLA.przewodnik.autor},{' '}
-              {ZRODLA.przewodnik.wydawca}, {ZRODLA.przewodnik.wydanie}). Pozostałe
-              trasy, opisy atrakcji i materiały powstały specjalnie na potrzeby
-              tego portalu i aplikacji.
+              „{ZRODLA.przewodnik.tytul}". Pozostałe trasy, opisy atrakcji
+              i materiały powstały specjalnie na potrzeby tego portalu
+              i aplikacji.
             </p>
-
-            {/*
-              Numery ratunkowe w stopce każdej strony. Ktoś, kto szuka ich
-              w pośpiechu na szlaku, nie powinien musieć nawigować po menu —
-              a `tel:` otwiera je jednym stuknięciem.
-            */}
-            <div className="mt-6 rounded-xl border border-kamien-200 bg-white p-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-kamien-500">
-                W razie wypadku
-              </p>
-              <p className="mt-2 text-sm text-kamien-700">
-                GOPR{' '}
-                <a className="font-semibold text-las-700 hover:underline" href={`tel:${RATUNEK.gopr.replace(/\s/g, '')}`}>
-                  {RATUNEK.gopr}
-                </a>{' '}
-                lub{' '}
-                <a className="font-semibold text-las-700 hover:underline" href={`tel:${RATUNEK.goprSkrocony}`}>
-                  {RATUNEK.goprSkrocony}
-                </a>
-                {' · '}
-                numer alarmowy{' '}
-                <a className="font-semibold text-las-700 hover:underline" href={`tel:${RATUNEK.alarmowy}`}>
-                  {RATUNEK.alarmowy}
-                </a>
-              </p>
-            </div>
           </div>
 
           {KOLUMNY.map((kolumna) => (
@@ -106,7 +79,33 @@ export function Stopka() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-kamien-200 pt-8 text-sm text-kamien-500 sm:flex-row sm:items-center sm:justify-between">
+        {/*
+          Numery ratunkowe w stopce każdej strony. Ktoś, kto szuka ich
+          w pośpiechu na szlaku, nie powinien musieć nawigować po menu —
+          a `tel:` otwiera je jednym stuknięciem.
+        */}
+        <div className="mt-14 rounded-xl border border-kamien-200 bg-white px-5 py-4 sm:flex sm:items-center sm:gap-5">
+          <p className="shrink-0 text-xs font-semibold uppercase tracking-wider text-kamien-500">
+            W razie wypadku
+          </p>
+          <p className="mt-2 text-sm text-kamien-700 sm:mt-0">
+            GOPR{' '}
+            <a className="font-semibold text-las-700 hover:underline" href={`tel:${RATUNEK.gopr.replace(/\s/g, '')}`}>
+              {RATUNEK.gopr}
+            </a>{' '}
+            lub{' '}
+            <a className="font-semibold text-las-700 hover:underline" href={`tel:${RATUNEK.goprSkrocony}`}>
+              {RATUNEK.goprSkrocony}
+            </a>
+            {' · '}
+            numer alarmowy{' '}
+            <a className="font-semibold text-las-700 hover:underline" href={`tel:${RATUNEK.alarmowy}`}>
+              {RATUNEK.alarmowy}
+            </a>
+          </p>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-4 border-t border-kamien-200 pt-8 text-sm text-kamien-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {rok} {PORTAL.nazwa}</p>
           <div className="flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:items-center">
             <p>

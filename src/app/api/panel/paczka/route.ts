@@ -14,10 +14,18 @@ import { adresKodu, kodJakoPng, kodJakoSvg } from '@/lib/qr/generuj-kod'
  * Koronami — a takiego błędu nie widać aż do pierwszego skanu.
  *
  * `?status=ZAPAS` ogranicza paczkę do kodów jeszcze niezamontowanych, co jest
- * zwykłym przypadkiem: drukujemy to, czego jeszcze nie ma w terenie.
+ * zwykłym przypadkiem: drukujemy to, czego jeszcze nie ma w terenie. Bez tego
+ * parametru pakujemy wszystkie tabliczki.
+ *
+ * `?format=png` albo `?format=svg` daje archiwum, w którym pliki leżą wprost
+ * w korzeniu i nazywają się dokładnie kodem tabliczki — `P001.png`. Domyślne
+ * `oba` rozdziela je na katalogi `png/` i `svg/`, bo dwóch plików o nazwie
+ * `P001` nie da się położyć obok siebie.
  */
 export async function GET(zadanie: NextRequest) {
   const status = zadanie.nextUrl.searchParams.get('status')
+  const zadanyFormat = zadanie.nextUrl.searchParams.get('format')
+  const format = zadanyFormat === 'png' || zadanyFormat === 'svg' ? zadanyFormat : 'oba'
 
   const kody = await baza.kodQr.findMany({
     where: status === 'ZAPAS' || status === 'AKTYWNY' || status === 'NIEAKTYWNY' ? { status } : {},
@@ -30,12 +38,16 @@ export async function GET(zadanie: NextRequest) {
   }
 
   const paczka = new JSZip()
-  const svg = paczka.folder('svg')!
-  const png = paczka.folder('png')!
 
   for (const k of kody) {
-    svg.file(`${k.kod}.svg`, await kodJakoSvg(k.kod))
-    png.file(`${k.kod}.png`, await kodJakoPng(k.kod))
+    if (format === 'png') {
+      paczka.file(`${k.kod}.png`, await kodJakoPng(k.kod))
+    } else if (format === 'svg') {
+      paczka.file(`${k.kod}.svg`, await kodJakoSvg(k.kod))
+    } else {
+      paczka.folder('png')!.file(`${k.kod}.png`, await kodJakoPng(k.kod))
+      paczka.folder('svg')!.file(`${k.kod}.svg`, await kodJakoSvg(k.kod))
+    }
   }
 
   /*

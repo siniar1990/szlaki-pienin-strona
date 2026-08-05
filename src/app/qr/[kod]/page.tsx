@@ -8,6 +8,8 @@ import { ArrowRight, Mountain } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { baza } from '@/lib/baza'
+import { pobierzStatystyki } from '@/lib/dane/zrodlo'
+import { kilometry, odmien } from '@/lib/format'
 import { rozpoznajUrzadzenie } from '@/lib/qr/rozpoznaj-urzadzenie'
 import { ZNACZNIK_TABLICZEK } from '@/lib/qr/znaczniki'
 import { daneZNaglowkow, zapiszSkan } from '@/lib/qr/zapisz-skan'
@@ -117,10 +119,20 @@ export default async function StronaSkanu({ params }: PageProps<'/qr/[kod]'>) {
  * położenia. Człowiek, który przed chwilą przyłożył telefon do tabliczki, stoi
  * pod nią i patrzy na to, co jest na niej napisane; powtarzanie mu tego na
  * ekranie zabiera miejsce jedynej rzeczy, po którą tu przyszedł — aplikacji.
- * Treść jest ta sama dla wszystkich tabliczek, więc nie musi też pasować
- * jednocześnie do szlaku, parkingu i przystani flisackiej.
+ *
+ * Treść nie zakłada niczego o miejscu, w którym wisi tabliczka. Poprzednia
+ * wersja mówiła „to miejsce jest opisane w przewodniku", co jest prawdą przy
+ * Sokolicy i nieprawdą przy tabliczce w pensjonacie, na parkingu albo na
+ * słupie przy przystanku. Obietnica dotyczy więc całych Pienin, a nie punktu
+ * pod nogami — i tym samym przemawia też do kogoś, kto akurat nie jest
+ * w połowie szlaku.
+ *
+ * Liczby biorą się z danych aplikacji, a nie z tekstu wpisanego na sztywno.
+ * Gdy przybędzie tras, zdanie zaktualizuje się samo.
  */
 function ZaproszenieDoAplikacji() {
+  const { liczbaTras, sumaKm, liczbaSzczytow } = pobierzStatystyki()
+
   return (
     <div className="obszar flex min-h-[70vh] flex-col justify-center py-16">
       <div className="mx-auto w-full max-w-xl text-center">
@@ -130,21 +142,28 @@ function ZaproszenieDoAplikacji() {
         </span>
 
         <h1 className="mt-6 text-tytul font-semibold text-kamien-900">
-          To miejsce jest opisane w przewodniku
+          Całe Pieniny w twoim telefonie
         </h1>
 
         <p className="mt-5 text-prowadzacy leading-relaxed text-kamien-600">
-          Trasy, dojścia, czasy przejścia i mapa, która działa bez zasięgu.
-          Weź przewodnik ze sobą na całą wędrówkę.
+          {liczbaTras} {odmien(liczbaTras, ['trasa', 'trasy', 'tras'])},{' '}
+          {liczbaSzczytow} {odmien(liczbaSzczytow, ['szczyt', 'szczyty', 'szczytów'])},
+          atrakcje i punkty widokowe — z mapą, która działa bez zasięgu. Także
+          tam, gdzie telefon go nie łapie.
         </p>
 
         <div className="mt-9 flex justify-center">
           <PrzyciskiSklepow wariant="ciemny" />
         </div>
 
+        <p className="mt-8 text-sm text-kamien-500">
+          {kilometry(sumaKm)} opisanych szlaków — od spaceru nad Dunajcem po
+          całodzienne przejścia grani.
+        </p>
+
         <Link
           href="/"
-          className="mt-10 inline-flex items-center gap-1.5 text-sm font-medium text-kamien-500 underline-offset-4 transition-colors hover:text-las-700 hover:underline"
+          className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-kamien-500 underline-offset-4 transition-colors hover:text-las-700 hover:underline"
         >
           Zobacz cały portal
           <ArrowRight className="size-3.5" aria-hidden />
