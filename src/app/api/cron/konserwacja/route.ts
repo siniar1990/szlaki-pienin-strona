@@ -6,14 +6,22 @@ import { sprawdzZadanieCykliczne } from '@/lib/panel/zadania'
 /**
  * Dobowa konserwacja: przeliczenie statystyk i usunięcie starych zdarzeń.
  *
- * Dwie czynności w jednym zadaniu, bo darmowy plan Vercela pozwala uruchamiać
- * zadania cykliczne raz na dobę i dopuszcza ich niewiele. Rozbicie na dwa
- * osobne wpisy nie dałoby nic poza zużyciem limitu.
+ * Harmonogram tej trasy opisuje `vercel.json` — plik bez komentarzy, bo Vercel
+ * odrzuca wszystko poza znanymi mu polami. Wyjaśnienie mieszka więc tutaj.
  *
- * Przeliczanie statystyk nie zależy jednak od tego zadania — panel robi to sam,
- * gdy tylko zauważy skany nowsze niż ostatnie przeliczenie. Zadanie dobowe jest
- * zabezpieczeniem na wypadek, gdyby nikt do panelu nie zajrzał, oraz jedynym
- * miejscem, które faktycznie kasuje zdarzenia po okresie retencji.
+ * **Dlaczego raz na dobę, a nie co pięć minut.** Darmowy plan Vercela na
+ * częstsze nie pozwala; wdrożenie kończy się wtedy błędem „Hobby accounts are
+ * limited to daily cron jobs". Płacenie za plan wyższy tylko po to, żeby
+ * przeliczać liczby częściej, byłoby złym powodem — dlatego statystyki
+ * przeliczają się tam, gdzie ktoś na nie patrzy: pulpit i lista tabliczek
+ * wołają `przeliczJesliTrzeba()` przy każdym wejściu.
+ *
+ * To zadanie zostaje z dwóch powodów: jest siatką bezpieczeństwa, gdyby nikt
+ * do panelu nie zaglądał tygodniami, i jedynym miejscem, które faktycznie
+ * kasuje zdarzenia po okresie retencji.
+ *
+ * **Dlaczego dwie czynności w jednej trasie.** Darmowy plan ogranicza także
+ * liczbę zadań. Rozbicie na dwa wpisy zużyłoby limit, nie dając nic w zamian.
  */
 export const dynamic = 'force-dynamic'
 

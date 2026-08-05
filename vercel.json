@@ -2,7 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "crons": [
     {
-      "_uwaga": "Raz na dobę, bo darmowy plan Vercela nie dopuszcza częściej. Statystyki nie czekają jednak na to zadanie: panel przelicza je sam, gdy zauważy nowe skany. Zadanie dobowe jest siatką bezpieczeństwa i jedynym miejscem, które usuwa stare zdarzenia. Na planie Pro można wrócić do */5 * * * *, ale nie trzeba.",
       "path": "/api/cron/konserwacja",
       "schedule": "17 3 * * *"
     }
