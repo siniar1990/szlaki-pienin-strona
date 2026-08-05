@@ -19,3 +19,6 @@ next-env.d.ts
 
 # Zrzuty ekranu wrzucane roboczo do katalogu projektu
 Screenshot*.png
+
+# Pamięć podręczna kompilatora TypeScript — wynik pracy, nie źródło.
+tsconfig.tsbuildinfo
