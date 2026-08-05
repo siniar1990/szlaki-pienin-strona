@@ -185,7 +185,7 @@ export function Mapa({
         */
         const etykieta = document.createElement('span')
         etykieta.className =
-          'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/95 px-1.5 py-px text-[11px] font-semibold leading-4 tabular-nums text-kamien-700 shadow-sm ring-1 ring-kamien-300'
+          'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/95 px-2 py-0.5 text-[13px] font-semibold leading-5 tabular-nums text-kamien-800 shadow-sm ring-1 ring-kamien-300'
         etykieta.textContent = marker.etykieta
         element.append(etykieta)
       }
