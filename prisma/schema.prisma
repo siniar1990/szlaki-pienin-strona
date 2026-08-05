@@ -11,6 +11,10 @@
 
 generator client {
   provider = "prisma-client-js"
+
+  // Sterowniki zewnętrzne — bez tego Prisma nie przyjmie adaptera Neona
+  // i uparcie łączyłaby się po surowym TCP.
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {

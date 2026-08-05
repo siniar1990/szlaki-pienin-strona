@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { unstable_cache } from 'next/cache'
 import { headers } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import { after } from 'next/server'
@@ -8,6 +9,7 @@ import { ArrowRight, MapPin, QrCode } from 'lucide-react'
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { baza } from '@/lib/baza'
 import { rozpoznajUrzadzenie } from '@/lib/qr/rozpoznaj-urzadzenie'
+import { ZNACZNIK_TABLICZEK } from '@/lib/qr/znaczniki'
 import { daneZNaglowkow, zapiszSkan } from '@/lib/qr/zapisz-skan'
 import { SKLEPY } from '@/lib/konfiguracja'
 
@@ -36,22 +38,44 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+/**
+ * Odczyt tabliczki z pamięcią podręczną.
+ *
+ * Powód nie jest kosmetyczny. Darmowy Neon usypia bazę po kilku minutach bez
+ * ruchu, a jej wybudzenie potrafi zająć trzydzieści sekund — zmierzone,
+ * nie oszacowane. Bez pamięci podręcznej pierwszy skan po nocy trafiałby na
+ * limit czasu funkcji i turysta zobaczyłby błąd zamiast trasy.
+ *
+ * To, dokąd prowadzi tabliczka, zmienia się raz na kilka miesięcy, więc minuta
+ * nieświeżości nic nie psuje. Zmiana w panelu unieważnia zapis od razu przez
+ * znacznik, nie czekając na upływ minuty.
+ *
+ * Zapis skanu nadal idzie do bazy przy każdym żądaniu — ale dzieje się
+ * w `after()`, więc jego powolność nie dotyka użytkownika.
+ */
+const pobierzTabliczke = unstable_cache(
+  async (kod: string) =>
+    baza.kodQr.findUnique({
+      where: { kod },
+      select: {
+        id: true,
+        kod: true,
+        nazwa: true,
+        opis: true,
+        nazwaLokalizacji: true,
+        powiazanaStrona: true,
+        status: true,
+        wariant: true,
+      },
+    }),
+  ['tabliczka-qr'],
+  { revalidate: 60, tags: [ZNACZNIK_TABLICZEK] },
+)
+
 export default async function StronaSkanu({ params }: PageProps<'/qr/[kod]'>) {
   const { kod } = await params
 
-  const tabliczka = await baza.kodQr.findUnique({
-    where: { kod: kod.toUpperCase() },
-    select: {
-      id: true,
-      kod: true,
-      nazwa: true,
-      opis: true,
-      nazwaLokalizacji: true,
-      powiazanaStrona: true,
-      status: true,
-      wariant: true,
-    },
-  })
+  const tabliczka = await pobierzTabliczke(kod.toUpperCase())
 
   if (!tabliczka) notFound()
 

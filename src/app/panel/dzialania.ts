@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
@@ -8,6 +8,11 @@ import { z } from 'zod'
 import { baza } from '@/lib/baza'
 import { hasloPoprawne, utworzSesje } from '@/lib/panel/sesja'
 import { nastepneKody, nastepnyKod } from '@/lib/qr/nastepny-kod'
+import { ZNACZNIK_TABLICZEK } from '@/lib/qr/znaczniki'
+
+// Profil `max` przy unieważnianiu: Next 16 wymaga wskazania, jak długo wpis
+// mógł żyć. Nasz zapis ma minutę, więc każdy profil zadziała — `max` jest
+// najbezpieczniejszy, bo obejmuje także wpisy o dłuższym czasie życia.
 
 /**
  * Operacje panelu jako akcje serwerowe.
@@ -89,6 +94,7 @@ export async function utworzKod(_stan: WynikAkcji, dane: FormData): Promise<Wyni
   await baza.kodQr.create({ data: { kod, ...naDaneBazy(wynik.data) } })
 
   revalidatePath('/panel/kody')
+  revalidateTag(ZNACZNIK_TABLICZEK, 'max')
   redirect(`/panel/kody/${kod}`)
 }
 
@@ -100,6 +106,9 @@ export async function zapiszKod(kod: string, _stan: WynikAkcji, dane: FormData):
 
   revalidatePath('/panel/kody')
   revalidatePath(`/panel/kody/${kod}`)
+  // Bez tego zmieniony cel tabliczki dotarłby do skanujących dopiero po
+  // minucie — przy wyłączaniu uszkodzonej tabliczki to za długo.
+  revalidateTag(ZNACZNIK_TABLICZEK, 'max')
   return { ok: 'Zapisano zmiany' }
 }
 
@@ -127,11 +136,13 @@ export async function utworzPaczke(_stan: WynikAkcji, dane: FormData): Promise<W
   })
 
   revalidatePath('/panel/kody')
+  revalidateTag(ZNACZNIK_TABLICZEK, 'max')
   return { ok: `Utworzono ${kody.length} kodów: od ${kody[0]} do ${kody[kody.length - 1]}` }
 }
 
 export async function zmienStatus(kod: string, status: 'AKTYWNY' | 'NIEAKTYWNY'): Promise<void> {
   await baza.kodQr.update({ where: { kod }, data: { status } })
+  revalidateTag(ZNACZNIK_TABLICZEK, 'max')
   revalidatePath('/panel/kody')
   revalidatePath(`/panel/kody/${kod}`)
 }

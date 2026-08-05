@@ -61,8 +61,11 @@ function bezDanychLogowania(adres: string | undefined): string | null {
 async function sprobuj(adres: string | undefined) {
   if (!adres) return { polaczenie: 'brak adresu' }
 
-  const { PrismaClient } = await import('@prisma/client')
-  const klient = new PrismaClient({ datasources: { db: { url: adres } } })
+  const [{ PrismaNeon }, { PrismaClient }] = await Promise.all([
+    import('@prisma/adapter-neon'),
+    import('@prisma/client'),
+  ])
+  const klient = new PrismaClient({ adapter: new PrismaNeon({ connectionString: adres }) })
   const start = Date.now()
 
   try {
