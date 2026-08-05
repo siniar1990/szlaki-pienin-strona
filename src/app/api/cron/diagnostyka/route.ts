@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-import { baza } from '@/lib/baza'
+
 import { sprawdzZadanieCykliczne } from '@/lib/panel/zadania'
 
 /**
@@ -27,33 +27,56 @@ export async function GET(zadanie: NextRequest) {
     maDirectUrl: Boolean(process.env.DIRECT_URL),
     maSekretSesji: Boolean(process.env.SEKRET_SESJI),
     maHasloPanelu: Boolean(process.env.HASLO_PANELU),
-    // Sam schemat adresu, bez hosta i bez danych logowania — pozwala wykryć
-    // wklejenie czegoś, co w ogóle nie jest adresem PostgreSQL.
     schematAdresu: process.env.DATABASE_URL?.split(':')[0] ?? null,
     czyPrzezPule: process.env.DATABASE_URL?.includes('-pooler') ?? null,
+    // Host, port i parametry — bez nazwy użytkownika i hasła. To one najczęściej
+    // kryją literówkę albo doklejony parametr, którego Prisma nie rozumie.
+    adresBezDanychLogowania: bezDanychLogowania(process.env.DATABASE_URL),
+    adresBezposredniBezDanych: bezDanychLogowania(process.env.DIRECT_URL),
+    region: process.env.VERCEL_REGION ?? null,
   }
 
+  const [przezPule, bezposrednio] = await Promise.all([
+    sprobuj(process.env.DATABASE_URL),
+    // Drugie podejście adresem bezpośrednim. Jeśli zadziała, wina leży po
+    // stronie puli; jeśli oba padną — po stronie sieci albo silnika zapytań.
+    sprobuj(process.env.DIRECT_URL),
+  ])
+
+  const ok = przezPule.polaczenie === 'ok'
+  return NextResponse.json({ srodowisko, przezPule, bezposrednio }, { status: ok ? 200 : 500 })
+}
+
+/** Adres bez `uzytkownik:haslo@` — reszta nie jest tajemnicą. */
+function bezDanychLogowania(adres: string | undefined): string | null {
+  if (!adres) return null
   try {
-    const start = Date.now()
-    const tabliczek = await baza.kodQr.count()
-    return NextResponse.json({
-      srodowisko,
-      baza: { polaczenie: 'ok', tabliczek, czasMs: Date.now() - start },
-    })
+    const u = new URL(adres)
+    return `${u.protocol}//${u.host}${u.pathname}${u.search}`
+  } catch {
+    return '(nie da się odczytać jako adres)'
+  }
+}
+
+async function sprobuj(adres: string | undefined) {
+  if (!adres) return { polaczenie: 'brak adresu' }
+
+  const { PrismaClient } = await import('@prisma/client')
+  const klient = new PrismaClient({ datasources: { db: { url: adres } } })
+  const start = Date.now()
+
+  try {
+    const tabliczek = await klient.kodQr.count()
+    return { polaczenie: 'ok', tabliczek, czasMs: Date.now() - start }
   } catch (blad) {
-    return NextResponse.json(
-      {
-        srodowisko,
-        baza: {
-          polaczenie: 'błąd',
-          // Pierwsze linie komunikatu Prismy wystarczą do rozpoznania
-          // przyczyny i nie zawierają danych logowania.
-          komunikat:
-            blad instanceof Error ? blad.message.split('\n').slice(0, 6).join(' | ') : String(blad),
-          rodzaj: blad instanceof Error ? blad.name : typeof blad,
-        },
-      },
-      { status: 500 },
-    )
+    return {
+      polaczenie: 'błąd',
+      czasMs: Date.now() - start,
+      rodzaj: blad instanceof Error ? blad.name : typeof blad,
+      komunikat:
+        blad instanceof Error ? blad.message.split('\n').filter(Boolean).slice(0, 5).join(' | ') : String(blad),
+    }
+  } finally {
+    await klient.$disconnect().catch(() => {})
   }
 }
