@@ -34,6 +34,10 @@ export async function GET(zadanie: NextRequest) {
     adresBezDanychLogowania: bezDanychLogowania(process.env.DATABASE_URL),
     adresBezposredniBezDanych: bezDanychLogowania(process.env.DIRECT_URL),
     region: process.env.VERCEL_REGION ?? null,
+    // Nazwa użytkownika nie jest tajemnicą, a długość hasła nie pozwala go
+    // odtworzyć — obie za to natychmiast pokazują ucięcie albo wklejenie
+    // wartości ze spacją czy cudzysłowem.
+    daneLogowania: opiszDaneLogowania(process.env.DATABASE_URL),
   }
 
   const [przezPule, bezposrednio] = await Promise.all([
@@ -45,6 +49,32 @@ export async function GET(zadanie: NextRequest) {
 
   const ok = przezPule.polaczenie === 'ok'
   return NextResponse.json({ srodowisko, przezPule, bezposrednio }, { status: ok ? 200 : 500 })
+}
+
+/**
+ * Opis danych logowania bez ich ujawniania.
+ *
+ * Zwraca nazwę użytkownika, długość hasła i informację, czy zawiera znaki
+ * wymagające zakodowania w adresie. Najczęstsze przyczyny odrzuconego hasła to
+ * ucięcie przy wklejaniu, doklejony cudzysłów albo znak w rodzaju `@` czy `#`,
+ * który rozbija adres na części — każdą z nich widać po tych trzech liczbach.
+ */
+function opiszDaneLogowania(adres: string | undefined) {
+  if (!adres) return null
+  try {
+    const u = new URL(adres)
+    const haslo = decodeURIComponent(u.password)
+    return {
+      uzytkownik: u.username || '(brak)',
+      dlugoscHasla: haslo.length,
+      // Znaki, które w adresie muszą być zakodowane procentowo.
+      maZnakiWymagajaceKodowania: /[@#/?:[\]% ]/.test(haslo),
+      zaczynaSie: haslo.slice(0, 4),
+      konczySie: haslo.slice(-2),
+    }
+  } catch {
+    return { blad: 'adres nie daje się rozłożyć na części' }
+  }
 }
 
 /** Adres bez `uzytkownik:haslo@` — reszta nie jest tajemnicą. */
