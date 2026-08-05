@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Activity, MapPin, QrCode, TrendingUp } from 'lucide-react'
 
 import { WykresDzienny } from '@/components/panel/wykres-dzienny'
+import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
 import { pobierzPodsumowanie, pobierzWykresDzienny } from '@/lib/qr/statystyki'
 import { liczba } from '@/lib/format'
 
@@ -15,6 +16,12 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic'
 
 export default async function StronaPulpitu() {
+  // Statystyki przelicza zadanie dobowe, ale na darmowym planie to za rzadko,
+  // żeby pulpit pokazywał prawdę. Sprawdzamy więc przy wejściu, czy doszły
+  // nowe skany — jeśli tak, przeliczamy je od razu. Gdy nic się nie zmieniło,
+  // sprawdzenie kończy się na dwóch zapytaniach.
+  await przeliczJesliTrzeba()
+
   const [podsumowanie, wykres] = await Promise.all([
     pobierzPodsumowanie(),
     pobierzWykresDzienny(30),
@@ -101,7 +108,8 @@ export default async function StronaPulpitu() {
       </section>
 
       <p className="mt-8 text-sm text-kamien-500">
-        Statystyki poza kafelkiem „dzisiaj" przeliczane są co pięć minut.{' '}
+        Statystyki przeliczają się przy każdym wejściu na pulpit, gdy pojawią
+        się nowe skany.{' '}
         <Link href="/panel/kody" className="font-medium text-las-700 hover:underline">
           Zobacz wszystkie tabliczki
         </Link>

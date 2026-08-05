@@ -62,12 +62,24 @@ Dopiero gdy wdrożenie na `*.vercel.app` działa w całości:
 
 ## 6. Zadania cykliczne
 
-`vercel.json` opisuje dwa zadania: przeliczanie statystyk co pięć minut
-i czyszczenie surowych zdarzeń raz na dobę. Vercel uruchomi je sam po
-wdrożeniu. Sprawdzenie ręczne:
+`vercel.json` opisuje jedno zadanie dobowe: przelicza statystyki i usuwa
+zdarzenia starsze niż 90 dni. Raz na dobę, bo **darmowy plan Vercela nie
+dopuszcza częstszych** — próba wdrożenia z harmonogramem co pięć minut kończy
+się błędem „Hobby accounts are limited to daily cron jobs".
+
+Statystyki nie czekają jednak dobę na odświeżenie. Panel sprawdza przy każdym
+wejściu, czy pojawiły się skany nowsze niż ostatnie przeliczenie, i jeśli tak,
+przelicza je od razu. Zadanie dobowe jest zabezpieczeniem na wypadek, gdyby
+nikt do panelu nie zaglądał, oraz jedynym miejscem, które kasuje stare
+zdarzenia.
+
+Po przejściu na plan Pro można wrócić do `*/5 * * * *`, ale nie trzeba —
+mechanizm w panelu działa niezależnie od planu.
+
+Sprawdzenie ręczne:
 
 ```bash
-curl -H "Authorization: Bearer $SEKRET_ZADAN" https://szlakipienin.pl/api/cron/agregacja
+curl -H "Authorization: Bearer $SEKRET_ZADAN" https://szlakipienin.pl/api/cron/konserwacja
 ```
 
 ## Codzienna praca

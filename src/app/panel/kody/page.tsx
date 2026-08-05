@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react'
 
 import { FormularzPaczki } from '@/components/panel/formularz-paczki'
 import { baza } from '@/lib/baza'
+import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
 import { liczba } from '@/lib/format'
 
 export const metadata: Metadata = {
@@ -36,6 +37,10 @@ function ileTemu(kiedy: Date | null): string {
 }
 
 export default async function StronaKodow() {
+  // Ta sama zasada co na pulpicie: liczniki mają być prawdziwe w chwili,
+  // w której ktoś na nie patrzy.
+  await przeliczJesliTrzeba()
+
   const kody = await baza.kodQr.findMany({
     orderBy: [{ liczbaSkanow: 'desc' }, { kod: 'asc' }],
     select: {

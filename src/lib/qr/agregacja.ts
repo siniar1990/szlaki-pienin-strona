@@ -89,6 +89,35 @@ export async function przeliczStatystyki(): Promise<WynikAgregacji> {
   return { przeliczoneDni: dzienne.length, zaktualizowaneKody: zaktualizowane }
 }
 
+/**
+ * Przelicza statystyki, ale tylko wtedy, gdy jest co przeliczać.
+ *
+ * Darmowy plan Vercela pozwala uruchamiać zadania cykliczne raz na dobę —
+ * za rzadko, żeby pulpit pokazywał świeże liczby. Zamiast kazać właścicielowi
+ * płacić za sam harmonogram, panel sam sprawdza przy wejściu, czy pojawiły się
+ * skany nowsze niż ostatnie przeliczenie, i jeśli tak, przelicza je od razu.
+ *
+ * Sprawdzenie kosztuje dwa zapytania po indeksowanych kolumnach i kończy się,
+ * zanim zdąży cokolwiek obciążyć. Pełne przeliczenie uruchamia się wyłącznie
+ * po nowych skanach, więc odświeżanie pulpitu w kółko niczego nie liczy
+ * drugi raz.
+ */
+export async function przeliczJesliTrzeba(): Promise<boolean> {
+  const [najnowszySkan, najnowszyLicznik] = await Promise.all([
+    baza.skanQr.aggregate({ _max: { czas: true } }),
+    baza.kodQr.aggregate({ _max: { ostatniSkan: true } }),
+  ])
+
+  const skan = najnowszySkan._max.czas
+  if (!skan) return false
+
+  const licznik = najnowszyLicznik._max.ostatniSkan
+  if (licznik && licznik >= skan) return false
+
+  await przeliczStatystyki()
+  return true
+}
+
 /** Ile dni trzymamy surowe zdarzenia, zanim zostaną usunięte. */
 export const RETENCJA_DNI = 90
 
