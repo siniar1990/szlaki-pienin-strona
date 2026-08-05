@@ -15,7 +15,17 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+
+  // Połączenie robocze idzie przez pulę (host z „-pooler"). Na środowisku
+  // bezserwerowym każde wywołanie funkcji chce własnego połączenia, a baza
+  // przyjmie ich ograniczoną liczbę — pula pilnuje, żeby ich nie zabrakło.
+  url = env("DATABASE_URL")
+
+  // Migracje muszą omijać pulę i łączyć się wprost. PgBouncer w trybie
+  // transakcyjnym nie obsługuje instrukcji przygotowanych ani poleceń
+  // rozciągniętych na kilka transakcji, których migracje używają — przez pulę
+  // po prostu się wywracają.
+  directUrl = env("DIRECT_URL")
 }
 
 /// Rodzaj miejsca, w którym wisi tabliczka. Służy do filtrowania w panelu

@@ -9,8 +9,10 @@ ani na chwilę nie przestał odpowiadać.
 
 1. Załóż projekt na <https://neon.tech>, region **Frankfurt** — najbliżej
    i Pienin, i serwerów Vercela w Europie.
-2. Skopiuj adres połączenia. Wygląda tak:
-   `postgresql://…@ep-….eu-central-1.aws.neon.tech/neondb?sslmode=require`
+2. Skopiuj **dwa** adresy połączenia — z puli i bezpośredni. Różnią się
+   członem `-pooler` w nazwie hosta. Pierwszy trafia do `DATABASE_URL`
+   (praca bieżąca), drugi do `DIRECT_URL` (wyłącznie migracje, które przez
+   pulę się nie wykonają).
 3. Utwórz gałąź bazy do pracy lokalnej (przycisk „Branch"). Migracje potrafią
    skasować dane — na produkcji uruchamiaj je świadomie, nie przy okazji.
 
