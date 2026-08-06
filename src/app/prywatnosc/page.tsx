@@ -5,32 +5,40 @@ import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { PORTAL } from '@/lib/konfiguracja'
 
 /**
- * Polityka prywatności aplikacji.
+ * Polityka prywatności aplikacji i portalu.
  *
  * Adres tej strony jest podany w App Store Connect, więc `/prywatnosc` musi
- * działać zawsze — przy eksporcie statycznym Next zapisuje ją jako
- * `prywatnosc.html`, czyli pod dokładnie tym adresem, który był tu wcześniej.
- * Treść przeniesiona bez zmian merytorycznych ze starej strony statycznej.
+ * działać zawsze. Stary adres `/prywatnosc.html` prowadzi tu trwałym
+ * przekierowaniem — Apple dostał go przed przeniesieniem portalu na serwer
+ * i nikt go już nie poprawi.
+ *
+ * Dokument opisuje dwie rzeczy naraz: aplikację i tę stronę. Przy każdej
+ * zmianie w aplikacji trzeba go tu przenieść ręcznie — nie ma między nimi
+ * żadnego automatu, a rozjechana polityka prywatności to nie usterka
+ * kosmetyczna.
  */
 
 export const metadata: Metadata = {
   title: 'Polityka prywatności',
   description:
-    'Polityka prywatności aplikacji Szlaki Pienin. Aplikacja nie zbiera danych, ' +
-    'nie ma konta ani analityki.',
+    'Polityka prywatności aplikacji Szlaki Pienin i portalu szlakipienin.pl — ' +
+    'bez konta, bez analityki, bez profilowania.',
   alternates: { canonical: '/prywatnosc' },
 }
 
-const OBOWIAZUJE_OD = '4 sierpnia 2026'
+const OBOWIAZUJE_OD = '6 sierpnia 2026'
 
 const USLUGI = [
   ['OpenFreeMap, OpenStreetMap', 'podkład mapy'],
   ['OpenTopoMap', 'mapa w trybie „Teren”'],
   ['Esri ArcGIS', 'zdjęcia satelitarne'],
   ['OSRM (routing.openstreetmap.de)', 'piesza droga dojścia do szlaku'],
-  ['Open-Meteo', 'prognoza pogody'],
+  ['Open-Meteo', 'prognoza pogody dla Twojej okolicy'],
+  ['Nominatim (OpenStreetMap)', 'nazwa miejscowości w pasku pogody'],
   ['IMGW — dane publiczne', 'ostrzeżenia meteorologiczne'],
   ['GitHub', 'komunikaty o zamknięciach szlaków'],
+  ['Google (Firebase Cloud Messaging)', 'dostarczanie powiadomień push'],
+  ['Apple (APNs)', 'dostarczanie powiadomień push na iPhone’ach'],
 ]
 
 export default function StronaPrywatnosc() {
@@ -46,9 +54,11 @@ export default function StronaPrywatnosc() {
         <Proza>
           <Uwaga>
             <p>
-              <strong>Krótko: nie zbieramy żadnych danych o Tobie.</strong> Aplikacja
-              nie ma konta, logowania, analityki ani własnego serwera. Nic, co w niej
-              robisz, nie trafia do nas.
+              <strong>Krótko: nie mamy konta, logowania ani analityki.</strong> Nie
+              wiemy, kim jesteś, co oglądasz w aplikacji ani dokąd chodzisz. Twoje
+              nagrane trasy zostają w telefonie. Trzy wyjątki — powiadomienia,
+              zapytania o pogodę i liczenie skanów tabliczek — opisujemy niżej
+              wprost.
             </p>
           </Uwaga>
 
@@ -79,12 +89,35 @@ export default function StronaPrywatnosc() {
           <h2>Lokalizacja</h2>
           <p>
             Aplikacja prosi o dostęp do lokalizacji, żeby pokazać Twoje położenie na
-            mapie, prowadzić nawigację i nagrywać przebytą trasę. Pozycja jest
-            przetwarzana <strong>na urządzeniu</strong> i nie jest nikomu przekazywana.
+            mapie, prowadzić nawigację i nagrywać przebytą trasę. Ślad marszu jest
+            przetwarzany <strong>na urządzeniu</strong> i nie jest nikomu przekazywany.
           </p>
           <p>
-            Zgody możesz w każdej chwili cofnąć w Ustawieniach systemu. Bez niej
-            aplikacja nadal działa — po prostu nie pokaże, gdzie jesteś.
+            Dwie rzeczy wymagają jednak wysłania <strong>przybliżonej</strong> pozycji
+            na zewnątrz:
+          </p>
+          <ul>
+            <li>
+              <strong>Prognoza pogody</strong> — pytamy o nią dla miejsca, w którym
+              jesteś, bo w górach pogoda w dolinie i na grani to dwie różne rzeczy.
+              Zapytanie idzie do Open-Meteo najwyżej raz na 30 minut i dopiero po
+              przejściu około 2 km.
+            </li>
+            <li>
+              <strong>Nazwa miejscowości</strong> w nagłówku paska pogody — pytamy
+              o nią serwis Nominatim (OpenStreetMap), najwyżej raz na 10 minut
+              i dopiero po przejściu około 3 km.
+            </li>
+          </ul>
+          <p>
+            W obu przypadkach wysyłane są same współrzędne, zaokrąglone, bez żadnego
+            identyfikatora użytkownika. Nikt po drugiej stronie nie jest w stanie
+            powiązać ich z Tobą ani złożyć z nich Twojej trasy.
+          </p>
+          <p>
+            Zgody na lokalizację możesz w każdej chwili cofnąć w Ustawieniach systemu.
+            Bez niej aplikacja nadal działa — pokaże pogodę dla Szczawnicy i nie będzie
+            wiedziała, gdzie jesteś.
           </p>
 
           <h2>Usługi zewnętrzne</h2>
@@ -113,17 +146,42 @@ export default function StronaPrywatnosc() {
           </table>
 
           <p>
-            Zapytanie o pogodę zawiera przybliżoną pozycję (miejsce, dla którego
-            pokazujemy prognozę). Zapytanie o drogę dojścia zawiera punkt początkowy
-            i docelowy. Nie towarzyszy im żaden identyfikator użytkownika.
+            Zapytanie o drogę dojścia zawiera punkt początkowy i docelowy. Nie
+            towarzyszy mu żaden identyfikator użytkownika.
           </p>
 
           <h2>Powiadomienia</h2>
           <p>
-            Aplikacja może pokazywać powiadomienia o zamknięciach szlaków i ważnych
-            komunikatach. Są to <strong>powiadomienia lokalne</strong> — tworzone przez
-            aplikację na Twoim telefonie, bez rejestrowania go w jakiejkolwiek usłudze
-            wysyłkowej. Nie wiemy, kto je dostał ani czy je przeczytał.
+            Aplikacja może powiadamiać o zamknięciach szlaków i ważnych komunikatach.
+            Działa to na dwa sposoby:
+          </p>
+          <ul>
+            <li>
+              <strong>Powiadomienia lokalne</strong> — aplikacja sama sprawdza kanał
+              komunikatów przy uruchomieniu i pokazuje nowe wpisy. Nic nie wychodzi
+              poza telefon.
+            </li>
+            <li>
+              <strong>Powiadomienia push</strong> — docierają także wtedy, gdy
+              aplikacja jest zamknięta. Do ich działania Twój telefon otrzymuje{' '}
+              <strong>token urządzenia</strong> i zapisuje się do tematów w usłudze
+              Firebase Cloud Messaging (Google). Na iPhonie wiadomość idzie dalej przez
+              Apple Push Notification service.
+            </li>
+          </ul>
+          <p>
+            Token to identyfikator urządzenia, nie osoby — nie zawiera Twojego imienia,
+            adresu e-mail ani numeru telefonu. My go nigdzie nie przechowujemy i nie
+            mamy listy urządzeń: wysyłamy wiadomość do <em>tematu</em>, a nie do
+            konkretnych telefonów. Nie wiemy więc, kto powiadomienie dostał ani czy je
+            przeczytał. Token trafia natomiast do Google, a na iPhonie także do Apple —
+            to firmy, które dostarczają wiadomość.
+          </p>
+          <p>
+            Powiadomienia są dobrowolne. Włączasz je i wyłączasz w aplikacji:{' '}
+            <strong>Ustawienia → Powiadomienia o nowościach</strong>. Po wyłączeniu
+            telefon zostaje wypisany z tematów i przestaje je dostawać, a komunikaty
+            nadal czekają w „Aktualnościach".
           </p>
 
           <h2>Tabliczki z kodami QR</h2>
@@ -146,10 +204,16 @@ export default function StronaPrywatnosc() {
 
           <h2>Strona internetowa</h2>
           <p>
-            Ta strona jest zbiorem plików serwowanych przez GitHub Pages. Nie ma na niej
-            analityki, reklam ani plików cookie zakładanych przez nas. Jak przy każdej
-            stronie w internecie, serwer widzi adres IP odwiedzającego — takie jest
-            działanie protokołu, nie nasz wybór.
+            Portal jest serwowany przez Vercel, a dane o skanach tabliczek trzymamy
+            w bazie Neon — obie usługi działają w Unii Europejskiej. Nie ma tu
+            analityki, reklam ani plików cookie zakładanych przez nas; jedyne
+            ciasteczko, jakie ta strona potrafi założyć, to ciasteczko sesji panelu
+            administracyjnego i dostaje je wyłącznie właściciel po zalogowaniu.
+          </p>
+          <p>
+            Jak przy każdej stronie w internecie, serwer widzi adres IP
+            odwiedzającego — takie jest działanie protokołu, nie nasz wybór. My tego
+            adresu nigdzie nie zapisujemy.
           </p>
 
           <h2>Dzieci</h2>
@@ -160,8 +224,9 @@ export default function StronaPrywatnosc() {
 
           <h2>Zmiany</h2>
           <p>
-            Gdy polityka się zmieni, poprawimy tę stronę i datę na górze. Aplikacja nie
-            zbiera danych, więc nie przewidujemy zmian innych niż porządkowe.
+            Gdy polityka się zmieni, poprawimy tę stronę i datę na górze. Ostatnia
+            zmiana dotyczyła powiadomień push oraz prognozy pogody liczonej dla
+            miejsca, w którym jesteś.
           </p>
 
           <h2>Kontakt</h2>
