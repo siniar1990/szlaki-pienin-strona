@@ -140,6 +140,33 @@ function pierwszeZdanie(opis: string | null): string | null {
   return (dopasowanie?.[0] ?? opis).trim()
 }
 
+/**
+ * Ilustracje z `index.json`, po identyfikatorze trasy.
+ *
+ * Aplikacja trzyma nazwę ilustracji w dwóch miejscach: w indeksie tras i w pliku
+ * pojedynczej trasy. Zwykle w obu, ale trzy wyzwania mają ją wyłącznie
+ * w indeksie — i to wystarczyło, żeby ich kafelki pokazywały puste pole zamiast
+ * malowanego rysunku, bo strony czytają plik trasy, nie indeks.
+ *
+ * Zamiast dopisywać brakujące pole w danych aplikacji (skąd zniknęłoby przy
+ * pierwszej regeneracji indeksu) bierzemy je stamtąd, gdzie jest.
+ */
+let pamiecIlustracji: Map<string, string> | null = null
+
+function ilustracjaZIndeksu(id: string): string | null {
+  if (!pamiecIlustracji) {
+    const indeks = wczytajJson('trasy', 'index.json') as {
+      trasy?: { id?: string; ilustracja?: string }[]
+    }
+    pamiecIlustracji = new Map(
+      (indeks.trasy ?? [])
+        .filter((t): t is { id: string; ilustracja: string } => Boolean(t.id && t.ilustracja))
+        .map((t) => [t.id, t.ilustracja]),
+    )
+  }
+  return pamiecIlustracji.get(id) ?? null
+}
+
 function naTrase(surowa: SurowaTrasa, slug: string): Trasa {
   const punkty: Punkt[] = surowa.punkty.map((p) => ({
     nazwa: p.nazwa,
@@ -189,7 +216,10 @@ function naTrase(surowa: SurowaTrasa, slug: string): Trasa {
         ? { adres: adresPubliczny('zdjecia', z), podpis: null }
         : { adres: adresPubliczny('zdjecia', z.plik), podpis: z.podpis ?? null },
     ),
-    ilustracja: surowa.ilustracja ? adresPubliczny('ilustracje', surowa.ilustracja) : null,
+    ilustracja: (() => {
+      const plik = surowa.ilustracja ?? ilustracjaZIndeksu(surowa.id)
+      return plik ? adresPubliczny('ilustracje', plik) : null
+    })(),
     // W aplikacji ślad jest zapisany jako `assets/trasy/gpx/1A.geojson`.
     // Skrypt synchronizujący przenosi te pliki do `dane/slady/`, więc bierzemy
     // z tej ścieżki wyłącznie nazwę pliku.

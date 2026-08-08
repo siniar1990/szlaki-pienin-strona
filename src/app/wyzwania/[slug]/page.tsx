@@ -24,7 +24,7 @@ import { czas, kilometry, metry } from '@/lib/format'
  * po pierwszej korekcie w aplikacji zaczęłyby kłamać.
  */
 
-const OPIS_FILMU = 'Film z trasy wyzwania — pionowy, bez dźwięku'
+const OPIS_FILMU = 'Film z trasy wyzwania — pionowy, z dźwiękiem wyciszonym na starcie'
 
 export function generateStaticParams() {
   return pobierzWyzwania()
@@ -143,6 +143,7 @@ export default async function StronaWyzwania({ params }: PageProps<'/wyzwania/[s
                     zrodlo={film}
                     plakat={`/marka/wyzwania/${wyzwanie.slug}-plakat.webp`}
                     opis={OPIS_FILMU}
+                    zDzwiekiem
                   />
                 </div>
                 {wyzwanie.filmZrodlo && (

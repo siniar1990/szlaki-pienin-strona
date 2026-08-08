@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Pause, Play } from 'lucide-react'
+import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
 
 /**
  * Nagranie z aplikacji jako teaser.
@@ -17,23 +17,41 @@ import { Pause, Play } from 'lucide-react'
  * dostaje nagranie zatrzymane na pierwszej klatce i sama decyduje, czy je
  * puścić. Sprawdzamy to w `useEffect`, bo przy renderowaniu na serwerze
  * `matchMedia` nie istnieje.
+ *
+ * **Dźwięk.** Wyciszenie na starcie nie jest ostrożnością, tylko warunkiem
+ * działania: przeglądarki blokują samoczynne odtwarzanie z dźwiękiem i film
+ * po prostu by nie ruszył. Przycisk głośnika pojawia się wyłącznie tam, gdzie
+ * nagranie ma ścieżkę dźwiękową — teaser aplikacji jej nie ma, a przycisk,
+ * który po naciśnięciu nic nie robi, jest gorszy niż jego brak.
  */
 export function TeaserWideo({
   zrodlo,
   plakat,
   opis,
+  zDzwiekiem = false,
 }: {
   zrodlo: string
   /** Klatka pokazywana przed wczytaniem nagrania. */
   plakat: string
   opis: string
+  /** Czy nagranie ma ścieżkę dźwiękową — decyduje o przycisku głośnika. */
+  zDzwiekiem?: boolean
 }) {
   const wideo = useRef<HTMLVideoElement>(null)
   const [gra, ustawGra] = useState(true)
+  const [wyciszony, ustawWyciszony] = useState(true)
 
   useEffect(() => {
     const el = wideo.current
     if (!el) return
+
+    /*
+      Wyciszenie ustawiane właściwością, nie tylko atrybutem w JSX. React nie
+      zawsze przenosi `muted` do gotowego elementu przy renderowaniu na
+      serwerze, a nagranie, które ruszy z dźwiękiem, zostanie zablokowane
+      przez przeglądarkę i nie ruszy w ogóle.
+    */
+    el.muted = true
 
     const mniejRuchu = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (mniejRuchu) {
@@ -61,6 +79,28 @@ export function TeaserWideo({
     }
   }
 
+  const przelaczDzwiek = () => {
+    const el = wideo.current
+    if (!el) return
+
+    const nowe = !el.muted
+    el.muted = nowe
+    ustawWyciszony(nowe)
+
+    /*
+      Włączenie dźwięku przy zatrzymanym nagraniu powinno je puścić — nikt nie
+      naciska głośnika po to, żeby dalej patrzeć na nieruchomy kadr. Kliknięcie
+      jest przy tym tym gestem użytkownika, którego przeglądarka wymaga, żeby
+      wpuścić dźwięk.
+    */
+    if (!nowe && el.paused) {
+      el.play().then(
+        () => ustawGra(true),
+        () => ustawGra(false),
+      )
+    }
+  }
+
   return (
     <div className="relative size-full">
       <video
@@ -78,14 +118,32 @@ export function TeaserWideo({
         <source src={zrodlo} type="video/mp4" />
       </video>
 
-      <button
-        type="button"
-        onClick={przelacz}
-        aria-label={gra ? 'Zatrzymaj nagranie' : 'Odtwórz nagranie'}
-        className="absolute bottom-4 right-4 grid size-11 place-items-center rounded-full bg-las-950/55 text-white backdrop-blur-sm transition-colors hover:bg-las-950/75 focus-visible:bg-las-950/75"
-      >
-        {gra ? <Pause className="size-5" aria-hidden /> : <Play className="size-5" aria-hidden />}
-      </button>
+      <div className="absolute bottom-4 right-4 flex gap-2">
+        {zDzwiekiem && (
+          <button
+            type="button"
+            onClick={przelaczDzwiek}
+            aria-pressed={!wyciszony}
+            aria-label={wyciszony ? 'Włącz dźwięk' : 'Wycisz'}
+            className="grid size-11 place-items-center rounded-full bg-las-950/55 text-white backdrop-blur-sm transition-colors hover:bg-las-950/75 focus-visible:bg-las-950/75"
+          >
+            {wyciszony ? (
+              <VolumeX className="size-5" aria-hidden />
+            ) : (
+              <Volume2 className="size-5" aria-hidden />
+            )}
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={przelacz}
+          aria-label={gra ? 'Zatrzymaj nagranie' : 'Odtwórz nagranie'}
+          className="grid size-11 place-items-center rounded-full bg-las-950/55 text-white backdrop-blur-sm transition-colors hover:bg-las-950/75 focus-visible:bg-las-950/75"
+        >
+          {gra ? <Pause className="size-5" aria-hidden /> : <Play className="size-5" aria-hidden />}
+        </button>
+      </div>
     </div>
   )
 }
