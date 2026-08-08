@@ -21,28 +21,25 @@ const MENU_PANELU = [
 export default function UkladPanelu({ children }: LayoutProps<'/panel'>) {
   return (
     <div className="min-h-full bg-kamien-50">
-      <header className="border-b border-las-800 bg-las-900 text-white">
-        <div className="obszar flex h-16 items-center justify-between gap-6">
-          <div className="flex items-center gap-8">
-            <span className="font-heading text-lg font-semibold">Panel tabliczek</span>
-            <nav aria-label="Nawigacja panelu">
-              <ul className="flex items-center gap-1">
-                {MENU_PANELU.map(({ adres, etykieta, ikona: Ikona }) => (
-                  <li key={adres}>
-                    <Link
-                      href={adres}
-                      className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                    >
-                      <Ikona className="size-4" aria-hidden />
-                      {etykieta}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+      {/*
+        Pasek panelu łamie się na telefonie na dwa rzędy.
 
-          <form action={wyloguj}>
+        Poprzednia wersja trzymała tytuł, trzy pozycje menu i „Wyloguj"
+        w jednym rzędzie o stałej wysokości i bez zawijania. Na komputerze
+        wyglądało to dobrze, ale te elementy potrzebują około 640 px, a telefon
+        ma 390 — więc pasek wypychał stronę i **cały panel dawał się przesuwać
+        w bok**. Widać to było na każdej podstronie, bo winowajcą był układ
+        wspólny dla wszystkich.
+
+        Teraz na wąskim ekranie tytuł i wylogowanie dzielą pierwszy rząd,
+        a menu schodzi do drugiego i przewija się w poziomie, gdyby kiedyś
+        przybyło pozycji. Od `sm` w górę wraca jeden rząd, tak jak było.
+      */}
+      <header className="border-b border-las-800 bg-las-900 text-white">
+        <div className="obszar flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-3 sm:h-16 sm:flex-nowrap sm:py-0">
+          <span className="font-heading text-lg font-semibold">Panel tabliczek</span>
+
+          <form action={wyloguj} className="order-2 sm:order-3">
             <button
               type="submit"
               className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white"
@@ -51,10 +48,34 @@ export default function UkladPanelu({ children }: LayoutProps<'/panel'>) {
               Wyloguj
             </button>
           </form>
+
+          {/*
+            Ujemny margines z dopełnieniem tej samej wielkości pozwala menu
+            przewijać się od krawędzi do krawędzi ekranu, a jednocześnie
+            zachować odstęp od brzegu w spoczynku.
+          */}
+          <nav
+            aria-label="Nawigacja panelu"
+            className="order-3 -mx-4 w-full overflow-x-auto px-4 sm:order-2 sm:mx-0 sm:mr-auto sm:w-auto sm:overflow-visible sm:px-0"
+          >
+            <ul className="flex items-center gap-1">
+              {MENU_PANELU.map(({ adres, etykieta, ikona: Ikona }) => (
+                <li key={adres} className="shrink-0">
+                  <Link
+                    href={adres}
+                    className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                  >
+                    <Ikona className="size-4" aria-hidden />
+                    {etykieta}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </header>
 
-      <main className="obszar py-10">{children}</main>
+      <main className="obszar py-8 sm:py-10">{children}</main>
     </div>
   )
 }
