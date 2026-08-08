@@ -459,7 +459,17 @@ export function pobierzWyzwania(): Wyzwanie[] {
       okres: w.okres ?? null,
       okresUwaga: w.okres_uwaga ?? null,
       idTrasy: w.id_trasy ?? null,
-      odznaka: w.odznaka ? adresPubliczny('wyzwania', path.basename(w.odznaka)) : null,
+      /*
+        Odznaka z katalogu `marka`, nie wprost z danych aplikacji.
+
+        `narzedzia/przygotuj-odznaki.ts` wycina z każdej odznaki tło i zapisuje
+        wynik obok. Powód jest prozaiczny: odznaki przychodzą z aplikacji
+        w różnych stanach i część ma białe tło zamiast przezroczystego, co na
+        kafelku widać jako biały prostokąt pod okrągłą odznaką. Wskazujemy więc
+        wersję oczyszczoną — jest jedna dla całego portalu, więc nie da się
+        gdzieś zapomnieć o poprawce.
+      */
+      odznaka: w.odznaka ? `/marka/wyzwania/${w.id}-odznaka.png` : null,
       film: w.film ?? null,
       filmZrodlo: w.film_zrodlo ?? null,
       regulamin: w.regulamin ?? null,

@@ -43,18 +43,14 @@ export default function StronaGlowna() {
     Korona Pienin" z `dostepne: false` i bez żadnej treści. Kafelek prowadzący
     na pustą stronę byłby gorszy niż jego brak.
 
-    Ilustracja i długość pochodzą z tej samej trasy, którą wyzwanie wskazuje
-    przez `id_trasy` — nie przepisujemy ich drugi raz obok.
+    Długość pochodzi z trasy, którą wyzwanie wskazuje przez `id_trasy` —
+    nie przepisujemy jej drugi raz obok.
   */
   const wyzwaniaNaKafelki = pobierzWyzwania()
     .filter((wyzwanie) => wyzwanie.dostepne)
     .map((wyzwanie) => {
       const trasa = wyzwanie.idTrasy ? trasy.find((t) => t.id === wyzwanie.idTrasy) : undefined
-      return {
-        wyzwanie,
-        ilustracja: trasa?.ilustracja ?? null,
-        dlugoscKm: trasa?.dlugoscKm ?? null,
-      }
+      return { wyzwanie, dlugoscKm: trasa?.dlugoscKm ?? null }
     })
 
   // Szczyty do malowanego pasma — od najwyższego w dół.
