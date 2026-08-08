@@ -156,7 +156,6 @@ export type KodNaMapie = {
   id: string
   kod: string
   nazwa: string
-  kategoria: string
   status: string
   szerokosc: number
   dlugosc: number
@@ -173,7 +172,6 @@ export async function pobierzKodyNaMape(zakres: Zakres): Promise<KodNaMapie[]> {
         id: true,
         kod: true,
         nazwa: true,
-        kategoria: true,
         status: true,
         szerokosc: true,
         dlugosc: true,
@@ -201,7 +199,6 @@ export async function pobierzKodyNaMape(zakres: Zakres): Promise<KodNaMapie[]> {
 export type KodNaLiscie = {
   kod: string
   nazwa: string
-  kategoria: string
   status: string
   nazwaLokalizacji: string | null
   liczbaSkanow: number
@@ -216,7 +213,6 @@ export async function pobierzKodyNaListe(zakres: Zakres): Promise<KodNaLiscie[]>
         id: true,
         kod: true,
         nazwa: true,
-        kategoria: true,
         status: true,
         nazwaLokalizacji: true,
         liczbaSkanow: true,

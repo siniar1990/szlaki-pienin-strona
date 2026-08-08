@@ -30,7 +30,7 @@ export async function GET(zadanie: NextRequest) {
   const kody = await baza.kodQr.findMany({
     where: status === 'ZAPAS' || status === 'AKTYWNY' || status === 'NIEAKTYWNY' ? { status } : {},
     orderBy: { kod: 'asc' },
-    select: { kod: true, nazwa: true, nazwaLokalizacji: true, kategoria: true, status: true },
+    select: { kod: true, nazwa: true, nazwaLokalizacji: true, status: true },
   })
 
   if (kody.length === 0) {
@@ -56,14 +56,13 @@ export async function GET(zadanie: NextRequest) {
     tekstu. Znacznik BOM na początku sprawia, że polskie znaki nie zamieniają
     się w krzaczki.
   */
-  const naglowek = 'kod;nazwa;lokalizacja;kategoria;status;adres\n'
+  const naglowek = 'kod;nazwa;lokalizacja;status;adres\n'
   const wiersze = kody
     .map((k) =>
       [
         k.kod,
         wCudzyslowie(k.nazwa),
         wCudzyslowie(k.nazwaLokalizacji ?? ''),
-        k.kategoria,
         k.status,
         adresKodu(k.kod),
       ].join(';'),

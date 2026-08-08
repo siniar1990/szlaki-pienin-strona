@@ -42,7 +42,7 @@ export function MapaTabliczek({ kody }: { kody: KodNaMapie[] }) {
         id: kod.kod,
         nazwa: `${kod.kod} · ${kod.nazwa}`,
         wspolrzedne: [kod.dlugosc, kod.szerokosc],
-        typ: kod.kategoria,
+        typ: 'tabliczka',
         adres: `/panel/kody/${kod.kod}`,
         ...wyglad,
         // Sama liczba, bez słowa „skanów" — przy dwustu tabliczkach każdy

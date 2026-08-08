@@ -1,43 +1,45 @@
 'use client'
 
-import { useActionState, useEffect, useState } from 'react'
+import Image from 'next/image'
+import { useActionState, useRef, useState } from 'react'
+import { Crosshair, ImagePlus, Trash2 } from 'lucide-react'
 
 import type { WynikAkcji } from '@/app/panel/dzialania'
 
 /**
  * Formularz tabliczki — ten sam przy tworzeniu i przy edycji.
  *
- * Jedno pole wymaga wyjaśnienia: „powiązana strona". Administrator nie wpisuje
- * tam adresu z palca, tylko wybiera z listy stron, które w portalu naprawdę
- * istnieją. Lista powstaje przy budowaniu (`public/dane/strony.json`), więc
- * jest zawsze zgodna z tym, co opublikowane. Ręczne wpisywanie prowadziłoby
- * do literówek, a literówka na wydrukowanej tabliczce oznacza dwieście
- * odnośników do strony błędu.
+ * Formularz jest projektowany pod użycie **w terenie, na telefonie, jedną
+ * ręką**: montujesz tabliczkę, robisz zdjęcie, pobierasz pozycję i zapisujesz.
+ * Stąd przycisk odczytu z GPS zamiast przepisywania współrzędnych z innej
+ * aplikacji i stąd zdjęcie robione aparatem, a nie wybierane z galerii.
  */
-
-type Strona = { adres: string; nazwa: string; rodzaj: string }
 
 export type WartosciKodu = {
   nazwa?: string
   opis?: string | null
-  kategoria?: string
   nazwaLokalizacji?: string | null
-  powiazanaStrona?: string | null
   szerokosc?: number | null
   dlugosc?: number | null
+  wysokosc?: number | null
   status?: string
   dataMontazu?: string | null
+  zdjecie?: string | null
 }
 
-const KATEGORIE = [
-  ['ATRAKCJA', 'Atrakcja'],
-  ['SZLAK', 'Początek szlaku'],
-  ['PUNKT_WIDOKOWY', 'Punkt widokowy'],
-  ['MIASTO', 'Miasto'],
-  ['PARKING', 'Parking'],
-  ['ODPOCZYNEK', 'Miejsce odpoczynku'],
-  ['INNE', 'Inne'],
-] as const
+/** Ta sama wartość co po stronie akcji serwerowej — „skasuj zdjęcie". */
+const USUN_ZDJECIE = 'usun'
+
+/**
+ * Dłuższy bok zdjęcia po zmniejszeniu.
+ *
+ * Zdjęcie ma służyć rozpoznaniu tabliczki na słupku, a nie oglądaniu detali —
+ * 1200 px w zupełności wystarczy, żeby odczytać kod i rozpoznać otoczenie.
+ * Prosto z aparatu telefonu przyszłoby kilkanaście razy więcej, a każdy taki
+ * plik trafiłby do bazy.
+ */
+const DLUZSZY_BOK = 1200
+const JAKOSC = 0.72
 
 export function FormularzKodu({
   akcja,
@@ -49,37 +51,98 @@ export function FormularzKodu({
   etykietaPrzycisku: string
 }) {
   const [stan, wyslij, wTrakcie] = useActionState<WynikAkcji, FormData>(akcja, {})
-  const [strony, ustawStrony] = useState<Strona[]>([])
 
-  useEffect(() => {
-    // Spis stron to zwykły plik statyczny — nie wymaga trasy API ani bazy.
-    fetch('/dane/strony.json')
-      .then((o) => (o.ok ? o.json() : []))
-      .then(ustawStrony)
-      .catch(() => ustawStrony([]))
-  }, [])
+  /*
+    Współrzędne trzymane w stanie, bo wpisuje je i człowiek, i przycisk GPS.
+    Przy polach niekontrolowanych trzeba by sięgać do DOM-u i ustawiać wartość
+    ręcznie — działa, ale rozjeżdża się z Reactem przy pierwszym ponownym
+    renderowaniu.
+  */
+  const [pozycja, ustawPozycje] = useState({
+    szerokosc: wartosci.szerokosc?.toString() ?? '',
+    dlugosc: wartosci.dlugosc?.toString() ?? '',
+    wysokosc: wartosci.wysokosc?.toString() ?? '',
+  })
+  const [gps, ustawGps] = useState<{ stan: 'bezczynny' | 'czeka' | 'blad'; tekst?: string }>({
+    stan: 'bezczynny',
+  })
+
+  const [zdjecie, ustawZdjecie] = useState<string | null>(wartosci.zdjecie ?? null)
+  const [zmienioneZdjecie, ustawZmienioneZdjecie] = useState<string>('')
+  const wybor = useRef<HTMLInputElement>(null)
+
+  /**
+   * Odczyt pozycji z urządzenia.
+   *
+   * `enableHighAccuracy` włącza GPS zamiast szacowania po sieci — w terenie to
+   * różnica między kilkoma metrami a kilkoma kilometrami. Kosztuje baterię
+   * i chwilę czekania, ale tabliczkę ustawia się raz.
+   *
+   * Wysokość bywa pusta: podaje ją tylko odbiornik GPS, więc na laptopie jej
+   * nie będzie, a na telefonie w budynku bywa nieprawdziwa. Zapisujemy ją,
+   * gdy jest, i nie udajemy, gdy jej nie ma.
+   */
+  const pobierzPozycje = () => {
+    if (!navigator.geolocation) {
+      ustawGps({ stan: 'blad', tekst: 'Ta przeglądarka nie podaje położenia.' })
+      return
+    }
+
+    ustawGps({ stan: 'czeka' })
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        ustawPozycje({
+          // Pięć miejsc po przecinku to około metra — dokładniej niż potrafi
+          // odbiornik w telefonie, więc dalsze cyfry byłyby udawaniem precyzji.
+          szerokosc: coords.latitude.toFixed(5),
+          dlugosc: coords.longitude.toFixed(5),
+          wysokosc: coords.altitude === null ? '' : Math.round(coords.altitude).toString(),
+        })
+        ustawGps({
+          stan: 'bezczynny',
+          tekst:
+            `Odczytano z dokładnością do ${Math.round(coords.accuracy)} m` +
+            (coords.altitude === null ? '. Urządzenie nie podało wysokości.' : '.'),
+        })
+      },
+      (blad) => {
+        ustawGps({
+          stan: 'blad',
+          tekst:
+            blad.code === blad.PERMISSION_DENIED
+              ? 'Brak zgody na dostęp do położenia. Włącz ją w ustawieniach przeglądarki.'
+              : 'Nie udało się odczytać położenia. Spróbuj na otwartej przestrzeni.',
+        })
+      },
+      { enableHighAccuracy: true, timeout: 20_000, maximumAge: 0 },
+    )
+  }
+
+  /**
+   * Zmniejszenie zdjęcia w przeglądarce, przed wysłaniem.
+   *
+   * Zdjęcie z telefonu ma dziś kilka megabajtów i 4000 px szerokości. Wysyłanie
+   * go w tej postaci oznaczałoby długie czekanie na słabym zasięgu — czyli
+   * dokładnie w tych warunkach, w których się pracuje w terenie — i wpisanie
+   * do bazy kilkunastu megabajtów tekstu. Skalujemy więc na miejscu.
+   */
+  const wczytajZdjecie = async (plik: File) => {
+    const obraz = await createImageBitmap(plik)
+    const skala = Math.min(1, DLUZSZY_BOK / Math.max(obraz.width, obraz.height))
+    const plotno = document.createElement('canvas')
+    plotno.width = Math.round(obraz.width * skala)
+    plotno.height = Math.round(obraz.height * skala)
+    plotno.getContext('2d')?.drawImage(obraz, 0, 0, plotno.width, plotno.height)
+    obraz.close()
+
+    const dane = plotno.toDataURL('image/jpeg', JAKOSC)
+    ustawZdjecie(dane)
+    ustawZmienioneZdjecie(dane)
+  }
 
   return (
     <form action={wyslij} className="max-w-2xl space-y-5">
       <Pole etykieta="Nazwa" nazwa="nazwa" wymagane domyslna={wartosci.nazwa} />
-
-      <div>
-        <label htmlFor="kategoria" className="block text-sm font-medium text-kamien-700">
-          Kategoria
-        </label>
-        <select
-          id="kategoria"
-          name="kategoria"
-          defaultValue={wartosci.kategoria ?? 'ATRAKCJA'}
-          className="mt-1.5 w-full rounded-xl border border-kamien-300 px-4 py-2.5"
-        >
-          {KATEGORIE.map(([wartosc, etykieta]) => (
-            <option key={wartosc} value={wartosc}>
-              {etykieta}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <Pole
         etykieta="Nazwa miejsca"
@@ -90,49 +153,137 @@ export function FormularzKodu({
         podpowiedz={'Jak opisać położenie tabliczki, np. „przy dolnej stacji kolei".'}
       />
 
-      <div>
-        <label htmlFor="powiazanaStrona" className="block text-sm font-medium text-kamien-700">
-          Powiązana strona
-        </label>
-        <input
-          id="powiazanaStrona"
-          name="powiazanaStrona"
-          list="spis-stron"
-          defaultValue={wartosci.powiazanaStrona ?? ''}
-          placeholder="/atrakcje/sokolica"
-          className="mt-1.5 w-full rounded-xl border border-kamien-300 px-4 py-2.5"
-        />
-        <datalist id="spis-stron">
-          {strony.map((s) => (
-            <option key={s.adres} value={s.adres}>
-              {s.nazwa} ({s.rodzaj})
-            </option>
-          ))}
-        </datalist>
-        <p className="mt-1 text-sm text-kamien-500">
-          Dokąd prowadzi kod na komputerze i zanim aplikacja trafi do sklepów.
-          {strony.length > 0 && ` Do wyboru ${strony.length} stron portalu.`}
-        </p>
-      </div>
+      {/* ── Położenie ──────────────────────────────────────────────────── */}
+      <fieldset className="rounded-2xl border border-kamien-200 p-4">
+        <legend className="px-2 text-sm font-medium text-kamien-700">Położenie</legend>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Pole
-          etykieta="Szerokość geograficzna"
-          nazwa="szerokosc"
-          typ="number"
-          krok="0.00001"
-          domyslna={wartosci.szerokosc ?? ''}
-          podpowiedz="np. 49.41847"
+        <button
+          type="button"
+          onClick={pobierzPozycje}
+          disabled={gps.stan === 'czeka'}
+          className="inline-flex items-center gap-2 rounded-full bg-las-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-las-800 disabled:opacity-60"
+        >
+          <Crosshair className="size-4" aria-hidden />
+          {gps.stan === 'czeka' ? 'Szukam sygnału…' : 'Pobierz moje położenie'}
+        </button>
+
+        {gps.tekst && (
+          <p
+            role={gps.stan === 'blad' ? 'alert' : 'status'}
+            className={`mt-2 text-sm ${gps.stan === 'blad' ? 'text-red-700' : 'text-kamien-500'}`}
+          >
+            {gps.tekst}
+          </p>
+        )}
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <Pole
+            etykieta="Szerokość"
+            nazwa="szerokosc"
+            typ="number"
+            krok="0.00001"
+            wartosc={pozycja.szerokosc}
+            zmien={(v) => ustawPozycje((p) => ({ ...p, szerokosc: v }))}
+            podpowiedz="np. 49.41847"
+          />
+          <Pole
+            etykieta="Długość"
+            nazwa="dlugosc"
+            typ="number"
+            krok="0.00001"
+            wartosc={pozycja.dlugosc}
+            zmien={(v) => ustawPozycje((p) => ({ ...p, dlugosc: v }))}
+            podpowiedz="np. 20.42122"
+          />
+          <Pole
+            etykieta="Wysokość"
+            nazwa="wysokosc"
+            typ="number"
+            krok="1"
+            wartosc={pozycja.wysokosc}
+            zmien={(v) => ustawPozycje((p) => ({ ...p, wysokosc: v }))}
+            podpowiedz="m n.p.m."
+          />
+        </div>
+      </fieldset>
+
+      {/* ── Zdjęcie ────────────────────────────────────────────────────── */}
+      <fieldset className="rounded-2xl border border-kamien-200 p-4">
+        <legend className="px-2 text-sm font-medium text-kamien-700">
+          Zdjęcie po montażu
+        </legend>
+
+        {/* Wartość jedzie w ukrytym polu, bo zdjęcie jest już przetworzone —
+            pole plikowe wysłałoby oryginał, którego właśnie unikamy. */}
+        <input type="hidden" name="zdjecie" value={zmienioneZdjecie} />
+
+        {zdjecie ? (
+          <div className="flex flex-wrap items-start gap-4">
+            <Image
+              src={zdjecie}
+              alt="Zamontowana tabliczka"
+              width={160}
+              height={160}
+              unoptimized
+              className="size-40 rounded-xl border border-kamien-200 object-cover"
+            />
+            <div className="flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => wybor.current?.click()}
+                className="inline-flex items-center gap-2 rounded-full border border-kamien-300 px-4 py-2 text-sm font-medium text-kamien-800 hover:border-las-500 hover:bg-las-50"
+              >
+                <ImagePlus className="size-4" aria-hidden />
+                Zrób nowe
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  ustawZdjecie(null)
+                  ustawZmienioneZdjecie(USUN_ZDJECIE)
+                }}
+                className="inline-flex items-center gap-2 rounded-full border border-kamien-300 px-4 py-2 text-sm text-kamien-600 hover:border-red-400 hover:text-red-700"
+              >
+                <Trash2 className="size-4" aria-hidden />
+                Usuń zdjęcie
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => wybor.current?.click()}
+            className="inline-flex items-center gap-2 rounded-full border border-kamien-300 px-5 py-2.5 text-sm font-medium text-kamien-800 transition-colors hover:border-las-500 hover:bg-las-50"
+          >
+            <ImagePlus className="size-4" aria-hidden />
+            Dodaj zdjęcie
+          </button>
+        )}
+
+        {/*
+          `capture="environment"` otwiera na telefonie od razu tylny aparat,
+          zamiast pytać o źródło. W terenie to jedno stuknięcie mniej;
+          na komputerze atrybut jest ignorowany i otwiera się wybór pliku.
+        */}
+        <input
+          ref={wybor}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="sr-only"
+          onChange={(zdarzenie) => {
+            const plik = zdarzenie.target.files?.[0]
+            if (plik) void wczytajZdjecie(plik)
+            // Czyścimy pole, żeby dało się wybrać ten sam plik drugi raz.
+            zdarzenie.target.value = ''
+          }}
         />
-        <Pole
-          etykieta="Długość geograficzna"
-          nazwa="dlugosc"
-          typ="number"
-          krok="0.00001"
-          domyslna={wartosci.dlugosc ?? ''}
-          podpowiedz="np. 20.42122"
-        />
-      </div>
+
+        <p className="mt-3 text-sm text-kamien-500">
+          Jedno zdjęcie do rozpoznania tabliczki w terenie. Zmniejszamy je
+          w przeglądarce, więc wysyłka działa też przy słabym zasięgu.
+        </p>
+      </fieldset>
 
       <div>
         <label htmlFor="opis" className="block text-sm font-medium text-kamien-700">
@@ -200,6 +351,8 @@ function Pole({
   typ = 'text',
   krok,
   domyslna,
+  wartosc,
+  zmien,
   wymagane,
   podpowiedz,
 }: {
@@ -208,9 +361,14 @@ function Pole({
   typ?: string
   krok?: string
   domyslna?: string | number
+  /** Podane razem z `zmien` robi z pola pole kontrolowane. */
+  wartosc?: string
+  zmien?: (wartosc: string) => void
   wymagane?: boolean
   podpowiedz?: string
 }) {
+  const kontrolowane = wartosc !== undefined && zmien !== undefined
+
   return (
     <div>
       <label htmlFor={nazwa} className="block text-sm font-medium text-kamien-700">
@@ -222,7 +380,9 @@ function Pole({
         type={typ}
         step={krok}
         required={wymagane}
-        defaultValue={domyslna}
+        {...(kontrolowane
+          ? { value: wartosc, onChange: (z) => zmien(z.target.value) }
+          : { defaultValue: domyslna })}
         className="mt-1.5 w-full rounded-xl border border-kamien-300 px-4 py-2.5"
       />
       {podpowiedz && <p className="mt-1 text-sm text-kamien-500">{podpowiedz}</p>}

@@ -26,49 +26,58 @@ import { ZNACZNIK_TABLICZEK } from '@/lib/qr/znaczniki'
  * z zewnątrz, nawet jeśli formularz stoi za logowaniem.
  */
 
-const KATEGORIE = [
-  'SZLAK',
-  'ATRAKCJA',
-  'PUNKT_WIDOKOWY',
-  'MIASTO',
-  'PARKING',
-  'ODPOCZYNEK',
-  'INNE',
-] as const
+/**
+ * Największe zdjęcie, jakie przyjmiemy.
+ *
+ * Przeglądarka zmniejsza zdjęcie przed wysłaniem, więc typowe ma 150–250 kB
+ * po zakodowaniu. Półtora megabajta zostawia zapas na nietypowe przypadki
+ * i jednocześnie odcina próbę wgrania pliku prosto z aparatu, która wpisałaby
+ * do bazy kilkanaście megabajtów tekstu.
+ */
+const NAJWIEKSZE_ZDJECIE = 1_500_000
 
 const SchematKodu = z.object({
   nazwa: z.string().trim().min(2, 'Nazwa musi mieć co najmniej dwa znaki').max(120),
   opis: z.string().trim().max(2000).optional().or(z.literal('')),
-  kategoria: z.enum(KATEGORIE),
   nazwaLokalizacji: z.string().trim().max(120).optional().or(z.literal('')),
-  powiazanaStrona: z
-    .string()
-    .trim()
-    .regex(/^\/[a-z0-9/-]*$/i, 'Adres musi zaczynać się od ukośnika')
-    .max(200)
-    .optional()
-    .or(z.literal('')),
   // Współrzędne przychodzą jako tekst z pola formularza. Puste znaczy „jeszcze
   // nie wiadomo", a nie zero — tabliczka bez pozycji jest dozwolona.
   szerokosc: z.coerce.number().min(-90).max(90).optional().or(z.literal('')),
   dlugosc: z.coerce.number().min(-180).max(180).optional().or(z.literal('')),
+  // Najniższy punkt Pienin leży poniżej 400 m, najwyższy szczyt ma 1266 m.
+  // Progi są luźne, żeby nie odrzucać odczytu GPS, który potrafi się mylić
+  // o kilkadziesiąt metrów, ale odcinają wartość wpisaną w złej jednostce.
+  wysokosc: z.coerce.number().min(-100).max(4000).optional().or(z.literal('')),
   status: z.enum(['AKTYWNY', 'NIEAKTYWNY', 'ZAPAS']),
   dataMontazu: z.string().optional().or(z.literal('')),
+  zdjecie: z
+    .string()
+    .max(NAJWIEKSZE_ZDJECIE, 'Zdjęcie jest za duże')
+    .refine(
+      (wartosc) => wartosc === '' || wartosc === USUN_ZDJECIE || wartosc.startsWith('data:image/'),
+      'Nieprawidłowy format zdjęcia',
+    )
+    .optional()
+    .or(z.literal('')),
 })
 
 export type WynikAkcji = { blad?: string; ok?: string }
+
+/** Znacznik z formularza: „usuń dotychczasowe zdjęcie". Pusty ciąg znaczy
+ *  „nie ruszaj", więc do skasowania potrzebna jest osobna wartość. */
+const USUN_ZDJECIE = 'usun'
 
 function zFormularza(dane: FormData) {
   return SchematKodu.safeParse({
     nazwa: dane.get('nazwa'),
     opis: dane.get('opis'),
-    kategoria: dane.get('kategoria'),
     nazwaLokalizacji: dane.get('nazwaLokalizacji'),
-    powiazanaStrona: dane.get('powiazanaStrona'),
     szerokosc: dane.get('szerokosc') || undefined,
     dlugosc: dane.get('dlugosc') || undefined,
+    wysokosc: dane.get('wysokosc') || undefined,
     status: dane.get('status'),
     dataMontazu: dane.get('dataMontazu'),
+    zdjecie: dane.get('zdjecie'),
   })
 }
 
@@ -76,14 +85,25 @@ function naDaneBazy(dane: z.infer<typeof SchematKodu>) {
   return {
     nazwa: dane.nazwa,
     opis: dane.opis || null,
-    kategoria: dane.kategoria,
     nazwaLokalizacji: dane.nazwaLokalizacji || null,
-    powiazanaStrona: dane.powiazanaStrona || null,
     szerokosc: typeof dane.szerokosc === 'number' ? dane.szerokosc : null,
     dlugosc: typeof dane.dlugosc === 'number' ? dane.dlugosc : null,
+    wysokosc: typeof dane.wysokosc === 'number' ? dane.wysokosc : null,
     status: dane.status,
     dataMontazu: dane.dataMontazu ? new Date(dane.dataMontazu) : null,
   }
+}
+
+/**
+ * Zdjęcie zmieniamy tylko wtedy, gdy formularz coś o nim powiedział.
+ *
+ * Pole puste znaczy „nie dotykaj" — inaczej każdy zapis nazwy kasowałby
+ * zdjęcie, bo przeglądarka nie odsyła obrazka, którego nikt nie wybrał.
+ */
+function zmianaZdjecia(zdjecie: string | undefined) {
+  if (zdjecie === USUN_ZDJECIE) return { zdjecie: null }
+  if (zdjecie && zdjecie.startsWith('data:image/')) return { zdjecie }
+  return {}
 }
 
 export async function utworzKod(_stan: WynikAkcji, dane: FormData): Promise<WynikAkcji> {
@@ -91,7 +111,9 @@ export async function utworzKod(_stan: WynikAkcji, dane: FormData): Promise<Wyni
   if (!wynik.success) return { blad: wynik.error.issues[0].message }
 
   const kod = await nastepnyKod()
-  await baza.kodQr.create({ data: { kod, ...naDaneBazy(wynik.data) } })
+  await baza.kodQr.create({
+    data: { kod, ...naDaneBazy(wynik.data), ...zmianaZdjecia(wynik.data.zdjecie) },
+  })
 
   revalidatePath('/panel/kody')
   revalidateTag(ZNACZNIK_TABLICZEK, 'max')
@@ -102,7 +124,10 @@ export async function zapiszKod(kod: string, _stan: WynikAkcji, dane: FormData):
   const wynik = zFormularza(dane)
   if (!wynik.success) return { blad: wynik.error.issues[0].message }
 
-  await baza.kodQr.update({ where: { kod }, data: naDaneBazy(wynik.data) })
+  await baza.kodQr.update({
+    where: { kod },
+    data: { ...naDaneBazy(wynik.data), ...zmianaZdjecia(wynik.data.zdjecie) },
+  })
 
   revalidatePath('/panel/kody')
   revalidatePath(`/panel/kody/${kod}`)
@@ -130,7 +155,6 @@ export async function utworzPaczke(_stan: WynikAkcji, dane: FormData): Promise<W
     data: kody.map((kod) => ({
       kod,
       nazwa: `Tabliczka ${kod}`,
-      kategoria: 'INNE' as const,
       status: 'ZAPAS' as const,
     })),
   })

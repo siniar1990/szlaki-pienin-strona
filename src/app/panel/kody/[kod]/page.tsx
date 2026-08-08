@@ -52,11 +52,11 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
           wartosci={{
             nazwa: tabliczka.nazwa,
             opis: tabliczka.opis,
-            kategoria: tabliczka.kategoria,
             nazwaLokalizacji: tabliczka.nazwaLokalizacji,
-            powiazanaStrona: tabliczka.powiazanaStrona,
             szerokosc: tabliczka.szerokosc,
             dlugosc: tabliczka.dlugosc,
+            wysokosc: tabliczka.wysokosc,
+            zdjecie: tabliczka.zdjecie,
             status: tabliczka.status,
             dataMontazu: tabliczka.dataMontazu?.toISOString().slice(0, 10) ?? '',
           }}
@@ -102,6 +102,28 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
               </a>
             </div>
           </div>
+
+          {/*
+            Zdjęcie z montażu. Stoi zaraz pod kodem QR, bo razem odpowiadają na
+            pytanie „która to tabliczka i gdzie ona właściwie wisi" — a to
+            jedyne pytanie, po które wchodzi się tu z terenu.
+          */}
+          {tabliczka.zdjecie && (
+            <div className="overflow-hidden rounded-2xl border border-kamien-200 bg-white">
+              <Image
+                src={tabliczka.zdjecie}
+                alt={`Zamontowana tabliczka ${tabliczka.kod}`}
+                width={640}
+                height={480}
+                /* Zdjęcie jest już zmniejszone w przeglądarce i zapisane jako
+                   `data:` URL — optymalizator Next.js nie ma czego poprawić,
+                   a nie potrafi obsłużyć takiego źródła. */
+                unoptimized
+                className="w-full object-cover"
+              />
+              <p className="px-4 py-3 text-sm text-kamien-500">Zdjęcie po montażu</p>
+            </div>
+          )}
 
           <div className="rounded-2xl border border-kamien-200 bg-white p-5">
             <h2 className="font-heading text-base font-semibold text-kamien-900">Statystyki</h2>

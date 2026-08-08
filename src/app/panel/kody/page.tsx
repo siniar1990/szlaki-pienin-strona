@@ -82,7 +82,6 @@ export default async function StronaKodow({ searchParams }: PageProps<'/panel/ko
               <tr>
                 <th scope="col" className="px-5 py-3 font-semibold">Kod</th>
                 <th scope="col" className="px-5 py-3 font-semibold">Nazwa</th>
-                <th scope="col" className="px-5 py-3 font-semibold">Kategoria</th>
                 <th scope="col" className="px-5 py-3 text-right font-semibold">
                   Skany
                   <span className="block text-[11px] font-normal normal-case tracking-normal text-kamien-400">
@@ -110,9 +109,6 @@ export default async function StronaKodow({ searchParams }: PageProps<'/panel/ko
                       {k.nazwaLokalizacji && (
                         <span className="block text-sm text-kamien-500">{k.nazwaLokalizacji}</span>
                       )}
-                    </td>
-                    <td className="px-5 py-4 text-sm text-kamien-600">
-                      {k.kategoria.toLowerCase().replace(/_/g, ' ')}
                     </td>
                     <td className="px-5 py-4 text-right tabular-nums text-kamien-900">
                       {k.liczbaSkanow > 0 ? liczba(k.liczbaSkanow) : '—'}

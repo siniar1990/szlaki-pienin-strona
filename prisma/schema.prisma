@@ -32,18 +32,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-/// Rodzaj miejsca, w którym wisi tabliczka. Służy do filtrowania w panelu
-/// i do barwienia znaczników na mapie.
-enum KategoriaKodu {
-  SZLAK
-  ATRAKCJA
-  PUNKT_WIDOKOWY
-  MIASTO
-  PARKING
-  ODPOCZYNEK
-  INNE
-}
-
 /// ZAPAS to kod wydrukowany, ale jeszcze niezamontowany — stan pośredni
 /// między „nie istnieje" a „działa w terenie". Bez niego paczka dwustu kodów
 /// zamówiona w drukarni musiałaby udawać, że wszystkie już wiszą.
@@ -83,12 +71,23 @@ model KodQr {
   szerokosc Float?
   dlugosc   Float?
 
-  kategoria        KategoriaKodu
+  /// Wysokość nad poziomem morza w metrach. Odczyt z telefonu bywa niedostępny
+  /// albo mocno przybliżony, dlatego pole jest opcjonalne i nikt na nim nie
+  /// polega — służy do rozpoznania miejsca, nie do nawigacji.
+  wysokosc Float?
+
   nazwaLokalizacji String?
 
-  /// Adres strony w portalu, np. „/atrakcje/sokolica". Pokazujemy ją na
-  /// komputerze i wszędzie tam, gdzie nie ma dokąd przekierować.
-  powiazanaStrona String?
+  /// Zdjęcie zamontowanej tabliczki jako `data:` URL.
+  ///
+  /// Trzymamy je w bazie, a nie w osobnym magazynie plików, i to jest
+  /// świadomy kompromis. Przy dwustu tabliczkach i zdjęciu zmniejszonym
+  /// w przeglądarce do 1200 px mówimy o kilkudziesięciu megabajtach — mieści
+  /// się w darmowym progu Neona z zapasem. Osobny magazyn (np. Vercel Blob)
+  /// oznaczałby kolejną usługę do skonfigurowania, kolejny klucz do pilnowania
+  /// i kolejne miejsce, z którego dane mogą zniknąć niezależnie od bazy.
+  /// Gdy zdjęć zacznie przybywać, przeniesienie ich będzie jedną migracją.
+  zdjecie String?
 
   dataMontazu DateTime?
   status      StatusKodu @default(ZAPAS)
@@ -110,7 +109,7 @@ model KodQr {
   skany   SkanQr[]
   dzienne SkanDzienny[]
 
-  @@index([status, kategoria])
+  @@index([status])
   @@index([liczbaSkanow])
 }
 

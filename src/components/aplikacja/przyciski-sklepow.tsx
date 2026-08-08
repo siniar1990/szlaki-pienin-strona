@@ -1,77 +1,70 @@
-import { ZnakApple, ZnakGooglePlay } from '@/components/marka/znaki-sklepow'
+import Image from 'next/image'
+
 import { SKLEPY } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
 
 /**
  * Para przycisków pobrania aplikacji — najważniejszy element portalu.
  *
- * Aplikacja nie jest jeszcze w sklepach, więc przyciski mają dwa stany.
- * Gdy adres w `SKLEPY` jest pusty, renderujemy `span`, a nie `a` — element
- * bez atrybutu `href` nie trafia do kolejności fokusu i czytnik ekranu nie
- * zapowiada go jako odnośnika. To lepsze niż odnośnik z `aria-disabled`,
- * bo ten nadal daje się kliknąć i prowadzi donikąd.
+ * **Oficjalne odznaki zamiast własnych przycisków.** Wcześniej portal składał
+ * je sam z logo i napisu. Apple i Google udostępniają gotowe odznaki i wymagają
+ * ich użycia bez przerysowywania — poza tym są rozpoznawalne odruchowo,
+ * bo wyglądają tak samo na każdej stronie, jaką człowiek widział wcześniej.
  *
- * Po wpisaniu adresów w `konfiguracja.ts` te same przyciski stają się
- * zwykłymi odnośnikami — bez zmiany czegokolwiek tutaj.
+ * Aplikacja nie jest jeszcze w sklepach, więc odznaki mają dwa stany. Gdy adres
+ * w `SKLEPY` jest pusty, renderujemy `span`, a nie `a` — element bez atrybutu
+ * `href` nie trafia do kolejności fokusu i czytnik ekranu nie zapowiada go jako
+ * odnośnika. To lepsze niż odnośnik z `aria-disabled`, bo ten nadal daje się
+ * kliknąć i prowadzi donikąd.
+ *
+ * Po wpisaniu adresów w `konfiguracja.ts` te same odznaki stają się zwykłymi
+ * odnośnikami — bez zmiany czegokolwiek tutaj.
  */
 
 type Wariant = 'jasny' | 'ciemny'
 
-const STYL_PRZYCISKU =
-  'group inline-flex min-w-[13.5rem] items-center gap-3 rounded-2xl px-5 py-3.5 ' +
-  'text-left transition-all duration-300'
+/*
+  Wysokość odznaki. Apple i Google podają w wytycznych minimalną wysokość
+  (odpowiednio 40 i 40 px) — 48 px daje zapas i jest wygodnym celem palca
+  na telefonie. Szerokość wynika z proporcji pliku, więc nie podajemy jej.
+*/
+const WYSOKOSC = 48
 
-function Sklep({
-  adres,
-  ikona,
-  gora,
-  dol,
-  wariant,
-}: {
-  adres: string
-  ikona: React.ReactNode
-  gora: string
-  dol: string
-  wariant: Wariant
-}) {
-  const dostepny = adres.length > 0
+type Odznaka = { adres: string; plik: string; opis: string }
 
-  const wyglad = cn(
-    STYL_PRZYCISKU,
-    wariant === 'jasny'
-      ? 'bg-white text-las-900 shadow-uniesiony'
-      : 'bg-las-800 text-white shadow-uniesiony',
-    dostepny
-      ? 'hover:-translate-y-0.5 hover:shadow-wysoki'
-      : 'cursor-default opacity-60',
+function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
+  const dostepny = odznaka.adres.length > 0
+
+  const obraz = (
+    <Image
+      src={`/marka/sklepy/${odznaka.plik}.png`}
+      alt={odznaka.opis}
+      width={162}
+      height={WYSOKOSC}
+      className="h-12 w-auto"
+    />
   )
 
-  const zawartosc = (
-    <>
-      <span className="shrink-0" aria-hidden>
-        {ikona}
-      </span>
-      <span className="flex flex-col leading-tight">
-        <span className="text-[0.7rem] font-medium uppercase tracking-[0.14em] opacity-70">
-          {gora}
-        </span>
-        <span className="font-heading text-lg font-semibold">{dol}</span>
-      </span>
-    </>
+  const wyglad = cn(
+    'inline-flex rounded-xl transition-all duration-300',
+    // Odznaki są czarne, więc na ciemnym tle potrzebują jasnej obwódki,
+    // inaczej zlewają się z sekcją.
+    wariant === 'ciemny' && 'ring-1 ring-white/25',
+    dostepny ? 'hover:-translate-y-0.5' : 'cursor-default opacity-50',
   )
 
   if (!dostepny) {
     return (
       <span className={wyglad}>
-        {zawartosc}
+        {obraz}
         <span className="sr-only">— jeszcze niedostępne</span>
       </span>
     )
   }
 
   return (
-    <a href={adres} className={wyglad} rel="noopener">
-      {zawartosc}
+    <a href={odznaka.adres} className={wyglad} rel="noopener">
+      {obraz}
     </a>
   )
 }
@@ -87,34 +80,33 @@ export function PrzyciskiSklepow({
 
   return (
     <div className={cn('flex flex-col gap-4', className)}>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <Sklep
-          adres={SKLEPY.appStore}
-          ikona={<ZnakApple className="size-7" />}
-          gora={SKLEPY.appStore ? 'Pobierz na' : 'Wkrótce na'}
-          dol="App Store"
+          odznaka={{ adres: SKLEPY.appStore, plik: 'app-store', opis: 'Pobierz z App Store' }}
           wariant={wariant}
         />
         <Sklep
-          adres={SKLEPY.googlePlay}
-          ikona={<ZnakGooglePlay className="size-7" />}
-          gora={SKLEPY.googlePlay ? 'Pobierz w' : 'Wkrótce w'}
-          dol="Google Play"
+          odznaka={{ adres: SKLEPY.googlePlay, plik: 'google-play', opis: 'Pobierz z Google Play' }}
           wariant={wariant}
         />
       </div>
 
-      {!wSklepach && (
-        <p
-          className={cn(
-            'max-w-[28rem] text-sm',
-            wariant === 'jasny' ? 'text-white/80' : 'text-kamien-600',
-          )}
-        >
-          Aplikacja czeka na publikację w sklepach. Wszystkie trasy, opisy
-          i mapy z aplikacji są już dostępne na tej stronie.
-        </p>
-      )}
+      {/*
+        Zdanie o tym, że aplikacja jest darmowa i bez reklam, stoi przy samych
+        odznakach — czyli w miejscu, w którym człowiek podejmuje decyzję,
+        a nie kilka akapitów niżej, gdzie go już nie przeczyta.
+      */}
+      <p
+        className={cn(
+          'max-w-[30rem] text-sm',
+          wariant === 'jasny' ? 'text-white/85' : 'text-kamien-600',
+        )}
+      >
+        <span className="font-medium">Aplikacja jest darmowa i bez reklam.</span>{' '}
+        {wSklepach
+          ? 'Nie wymaga konta ani logowania.'
+          : 'Czeka na publikację w sklepach — wszystkie trasy, opisy i mapy są już dostępne na tej stronie.'}
+      </p>
     </div>
   )
 }
