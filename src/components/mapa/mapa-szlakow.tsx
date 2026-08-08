@@ -68,6 +68,26 @@ type ZbiorSladow = { type: 'FeatureCollection'; features: Slad[] }
  * w trasę nie pobiera go drugi raz. Klient tworzymy w stanie komponentu —
  * inaczej każde przerysowanie robiłoby nowy i pamięć podręczna byłaby pusta.
  */
+/**
+ * Zwinięcie paska atrybucji zaraz po utworzeniu mapy.
+ *
+ * MapLibre w trybie zwartym rysuje przycisk „i", ale otwiera go domyślnie —
+ * kontener dostaje klasę `maplibregl-compact-show` od pierwszej klatki.
+ * Zdejmujemy ją raz, tuż po utworzeniu mapy, więc pasek nigdy nie zdąży
+ * mrugnąć. Robimy to tu, a nie po zdarzeniu `load`: przy wolnym łączu mapa
+ * wczytuje się kilka sekund i przez ten czas napis leżałby na ekranie.
+ *
+ * Czego świadomie NIE robimy: nie usuwamy atrybucji. Dane pochodzą
+ * z OpenStreetMap na licencji ODbL, która wymaga wskazania źródła,
+ * a OpenFreeMap udostępnia kafelki za darmo pod tym samym warunkiem. Treść
+ * zostaje o jedno stuknięcie dalej, zamiast zniknąć.
+ */
+function zwinAtrybucje(pojemnik: HTMLElement | null): void {
+  pojemnik
+    ?.querySelectorAll('.maplibregl-ctrl-attrib')
+    .forEach((element) => element.classList.remove('maplibregl-compact-show'))
+}
+
 export function MapaSzlakow() {
   const [klient] = useState(
     () =>
@@ -101,12 +121,29 @@ function Zawartosc() {
   })
 
   const pojemnik = useRef<HTMLDivElement>(null)
+  const ramkaMapy = useRef<HTMLDivElement>(null)
   const mapa = useRef<MapaGl | null>(null)
   const [gotowa, ustawGotowa] = useState(false)
   const [wybrany, ustawWybrany] = useState<string | null>(null)
   const [fraza, ustawFraze] = useState('')
 
   const slady = useMemo(() => data?.features ?? [], [data])
+
+  /**
+   * Przewinięcie do mapy po wybraniu trasy z listy.
+   *
+   * Tylko na wąskim ekranie. Na dużym lista i mapa stoją obok siebie, mapa jest
+   * już widoczna i przewijanie strony byłoby szarpnięciem bez powodu — dlatego
+   * pytamy o szerokość, a nie przewijamy zawsze.
+   *
+   * Próg 1024 px to ten sam punkt, w którym siatka przechodzi na dwie kolumny
+   * (`lg` w Tailwindzie). Gdyby te dwie liczby się rozjechały, przewijanie
+   * działoby się w układzie dwukolumnowym albo nie działo w jednokolumnowym.
+   */
+  const przewinDoMapy = () => {
+    if (window.matchMedia('(min-width: 1024px)').matches) return
+    ramkaMapy.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   const widoczne = useMemo(() => {
     const szukane = naSlug(fraza)
@@ -178,6 +215,9 @@ function Zawartosc() {
       scrollZoom: false,
       attributionControl: { compact: true },
     })
+
+    // Zaraz po utworzeniu, zanim cokolwiek zdąży się narysować.
+    zwinAtrybucje(pojemnik.current)
 
     instancja.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
     instancja.addControl(new maplibregl.FullscreenControl(), 'top-right')
@@ -311,9 +351,17 @@ function Zawartosc() {
 
   const wybranySlad = slady.find((slad) => slad.properties.id === wybrany) ?? null
 
-  // Kliknięcie śladu na mapie przewija listę do jego pozycji.
+  /*
+    Kliknięcie śladu na mapie przewija listę do jego pozycji — ale tylko wtedy,
+    gdy lista stoi obok mapy.
+
+    Na telefonie lista jest pod mapą, więc to samo przewinięcie ściągałoby ekran
+    z mapy w dół, zaraz po tym, jak ktoś stuknął w ślad. Kliknięcie na mapie ma
+    otworzyć dymek i nic poza tym.
+  */
   useEffect(() => {
     if (!wybrany) return
+    if (!window.matchMedia('(min-width: 1024px)').matches) return
     document
       .getElementById(`szlak-${wybrany}`)
       ?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
@@ -321,8 +369,18 @@ function Zawartosc() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[26rem_minmax(0,1fr)]">
-      {/* ── Lista szlaków ─────────────────────────────────────────────── */}
-      <div className="flex flex-col rounded-2xl border border-kamien-200 bg-white lg:h-[78vh]">
+      {/*
+        ── Lista szlaków ───────────────────────────────────────────────
+        Na telefonie idzie POD mapę, na dużym ekranie wraca na lewo.
+        Kolejność w kodzie zostaje ta sama, przestawia ją `order` — dzięki temu
+        czytnik ekranu i nawigacja klawiaturą dostają listę przed mapą, czyli
+        treść przed narzędziem, niezależnie od szerokości ekranu.
+
+        Wąski ekran nie mieści obu naraz. Lista na górze znaczyła, że mapa
+        zaczyna się poniżej krawędzi ekranu i trzeba do niej doscrollować,
+        żeby zobaczyć cokolwiek — a to mapa jest tu powodem wejścia.
+      */}
+      <div className="order-2 flex flex-col rounded-2xl border border-kamien-200 bg-white lg:order-1 lg:h-[78vh]">
         <div className="border-b border-kamien-200 p-4">
           <div className="relative">
             <Search
@@ -374,7 +432,10 @@ function Zawartosc() {
                   type="button"
                   onClick={() => {
                     ustawWybrany(aktywny ? null : w.id)
-                    if (!aktywny) pokazSlad(slad)
+                    if (!aktywny) {
+                      pokazSlad(slad)
+                      przewinDoMapy()
+                    }
                   }}
                   aria-pressed={aktywny}
                   className={cn(
@@ -455,7 +516,10 @@ function Zawartosc() {
       </div>
 
       {/* ── Mapa ──────────────────────────────────────────────────────── */}
-      <div className="relative h-[60vh] overflow-hidden rounded-2xl border border-kamien-200 bg-kamien-100 lg:h-[78vh]">
+      <div
+        ref={ramkaMapy}
+        className="order-1 relative h-[60vh] overflow-hidden rounded-2xl border border-kamien-200 bg-kamien-100 lg:order-2 lg:h-[78vh]"
+      >
         <div ref={pojemnik} className="size-full" />
 
         {(!gotowa || isPending) && !isError && (

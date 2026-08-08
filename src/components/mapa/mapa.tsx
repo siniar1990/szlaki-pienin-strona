@@ -57,6 +57,26 @@ const WIDOK_POCZATKOWY: { srodek: Wspolrzedne; przyblizenie: number } = {
   przyblizenie: 11,
 }
 
+/**
+ * Zwinięcie paska atrybucji zaraz po utworzeniu mapy.
+ *
+ * MapLibre w trybie zwartym rysuje przycisk „i", ale otwiera go domyślnie —
+ * kontener dostaje klasę `maplibregl-compact-show` od pierwszej klatki.
+ * Zdejmujemy ją raz, tuż po utworzeniu mapy, więc pasek nigdy nie zdąży
+ * mrugnąć. Robimy to tu, a nie po zdarzeniu `load`: przy wolnym łączu mapa
+ * wczytuje się kilka sekund i przez ten czas napis leżałby na ekranie.
+ *
+ * Czego świadomie NIE robimy: nie usuwamy atrybucji. Dane pochodzą
+ * z OpenStreetMap na licencji ODbL, która wymaga wskazania źródła,
+ * a OpenFreeMap udostępnia kafelki za darmo pod tym samym warunkiem. Treść
+ * zostaje o jedno stuknięcie dalej, zamiast zniknąć.
+ */
+function zwinAtrybucje(pojemnik: HTMLElement | null): void {
+  pojemnik
+    ?.querySelectorAll('.maplibregl-ctrl-attrib')
+    .forEach((element) => element.classList.remove('maplibregl-compact-show'))
+}
+
 export function Mapa({
   slady = [],
   markery = [],
@@ -87,6 +107,9 @@ export function Mapa({
       scrollZoom: false,
       attributionControl: { compact: true },
     })
+
+    // Zaraz po utworzeniu, zanim cokolwiek zdąży się narysować.
+    zwinAtrybucje(pojemnik.current)
 
     instancja.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
     instancja.addControl(new maplibregl.FullscreenControl(), 'top-right')

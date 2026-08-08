@@ -226,3 +226,41 @@
     @apply py-20 sm:py-28 lg:py-36;
   }
 }
+
+/*
+  Atrybucja mapy zwinięta do ikony „i".
+
+  Pasek „OpenFreeMap © OpenMapTiles Data from OpenStreetMap" zabiera dolną
+  krawędź mapy, a na telefonie potrafi zająć dwie linijki. Nie da się go jednak
+  usunąć: dane pochodzą z OpenStreetMap na licencji ODbL, która wymaga
+  wskazania źródła, a OpenFreeMap udostępnia kafelki za darmo pod tym samym
+  warunkiem. Mapa bez atrybucji to naruszenie licencji, nie kwestia gustu.
+
+  Zwijamy więc treść pod przycisk, który MapLibre i tak rysuje w trybie
+  zwartym. Stuknięcie w „i" pokazuje pełną informację — obowiązek spełniony,
+  a krawędź mapy wolna.
+
+  Regułą, a nie kodem, bo MapLibre sam dodaje i zdejmuje klasę
+  `maplibregl-compact-show` przy zmianach rozmiaru i interakcjach; walka o nią
+  z JavaScriptu kończyłaby się paskiem migającym w losowych momentach.
+*/
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) {
+  background: transparent;
+  box-shadow: none;
+}
+
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show)
+  .maplibregl-ctrl-attrib-inner {
+  display: none;
+}
+
+/* Sam przycisk „i" — mniejszy i przygaszony, bo ma być dostępny, a nie
+   rzucać się w oczy przy każdym spojrzeniu na mapę. */
+.maplibregl-ctrl-attrib-button {
+  opacity: 0.6;
+}
+
+.maplibregl-ctrl-attrib-button:hover,
+.maplibregl-ctrl-attrib-button:focus-visible {
+  opacity: 1;
+}
