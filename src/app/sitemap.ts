@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 import { KATEGORIE_TRAS } from '@/lib/dane/kategorie'
+import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
 import { pobierzAtrakcje, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { PORTAL } from '@/lib/konfiguracja'
 
@@ -57,8 +58,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  const atrakcje: MetadataRoute.Sitemap = pobierzAtrakcje().map((atrakcja) => ({
-    url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
+  /*
+    Atrakcje pochodzą z dwóch źródeł: katalogu redakcyjnego i punktów na trasach
+    (szczyty, przełęcze, schroniska). Mapa witryny musi obejmować oba, bo obie
+    grupy mają własne strony pod `/atrakcje/…`. Wcześniej były tu tylko te
+    z tras i pięćdziesiąt siedem stron katalogu nie trafiało do indeksu.
+
+    Slug jest wspólną przestrzenią nazw, więc odsiewamy powtórzenia — inaczej
+    ten sam adres pojawiłby się w mapie dwa razy.
+  */
+  const adresyAtrakcji = new Set([
+    ...ATRAKCJE_TURYSTYCZNE.map((a) => a.slug),
+    ...pobierzAtrakcje().map((a) => a.slug),
+  ])
+
+  const atrakcje: MetadataRoute.Sitemap = [...adresyAtrakcji].map((slug) => ({
+    url: `${PORTAL.adres}/atrakcje/${slug}`,
     changeFrequency: 'monthly',
     priority: 0.6,
   }))

@@ -1,4 +1,4 @@
-import type { GrupaAtrakcji } from '@/lib/tresc/atrakcje-turystyczne'
+import type { KategoriaAtrakcji } from '@/lib/tresc/kategorie-atrakcji'
 
 /**
  * Ilustracja zastępująca brakujące zdjęcie atrakcji.
@@ -46,7 +46,7 @@ function Tlo({ id }: { id: string }) {
   )
 }
 
-const SCENY: Record<GrupaAtrakcji, (id: string) => React.ReactNode> = {
+const SCENY: Record<string, (id: string) => React.ReactNode> = {
   // Przełom: dwie wapienne ściany, rzeka i tratwa.
   dunajec: (id) => (
     <>
@@ -189,12 +189,29 @@ const SCENY: Record<GrupaAtrakcji, (id: string) => React.ReactNode> = {
   ),
 }
 
+/**
+ * Która scena pasuje do kategorii.
+ *
+ * Rysunków jest osiem, bo powstały pod poprzedni podział na osiem grup.
+ * Kategorii jest sześć i przedstawiają w gruncie rzeczy te same rzeczy, więc
+ * przypisujemy je do istniejących scen zamiast rysować komplet od nowa.
+ * Rysunek zastępczy ma sugerować rodzaj miejsca, a nie odwzorowywać podział.
+ */
+const SCENA_KATEGORII: Record<KategoriaAtrakcji, string> = {
+  przyroda: 'przyroda',
+  woda: 'dunajec',
+  aktywnie: 'rodzinne',
+  rodziny: 'rodzinne',
+  kultura: 'muzea',
+  zima: 'jeziora',
+}
+
 export function IlustracjaKategorii({
   grupa,
   id,
   className,
 }: {
-  grupa: GrupaAtrakcji
+  grupa: KategoriaAtrakcji | undefined
   /** Unikatowy przyrostek identyfikatorów gradientu — inaczej rysunki kradną
       sobie nawzajem definicje, gdy jest ich kilka na jednej stronie. */
   id: string
@@ -207,7 +224,7 @@ export function IlustracjaKategorii({
       className={className}
       aria-hidden
     >
-      {SCENY[grupa](id)}
+      {SCENY[grupa ? SCENA_KATEGORII[grupa] : 'przyroda'](id)}
     </svg>
   )
 }

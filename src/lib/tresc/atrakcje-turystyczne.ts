@@ -1,105 +1,76 @@
-/**
- * Katalog atrakcji turystycznych Pienin.
- *
- * To jedyna treść w portalu, która NIE pochodzi z danych aplikacji — tam są
- * szlaki i punkty na nich, a nie spływ Dunajcem czy pijalnia wód. Dlatego
- * mieszka w osobnym pliku: gdy pojawi się CMS, ten katalog przenosi się do
- * niego jako pierwszy, bez ruszania warstwy tras.
- *
- * Zasada przy pisaniu opisów: wyłącznie to, co się nie zmienia z sezonu na
- * sezon. Żadnych cen, godzin otwarcia ani numerów telefonu — takie dane
- * starzeją się w kilka miesięcy, a portal, który podaje nieaktualną cenę
- * biletu, traci zaufanie szybciej, niż je zbudował. Od aktualiów są strony
- * operatorów.
- *
- * Wpisy oznaczone `doPotwierdzenia` opisują rzeczy, których nie da się
- * sprawdzić zdalnie — trzeba je potwierdzić na miejscu.
- */
+import { nazwaLokalizacji } from './kategorie-atrakcji'
+import type { KategoriaAtrakcji, LokalizacjaAtrakcji } from './kategorie-atrakcji'
 
-export type GrupaAtrakcji =
-  | 'dunajec'
-  | 'jeziora'
-  | 'wody'
-  | 'przyroda'
-  | 'zamki'
-  | 'muzea'
-  | 'swiatynie'
-  | 'rodzinne'
+/**
+ * Katalog atrakcji Pienin.
+ *
+ * **Kategoria zamiast grupy.** Wcześniej każda atrakcja należała do dokładnie
+ * jednej grupy, co wymuszało wybory bez dobrej odpowiedzi: kolej na Palenicę
+ * jest i rodzinna, i sportowa, a kuligi są zimowe i aktywne naraz. Teraz
+ * `kategorie` to lista — jedna atrakcja, wiele przynależności, ani jednego
+ * duplikatu. To jest ta sama zasada, którą stosuje aplikacja przy trasach
+ * (`kategorie_dodatkowe`), więc portal i telefon dzielą sposób myślenia.
+ *
+ * **Lokalizacja osobno od kategorii.** Miejscowość jest atrybutem, nie
+ * szufladą. Turysta pyta najpierw „co mogę robić", a dopiero potem „gdzie" —
+ * i tak samo działa filtrowanie na stronie.
+ *
+ * **Pola bez treści zostają puste.** Sporo pozycji z katalogu to miejsca,
+ * o których projekt nie ma jeszcze ani zdania opisu, ani zdjęcia, ani
+ * współrzędnych — wypożyczalnie rowerów, paintball, plaże, warsztaty.
+ * Zostawiamy je puste zamiast dopisywać prawdopodobnie brzmiące zdania.
+ * Karta bez opisu jest uczciwa; karta z wymyślonym opisem jest kłamstwem,
+ * które ktoś zweryfikuje dopiero na miejscu.
+ *
+ * **Pola partnerskie są przygotowane, ale nieużywane.** `sponsorowana`,
+ * `partnerKategorii` i `priorytetPartnera` czekają na model, w którym jedna
+ * firma wykupuje wyróżnienie w kategorii. Dziś wszystkie są puste i nic ich
+ * nie czyta poza typami — chodzi o to, żeby włączenie tego nie wymagało
+ * przebudowy katalogu.
+ */
 
 export type AtrakcjaTurystyczna = {
   slug: string
   nazwa: string
-  /** Gdzie to jest — nazwa miejscowości pokazywana na kafelku. */
-  miejscowosc: string
-  grupa: GrupaAtrakcji
-  /** Jedno zdanie na kafelek. */
+  /** Do której kategorii trafia; pierwsza jest wiodąca (badge na karcie). */
+  kategorie: KategoriaAtrakcji[]
+  /** Węższy rodzaj wewnątrz kategorii — pod przyszłe kategorie komercyjne. */
+  podkategoria: string | null
+  lokalizacja: LokalizacjaAtrakcji
+  /** Doprecyzowanie miejsca, gdy sama miejscowość to za mało. */
+  miejscowosc?: string
+  /** Jedno zdanie na kartę. Puste, gdy projekt nie ma opisu. */
   skrot: string
-  /** Pełny opis na stronę atrakcji. */
+  /** Pełny opis na stronę atrakcji. Pusta lista = brak treści. */
   opis: string[]
   sezon?: string
   /** Wymaga potwierdzenia na miejscu — szczegóły bywają zmienne. */
   doPotwierdzenia?: boolean
+  /** Wyróżniona w swojej kategorii — trafia do sekcji „Najważniejsze”. */
+  wyrozniona?: boolean
+
+  /* ── Pola czekające na treść ──────────────────────────────────────────── */
+  wspolrzedne?: [number, number]
+  strona?: string
+  rezerwacja?: string
+  cena?: string
+  godziny?: string
+
+  /* ── Pola pod przyszłego partnera kategorii ───────────────────────────── */
+  sponsorowana?: boolean
+  partnerKategorii?: KategoriaAtrakcji
+  priorytetPartnera?: number
 }
 
-/**
- * Kategorie atrakcji.
- *
- * Osiem zamiast wcześniejszych siedmiu rozjeżdżających się grup. Zasada
- * porządkowania: nazwa kategorii ma odpowiadać na pytanie „co to za miejsce",
- * a nie „do której szuflady wpadło". Dlatego „Zamki" i „Wąwozy, wodospady
- * i rezerwaty" — a nie „Zabytki" i „Przyroda", pod którymi mieści się wszystko
- * i nic.
- */
-export const GRUPY_ATRAKCJI: { klucz: GrupaAtrakcji; nazwa: string; opis: string }[] = [
-  {
-    klucz: 'dunajec',
-    nazwa: 'Dunajec i spływ',
-    opis: 'Przełom widziany z tratwy, przystanie flisackie, trasa rowerowa i kładka na słowacki brzeg.',
-  },
-  {
-    klucz: 'przyroda',
-    nazwa: 'Wąwozy, wodospady i rezerwaty',
-    opis: 'Najbardziej efektowne miejsca, do których dojdziesz na własnych nogach.',
-  },
-  {
-    klucz: 'zamki',
-    nazwa: 'Zamki',
-    opis: 'Dwie warownie stojące naprzeciw siebie nad Jeziorem Czorsztyńskim.',
-  },
-  {
-    klucz: 'jeziora',
-    nazwa: 'Jezioro i zapora',
-    opis: 'Zbiornik między zamkami, rejsy i przejście koroną zapory.',
-  },
-  {
-    klucz: 'wody',
-    nazwa: 'Wody mineralne',
-    opis: 'Szczawy, dla których w XIX wieku powstało uzdrowisko.',
-  },
-  {
-    klucz: 'rodzinne',
-    nazwa: 'Wyciągi i atrakcje rodzinne',
-    opis: 'Wyjazd na górę bez wysiłku, zjazd, który dzieci zapamiętają, i przejażdżki konne.',
-  },
-  {
-    klucz: 'muzea',
-    nazwa: 'Muzea i zabytki',
-    opis: 'Historia uzdrowiska i dawnych mieszkańców doliny Grajcarka.',
-  },
-  {
-    klucz: 'swiatynie',
-    nazwa: 'Kościoły i cerkwie',
-    opis: 'Gotyckie polichromie i pozostałości po Rusi Szlachtowskiej.',
-  },
-]
-
 export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
-  /* ── Dunajec i woda ──────────────────────────────────────────────────── */
+
   {
     slug: 'splyw-dunajcem-tratwami',
     nazwa: 'Spływ Dunajcem tratwami flisackimi',
-    miejscowosc: 'Sromowce Wyżne — Szczawnica',
-    grupa: 'dunajec',
+    kategorie: ['woda'],
+    podkategoria: 'splywy',
+    lokalizacja: 'sromowce',
+    wyrozniona: true,
     skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka w stroju góralskim.',
     opis: [
       'Najbardziej znana atrakcja Pienin i jedyny sposób, żeby zobaczyć przełom ' +
@@ -117,8 +88,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'przystan-flisacka-katy',
     nazwa: 'Przystań flisacka w Kątach',
-    miejscowosc: 'Sromowce Wyżne',
-    grupa: 'dunajec',
+    kategorie: ['woda'],
+    podkategoria: 'przystanie',
+    lokalizacja: 'sromowce',
     skrot: 'Miejsce, w którym zaczyna się spływ przełomem Dunajca.',
     opis: [
       'Główna przystań flisacka. Stąd wypływają tratwy w przełom Dunajca. ' +
@@ -130,8 +102,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'przystan-flisacka-szczawnica',
     nazwa: 'Przystań flisacka w Szczawnicy',
-    miejscowosc: 'Szczawnica',
-    grupa: 'dunajec',
+    kategorie: ['woda'],
+    podkategoria: 'przystanie',
+    lokalizacja: 'szczawnica',
     skrot: 'Koniec spływu i początek promenady wzdłuż Dunajca.',
     opis: [
       'Miejsce, w którym tratwy dobijają do brzegu po przepłynięciu przełomu. ' +
@@ -141,8 +114,10 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'jezioro-czorsztynskie-rejsy',
     nazwa: 'Jezioro Czorsztyńskie i rejsy statkiem',
-    miejscowosc: 'Czorsztyn — Niedzica',
-    grupa: 'jeziora',
+    kategorie: ['woda', 'rodziny'],
+    podkategoria: 'rejsy',
+    lokalizacja: 'czorsztyn',
+    wyrozniona: true,
     skrot: 'Sztuczne jezioro między dwoma zamkami, z rejsami wzdłuż brzegów.',
     opis: [
       'Zbiornik powstał po spiętrzeniu Dunajca zaporą w Niedzicy. Z jego taflą ' +
@@ -158,8 +133,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'zapora-w-niedzicy',
     nazwa: 'Zapora w Niedzicy',
-    miejscowosc: 'Niedzica',
-    grupa: 'jeziora',
+    kategorie: ['kultura', 'woda'],
+    podkategoria: 'technika',
+    lokalizacja: 'niedzica',
     skrot: 'Korona zapory z widokiem na jezioro z jednej i dolinę Dunajca z drugiej strony.',
     opis: [
       'Zapora spiętrzająca Dunajec, która utworzyła Jezioro Czorsztyńskie. ' +
@@ -167,13 +143,13 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
         'jeziora i zamki, z drugiej na dolinę Dunajca i Pieniny.',
     ],
   },
-
-  /* ── Wody mineralne ──────────────────────────────────────────────────── */
   {
     slug: 'pijalnia-wod-mineralnych',
     nazwa: 'Pijalnia wód mineralnych',
-    miejscowosc: 'Szczawnica',
-    grupa: 'wody',
+    kategorie: ['kultura', 'rodziny'],
+    podkategoria: 'uzdrowisko',
+    lokalizacja: 'szczawnica',
+    wyrozniona: true,
     skrot: 'Szczawy, dla których w XIX wieku powstało całe uzdrowisko.',
     opis: [
       'Szczawnica wzięła nazwę od szczaw — wód mineralnych nasyconych dwutlenkiem ' +
@@ -189,8 +165,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'zdroje-szczawnicy',
     nazwa: 'Zdroje w parkach zdrojowych',
-    miejscowosc: 'Szczawnica',
-    grupa: 'wody',
+    kategorie: ['kultura', 'rodziny'],
+    podkategoria: 'uzdrowisko',
+    lokalizacja: 'szczawnica',
     skrot: 'Ujęcia wód rozsiane po Parku Dolnym i Górnym, każde z własnym imieniem.',
     opis: [
       'Poszczególne źródła noszą imiona — Magdalena, Stefan, Wanda, Józefina, ' +
@@ -201,13 +178,13 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     ],
     doPotwierdzenia: true,
   },
-
-  /* ── Koleje i zjeżdżalnie ────────────────────────────────────────────── */
   {
     slug: 'kolej-na-palenice',
     nazwa: 'Kolej krzesełkowa na Palenicę',
-    miejscowosc: 'Szczawnica',
-    grupa: 'rodzinne',
+    kategorie: ['rodziny', 'aktywnie'],
+    podkategoria: 'wyciagi',
+    lokalizacja: 'szczawnica',
+    wyrozniona: true,
     skrot: 'Wyjazd nad Szczawnicę w kilka minut — i początek kilku szlaków.',
     opis: [
       'Kolej wywozi z centrum uzdrowiska na Palenicę (722 m n.p.m.). Z góry ' +
@@ -221,8 +198,10 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'zjezdzalnia-grawitacyjna-palenica',
     nazwa: 'Zjeżdżalnia grawitacyjna na Palenicy',
-    miejscowosc: 'Szczawnica',
-    grupa: 'rodzinne',
+    kategorie: ['rodziny'],
+    podkategoria: 'rozrywka',
+    lokalizacja: 'szczawnica',
+    wyrozniona: true,
     skrot: 'Tor saneczkowy obok kolei krzesełkowej — zjazd sterowany hamulcem.',
     opis: [
       'Tor grawitacyjny biegnący stokiem Palenicy. Jedzie się w wózku na ' +
@@ -236,8 +215,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'czorsztyn-ski-kluszkowce',
     nazwa: 'Czorsztyn-Ski w Kluszkowcach',
-    miejscowosc: 'Kluszkowce',
-    grupa: 'rodzinne',
+    kategorie: ['zima', 'rodziny'],
+    podkategoria: 'narty',
+    lokalizacja: 'kluszkowce',
     skrot: 'Kolej krzesełkowa na Wdżar i całoroczny tor saneczkowy nad jeziorem.',
     opis: [
       'Ośrodek na stoku góry Wdżar nad Jeziorem Czorsztyńskim. Zimą stok ' +
@@ -251,8 +231,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'wyciag-w-jaworkach',
     nazwa: 'Wyciąg krzesełkowy w Jaworkach',
-    miejscowosc: 'Jaworki',
-    grupa: 'rodzinne',
+    kategorie: ['zima', 'rodziny'],
+    podkategoria: 'narty',
+    lokalizacja: 'jaworki',
     skrot: 'Wyjazd nad Jaworki, blisko wylotu Wąwozu Homole.',
     opis: [
       'Wyciąg wywozi na grzbiet nad Jaworkami. Blisko stąd do Wąwozu Homole ' +
@@ -260,13 +241,12 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     ],
     doPotwierdzenia: true,
   },
-
-  /* ── Konie ───────────────────────────────────────────────────────────── */
   {
     slug: 'jazda-konna-i-bryczki',
     nazwa: 'Jazda konna i przejażdżki bryczką',
-    miejscowosc: 'Szczawnica i okolice',
-    grupa: 'rodzinne',
+    kategorie: ['aktywnie', 'rodziny'],
+    podkategoria: 'jazda-konna',
+    lokalizacja: 'szczawnica',
     skrot: 'Bryczki w uzdrowisku i stajnie oferujące jazdę w terenie.',
     opis: [
       'Przejażdżka bryczką po uzdrowisku należy do szczawnickiej tradycji — ' +
@@ -278,13 +258,13 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     ],
     doPotwierdzenia: true,
   },
-
-  /* ── Zamki, muzea, zabytki ───────────────────────────────────────────── */
   {
     slug: 'zamek-dunajec-w-niedzicy',
     nazwa: 'Zamek Dunajec w Niedzicy',
-    miejscowosc: 'Niedzica',
-    grupa: 'zamki',
+    kategorie: ['kultura'],
+    podkategoria: 'zamki',
+    lokalizacja: 'niedzica',
+    wyrozniona: true,
     skrot: 'Najlepiej zachowany zamek nad Dunajcem, z muzeum i widokiem na jezioro.',
     opis: [
       'Zamek na skale nad Jeziorem Czorsztyńskim, zbudowany na początku XIV wieku ' +
@@ -298,8 +278,10 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'ruiny-zamku-czorsztyn',
     nazwa: 'Ruiny zamku Czorsztyn',
-    miejscowosc: 'Czorsztyn',
-    grupa: 'zamki',
+    kategorie: ['kultura'],
+    podkategoria: 'zamki',
+    lokalizacja: 'czorsztyn',
+    wyrozniona: true,
     skrot: 'Królewska warownia naprzeciw Niedzicy, dziś trwała ruina z tarasem widokowym.',
     opis: [
       'Zamek strzegł polskiej strony granicy i szlaku handlowego wzdłuż Dunajca. ' +
@@ -312,8 +294,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'muzeum-pieninskie-w-szlachtowej',
     nazwa: 'Muzeum Pienińskie im. Józefa Szalaya',
-    miejscowosc: 'Szlachtowa',
-    grupa: 'muzea',
+    kategorie: ['kultura'],
+    podkategoria: 'muzea',
+    lokalizacja: 'szlachtowa',
     skrot: 'Historia uzdrowiska i dawnej Rusi Szlachtowskiej pod jednym dachem.',
     opis: [
       'Muzeum w Szlachtowej opowiada o dwóch splecionych historiach: powstaniu ' +
@@ -327,8 +310,10 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'plac-dietla-i-architektura-szalayowska',
     nazwa: 'Plac Dietla i architektura uzdrowiskowa',
-    miejscowosc: 'Szczawnica',
-    grupa: 'muzea',
+    kategorie: ['kultura'],
+    podkategoria: 'architektura',
+    lokalizacja: 'szczawnica',
+    wyrozniona: true,
     skrot: 'Drewniane wille z gankami i godła nad wejściami — serce dawnego uzdrowiska.',
     opis: [
       'Plac Dietla to centrum uzdrowiskowej Szczawnicy: drewniane budynki ' +
@@ -343,8 +328,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'cerkwie-w-jaworkach-i-szlachtowej',
     nazwa: 'Cerkwie w Jaworkach i Szlachtowej',
-    miejscowosc: 'Jaworki, Szlachtowa',
-    grupa: 'swiatynie',
+    kategorie: ['kultura'],
+    podkategoria: 'swiatynie',
+    lokalizacja: 'jaworki',
     skrot: 'Pozostałość po dawnych mieszkańcach doliny Grajcarka.',
     opis: [
       'Jaworki, Szlachtowa, Biała Woda i Czarna Woda tworzyły Ruś Szlachtowską — ' +
@@ -353,13 +339,13 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
         'dziś użytkowane jako kościoły rzymskokatolickie.',
     ],
   },
-
-  /* ── Przyroda ────────────────────────────────────────────────────────── */
   {
     slug: 'wawoz-homole',
     nazwa: 'Wąwóz Homole',
-    miejscowosc: 'Jaworki',
-    grupa: 'przyroda',
+    kategorie: ['przyroda'],
+    podkategoria: 'wawozy',
+    lokalizacja: 'jaworki',
+    wyrozniona: true,
     skrot: 'Wapienna szczelina ze ścianami wysokimi na kilkadziesiąt metrów.',
     opis: [
       'Najbardziej efektowny wąwóz w Pieninach: potok wyżłobił w wapieniu ' +
@@ -373,8 +359,10 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'wodospad-zaskalnik',
     nazwa: 'Wodospad Zaskalnik',
-    miejscowosc: 'Jaworki',
-    grupa: 'przyroda',
+    kategorie: ['przyroda'],
+    podkategoria: 'wodospady',
+    lokalizacja: 'jaworki',
+    wyrozniona: true,
     skrot: 'Kilkumetrowy wodospad w rezerwacie, kilkanaście minut od drogi.',
     opis: [
       'Wodospad na potoku w rezerwacie Zaskalskie-Bodnarówka, do którego ' +
@@ -385,8 +373,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'rezerwat-biala-woda',
     nazwa: 'Rezerwat Biała Woda',
-    miejscowosc: 'Jaworki',
-    grupa: 'przyroda',
+    kategorie: ['przyroda'],
+    podkategoria: 'rezerwaty',
+    lokalizacja: 'jaworki',
     skrot: 'Dolina z wapiennymi ostańcami i śladami po nieistniejącej wsi.',
     opis: [
       'Dolina potoku Biała Woda z charakterystycznymi skalnymi ostańcami ' +
@@ -399,8 +388,10 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'pieninski-park-narodowy',
     nazwa: 'Pieniński Park Narodowy',
-    miejscowosc: 'Krościenko nad Dunajcem',
-    grupa: 'przyroda',
+    kategorie: ['przyroda'],
+    podkategoria: 'parki',
+    lokalizacja: 'kroscienko',
+    wyrozniona: true,
     skrot: 'Park chroniący przełom Dunajca; pawilon wejściowy w Krościenku.',
     opis: [
       'Park narodowy obejmujący Pieniny Właściwe z przełomem Dunajca, Trzema ' +
@@ -413,8 +404,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'kosciol-wszystkich-swietych-w-kroscienku',
     nazwa: 'Kościół Wszystkich Świętych',
-    miejscowosc: 'Krościenko nad Dunajcem',
-    grupa: 'swiatynie',
+    kategorie: ['kultura'],
+    podkategoria: 'swiatynie',
+    lokalizacja: 'kroscienko',
     skrot: 'Gotycki kościół z zachowanymi średniowiecznymi malowidłami.',
     opis: [
       'Najstarszy zabytek Krościenka. We wnętrzu zachowały się gotyckie ' +
@@ -422,13 +414,12 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
       'Stoi przy rynku, którego układ pamięta średniowieczną lokację miasta.',
     ],
   },
-
-  /* ── Rower i kładki ──────────────────────────────────────────────────── */
   {
     slug: 'velo-dunajec',
     nazwa: 'Velo Dunajec',
-    miejscowosc: 'wzdłuż Dunajca',
-    grupa: 'dunajec',
+    kategorie: ['aktywnie', 'woda'],
+    podkategoria: 'rowery',
+    lokalizacja: 'pieniny',
     skrot: 'Asfaltowa trasa rowerowa wzdłuż rzeki, bez ruchu samochodowego.',
     opis: [
       'Trasa rowerowa biegnąca doliną Dunajca, w dużej części wydzielona ' +
@@ -441,8 +432,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'kladka-do-czerwonego-klasztoru',
     nazwa: 'Kładka pieszo-rowerowa do Czerwonego Klasztoru',
-    miejscowosc: 'Sromowce Niżne',
-    grupa: 'dunajec',
+    kategorie: ['woda', 'aktywnie'],
+    podkategoria: 'rowery',
+    lokalizacja: 'sromowce',
     skrot: 'Przejście na słowacki brzeg przełomu, pieszo albo rowerem.',
     opis: [
       'Kładka nad Dunajcem łącząca polski brzeg ze słowackim Czerwonym ' +
@@ -452,12 +444,328 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
         'albo paszport warto mieć przy sobie.',
     ],
   },
+  {
+    slug: 'muzeum-uzdrowiska',
+    nazwa: 'Muzeum Uzdrowiska',
+    kategorie: ['kultura'],
+    podkategoria: 'muzea',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'park-dolny',
+    nazwa: 'Park Dolny',
+    kategorie: ['kultura', 'rodziny'],
+    podkategoria: 'uzdrowisko',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'park-gorny',
+    nazwa: 'Park Górny',
+    kategorie: ['kultura', 'rodziny'],
+    podkategoria: 'uzdrowisko',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'inhalatorium',
+    nazwa: 'Inhalatorium',
+    kategorie: ['kultura'],
+    podkategoria: 'uzdrowisko',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'kosciol-swietego-wojciecha',
+    nazwa: 'Kościół świętego Wojciecha',
+    kategorie: ['kultura'],
+    podkategoria: 'swiatynie',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'fontanna-kobieta',
+    nazwa: 'Fontanna „Kobieta”',
+    kategorie: ['kultura'],
+    podkategoria: 'architektura',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'promenada-nad-grajcarkiem',
+    nazwa: 'Promenada nad Grajcarkiem',
+    kategorie: ['rodziny', 'aktywnie'],
+    podkategoria: 'spacery',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'palenica',
+    nazwa: 'Palenica',
+    kategorie: ['przyroda', 'rodziny'],
+    podkategoria: 'punkty-widokowe',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'trasy-narciarskie-palenica',
+    nazwa: 'Trasy narciarskie na Palenicy',
+    kategorie: ['zima'],
+    podkategoria: 'narty',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'przystan-flisacka-sromowce-nizne',
+    nazwa: 'Przystań flisacka w Sromowcach Niżnych',
+    kategorie: ['woda'],
+    podkategoria: 'przystanie',
+    lokalizacja: 'sromowce',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'rafting-na-dunajcu',
+    nazwa: 'Rafting na Dunajcu',
+    kategorie: ['woda', 'aktywnie'],
+    podkategoria: 'splywy',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'kajaki-na-dunajcu',
+    nazwa: 'Kajaki na Dunajcu',
+    kategorie: ['woda', 'aktywnie'],
+    podkategoria: 'splywy',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'przeprawa-przez-dunajec',
+    nazwa: 'Przeprawa przez Dunajec',
+    kategorie: ['woda'],
+    podkategoria: 'przeprawy',
+    lokalizacja: 'sromowce',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'wedkarstwo',
+    nazwa: 'Wędkarstwo',
+    kategorie: ['woda', 'aktywnie'],
+    podkategoria: 'wedkarstwo',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'off-road',
+    nazwa: 'Off-road',
+    kategorie: ['aktywnie'],
+    podkategoria: 'off-road',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'paintball',
+    nazwa: 'Paintball',
+    kategorie: ['aktywnie'],
+    podkategoria: 'paintball',
+    lokalizacja: 'szczawnica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'kuligi',
+    nazwa: 'Kuligi',
+    kategorie: ['aktywnie', 'zima'],
+    podkategoria: 'jazda-konna',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'warsztaty-lokalne',
+    nazwa: 'Lokalne warsztaty',
+    kategorie: ['aktywnie', 'kultura'],
+    podkategoria: 'warsztaty',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'degustacje-regionalne',
+    nazwa: 'Degustacje produktów regionalnych',
+    kategorie: ['aktywnie', 'kultura'],
+    podkategoria: 'warsztaty',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'wypozyczalnie-rowerow',
+    nazwa: 'Wypożyczalnie rowerów',
+    kategorie: ['aktywnie'],
+    podkategoria: 'rowery',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'rynek-w-kroscienku',
+    nazwa: 'Rynek w Krościenku',
+    kategorie: ['kultura'],
+    podkategoria: 'architektura',
+    lokalizacja: 'kroscienko',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'przystan-kajakowa-kroscienko',
+    nazwa: 'Przystań kajakowa w Krościenku',
+    kategorie: ['woda', 'aktywnie'],
+    podkategoria: 'przystanie',
+    lokalizacja: 'kroscienko',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'park-linowy-kroscienko',
+    nazwa: 'Park linowy w Krościenku',
+    kategorie: ['rodziny', 'aktywnie'],
+    podkategoria: 'rozrywka',
+    lokalizacja: 'kroscienko',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'plaza-nad-jeziorem-czorsztynskim',
+    nazwa: 'Plaża nad Jeziorem Czorsztyńskim',
+    kategorie: ['woda', 'rodziny'],
+    podkategoria: 'plaze',
+    lokalizacja: 'czorsztyn',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'plaza-w-niedzicy',
+    nazwa: 'Plaża w Niedzicy',
+    kategorie: ['woda', 'rodziny'],
+    podkategoria: 'plaze',
+    lokalizacja: 'niedzica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'elektrownia-wodna-niedzica',
+    nazwa: 'Elektrownia wodna w Niedzicy',
+    kategorie: ['kultura'],
+    podkategoria: 'technika',
+    lokalizacja: 'niedzica',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'czerwony-klasztor',
+    nazwa: 'Czerwony Klasztor',
+    kategorie: ['kultura'],
+    podkategoria: 'muzea',
+    lokalizacja: 'slowacja',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'muzyczna-owczarnia',
+    nazwa: 'Muzyczna Owczarnia',
+    kategorie: ['kultura'],
+    podkategoria: 'muzyka',
+    lokalizacja: 'jaworki',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'bacowki-regionalne',
+    nazwa: 'Bacówki regionalne',
+    kategorie: ['kultura', 'aktywnie'],
+    podkategoria: 'warsztaty',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'ogniska',
+    nazwa: 'Ogniska',
+    kategorie: ['zima', 'rodziny'],
+    podkategoria: 'rozrywka',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'skutery-sniezne',
+    nazwa: 'Skutery śnieżne',
+    kategorie: ['zima', 'aktywnie'],
+    podkategoria: 'skutery',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'trasy-skiturowe',
+    nazwa: 'Trasy skiturowe',
+    kategorie: ['zima', 'aktywnie'],
+    podkategoria: 'skitury',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
+  {
+    slug: 'szkolki-narciarskie',
+    nazwa: 'Szkółki narciarskie',
+    kategorie: ['zima', 'rodziny'],
+    podkategoria: 'narty',
+    lokalizacja: 'pieniny',
+    skrot: '',
+    opis: [],
+  },
 ]
 
 export function znajdzAtrakcjeTurystyczna(slug: string): AtrakcjaTurystyczna | null {
   return ATRAKCJE_TURYSTYCZNE.find((atrakcja) => atrakcja.slug === slug) ?? null
 }
 
-export function atrakcjeWGrupie(grupa: GrupaAtrakcji): AtrakcjaTurystyczna[] {
-  return ATRAKCJE_TURYSTYCZNE.filter((atrakcja) => atrakcja.grupa === grupa)
+/** Atrakcje w kategorii, wyróżnione na początku. */
+export function atrakcjeWKategorii(kategoria: KategoriaAtrakcji): AtrakcjaTurystyczna[] {
+  return ATRAKCJE_TURYSTYCZNE.filter((a) => a.kategorie.includes(kategoria)).sort(
+    (a, b) => Number(b.wyrozniona ?? false) - Number(a.wyrozniona ?? false),
+  )
+}
+
+/** Czy atrakcja ma cokolwiek do pokazania poza nazwą. */
+export function maTresc(atrakcja: AtrakcjaTurystyczna): boolean {
+  return atrakcja.skrot.length > 0 || atrakcja.opis.length > 0
+}
+
+/**
+ * Miejsce atrakcji w formie do pokazania.
+ *
+ * `miejscowosc` jest doprecyzowaniem tam, gdzie sama nazwa gminy to za mało
+ * („Sromowce Wyżne — Szczawnica" przy spływie). Gdy go nie ma, wystarczy nazwa
+ * lokalizacji z filtra — nie powtarzamy jej w każdym rekordzie.
+ */
+export function miejsceAtrakcji(atrakcja: AtrakcjaTurystyczna): string {
+  return atrakcja.miejscowosc ?? nazwaLokalizacji(atrakcja.lokalizacja)
 }

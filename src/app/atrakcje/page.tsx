@@ -2,39 +2,46 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Mountain } from 'lucide-react'
 
+import { FiltryAtrakcji } from '@/components/atrakcje/filtry-atrakcji'
 import { KartaAtrakcji } from '@/components/atrakcje/karta-atrakcji'
-import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
+import { PartnerKategorii } from '@/components/atrakcje/partner-kategorii'
 import { pobierzAtrakcje } from '@/lib/dane/zrodlo'
 import { PORTAL } from '@/lib/konfiguracja'
-import {
-  ATRAKCJE_TURYSTYCZNE,
-  GRUPY_ATRAKCJI,
-  atrakcjeWGrupie,
-} from '@/lib/tresc/atrakcje-turystyczne'
+import { ATRAKCJE_TURYSTYCZNE, atrakcjeWKategorii } from '@/lib/tresc/atrakcje-turystyczne'
+import { KATEGORIE_ATRAKCJI } from '@/lib/tresc/kategorie-atrakcji'
 
 export const metadata: Metadata = {
   title: 'Atrakcje Pienin',
   description:
-    'Spływ Dunajcem, Wąwóz Homole, zamki w Niedzicy i Czorsztynie, pijalnia wód ' +
-    'mineralnych, zjeżdżalnie grawitacyjne — atrakcje Szczawnicy, Krościenka ' +
-    'i okolic, każda z opisem, lokalizacją i dojazdem.',
+    'Spływ Dunajcem, Wąwóz Homole, zamki w Niedzicy i Czorsztynie, pijalnia wód, ' +
+    'wyciągi i trasy narciarskie — katalog atrakcji Szczawnicy, Jaworek, Krościenka ' +
+    'i całych Pienin, z filtrowaniem po kategorii i miejscowości.',
   alternates: { canonical: '/atrakcje' },
 }
 
 /**
- * Lista atrakcji.
+ * Katalog atrakcji.
  *
- * Jedna kolumna szerokich kart zamiast siatki miniatur. Powód jest prosty:
- * większość atrakcji nie ma jeszcze zdjęcia, a siatka dwudziestu czterech
- * kafelków bez zdjęć to dwadzieścia cztery prostokąty do przeskanowania
- * i żadnej podpowiedzi, gdzie się zatrzymać. Szeroka karta daje miejsce na
- * dwa zdania opisu — a to one decydują o kliknięciu.
+ * **Kategoria przed miejscowością.** Turysta pyta najpierw „co mogę robić",
+ * a dopiero potem „gdzie to jest". Dlatego sekcjami są kategorie, a miejscowość
+ * jest filtrem — odwrotny układ zmuszałby do przeglądania sześciu miejscowości,
+ * żeby znaleźć wszystkie miejsca dla dzieci.
  *
- * Pasmo szczytów zostało stąd zdjęte; mieszka na stronie głównej i nie ma
- * powodu, żeby stało w dwóch miejscach.
+ * **Wszystko renderuje się na serwerze, filtruje po stronie przeglądarki.**
+ * Karty są w gotowym HTML-u, więc wyszukiwarka widzi komplet atrakcji, a nie
+ * pustą stronę czekającą na JavaScript. Filtry tylko chowają to, co odpadło.
+ *
+ * **Atrakcja może być w kilku kategoriach i pojawi się w kilku sekcjach.**
+ * To nie jest duplikat: rekord jest jeden, `slug` jeden, strona szczegółowa
+ * jedna. Kuligi są zimowe i aktywne naraz i szukający w obu kategoriach ma
+ * prawo je znaleźć.
  */
 export default function StronaAtrakcji() {
-  const grupyZTrescia = GRUPY_ATRAKCJI.filter((g) => atrakcjeWGrupie(g.klucz).length > 0)
+  const kategorieZTrescia = KATEGORIE_ATRAKCJI.map((kategoria) => ({
+    ...kategoria,
+    atrakcje: atrakcjeWKategorii(kategoria.klucz),
+  })).filter((kategoria) => kategoria.atrakcje.length > 0)
+
   const liczbaSzczytow = pobierzAtrakcje().filter((a) => a.typ === 'szczyt').length
 
   const daneOkruszkow = {
@@ -46,8 +53,6 @@ export default function StronaAtrakcji() {
     ],
   }
 
-  let licznik = 0
-
   return (
     <>
       <script
@@ -55,79 +60,87 @@ export default function StronaAtrakcji() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(daneOkruszkow) }}
       />
 
-      <NaglowekStrony
-        okruszki={[{ nazwa: 'Atrakcje', adres: '/atrakcje' }]}
-        tytul="Atrakcje Pienin"
-        tytulOpis="Co zobaczyć w Szczawnicy, Krościenku i okolicy"
-        lead={`${ATRAKCJE_TURYSTYCZNE.length} miejsc, od spływu Dunajcem po zamki nad jeziorem. Każde z opisem, lokalizacją i informacją, kiedy warto się tam wybrać.`}
-        dodatek={
-          <ul className="flex flex-wrap gap-2">
-            {grupyZTrescia.map((grupa) => (
-              <li key={grupa.klucz}>
-                <a
-                  href={`#${grupa.klucz}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-kamien-300 bg-white px-4 py-2 text-sm font-medium text-kamien-700 transition-colors hover:border-las-500 hover:bg-las-50 hover:text-las-800"
-                >
-                  {grupa.nazwa}
-                  <span className="text-xs text-kamien-400">
-                    {atrakcjeWGrupie(grupa.klucz).length}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        }
-      />
+      {/* ── Hero ────────────────────────────────────────────────────────────
+          Celowo niski. Katalog ma pięćdziesiąt siedem pozycji i każdy
+          dodatkowy ekran nagłówka to jeden ekran mniej dla nich. */}
+      <header className="bg-kamien-50 py-10 lg:py-14">
+        <div className="obszar">
+          <nav aria-label="Okruszki" className="text-sm text-kamien-500">
+            <Link href="/" className="hover:text-las-700">
+              Start
+            </Link>
+            <span aria-hidden className="mx-2">
+              /
+            </span>
+            <span className="text-kamien-700">Atrakcje</span>
+          </nav>
 
-      <div className="obszar py-14 lg:py-20">
-        <div className="space-y-20 lg:space-y-24">
-          {grupyZTrescia.map((grupa) => {
-            const wGrupie = atrakcjeWGrupie(grupa.klucz)
-
-            return (
-              <section key={grupa.klucz} id={grupa.klucz} className="scroll-mt-28">
-                <div className="border-b border-kamien-200 pb-6">
-                  <h2 className="font-plakat text-[clamp(1.8rem,3.6vw,2.6rem)] uppercase leading-none text-kamien-900">
-                    {grupa.nazwa}
-                  </h2>
-                  <p className="mt-3 max-w-[64ch] text-lg leading-relaxed text-kamien-600">
-                    {grupa.opis}
-                  </p>
-                </div>
-
-                {/* Jedna kolumna na każdej szerokości — świadomie, nie z braku
-                    pomysłu. Siatka wracałaby do tego samego problemu. */}
-                <div className="mt-8 space-y-6">
-                  {wGrupie.map((atrakcja) => {
-                    licznik += 1
-                    return (
-                      <KartaAtrakcji
-                        key={atrakcja.slug}
-                        atrakcja={atrakcja}
-                        priorytet={licznik <= 2}
-                      />
-                    )
-                  })}
-                </div>
-              </section>
-            )
-          })}
+          <h1 className="mt-4 text-tytul font-semibold text-kamien-900">Atrakcje Pienin</h1>
+          <p className="mt-3 max-w-[60ch] text-prowadzacy text-kamien-600">
+            Odkryj najciekawsze miejsca, atrakcje i aktywności w Szczawnicy i całych
+            Pieninach.
+          </p>
         </div>
+      </header>
 
-        {/* Szczyty mają własne strony, ale pasmo mieszka na stronie głównej.
-            Zamiast powielać moduł, zostawiamy jedno zdanie z odnośnikiem. */}
-        <aside className="mt-20 rounded-2xl border border-kamien-200 bg-kamien-50 p-8 text-center">
-          <Mountain className="mx-auto size-6 text-las-600" aria-hidden />
-          <p className="mt-3 text-lg text-kamien-700">
-            Opisaliśmy też {liczbaSzczytow} szczytów, na które prowadzą nasze trasy.
+      {/* Pasek filtrów przykleja się pod nagłówkiem strony — przy siedmiu
+          sekcjach zmiana kategorii bez przewijania na górę jest różnicą między
+          narzędziem a listą. */}
+      <div className="sticky top-[4.5rem] z-30 sm:top-24">
+        <FiltryAtrakcji
+          pozycje={ATRAKCJE_TURYSTYCZNE.map((a) => ({
+            kategorie: a.kategorie,
+            lokalizacja: a.lokalizacja,
+          }))}
+        />
+      </div>
+
+      <div id="katalog-atrakcji" className="obszar py-10 lg:py-14">
+        {kategorieZTrescia.map((kategoria) => (
+          <section key={kategoria.klucz} id={kategoria.klucz} className="mb-12 scroll-mt-56">
+            <div className="mb-5">
+              <h2 className="font-heading text-2xl font-semibold text-kamien-900">
+                {kategoria.nazwa}
+              </h2>
+              <p className="mt-1 max-w-[70ch] text-sm text-kamien-600">{kategoria.opis}</p>
+            </div>
+
+            {/* Nie renderuje niczego, dopóki kategoria nie ma partnera. */}
+            <PartnerKategorii kategoria={kategoria.klucz} />
+
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {kategoria.atrakcje.map((atrakcja) => (
+                <li
+                  key={atrakcja.slug}
+                  /* Atrybuty czytane przez filtry. Kategorie rozdzielone spacją,
+                     żeby dało się je dopasować selektorem `~=`. */
+                  data-kategorie={atrakcja.kategorie.join(' ')}
+                  data-lokalizacja={atrakcja.lokalizacja}
+                >
+                  <KartaAtrakcji atrakcja={atrakcja} kategoriaSekcji={kategoria.klucz} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+
+        <section className="rounded-2xl border border-kamien-200 bg-kamien-50 p-6 sm:p-8">
+          <h2 className="flex items-center gap-2.5 font-heading text-xl font-semibold text-kamien-900">
+            <Mountain className="size-5 text-las-600" aria-hidden />
+            Szczyty i punkty widokowe
+          </h2>
+          <p className="mt-2 max-w-[70ch] text-sm leading-relaxed text-kamien-600">
+            Szczyty opisujemy przy trasach, które na nie prowadzą — jest ich{' '}
+            {liczbaSzczytow}, każdy z czasem dojścia i punktami po drodze. Znajdziesz
+            je na stronie głównej i przy poszczególnych szlakach.
           </p>
           <Link
-            href="/"
-            className="mt-4 inline-flex items-center gap-2 rounded-full border border-kamien-300 bg-white px-5 py-2.5 text-sm font-medium text-kamien-800 transition-colors hover:border-las-500 hover:bg-las-50 hover:text-las-800"
+            href="/szlaki"
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-kamien-300 bg-white px-5 py-2.5 text-sm font-medium text-kamien-800 transition-colors hover:border-las-500 hover:bg-las-50"
           >
-            Zobacz pasmo szczytów
+            Przeglądaj trasy
           </Link>
-        </aside>
+        </section>
       </div>
     </>
   )

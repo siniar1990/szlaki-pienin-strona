@@ -15,10 +15,11 @@ import {
 } from '@/lib/dane/zrodlo'
 import { etykietaTypu, kolorTypu, metry } from '@/lib/format'
 import { PORTAL, ZRODLA } from '@/lib/konfiguracja'
+import { nazwaKategorii, nazwaLokalizacji } from '@/lib/tresc/kategorie-atrakcji'
 import {
   ATRAKCJE_TURYSTYCZNE,
-  GRUPY_ATRAKCJI,
   type AtrakcjaTurystyczna,
+  miejsceAtrakcji,
   znajdzAtrakcjeTurystyczna,
 } from '@/lib/tresc/atrakcje-turystyczne'
 
@@ -56,11 +57,11 @@ export async function generateMetadata({
   if (zKatalogu) {
     return {
       title: zKatalogu.nazwa,
-      description: `${zKatalogu.miejscowosc}. ${zKatalogu.skrot}`.slice(0, 300),
+      description: `${miejsceAtrakcji(zKatalogu)}. ${zKatalogu.skrot}`.slice(0, 300),
       alternates: { canonical: `/atrakcje/${zKatalogu.slug}` },
       openGraph: {
         type: 'article',
-        title: `${zKatalogu.nazwa} — ${zKatalogu.miejscowosc}`,
+        title: `${zKatalogu.nazwa} — ${miejsceAtrakcji(zKatalogu)}`,
         description: zKatalogu.skrot,
         url: `${PORTAL.adres}/atrakcje/${zKatalogu.slug}`,
       },
@@ -108,10 +109,20 @@ export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[s
 /* ── Atrakcja z katalogu redakcyjnego ────────────────────────────────────── */
 
 function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
-  const grupa = GRUPY_ATRAKCJI.find((g) => g.klucz === atrakcja.grupa)
-  const pokrewne = ATRAKCJE_TURYSTYCZNE.filter(
-    (inna) => inna.grupa === atrakcja.grupa && inna.slug !== atrakcja.slug,
-  ).slice(0, 3)
+  const kategoria = atrakcja.kategorie[0]
+  /*
+    Pokrewne szukamy najpierw w tej samej kategorii i tej samej miejscowości —
+    „co jeszcze mogę zrobić tutaj" jest częstszym pytaniem niż „co jeszcze jest
+    w tej kategorii w całych Pieninach". Gdy w okolicy nic nie ma, dobieramy
+    z kategorii bez względu na miejsce.
+  */
+  const wKategorii = ATRAKCJE_TURYSTYCZNE.filter(
+    (inna) => inna.slug !== atrakcja.slug && inna.kategorie.includes(kategoria),
+  )
+  const pokrewne = [
+    ...wKategorii.filter((inna) => inna.lokalizacja === atrakcja.lokalizacja),
+    ...wKategorii.filter((inna) => inna.lokalizacja !== atrakcja.lokalizacja),
+  ].slice(0, 3)
 
   const dane = [
     {
@@ -122,7 +133,7 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
       url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
       address: {
         '@type': 'PostalAddress',
-        addressLocality: atrakcja.miejscowosc,
+        addressLocality: miejsceAtrakcji(atrakcja),
         addressRegion: 'małopolskie',
         addressCountry: 'PL',
       },
@@ -162,11 +173,11 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
           <div className="flex flex-wrap gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-kamien-300 bg-white px-3.5 py-1.5 text-sm text-kamien-700">
               <MapPin className="size-3.5" aria-hidden />
-              {atrakcja.miejscowosc}
+              {miejsceAtrakcji(atrakcja)}
             </span>
-            {grupa && (
+            {kategoria && (
               <span className="rounded-full border border-kamien-300 bg-white px-3.5 py-1.5 text-sm text-kamien-700">
-                {grupa.nazwa}
+                {nazwaKategorii(kategoria)}
               </span>
             )}
             {atrakcja.sezon && (
@@ -181,9 +192,21 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
 
       <div className="obszar py-14 lg:py-20">
         <div className="max-w-[68ch] space-y-5 text-[1.0625rem] leading-[1.75] text-kamien-700">
-          {atrakcja.opis.map((akapit) => (
-            <p key={akapit.slice(0, 40)}>{akapit}</p>
-          ))}
+          {atrakcja.opis.length > 0 ? (
+            atrakcja.opis.map((akapit) => <p key={akapit.slice(0, 40)}>{akapit}</p>)
+          ) : (
+            /*
+              Brak opisu mówimy wprost, zamiast zostawiać pustą stronę.
+              Alternatywą byłoby dopisanie kilku ogólnych zdań o tym, że
+              „to popularna atrakcja w Pieninach" — czyli tekstu, który nic nie
+              wnosi, a wygląda na treść. Puste miejsce z uczciwym zdaniem jest
+              lepsze: czytelnik wie, na czym stoi, a my wiemy, co uzupełnić.
+            */
+            <p className="rounded-2xl border border-dashed border-kamien-300 px-6 py-5 text-kamien-500">
+              Opisu tej atrakcji jeszcze nie przygotowaliśmy. Wolimy zostawić to
+              miejsce puste, niż wpisać zdania, których nie sprawdziliśmy.
+            </p>
+          )}
         </div>
 
         {/*
@@ -204,7 +227,7 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
         {pokrewne.length > 0 && (
           <section className="mt-20 border-t border-kamien-200 pt-14">
             <h2 className="text-sekcja font-semibold text-kamien-900">
-              {grupa?.nazwa ?? 'Podobne atrakcje'}
+              {kategoria ? nazwaKategorii(kategoria) : 'Podobne atrakcje'}
             </h2>
             <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {pokrewne.map((inna) => (
