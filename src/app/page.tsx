@@ -3,12 +3,13 @@ import { ArrowUpRight, Map as MapIcon, Sparkles } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
+import { KafelkiWyzwan } from '@/components/glowna/kafelki-wyzwan'
 import { PasmoMalowane } from '@/components/glowna/pasmo-malowane'
 import { MakietaTelefonu } from '@/components/glowna/makieta-telefonu'
 import { Powitanie } from '@/components/glowna/powitanie'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
-import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy } from '@/lib/dane/zrodlo'
+import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { liczba } from '@/lib/format'
 
 /**
@@ -34,6 +35,27 @@ export default function StronaGlowna() {
   const kategorieNaSiatce = KATEGORIE_APLIKACJI.filter(
     (kategoria) => kategoria.slug !== 'korony-pienin',
   )
+
+  /*
+    Pienińskie wyzwania na kafelki.
+
+    Bierzemy tylko dostępne — w danych aplikacji czeka jeszcze „Mała i Wielka
+    Korona Pienin" z `dostepne: false` i bez żadnej treści. Kafelek prowadzący
+    na pustą stronę byłby gorszy niż jego brak.
+
+    Ilustracja i długość pochodzą z tej samej trasy, którą wyzwanie wskazuje
+    przez `id_trasy` — nie przepisujemy ich drugi raz obok.
+  */
+  const wyzwaniaNaKafelki = pobierzWyzwania()
+    .filter((wyzwanie) => wyzwanie.dostepne)
+    .map((wyzwanie) => {
+      const trasa = wyzwanie.idTrasy ? trasy.find((t) => t.id === wyzwanie.idTrasy) : undefined
+      return {
+        wyzwanie,
+        ilustracja: trasa?.ilustracja ?? null,
+        dlugoscKm: trasa?.dlugoscKm ?? null,
+      }
+    })
 
   // Szczyty do malowanego pasma — od najwyższego w dół.
   const szczytyNaKarty = pobierzAtrakcje()
@@ -70,6 +92,27 @@ export default function StronaGlowna() {
               liczba={(kategoria) => trasy.filter(kategoria.pasuje).length}
             />
           </div>
+
+          {/*
+            Wyzwania osobnym rzędem pod kategoriami, a nie wmieszane między nie.
+            Kategoria to zbiór tras do przeglądania, wyzwanie to jedna trasa
+            z regulaminem i odznaką — wrzucone do jednej siatki sugerowałyby, że
+            po kliknięciu stanie się to samo, a nie stanie się.
+          */}
+          {wyzwaniaNaKafelki.length > 0 && (
+            <div className="mt-16 border-t border-kamien-200 pt-12">
+              <h3 className="font-heading text-xl font-semibold text-kamien-900">
+                Pienińskie wyzwania
+              </h3>
+              <p className="mt-2 max-w-[65ch] text-kamien-600">
+                Odznaki turystyczne PTTK Szczawnica. Każda to jedna trasa do
+                przejścia w ciągu jednego dnia, z regulaminem i odznaką na koniec.
+              </p>
+              <div className="mt-8">
+                <KafelkiWyzwan wyzwania={wyzwaniaNaKafelki} />
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -114,8 +157,8 @@ export default function StronaGlowna() {
           </div>
 
           <MakietaTelefonu
-            zrzut="/marka/aplikacja/nawigacja.webp"
-            opis="Ekran nawigacji w aplikacji Szlaki Pienin: mapa Szczawnicy ze śladem trasy, najbliższe wejście na szlak i pozostały dystans"
+            zrzut="/marka/aplikacja/profil.webp"
+            opis="Nawigacja w aplikacji Szlaki Pienin: ślad trasy na mapie z warstwicami, rozwinięty profil wysokości z punktami etapowymi oraz wskazówka na najbliższy zakręt"
           />
         </div>
       </section>

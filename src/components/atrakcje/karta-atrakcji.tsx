@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight, CalendarRange, MapPin } from 'lucide-react'
 
 import { IlustracjaKategorii } from '@/components/atrakcje/ilustracja-kategorii'
+import { podpisZdjecia } from '@/lib/dane/podpisy-zdjec'
 import { zdjecieAtrakcji } from '@/lib/dane/zdjecia-atrakcji'
 import { GRUPY_ATRAKCJI, type AtrakcjaTurystyczna } from '@/lib/tresc/atrakcje-turystyczne'
 
@@ -27,6 +28,8 @@ export function KartaAtrakcji({
   priorytet?: boolean
 }) {
   const zdjecie = zdjecieAtrakcji(atrakcja.slug)
+  // Podpis tylko przy zdjęciu z Commons — nasze własne go nie potrzebują.
+  const podpis = zdjecie ? podpisZdjecia(atrakcja.slug) : null
   const grupa = GRUPY_ATRAKCJI.find((g) => g.klucz === atrakcja.grupa)
 
   return (
@@ -49,6 +52,31 @@ export function KartaAtrakcji({
               id={atrakcja.slug}
               className="absolute inset-0 size-full transition-transform duration-500 group-hover:scale-[1.04]"
             />
+          )}
+
+          {/*
+            Podpis autora na samym zdjęciu, nie pod kartą.
+
+            Licencje Creative Commons BY i BY-SA wymagają podania autora
+            i odnośnika do źródła — bez nich użycie zdjęcia jest naruszeniem,
+            a nie niedopatrzeniem. Podpis siedzi więc tam, gdzie nie da się go
+            zgubić przy zmianie układu karty: w rogu kadru, który opisuje.
+
+            Mały i przygaszony, żeby nie walczył o uwagę z treścią, ale
+            czytelny — na to jest ciemna podkładka, bo zdjęcia bywają jasne
+            w rogu.
+          */}
+          {podpis && (
+            <p className="absolute bottom-0 right-0 z-10 max-w-full truncate rounded-tl-lg bg-kamien-950/55 px-2 py-1 text-[10px] leading-tight text-white/85 backdrop-blur-sm">
+              <a
+                href={podpis.strona}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="hover:text-white hover:underline"
+              >
+                fot. {podpis.autor} · {podpis.licencja}
+              </a>
+            </p>
           )}
         </div>
 

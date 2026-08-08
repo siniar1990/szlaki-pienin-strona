@@ -1,0 +1,181 @@
+{
+  "_uwaga": "Metryka (29,1 km, 935 m) pochodzi z NASZEGO pomiaru dostarczonego śladu, nie z regulaminu — regulaminowego PDF-a nie dało się odczytać maszynowo. Po uzyskaniu oficjalnych liczb należy je wpisać w konfiguracji i przebudować trasę.",
+  "id": "SZMARAGD",
+  "nazwa": "Szmaragd Dunajca",
+  "kategoria": "wyzwania",
+  "dlugosc_km": 29.1,
+  "suma_podejsc_m": {
+    "tam": 935,
+    "powrot": 935
+  },
+  "czas_min": {
+    "tam": 530,
+    "powrot": 530
+  },
+  "kcal": {
+    "70kg": 1611,
+    "80kg": 1841,
+    "90kg": 2072
+  },
+  "granica": true,
+  "szlaki": [
+    "zielony",
+    "niebieski",
+    "zolty",
+    "czerwony"
+  ],
+  "pttk": true,
+  "petla": false,
+  "opis": "Dla poszukiwaczy harmonii między słońcem a wodą. Trasa wiedzie wzdłuż naturalnej granicy Pienin i łączy panoramiczne połoniny z kojącym szumem rzeki. To wyzwanie transgraniczne — wymaga nie tylko kondycji, ale i wrażliwości na różnorodność kulturową pogranicza. Szlak prowadzi od skalnych wąwozów Jaworek, przez słowackie kopce, aż po finał w sercu uzdrowiskowej Szczawnicy.\n\nTrasa jest zróżnicowana i długa: łączy klasyczny trekking grzbietowy z łagodniejszymi odcinkami dolinnymi. Trzeba pokonać znaczną odległość w ciągu jednego dnia, dlatego kluczowe jest rozłożenie sił — od wprowadzającego podejścia na grzbiet Małych Pienin, przez ścieżki w stronę Słowacji, aż po długi marsz wzdłuż Dunajca.\n\nDwa kraje w jeden dzień i spektakularne kontrasty: rano podziwiasz Tatry z wysokich hal, po południu dotykasz tafli Dunajca w głębokim wąwozie. Szlak pozwala wrócić do Szczawnicy pieszo, zamykając wielką pętlę pienińskich doznań.",
+  "ostrzezenia": [
+    "Trasa przekracza granicę państwa. Miej przy sobie dowód osobisty lub paszport.",
+    "Odcinek od Wysokiego Wierchu do Czerwonego Klasztoru bywa mocno nasłoneczniony — zabierz odpowiedni zapas wody.",
+    "Sprawdź godziny otwarcia Wąwozu Homole i Drogi Pienińskiej, zwłaszcza poza sezonem letnim.",
+    "Blisko 30 km i ponad 900 m podejść w jeden dzień — wyrusz rano."
+  ],
+  "geometry": "assets/trasy/gpx/SZMARAGD.geojson",
+  "punkty": [
+    {
+      "nazwa": "Jaworki, ul. Pod Homolami",
+      "typ": "inny",
+      "coord": [
+        20.5475,
+        49.40598
+      ],
+      "czas_narast_min": {
+        "tam": 0,
+        "powrot": 0
+      }
+    },
+    {
+      "nazwa": "Wejście do Wąwozu Homole",
+      "typ": "atrakcja",
+      "coord": [
+        20.54898,
+        49.40235
+      ],
+      "czas_narast_min": {
+        "tam": 9,
+        "powrot": 0
+      },
+      "wysokosc_m": 640
+    },
+    {
+      "nazwa": "Wysoki Wierch",
+      "typ": "szczyt",
+      "coord": [
+        20.51388,
+        49.39326
+      ],
+      "czas_narast_min": {
+        "tam": 143,
+        "powrot": 0
+      },
+      "wysokosc_m": 899
+    },
+    {
+      "nazwa": "Czerwony Klasztor",
+      "typ": "muzeum",
+      "coord": [
+        20.41704,
+        49.39867
+      ],
+      "czas_narast_min": {
+        "tam": 308,
+        "powrot": 0
+      },
+      "wysokosc_m": 475
+    },
+    {
+      "nazwa": "Ujście Potoku Leśnickiego",
+      "typ": "przejscie_graniczne",
+      "coord": [
+        20.45024,
+        49.41398
+      ],
+      "czas_narast_min": {
+        "tam": 422,
+        "powrot": 0
+      },
+      "wysokosc_m": 449
+    },
+    {
+      "nazwa": "Szafranówka",
+      "typ": "szczyt",
+      "coord": [
+        20.4761,
+        49.41412
+      ],
+      "czas_narast_min": {
+        "tam": 499,
+        "powrot": 0
+      },
+      "wysokosc_m": 742
+    },
+    {
+      "nazwa": "Szczawnica",
+      "typ": "inny",
+      "coord": [
+        20.48032,
+        49.42531
+      ],
+      "czas_narast_min": {
+        "tam": 530,
+        "powrot": 0
+      }
+    }
+  ],
+  "segmenty_opisu": [
+    {
+      "od": "Jaworki, ul. Pod Homolami",
+      "do": "Wejście do Wąwozu Homole",
+      "tekst": "Start spod Homoli. Pierwsze pół kilometra to dojście do wejścia w wąwóz — skalny kanion pełen form krasowych, jedno z najbardziej fotogenicznych miejsc w Polsce."
+    },
+    {
+      "od": "Wejście do Wąwozu Homole",
+      "do": "Wysoki Wierch",
+      "tekst": "Wąwozem w górę, a potem na grzbiet Małych Pienin. To główne podejście dnia i ono ustawia tempo reszty. Z Wysokiego Wierchu (899 m) przy dobrej pogodzie widać naraz Tatry, Pieniny i Beskid Sądecki."
+    },
+    {
+      "od": "Wysoki Wierch",
+      "do": "Czerwony Klasztor",
+      "tekst": "Zejście granią na stronę słowacką, w stronę Dunajca. Odcinek jest długi i mocno nasłoneczniony — tu wypija się większość zabranej wody. Czerwony Klasztor u stóp Trzech Koron to historyczna perła: klasztor kamedułów i legenda o Mnichu Cyprianie."
+    },
+    {
+      "od": "Czerwony Klasztor",
+      "do": "Ujście Potoku Leśnickiego",
+      "tekst": "Drogą Pienińską wzdłuż Przełomu Dunajca — pionowe ściany skalne górują nad nurtem rzeki, a ścieżka biegnie tuż przy wodzie. Najłatwiejszy odcinek trasy i najlepszy moment, żeby zwolnić."
+    },
+    {
+      "od": "Ujście Potoku Leśnickiego",
+      "do": "Szafranówka",
+      "tekst": "Powrót na polską stronę i ostatnie podejście dnia. Szafranówka (742 m) daje szeroką panoramę na dolinę Grajcarka — stąd widać już metę."
+    },
+    {
+      "od": "Szafranówka",
+      "do": "Szczawnica",
+      "tekst": "Zejście żółtym szlakiem do Szczawnicy. Po blisko trzydziestu kilometrach ostatnie zakosy do promenady idą wolniej, niż wynikałoby z mapy."
+    }
+  ],
+  "ramki": [
+    {
+      "coord": [
+        20.5475,
+        49.40598
+      ],
+      "tytul": "Dwa kraje w jeden dzień",
+      "tekst": "Trasa przechodzi na słowacką stronę i wraca. Dokument tożsamości nie jest formalnością do odhaczenia — bez niego kontrola kończy się mandatem."
+    },
+    {
+      "coord": [
+        20.4761,
+        49.41412
+      ],
+      "tytul": "Postój w Leśnicy",
+      "tekst": "Ostatnie miejsce przed finałowym podejściem na Szafranówkę, gdzie da się usiąść i dokupić wodę. Dalej zostaje już tylko grzbiet i zejście do Szczawnicy."
+    }
+  ],
+  "zdjecia": [],
+  "_zrodlo_geometrii": "Ślad GPX: PTTK Szczawnica (mapy.com)",
+  "_zrodlo_czasow": "Naismith z metryki regulaminowej; rozkład czasu wzdłuż śladu wg dystansu i podejść."
+}

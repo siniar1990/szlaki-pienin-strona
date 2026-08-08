@@ -1,79 +1,107 @@
 {
-  "_zrodlo": "PTTK Szczawnica — regulaminy odznak, pttkszczawnica.pl",
-  "wyzwania": [
-    {
-      "id": "diament",
-      "nazwa": "Diament Pienin",
-      "podtytul": "Całe Pieniny w jeden dzień",
-      "kolejnosc": 1,
-      "dostepne": true,
-      "id_trasy": "DIAMENT",
-      "odznaka": "assets/wyzwania/diament.png",
-      "film": "assets/wideo/diament.mp4",
-      "regulamin": "https://pttkszczawnica.pl/wp-content/uploads/2025/10/diament-pienin-regulamin.pdf",
-      "okres": "od 15 kwietnia do 31 października",
-      "haslo": "Rozpocznij o wschodzie, zakończ o zachodzie — podążaj za słońcem.",
-      "akapity": [
-        "Pieniny Małe, Pieniny Właściwe i Pieniny Spiskie w jeden dzień? Nic piękniejszego, nic bardziej esencjonalnego. Rozpocznij o wschodzie, zakończ o zachodzie, podążaj za słońcem. Epicka, choć wymagająca trasa dla wprawionych piechurów czeka na kolejnych śmiałków.",
-        "Odznaka Diament Pienin to najwyższy stopień wśród pienińskich wyróżnień turystycznych. Przyznawana jest za przejście całego pasma Pienin od wschodu na zachód, obejmującego Pieniny Małe, Właściwe i Spiskie. Aby zdobyć odznakę, należy zaliczyć wszystkie najważniejsze szczyty pasma, m.in.: Wysoką (1050 m), Durbaszkę, Wysoki Wierch, Sokolicę, Czertezik, Trzy Korony (982 m), Zamkową Górę oraz Żar w Pieninach Spiskich.",
-        "Szlak prowadzi przez najpiękniejsze fragmenty Pienin – od malowniczych polan i grani po przełom Dunajca – ukazując pełne bogactwo przyrody i krajobrazu tego wyjątkowego regionu. Do pokonania jest około 50,5 km oraz ↑2052 m podejść. Pokonanie tej odległości w jednym dniu dla wielu z nas jest nie lada wyzwaniem. I właśnie dla tych, którzy takie wyzwania lubią, ta odznaka została przeznaczona.",
-        "Okres zdobywania Odznaki jest ograniczony w związku z przeprawą na Dunajcu oraz przeprawą na Jeziorze Czorsztyńskim. Możliwość zdobycia odznaki zamyka się w okresie od 15.04 do 31.10. Przy planowaniu trasy należy rozeznać aktualne warunki pogodowe – mogą wpływać na brak możliwości przepraw wodnych (np. długotrwałe ulewy)."
-      ],
-      "szczyty": [
-        "Wysoka (1050 m)",
-        "Durbaszka",
-        "Wysoki Wierch",
-        "Sokolica",
-        "Czertezik",
-        "Trzy Korony (982 m)",
-        "Zamkowa Góra",
-        "Żar"
-      ],
-      "okres_uwaga": "Poza nim nie kursują przeprawy przez Dunajec i Jezioro Czorsztyńskie, bez których trasy nie da się domknąć."
-    },
-    {
-      "id": "rubin",
-      "nazwa": "Rubin Szczawnicy",
-      "podtytul": "Maraton przez Beskid i Małe Pieniny",
-      "kolejnosc": 2,
-      "dostepne": true,
-      "id_trasy": "RUBIN",
-      "odznaka": "assets/wyzwania/rubin.png",
-      "film": "assets/wideo/rubin.mp4",
-      "regulamin": "https://pttkszczawnica.pl/wp-content/uploads/2025/10/rubin-szczawnicy-regulamin.pdf",
-      "okres": null,
-      "haslo": "Czterdzieści dwa kilometry, pięć szczytów, jeden dzień — i powrót w to samo miejsce.",
-      "akapity": [
-        "Dla tych, którzy szukają prawdziwego górskiego wyzwania, przygotowaliśmy trasę łączącą w sobie najpiękniejsze zakątki Małych Pienin i Beskidu Sądeckiego. To długodystansowy szlak o długości 42 km, który – niczym maraton – trzeba pokonać w całości jednego dnia. Start i meta znajdują się w Szczawnicy, a pętla prowadzi przez górskie grzbiety, malownicze doliny i szczyty, z których roztaczają się widoki na Tatry, Pieniny i Beskid Sądecki.",
-        "Trasa jest wymagająca – łączy strome podejścia w Beskidzie Sądeckim z łagodniejszymi, ale widokowymi odcinkami Małych Pienin. Łącznie do pokonania jest ponad 1700 m przewyższeń, więc wymaga dobrej kondycji, wcześniejszego przygotowania i odpowiedniego wyposażenia.",
-        "Jeden dzień, a tyle różnych krajobrazów – od beskidzkich lasów po pienińskie łąki. Możliwość zdobycia kilku ważnych szczytów w jednym marszu. I pętla: zaczynasz i kończysz w tym samym miejscu, bez konieczności organizowania transportu.",
-        "To propozycja dla osób, które kochają góry, ale nie boją się zmęczenia. Na mecie zmęczenie ustąpi miejsca satysfakcji, a w głowie zostaną obrazy szczytów, które w jeden dzień udało się zdobyć."
-      ],
-      "wskazowki": [
-        "Startuj wcześnie rano, by zdążyć przed zmrokiem.",
-        "Zabierz ze sobą odpowiednią ilość wody i prowiantu – na trasie punkty gastronomiczne są rzadkie.",
-        "Miej ze sobą mapę lub nawigację GPS – część szlaku prowadzi mniej uczęszczanymi odcinkami.",
-        "Pamiętaj o zmiennej pogodzie w górach – w plecaku powinno znaleźć się coś przeciwdeszczowego i ciepłego."
-      ],
-      "szczyty": [
-        "Dzwonkówka (982 m)",
-        "Przehyba (1175 m)",
-        "Radziejowa (1266 m)",
-        "Wysoka (1050 m)",
-        "Wysoki Wierch (899 m)"
-      ]
-    },
-    {
-      "id": "szmaragd",
-      "nazwa": "Szmaragd Dunajca",
-      "kolejnosc": 3,
-      "dostepne": false
-    },
-    {
-      "id": "korona",
-      "nazwa": "Mała i Wielka Korona Pienin",
-      "kolejnosc": 4,
-      "dostepne": false
-    }
-  ]
+ "_zrodlo": "PTTK Szczawnica — regulaminy odznak, pttkszczawnica.pl",
+ "wyzwania": [
+  {
+   "id": "diament",
+   "nazwa": "Diament Pienin",
+   "podtytul": "Całe Pieniny w jeden dzień",
+   "kolejnosc": 1,
+   "dostepne": true,
+   "id_trasy": "DIAMENT",
+   "odznaka": "assets/wyzwania/diament.png",
+   "film": "assets/wideo/diament.mp4",
+   "film_zrodlo": "wPieniny.pl · PTTK Szczawnica",
+   "regulamin": "https://pttkszczawnica.pl/wp-content/uploads/2025/10/diament-pienin-regulamin.pdf",
+   "okres": "od 15 kwietnia do 31 października",
+   "haslo": "Rozpocznij o wschodzie, zakończ o zachodzie — podążaj za słońcem.",
+   "akapity": [
+    "Pieniny Małe, Pieniny Właściwe i Pieniny Spiskie w jeden dzień? Nic piękniejszego, nic bardziej esencjonalnego. Rozpocznij o wschodzie, zakończ o zachodzie, podążaj za słońcem. Epicka, choć wymagająca trasa dla wprawionych piechurów czeka na kolejnych śmiałków.",
+    "Odznaka Diament Pienin to najwyższy stopień wśród pienińskich wyróżnień turystycznych. Przyznawana jest za przejście całego pasma Pienin od wschodu na zachód, obejmującego Pieniny Małe, Właściwe i Spiskie. Aby zdobyć odznakę, należy zaliczyć wszystkie najważniejsze szczyty pasma, m.in.: Wysoką (1050 m), Durbaszkę, Wysoki Wierch, Sokolicę, Czertezik, Trzy Korony (982 m), Zamkową Górę oraz Żar w Pieninach Spiskich.",
+    "Szlak prowadzi przez najpiękniejsze fragmenty Pienin – od malowniczych polan i grani po przełom Dunajca – ukazując pełne bogactwo przyrody i krajobrazu tego wyjątkowego regionu. Do pokonania jest około 50,5 km oraz ↑2052 m podejść. Pokonanie tej odległości w jednym dniu dla wielu z nas jest nie lada wyzwaniem. I właśnie dla tych, którzy takie wyzwania lubią, ta odznaka została przeznaczona.",
+    "Okres zdobywania Odznaki jest ograniczony w związku z przeprawą na Dunajcu oraz przeprawą na Jeziorze Czorsztyńskim. Możliwość zdobycia odznaki zamyka się w okresie od 15.04 do 31.10. Przy planowaniu trasy należy rozeznać aktualne warunki pogodowe – mogą wpływać na brak możliwości przepraw wodnych (np. długotrwałe ulewy)."
+   ],
+   "szczyty": [
+    "Wysoka (1050 m)",
+    "Durbaszka",
+    "Wysoki Wierch",
+    "Sokolica",
+    "Czertezik",
+    "Trzy Korony (982 m)",
+    "Zamkowa Góra",
+    "Żar"
+   ],
+   "okres_uwaga": "Poza nim nie kursują przeprawy przez Dunajec i Jezioro Czorsztyńskie, bez których trasy nie da się domknąć."
+  },
+  {
+   "id": "rubin",
+   "nazwa": "Rubin Szczawnicy",
+   "podtytul": "Maraton przez Beskid i Małe Pieniny",
+   "kolejnosc": 2,
+   "dostepne": true,
+   "id_trasy": "RUBIN",
+   "odznaka": "assets/wyzwania/rubin.png",
+   "film": "assets/wideo/rubin.mp4",
+   "film_zrodlo": "wPieniny.pl · PTTK Szczawnica",
+   "regulamin": "https://pttkszczawnica.pl/wp-content/uploads/2025/10/rubin-szczawnicy-regulamin.pdf",
+   "okres": null,
+   "haslo": "Czterdzieści dwa kilometry, pięć szczytów, jeden dzień — i powrót w to samo miejsce.",
+   "akapity": [
+    "Dla tych, którzy szukają prawdziwego górskiego wyzwania, przygotowaliśmy trasę łączącą w sobie najpiękniejsze zakątki Małych Pienin i Beskidu Sądeckiego. To długodystansowy szlak o długości 42 km, który – niczym maraton – trzeba pokonać w całości jednego dnia. Start i meta znajdują się w Szczawnicy, a pętla prowadzi przez górskie grzbiety, malownicze doliny i szczyty, z których roztaczają się widoki na Tatry, Pieniny i Beskid Sądecki.",
+    "Trasa jest wymagająca – łączy strome podejścia w Beskidzie Sądeckim z łagodniejszymi, ale widokowymi odcinkami Małych Pienin. Łącznie do pokonania jest ponad 1700 m przewyższeń, więc wymaga dobrej kondycji, wcześniejszego przygotowania i odpowiedniego wyposażenia.",
+    "Jeden dzień, a tyle różnych krajobrazów – od beskidzkich lasów po pienińskie łąki. Możliwość zdobycia kilku ważnych szczytów w jednym marszu. I pętla: zaczynasz i kończysz w tym samym miejscu, bez konieczności organizowania transportu.",
+    "To propozycja dla osób, które kochają góry, ale nie boją się zmęczenia. Na mecie zmęczenie ustąpi miejsca satysfakcji, a w głowie zostaną obrazy szczytów, które w jeden dzień udało się zdobyć."
+   ],
+   "wskazowki": [
+    "Startuj wcześnie rano, by zdążyć przed zmrokiem.",
+    "Zabierz ze sobą odpowiednią ilość wody i prowiantu – na trasie punkty gastronomiczne są rzadkie.",
+    "Miej ze sobą mapę lub nawigację GPS – część szlaku prowadzi mniej uczęszczanymi odcinkami.",
+    "Pamiętaj o zmiennej pogodzie w górach – w plecaku powinno znaleźć się coś przeciwdeszczowego i ciepłego."
+   ],
+   "szczyty": [
+    "Dzwonkówka (982 m)",
+    "Przehyba (1175 m)",
+    "Radziejowa (1266 m)",
+    "Wysoka (1050 m)",
+    "Wysoki Wierch (899 m)"
+   ]
+  },
+  {
+   "id": "szmaragd",
+   "nazwa": "Szmaragd Dunajca",
+   "kolejnosc": 3,
+   "dostepne": true,
+   "podtytul": "Pogranicze: od wąwozu po przełom rzeki",
+   "id_trasy": "SZMARAGD",
+   "odznaka": "assets/wyzwania/szmaragd.png",
+   "film": "assets/wideo/szmaragd.mp4",
+   "film_zrodlo": "wPieniny.pl · PTTK Szczawnica",
+   "regulamin": "https://pttkszczawnica.pl/wp-content/uploads/2026/08/Regulamin-Sznaragd-Dunajca-ok.pdf",
+   "okres": null,
+   "haslo": "Dla poszukiwaczy harmonii między słońcem a wodą.",
+   "akapity": [
+    "Trasa wiodąca wzdłuż naturalnej granicy Pienin, która łączy panoramiczne połoniny z kojącym szumem rzeki. To wyzwanie o charakterze transgranicznym, wymagające od turysty nie tylko kondycji, ale i wrażliwości na różnorodność kulturową regionu. Szlak prowadzi od skalnych wąwozów Jaworek, przez słowackie kopce, aż po finał w sercu uzdrowiskowej Szczawnicy.",
+    "Trasa jest zróżnicowana i długa, łączy klasyczny trekking grzbietowy z łagodniejszymi odcinkami dolinnymi. Wymaga pokonania znacznej odległości w ciągu jednego dnia, dlatego kluczowe jest rozłożenie sił — od wprowadzającego podejścia na grzbiet Małych Pienin, przez ścieżki w kierunku Słowacji, aż po długi marsz wzdłuż Dunajca.",
+    "Dwa kraje w jeden dzień to okazja do przejścia pogranicza polsko-słowackiego i odwiedzenia Czerwonego Klasztoru. Rano podziwiasz Tatry z wysokich hal, po południu dotykasz tafli Dunajca w głębokim wąwozie. Szlak pozwala wrócić do Szczawnicy pieszo, zamykając wielką pętlę pienińskich doznań."
+   ],
+   "szczyty": [
+    "Wąwóz Homole",
+    "Wysoki Wierch (899 m)",
+    "Czerwony Klasztor",
+    "Droga Pienińska",
+    "Szafranówka (742 m)"
+   ],
+   "wskazowki": [
+    "Zabierz dokument tożsamości — szlak przekracza granicę państwową.",
+    "Pamiętaj o zapasie wody: odcinek od Wysokiego Wierchu do Czerwonego Klasztoru bywa mocno nasłoneczniony.",
+    "Sprawdź godziny otwarcia wejścia do Wąwozu Homole oraz Drogi Pienińskiej, szczególnie poza sezonem letnim.",
+    "Zarezerwuj chwilę na odpoczynek w Leśnicy przed finałowym podejściem na Szafranówkę."
+   ]
+  },
+  {
+   "id": "korona",
+   "nazwa": "Mała i Wielka Korona Pienin",
+   "kolejnosc": 4,
+   "dostepne": false
+  }
+ ]
 }

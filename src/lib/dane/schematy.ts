@@ -148,6 +148,17 @@ export const SchematKapliczek = z.object({
   kapliczki: z.array(SchematKapliczki),
 })
 
+/**
+ * Wyzwanie — pienińska odznaka turystyczna.
+ *
+ * Schemat obejmuje wszystkie pola, jakie aplikacja trzyma w `wyzwania.json`.
+ * Pierwsza wersja brała z niego tylko nazwę, odznakę i odnośnik do regulaminu,
+ * a cztery akapity opisu, listę szczytów i wskazówki zostawiała w pliku —
+ * strona pokazywała więc uboższą wersję tego samego wyzwania niż telefon.
+ *
+ * `okres` jest w danych jawnym `null` dla wyzwań bez ograniczenia terminu,
+ * więc `nullish`, a nie `optional`.
+ */
 export const SchematWyzwania = z.object({
   id: z.string(),
   nazwa: z.string(),
@@ -157,8 +168,15 @@ export const SchematWyzwania = z.object({
   id_trasy: z.string().optional(),
   odznaka: z.string().optional(),
   film: z.string().optional(),
+  film_zrodlo: z.string().optional(),
   regulamin: z.string().optional(),
   opis: z.string().optional(),
+  haslo: z.string().optional(),
+  akapity: z.array(z.string()).optional(),
+  szczyty: z.array(z.string()).optional(),
+  wskazowki: z.array(z.string()).optional(),
+  okres: z.string().nullish(),
+  okres_uwaga: z.string().optional(),
 })
 
 export const SchematWyzwan = z.object({

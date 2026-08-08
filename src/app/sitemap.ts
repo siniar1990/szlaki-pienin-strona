@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 import { KATEGORIE_TRAS } from '@/lib/dane/kategorie'
-import { pobierzAtrakcje, pobierzTrasy } from '@/lib/dane/zrodlo'
+import { pobierzAtrakcje, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { PORTAL } from '@/lib/konfiguracja'
 
 /**
@@ -39,6 +39,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
+  /*
+    Strony wyzwań. Tylko dostępne — niedostępne nie mają własnej strony, więc
+    wpis w mapie witryny prowadziłby Google w stronę 404.
+  */
+  const wyzwania: MetadataRoute.Sitemap = pobierzWyzwania()
+    .filter((wyzwanie) => wyzwanie.dostepne)
+    .map((wyzwanie) => ({
+      url: `${PORTAL.adres}/wyzwania/${wyzwanie.slug}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }))
+
   const kategorie: MetadataRoute.Sitemap = KATEGORIE_TRAS.map((kategoria) => ({
     url: `${PORTAL.adres}/szlaki/kategorie/${kategoria.slug}`,
     changeFrequency: 'monthly',
@@ -51,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...strony, ...trasy, ...kategorie, ...atrakcje].map((wpis) => ({
+  return [...strony, ...trasy, ...wyzwania, ...kategorie, ...atrakcje].map((wpis) => ({
     ...wpis,
     lastModified: teraz,
   }))

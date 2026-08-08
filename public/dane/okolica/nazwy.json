@@ -1,0 +1,885 @@
+[
+ {
+  "nazwa": "Aksamitka",
+  "lat": 49.38496,
+  "lon": 20.47154,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 801
+ },
+ {
+  "nazwa": "Bajków Groń",
+  "lat": 49.42625,
+  "lon": 20.41443,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 694
+ },
+ {
+  "nazwa": "Barwinkowa Góra",
+  "lat": 49.41513,
+  "lon": 20.25967,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 725
+ },
+ {
+  "nazwa": "Bereśnik",
+  "lat": 49.44236,
+  "lon": 20.49,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 843
+ },
+ {
+  "nazwa": "Borsuczyny",
+  "lat": 49.38556,
+  "lon": 20.54648,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 939
+ },
+ {
+  "nazwa": "Bryjarka",
+  "lat": 49.43142,
+  "lon": 20.47965,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 679
+ },
+ {
+  "nazwa": "Cisówka",
+  "lat": 49.41628,
+  "lon": 20.27888,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 777
+ },
+ {
+  "nazwa": "Czeremcha",
+  "lat": 49.45946,
+  "lon": 20.53382,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 1141
+ },
+ {
+  "nazwa": "Czertezik",
+  "lat": 49.42224,
+  "lon": 20.43425,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 772
+ },
+ {
+  "nazwa": "Czerteż",
+  "lat": 49.42302,
+  "lon": 20.43241,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 774
+ },
+ {
+  "nazwa": "Durbaszka",
+  "lat": 49.38701,
+  "lon": 20.53676,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 942
+ },
+ {
+  "nazwa": "Dzwonkówka",
+  "lat": 49.46458,
+  "lon": 20.48158,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 982
+ },
+ {
+  "nazwa": "Fakľovka",
+  "lat": 49.37286,
+  "lon": 20.60335,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 934
+ },
+ {
+  "nazwa": "Gabańka",
+  "lat": 49.42063,
+  "lon": 20.49546,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 545
+ },
+ {
+  "nazwa": "Hombark Łapszański",
+  "lat": 49.41541,
+  "lon": 20.23226,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 825
+ },
+ {
+  "nazwa": "Huściawa",
+  "lat": 49.39929,
+  "lon": 20.51134,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 818
+ },
+ {
+  "nazwa": "Jarmuta",
+  "lat": 49.41098,
+  "lon": 20.50588,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 794
+ },
+ {
+  "nazwa": "Kuni Wierch",
+  "lat": 49.44763,
+  "lon": 20.53047,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 982
+ },
+ {
+  "nazwa": "Majerz",
+  "lat": 49.43353,
+  "lon": 20.34151,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 689
+ },
+ {
+  "nazwa": "Palenica",
+  "lat": 49.41872,
+  "lon": 20.47653,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 722
+ },
+ {
+  "nazwa": "Plašná",
+  "lat": 49.38708,
+  "lon": 20.45318,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 889
+ },
+ {
+  "nazwa": "Pokrywisko",
+  "lat": 49.42518,
+  "lon": 20.59571,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 975
+ },
+ {
+  "nazwa": "Przehyba",
+  "lat": 49.46561,
+  "lon": 20.56011,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 1175
+ },
+ {
+  "nazwa": "Radziejowa",
+  "lat": 49.4493,
+  "lon": 20.60412,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 1266
+ },
+ {
+  "nazwa": "Ruski Wierch",
+  "lat": 49.42014,
+  "lon": 20.59466,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 935
+ },
+ {
+  "nazwa": "Sokolica",
+  "lat": 49.41808,
+  "lon": 20.44077,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 747
+ },
+ {
+  "nazwa": "Szafranówka",
+  "lat": 49.41405,
+  "lon": 20.47624,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 742
+ },
+ {
+  "nazwa": "Szczob",
+  "lat": 49.40121,
+  "lon": 20.60576,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 920
+ },
+ {
+  "nazwa": "Trzy Korony (Okrąglica)",
+  "lat": 49.41464,
+  "lon": 20.41465,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 982
+ },
+ {
+  "nazwa": "Watrisko",
+  "lat": 49.3835,
+  "lon": 20.58094,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 960
+ },
+ {
+  "nazwa": "Wierchliczka",
+  "lat": 49.38408,
+  "lon": 20.59184,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 966
+ },
+ {
+  "nazwa": "Witkula",
+  "lat": 49.41185,
+  "lon": 20.47817,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 736
+ },
+ {
+  "nazwa": "Wysoka",
+  "lat": 49.38033,
+  "lon": 20.55747,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 1050
+ },
+ {
+  "nazwa": "Wysoka (Wysokie Skałki)",
+  "lat": 49.38026,
+  "lon": 20.5555,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 1050
+ },
+ {
+  "nazwa": "Wysoki Wierch",
+  "lat": 49.39307,
+  "lon": 20.51487,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 898
+ },
+ {
+  "nazwa": "Łaźne Skały",
+  "lat": 49.40657,
+  "lon": 20.49309,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 770
+ },
+ {
+  "nazwa": "Średniak",
+  "lat": 49.45398,
+  "lon": 20.48145,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 801
+ },
+ {
+  "nazwa": "Żar",
+  "lat": 49.41816,
+  "lon": 20.23003,
+  "typ": "szczyt",
+  "waga": 0,
+  "wysokosc_m": 883
+ },
+ {
+  "nazwa": "Przełęcz Gromadzka",
+  "lat": 49.4122,
+  "lon": 20.61122,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 935
+ },
+ {
+  "nazwa": "Przełęcz Minkowska",
+  "lat": 49.47528,
+  "lon": 20.53991,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 1087
+ },
+ {
+  "nazwa": "Przełęcz Przysłop",
+  "lat": 49.46725,
+  "lon": 20.49261,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 844
+ },
+ {
+  "nazwa": "Przełęcz Rozdziela",
+  "lat": 49.39026,
+  "lon": 20.6014,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 803
+ },
+ {
+  "nazwa": "Przełęcz Sosnów",
+  "lat": 49.41937,
+  "lon": 20.43925,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 662
+ },
+ {
+  "nazwa": "Przełęcz Szopka",
+  "lat": 49.419,
+  "lon": 20.40807,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 779
+ },
+ {
+  "nazwa": "Przełęcz pod Huściawą",
+  "lat": 49.39988,
+  "lon": 20.51091,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 818
+ },
+ {
+  "nazwa": "Przełęcz pod Szafranówką",
+  "lat": 49.41603,
+  "lon": 20.46426,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 630
+ },
+ {
+  "nazwa": "Rozdroże pod Czeremchą",
+  "lat": 49.45284,
+  "lon": 20.53082,
+  "typ": "przelecz",
+  "waga": 1,
+  "wysokosc_m": 1052
+ },
+ {
+  "nazwa": "Schronisko PTTK na Przehybie",
+  "lat": 49.46683,
+  "lon": 20.55371,
+  "typ": "schronisko",
+  "waga": 1,
+  "wysokosc_m": 1155
+ },
+ {
+  "nazwa": "Schronisko PTTK „Orlica”",
+  "lat": 49.41985,
+  "lon": 20.45795,
+  "typ": "schronisko",
+  "waga": 1,
+  "wysokosc_m": 440
+ },
+ {
+  "nazwa": "Schronisko PTTK „Trzy Korony\"",
+  "lat": 49.40519,
+  "lon": 20.41109,
+  "typ": "schronisko",
+  "waga": 1,
+  "wysokosc_m": 479
+ },
+ {
+  "nazwa": "Schronisko PTTK „Trzy Korony”",
+  "lat": 49.40519,
+  "lon": 20.41109,
+  "typ": "schronisko",
+  "waga": 1,
+  "wysokosc_m": 475
+ },
+ {
+  "nazwa": "Schronisko pod Durbaszką",
+  "lat": 49.39059,
+  "lon": 20.53627,
+  "typ": "schronisko",
+  "waga": 1,
+  "wysokosc_m": 834
+ },
+ {
+  "nazwa": "Czorsztyn",
+  "lat": 49.4381,
+  "lon": 20.33141,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 654
+ },
+ {
+  "nazwa": "Jaworki, Biała Woda",
+  "lat": 49.40351,
+  "lon": 20.57207,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 634
+ },
+ {
+  "nazwa": "Jaworki, centrum",
+  "lat": 49.40691,
+  "lon": 20.55354,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 571
+ },
+ {
+  "nazwa": "Krościenko nad Dunajcem",
+  "lat": 49.44058,
+  "lon": 20.42791,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 426
+ },
+ {
+  "nazwa": "Leśnica",
+  "lat": 49.39686,
+  "lon": 20.45957,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 706
+ },
+ {
+  "nazwa": "Niedzica-Zamek",
+  "lat": 49.42151,
+  "lon": 20.3191,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 548
+ },
+ {
+  "nazwa": "Szczawnica, Plac Dietla",
+  "lat": 49.42522,
+  "lon": 20.48256,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 508
+ },
+ {
+  "nazwa": "Szczawnica, centrum",
+  "lat": 49.42647,
+  "lon": 20.46807,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 448
+ },
+ {
+  "nazwa": "Szlachtowa",
+  "lat": 49.41068,
+  "lon": 20.52661,
+  "typ": "miejscowosc",
+  "waga": 2,
+  "wysokosc_m": 526
+ },
+ {
+  "nazwa": "Zamek Czorsztyn",
+  "lat": 49.43494,
+  "lon": 20.31311,
+  "typ": "zamek",
+  "waga": 2,
+  "wysokosc_m": 533
+ },
+ {
+  "nazwa": "Zamek Dunajec w Niedzicy",
+  "lat": 49.42253,
+  "lon": 20.31966,
+  "typ": "zamek",
+  "waga": 2,
+  "wysokosc_m": 549
+ },
+ {
+  "nazwa": "Zamkowa Góra",
+  "lat": 49.41951,
+  "lon": 20.42024,
+  "typ": "zamek",
+  "waga": 2,
+  "wysokosc_m": 799
+ },
+ {
+  "nazwa": "Czerwony Klasztor",
+  "lat": 49.39867,
+  "lon": 20.41704,
+  "typ": "muzeum",
+  "waga": 3,
+  "wysokosc_m": 475
+ },
+ {
+  "nazwa": "Dno wąwozu",
+  "lat": 49.39818,
+  "lon": 20.55174,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 658
+ },
+ {
+  "nazwa": "Falsztyn",
+  "lat": 49.42987,
+  "lon": 20.27462,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 621
+ },
+ {
+  "nazwa": "Granica — ujście Leśnickiego Potoku",
+  "lat": 49.4139,
+  "lon": 20.45028,
+  "typ": "przejscie_graniczne",
+  "waga": 3,
+  "wysokosc_m": 457
+ },
+ {
+  "nazwa": "Grota słowackiego turysty",
+  "lat": 49.41134,
+  "lon": 20.4298,
+  "typ": "atrakcja",
+  "waga": 3,
+  "wysokosc_m": 444
+ },
+ {
+  "nazwa": "Górna stacja kolei na Palenicę",
+  "lat": 49.41884,
+  "lon": 20.47655,
+  "typ": "kolej_linowa",
+  "waga": 3,
+  "wysokosc_m": 699
+ },
+ {
+  "nazwa": "Górna stacja wyciągu w Jaworkach",
+  "lat": 49.39826,
+  "lon": 20.55637,
+  "typ": "kolej_linowa",
+  "waga": 3,
+  "wysokosc_m": 716
+ },
+ {
+  "nazwa": "Janosikowy Skok",
+  "lat": 49.40274,
+  "lon": 20.4269,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 455
+ },
+ {
+  "nazwa": "Kaplica na Sewerynówce",
+  "lat": 49.44396,
+  "lon": 20.50167,
+  "typ": "atrakcja",
+  "waga": 3,
+  "wysokosc_m": 607
+ },
+ {
+  "nazwa": "Lawendowe Wzgórza pod Bereśnikiem",
+  "lat": 49.4337,
+  "lon": 20.49543,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 628
+ },
+ {
+  "nazwa": "Pawilon Wejściowy PPN",
+  "lat": 49.41848,
+  "lon": 20.45615,
+  "typ": "muzeum",
+  "waga": 3,
+  "wysokosc_m": 442
+ },
+ {
+  "nazwa": "Polana pod Szafranówką",
+  "lat": 49.41428,
+  "lon": 20.47623,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 720
+ },
+ {
+  "nazwa": "Przejście graniczne pod Cyplem",
+  "lat": 49.41625,
+  "lon": 20.44652,
+  "typ": "przejscie_graniczne",
+  "waga": 3,
+  "wysokosc_m": 434
+ },
+ {
+  "nazwa": "Siedmiu Mnichów",
+  "lat": 49.40729,
+  "lon": 20.43708,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 451
+ },
+ {
+  "nazwa": "Szlachtowa, Muzeum Pienińskie",
+  "lat": 49.41068,
+  "lon": 20.52661,
+  "typ": "atrakcja",
+  "waga": 3,
+  "wysokosc_m": 526
+ },
+ {
+  "nazwa": "W głębi Wąwozu Szopczańskiego",
+  "lat": 49.41277,
+  "lon": 20.40537,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 628
+ },
+ {
+  "nazwa": "W głębi doliny Białej Wody",
+  "lat": 49.39396,
+  "lon": 20.59159,
+  "typ": "punkt_widokowy",
+  "waga": 3,
+  "wysokosc_m": 717
+ },
+ {
+  "nazwa": "Wodospad Zaskalnik",
+  "lat": 49.43687,
+  "lon": 20.50336,
+  "typ": "atrakcja",
+  "waga": 3,
+  "wysokosc_m": 565
+ },
+ {
+  "nazwa": "Zamek Pieniński",
+  "lat": 49.41982,
+  "lon": 20.41991,
+  "typ": "atrakcja",
+  "waga": 3,
+  "wysokosc_m": 751
+ },
+ {
+  "nazwa": "Dolina Skalskiego Potoku",
+  "lat": 49.4277,
+  "lon": 20.49724,
+  "typ": "zrodlo",
+  "waga": 4,
+  "wysokosc_m": 569
+ },
+ {
+  "nazwa": "Figura Matki Boskiej",
+  "lat": 49.41885,
+  "lon": 20.45659,
+  "typ": "kaplica",
+  "waga": 4,
+  "wysokosc_m": 441
+ },
+ {
+  "nazwa": "Kościół św. Michała Archanioła w Dębnie",
+  "lat": 49.46648,
+  "lon": 20.21201,
+  "typ": "kosciol",
+  "waga": 4,
+  "wysokosc_m": 534
+ },
+ {
+  "nazwa": "Deptak nad Grajcarkiem",
+  "lat": 49.42567,
+  "lon": 20.46929,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 447
+ },
+ {
+  "nazwa": "Dolna stacja kolei na Palenicę",
+  "lat": 49.42513,
+  "lon": 20.48056,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 461
+ },
+ {
+  "nazwa": "Frydman",
+  "lat": 49.45232,
+  "lon": 20.23328,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 526
+ },
+ {
+  "nazwa": "Jaworki",
+  "lat": 49.4066,
+  "lon": 20.55306,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 572
+ },
+ {
+  "nazwa": "Jaworki, ul. Pod Homolami",
+  "lat": 49.4059,
+  "lon": 20.54761,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 570
+ },
+ {
+  "nazwa": "Kluszkowce",
+  "lat": 49.44466,
+  "lon": 20.30243,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 538
+ },
+ {
+  "nazwa": "Maniowy",
+  "lat": 49.45142,
+  "lon": 20.26432,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 537
+ },
+ {
+  "nazwa": "Nowa Biała",
+  "lat": 49.44077,
+  "lon": 20.14402,
+  "typ": "inny",
+  "waga": 6
+ },
+ {
+  "nazwa": "Nowy przewóz pod Sokolicą",
+  "lat": 49.41734,
+  "lon": 20.45293,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 433
+ },
+ {
+  "nazwa": "Piec Majki (Grota Zyblikiewicza)",
+  "lat": 49.41899,
+  "lon": 20.45679,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 441
+ },
+ {
+  "nazwa": "Przeprawa przez Dunajec",
+  "lat": 49.41344,
+  "lon": 20.19288,
+  "typ": "inny",
+  "waga": 6
+ },
+ {
+  "nazwa": "Przeprawa przez Dunajec (Szczawnica)",
+  "lat": 49.423,
+  "lon": 20.45954,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 430
+ },
+ {
+  "nazwa": "Przeprawa przez Jezioro Czorsztyńskie",
+  "lat": 49.43523,
+  "lon": 20.33672,
+  "typ": "inny",
+  "waga": 6
+ },
+ {
+  "nazwa": "Przystań flisacka",
+  "lat": 49.42263,
+  "lon": 20.45953,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 429
+ },
+ {
+  "nazwa": "Przystań flisacka w Szczawnicy",
+  "lat": 49.423,
+  "lon": 20.45954,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 429
+ },
+ {
+  "nazwa": "Skała Kotońka",
+  "lat": 49.42509,
+  "lon": 20.45915,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 432
+ },
+ {
+  "nazwa": "Szczawnica",
+  "lat": 49.41986,
+  "lon": 20.45793,
+  "typ": "inny",
+  "waga": 6
+ },
+ {
+  "nazwa": "Szczawnica (meta)",
+  "lat": 49.41971,
+  "lon": 20.45793,
+  "typ": "inny",
+  "waga": 6
+ },
+ {
+  "nazwa": "Szczawnica Niżna, ul. Pienińska",
+  "lat": 49.42219,
+  "lon": 20.46045,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 464
+ },
+ {
+  "nazwa": "Szczawnica, ul. Szalaya",
+  "lat": 49.42514,
+  "lon": 20.48259,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 478
+ },
+ {
+  "nazwa": "Ujście Potoku Leśnickiego",
+  "lat": 49.41398,
+  "lon": 20.45024,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 449
+ },
+ {
+  "nazwa": "Wejście do Wąwozu Homole",
+  "lat": 49.40235,
+  "lon": 20.54898,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 640
+ },
+ {
+  "nazwa": "Wejście do rezerwatu Biała Woda",
+  "lat": 49.39889,
+  "lon": 20.5644,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 631
+ },
+ {
+  "nazwa": "Wąwóz Szopczański",
+  "lat": 49.4104,
+  "lon": 20.40848,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 536
+ },
+ {
+  "nazwa": "Ścieżka „Mali odkrywcy Gór\"",
+  "lat": 49.41692,
+  "lon": 20.47662,
+  "typ": "inny",
+  "waga": 6,
+  "wysokosc_m": 688
+ }
+]

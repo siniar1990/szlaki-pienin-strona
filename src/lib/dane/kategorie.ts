@@ -124,8 +124,8 @@ export const KATEGORIE_APLIKACJI: DefinicjaKategorii[] = [
     nazwa: 'Pienińskie wyzwania',
     podtytul: 'odznaki turystyczne',
     opis:
-      'Diament Pienin i Rubin Szczawnicy — odznaki PTTK z regulaminem, ' +
-      'okresem zdobywania i odznaką na koniec.',
+      'Diament Pienin, Rubin Szczawnicy i Szmaragd Dunajca — odznaki PTTK ' +
+      'z regulaminem, okresem zdobywania i odznaką na koniec.',
     ilustracja: `${ILUSTRACJE}/DIAMENT.webp`,
     pasuje: (trasa) => wKategorii(trasa, 'wyzwania'),
   },

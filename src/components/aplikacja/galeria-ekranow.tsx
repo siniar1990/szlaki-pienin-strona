@@ -19,16 +19,16 @@ export type EkranAplikacji = {
   opis: string
 }
 
+/*
+  Podpisy opisują to, co widać na zrzucie — nie to, co aplikacja umie w danym
+  ekranie. Przy wymianie zrzutów trzeba je czytać razem z obrazkiem, inaczej
+  po drugiej podmianie podpis zaczyna opisywać poprzednią wersję.
+*/
 export const EKRANY: EkranAplikacji[] = [
-  {
-    plik: 'start',
-    tytul: 'Ekran startowy',
-    opis: 'Pogoda na szlaku z prognozą na najbliższe godziny i porą zachodu słońca.',
-  },
   {
     plik: 'kategorie',
     tytul: 'Kategorie tras',
-    opis: 'Ten sam podział co na tej stronie — od krótkich wyjść po Korony Pienin.',
+    opis: 'Ten sam podział co na tej stronie — od krótkich wyjść po pienińskie wyzwania.',
   },
   {
     plik: 'lista',
@@ -36,19 +36,29 @@ export const EKRANY: EkranAplikacji[] = [
     opis: 'Czas, dystans, przewyższenie i kolory szlaków widoczne od razu na karcie.',
   },
   {
+    plik: 'trasa',
+    tytul: 'Opis trasy',
+    opis: 'Wskazówki punkt po punkcie, z wysokością i czasem dojścia do każdego z nich.',
+  },
+  {
     plik: 'nawigacja',
     tytul: 'Nawigacja na szlaku',
-    opis: 'Najbliższe wejście na szlak, pozostały dystans i wskazówka na następny odcinek.',
+    opis: 'Ślad, następny punkt i wskazówka na najbliższy zakręt — z licznikiem dystansu.',
   },
   {
     plik: 'profil',
     tytul: 'Profil wysokości',
-    opis: 'Przekrój trasy z punktami etapowymi, do sprawdzenia w każdej chwili marszu.',
+    opis: 'Przekrój trasy z punktami etapowymi, do rozwinięcia w każdej chwili marszu.',
+  },
+  {
+    plik: 'podsumowanie',
+    tytul: 'Po marszu',
+    opis: 'Nagrany ślad z dystansem i przewyższeniem, do zapisania jako GPX albo film.',
   },
   {
     plik: 'blisko',
     tytul: 'Blisko mnie',
-    opis: 'Trasy zaczynające się w pobliżu, posortowane według odległości do szlaku.',
+    opis: 'Trasy zaczynające się w pobliżu, z suwakiem długości i odległością do szlaku.',
   },
 ]
 

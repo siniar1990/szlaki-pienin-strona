@@ -173,12 +173,29 @@ export type Miejsce = {
 
 export type Wyzwanie = {
   id: string
+  /** Adres strony wyzwania: `/wyzwania/diament`. */
+  slug: string
   nazwa: string
   podtytul: string | null
+  /** Zdanie-motto z aplikacji, np. „Rozpocznij o wschodzie, zakończ o zachodzie". */
+  haslo: string | null
+  /** Opis rozbity na akapity — dokładnie tak, jak trzyma go aplikacja. */
+  akapity: string[]
+  /** Szczyty i miejsca do zaliczenia, w kolejności z regulaminu. */
+  szczyty: string[]
+  wskazowki: string[]
+  /** Okres, w którym można zdobyć odznakę; `null` = bez ograniczenia. */
+  okres: string | null
+  /** Dlaczego okres jest ograniczony. */
+  okresUwaga: string | null
   idTrasy: string | null
   odznaka: string | null
   film: string | null
+  /** Kto nagrał film — wymóg wobec autorów, nie ozdoba. */
+  filmZrodlo: string | null
   regulamin: string | null
+  /** Kolejność z aplikacji; wyzwania bez numeru idą na koniec. */
+  kolejnosc: number
   dostepne: boolean
 }
 

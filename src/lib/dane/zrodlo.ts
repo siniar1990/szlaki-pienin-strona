@@ -435,18 +435,45 @@ export function pobierzKapliczki(): (Miejsce & { opis: string | null })[] {
     }))
 }
 
+/**
+ * Wyzwania w kolejności z aplikacji.
+ *
+ * Zwracamy wszystkie, także niedostępne — o tym, czy pokazać zapowiedź kolejnej
+ * odznaki, decyduje strona, a nie warstwa danych. Filtrowanie tutaj odebrałoby
+ * portalowi możliwość napisania „w przygotowaniu", a taka informacja jest dla
+ * czytelnika wartościowa.
+ */
 export function pobierzWyzwania(): Wyzwanie[] {
   const surowe = SchematWyzwan.parse(wczytajJson('wyzwania.json'))
-  return surowe.wyzwania.map((w) => ({
-    id: w.id,
-    nazwa: w.nazwa,
-    podtytul: w.podtytul ?? null,
-    idTrasy: w.id_trasy ?? null,
-    odznaka: w.odznaka ? adresPubliczny('wyzwania', path.basename(w.odznaka)) : null,
-    film: w.film ?? null,
-    regulamin: w.regulamin ?? null,
-    dostepne: w.dostepne ?? false,
-  }))
+
+  return surowe.wyzwania
+    .map((w) => ({
+      id: w.id,
+      slug: w.id,
+      nazwa: w.nazwa,
+      podtytul: w.podtytul ?? null,
+      haslo: w.haslo ?? null,
+      akapity: w.akapity ?? [],
+      szczyty: w.szczyty ?? [],
+      wskazowki: w.wskazowki ?? [],
+      okres: w.okres ?? null,
+      okresUwaga: w.okres_uwaga ?? null,
+      idTrasy: w.id_trasy ?? null,
+      odznaka: w.odznaka ? adresPubliczny('wyzwania', path.basename(w.odznaka)) : null,
+      film: w.film ?? null,
+      filmZrodlo: w.film_zrodlo ?? null,
+      regulamin: w.regulamin ?? null,
+      // Bez numeru na koniec listy, a nie na początek — brak kolejności znaczy
+      // „jeszcze nie ustalono", czyli raczej zapowiedź niż odznaka wiodąca.
+      kolejnosc: w.kolejnosc ?? Number.MAX_SAFE_INTEGER,
+      dostepne: w.dostepne ?? false,
+    }))
+    .sort((a, b) => a.kolejnosc - b.kolejnosc)
+}
+
+/** Jedno wyzwanie po slugu — dla strony `/wyzwania/[slug]`. */
+export function pobierzWyzwanie(slug: string): Wyzwanie | null {
+  return pobierzWyzwania().find((w) => w.slug === slug) ?? null
 }
 
 /* ── Ślad i profil wysokości ─────────────────────────────────────────────── */
