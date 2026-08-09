@@ -1215,26 +1215,69 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'wypozyczalnie-rowerow',
     nazwa: 'Wypożyczalnie rowerów',
-    kategorie: ['aktywnie'],
+    kategorie: ['aktywnie', 'rodziny'],
     podkategoria: 'rowery',
-    lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    lokalizacja: 'szczawnica',
+    wyrozniona: true,
+    trasy: ['R1', 'R2'],
+    skrot: 'Rower na godziny albo na cały dzień — w Szczawnicy jest w czym wybierać.',
+    opis: [
+      'Rower jest tu naturalnym wyborem, bo najciekawsze trasy w okolicy są ' +
+        'płaskie i wydzielone z ruchu: Droga Pienińska przełomem Dunajca, ' +
+        'Velo Dunajec doliną rzeki i pętla Velo Czorsztyn wokół jeziora. ' +
+        'Wypożyczalni w Szczawnicy jest sporo — od punktów przy przystani ' +
+        'i przy dolnej stacji kolei po sklepy rowerowe w centrum.',
+      'Ze Szczawnicy polecamy wypożyczalnię Polaczyk, kilka kroków od ulicy ' +
+        'Głównej — blisko wejścia na Drogę Pienińską, więc od odebrania roweru ' +
+        'do wjazdu w przełom jest kilka minut.',
+      'Rower bywa też drugą połową innego pomysłu na dzień: zjeżdża się ' +
+        'tratwą albo pontonem w dół rzeki, a wraca się doliną na dwóch ' +
+        'kółkach. Część wypożyczalni obsługuje ten wariant, dowożąc rowery ' +
+        'na przystań startową.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'sprzet',
+        tytul: 'Co da się wypożyczyć',
+        tekst:
+          'Zwykle rowery górskie i trekkingowe, coraz częściej elektryczne — ' +
+          'te ostatnie zmieniają wycieczkę na Wdżar albo pod Falsztyn ' +
+          'w spokojną przejażdżkę. Dla rodzin: rowery dziecięce, przyczepki ' +
+          'i foteliki. Kask zwykle wchodzi w cenę, ale warto to potwierdzić.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Dokąd stąd pojechać',
+        tekst:
+          'Droga Pienińska do Czerwonego Klasztoru — niecałe dziesięć ' +
+          'kilometrów w jedną stronę, płasko, wzdłuż wody. Velo Czorsztyn to ' +
+          'pełna pętla wokół jeziora, dwadzieścia siedem kilometrów na cały ' +
+          'dzień. Obie trasy opisujemy osobno.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Na Drodze Pienińskiej ostrożnie',
+        tekst:
+          'Droga jest wspólna dla rowerzystów, pieszych i dorożek, a w sezonie ' +
+          'bywa bardzo tłoczna. Jedź wolno i ustępuj pieszym — to nie jest ' +
+          'trasa do kręcenia tempa.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Kiedy',
+        tekst:
+          'Wypożyczalnie działają zwykle od wiosny do jesieni, w szczycie ' +
+          'sezonu od rana do wieczora. W lipcu i sierpniu w weekendy sprzęt ' +
+          'potrafi się skończyć przed południem.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'rynek-w-kroscienku',
     nazwa: 'Rynek w Krościenku',
     kategorie: ['kultura'],
     podkategoria: 'architektura',
-    lokalizacja: 'kroscienko',
-    skrot: '',
-    opis: [],
-  },
-  {
-    slug: 'przystan-kajakowa-kroscienko',
-    nazwa: 'Przystań kajakowa w Krościenku',
-    kategorie: ['aktywnie'],
-    podkategoria: 'przystanie',
     lokalizacja: 'kroscienko',
     skrot: '',
     opis: [],
