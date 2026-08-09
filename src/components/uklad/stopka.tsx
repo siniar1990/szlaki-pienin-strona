@@ -116,7 +116,8 @@ export function Stopka() {
               </a>
             </p>
             {/*
-              Wejście do panelu tabliczek. `nofollow` mówi robotom, żeby za nim
+              Wejście do panelu administratora — jedno, bo panel też jest jeden.
+              `nofollow` mówi robotom, żeby za nim
               nie szły; sam panel jest i tak zamknięty hasłem oraz oznaczony
               jako niedostępny dla wyszukiwarek, ale odnośnik w stopce każdej
               podstrony to zaproszenie, którego nie ma powodu wysyłać.
@@ -126,14 +127,7 @@ export function Stopka() {
               rel="nofollow"
               className="text-kamien-400 transition-colors hover:text-las-700"
             >
-              Panel tabliczek
-            </Link>
-            <Link
-              href="/panel/aktualnosci"
-              rel="nofollow"
-              className="text-kamien-400 transition-colors hover:text-las-700"
-            >
-              Panel wiadomości
+              Panel administratora
             </Link>
           </div>
         </div>

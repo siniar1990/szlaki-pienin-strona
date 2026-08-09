@@ -289,6 +289,8 @@ export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
   // udało, ale komunikat bazy nie tłumaczy nikomu, co się stało.
   if (znalezisko.wiadomosc) redirect(`/panel/aktualnosci/${znalezisko.wiadomosc.id}`)
 
+  let powodNiepowodzenia: string | null = null
+
   if (kluczDostepny()) {
     const wynik = await napiszDlaArtykulu(znaleziskoId, BUDZET_RECZNEGO_PISANIA_MS)
     if (wynik.wiadomoscId) {
@@ -296,8 +298,16 @@ export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
       revalidatePath('/panel/aktualnosci/znaleziska')
       redirect(`/panel/aktualnosci/${wynik.wiadomoscId}`)
     }
-    // Nie udało się — schodzimy do zajawki niżej. Powód jest zapisany przy
-    // znalezisku, więc nie ginie.
+
+    /*
+      Pisanie się nie udało. Schodzimy do zajawki, ale powód MUSI być widoczny
+      — bez tego administrator dostaje szkic z tekstem zachęty i nie ma jak
+      odróżnić „model nie zdążył" od „przycisk nie działa". Dokładnie tak
+      wyglądała pierwsza wersja i dokładnie tak została zgłoszona.
+    */
+    powodNiepowodzenia = wynik.szczegoly ?? 'Nie udało się napisać notki automatycznie.'
+  } else {
+    powodNiepowodzenia = 'Redakcja maszynowa jest wyłączona — brakuje klucza do modelu.'
   }
 
   const notka = await baza.wiadomosc.create({
@@ -306,6 +316,7 @@ export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
       tytul: znalezisko.tytul.slice(0, 200),
       lid: (znalezisko.opis ?? 'Do napisania.').slice(0, 400),
       tresc:
+        `[Automatyczne pisanie nie powiodło się: ${powodNiepowodzenia}]\n\n` +
         'Napisz notkę własnymi słowami na podstawie faktów z artykułu źródłowego.\n\n' +
         'Nie kopiuj zdań z oryginału — podaj to, co się wydarzyło, po swojemu ' +
         'i krócej. Odnośnik do źródła pokaże się pod treścią automatycznie.',

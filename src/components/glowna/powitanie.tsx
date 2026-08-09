@@ -1,5 +1,6 @@
+import Link from 'next/link'
 import Image from 'next/image'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Newspaper } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import type { StatystykiPortalu } from '@/lib/dane/typy'
@@ -67,16 +68,43 @@ export function Powitanie({ statystyki }: { statystyki: StatystykiPortalu }) {
           i sprawdza się, bo trasy pochodzą z przewodnika PTTK, a liczby pod
           spodem są policzone z danych.
         */}
-        <h1 className="max-w-[19ch] text-wyswietl font-semibold text-white">
+        {/*
+          Nadtytuł mówi, czym portal jest, zanim padnie obietnica. Bez niego
+          strona wyglądała wyłącznie na wizytówkę aplikacji, a dział aktualności
+          był niespodzianką ukrytą w menu.
+        */}
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/70">
+          Przewodnik i portal informacyjny Pienin
+        </p>
+
+        <h1 className="mt-4 max-w-[19ch] text-wyswietl font-semibold text-white">
           Wszystkie szlaki Pienin w jednym miejscu
         </h1>
 
-        <p className="mt-6 max-w-[54ch] text-prowadzacy text-white/90">
-          Szlaki piesze, rowerowe i narciarskie, atrakcje okolicy, mapy offline,
-          nawigacja GPS i wszystko, czego potrzebujesz do odkrywania Pienin.
+        <p className="mt-6 max-w-[56ch] text-prowadzacy text-white/90">
+          Szlaki piesze, rowerowe i narciarskie, atrakcje okolicy, mapy offline
+          i nawigacja GPS — a do tego aktualności z regionu: zmiany na szlakach,
+          wydarzenia i warunki w górach.
         </p>
 
-        <PrzyciskiSklepow className="mt-10" wariant="jasny" />
+        {/*
+          Odnośnik do aktualności obok odznak sklepów, a nie zamiast nich.
+          Portal robi dwie rzeczy i obie mają być widoczne z pierwszego ekranu:
+          prowadzi do aplikacji i codziennie mówi, co się w Pieninach dzieje.
+          Ktoś, kto przyszedł po wiadomość, nie powinien musieć szukać jej
+          w menu — a ktoś, kto przyszedł po aplikację, i tak patrzy na odznaki.
+        */}
+        <div className="mt-10 flex flex-col gap-6">
+          <PrzyciskiSklepow wariant="jasny" />
+
+          <Link
+            href="/aktualnosci"
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-white hover:bg-white/10"
+          >
+            <Newspaper className="size-4" aria-hidden />
+            Aktualności z Pienin
+          </Link>
+        </div>
 
         <dl className="mt-14 grid max-w-4xl grid-cols-2 gap-x-8 gap-y-6 border-t border-white/25 pt-8 sm:grid-cols-3 lg:grid-cols-5">
           {liczby.map((pozycja) => (

@@ -20,6 +20,32 @@ import { baza } from '@/lib/baza'
 export const ZNACZNIK_WIADOMOSCI = 'wiadomosci'
 
 /**
+ * Ożywienie dat po odczycie z pamięci podręcznej.
+ *
+ * **To jest naprawa błędu, który ujawnił się dopiero przy pierwszej
+ * opublikowanej notce.** `unstable_cache` zapisuje wynik w postaci
+ * szeregowanej, a szeregowanie zamienia obiekt `Date` w napis. Przy pierwszym
+ * wywołaniu funkcja liczy wynik na świeżo i zwraca prawdziwe daty; przy
+ * każdym następnym wynik wraca z pamięci — i `opublikowano` jest już napisem.
+ * Strona notki wołała na nim `toISOString()` i cała podstrona kończyła się
+ * błędem 500.
+ *
+ * Dlaczego nie było tego widać wcześniej: dopóki nie było ani jednej
+ * opublikowanej notki, żadna data nie przechodziła przez pamięć podręczną.
+ * Błąd czekał na pierwszą publikację.
+ *
+ * Ożywienie musi dziać się POZA funkcją opakowaną w `unstable_cache` —
+ * w środku wykonałoby się raz, przed zapisaniem do pamięci, i nic by nie dało.
+ */
+function data(wartosc: Date | string): Date {
+  return wartosc instanceof Date ? wartosc : new Date(wartosc)
+}
+
+function dataAlboNull(wartosc: Date | string | null): Date | null {
+  return wartosc === null ? null : data(wartosc)
+}
+
+/**
  * Odczyt, który nie wywraca wdrożenia.
  *
  * Strona główna i lista aktualności powstają przy budowaniu, więc budowanie
@@ -54,8 +80,7 @@ export type WiadomoscPelna = WiadomoscNaLiscie & {
   zrodloAdres: string | null
 }
 
-/** Najnowsze opublikowane notki. */
-export const pobierzWiadomosci = unstable_cache(
+const pobierzWiadomosciZPamieci = unstable_cache(
   async (ile = 30): Promise<WiadomoscNaLiscie[]> =>
     bezpiecznie(async () => {
       const wiersze = await baza.wiadomosc.findMany({
@@ -81,7 +106,7 @@ export const pobierzWiadomosci = unstable_cache(
   { tags: [ZNACZNIK_WIADOMOSCI] },
 )
 
-export const pobierzWiadomosc = unstable_cache(
+const pobierzWiadomoscZPamieci = unstable_cache(
   async (slug: string): Promise<WiadomoscPelna | null> =>
     bezpiecznie(async () => {
       const wiersz = await baza.wiadomosc.findFirst({
@@ -106,8 +131,7 @@ export const pobierzWiadomosc = unstable_cache(
   { tags: [ZNACZNIK_WIADOMOSCI] },
 )
 
-/** Same adresy — do mapy strony. */
-export const pobierzSlugiWiadomosci = unstable_cache(
+const pobierzSlugiZPamieci = unstable_cache(
   async (): Promise<{ slug: string; opublikowano: Date; zaktualizowano: Date | null }[]> =>
     bezpiecznie(async () => {
       const wiersze = await baza.wiadomosc.findMany({
@@ -120,6 +144,41 @@ export const pobierzSlugiWiadomosci = unstable_cache(
   ['wiadomosci-slugi'],
   { tags: [ZNACZNIK_WIADOMOSCI] },
 )
+
+/* ── Opakowania ożywiające daty ─────────────────────────────────────────── */
+
+/** Najnowsze opublikowane notki. */
+export async function pobierzWiadomosci(ile = 30): Promise<WiadomoscNaLiscie[]> {
+  const wiersze = await pobierzWiadomosciZPamieci(ile)
+  return wiersze.map((wiersz) => ({
+    ...wiersz,
+    opublikowano: data(wiersz.opublikowano),
+    zaktualizowano: dataAlboNull(wiersz.zaktualizowano),
+  }))
+}
+
+export async function pobierzWiadomosc(slug: string): Promise<WiadomoscPelna | null> {
+  const wiersz = await pobierzWiadomoscZPamieci(slug)
+  if (!wiersz) return null
+
+  return {
+    ...wiersz,
+    opublikowano: data(wiersz.opublikowano),
+    zaktualizowano: dataAlboNull(wiersz.zaktualizowano),
+  }
+}
+
+/** Same adresy — do mapy witryny. */
+export async function pobierzSlugiWiadomosci(): Promise<
+  { slug: string; opublikowano: Date; zaktualizowano: Date | null }[]
+> {
+  const wiersze = await pobierzSlugiZPamieci()
+  return wiersze.map((wiersz) => ({
+    ...wiersz,
+    opublikowano: data(wiersz.opublikowano),
+    zaktualizowano: dataAlboNull(wiersz.zaktualizowano),
+  }))
+}
 
 /** Rozbija treść na akapity. Pusta linia rozdziela, puste wpisy odpadają. */
 export function akapity(tresc: string): string[] {
