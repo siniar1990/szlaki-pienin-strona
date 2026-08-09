@@ -1136,11 +1136,81 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'degustacje-regionalne',
     nazwa: 'Degustacje produktów regionalnych',
-    kategorie: ['aktywnie', 'kultura'],
+    kategorie: ['kultura', 'rodziny'],
     podkategoria: 'warsztaty',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    wyrozniona: true,
+    skrot: 'Oscypek, bryndza, bundz i żentyca — cała rodzina serów z owczego mleka, prosto z bacówki.',
+    opis: [
+      'Sery owcze są tym, co z pasterskiej przeszłości Pienin przetrwało ' +
+        'w najbardziej dosłownej formie — nie jako eksponat w muzeum, tylko ' +
+        'jako jedzenie robione tak samo jak dwieście lat temu. Próbuje się ich ' +
+        'przy bacówkach, na kramach i w karczmach, a najciekawiej tam, gdzie ' +
+        'baca sam opowiada, co trzyma w ręku.',
+      'Wszystkie zaczynają się od jednego: od owczego mleka i podpuszczki. ' +
+        'To, co dzieje się dalej — czy ser się wędzi, soli, formuje, czy pije ' +
+        'to, co po nim zostało — daje cztery zupełnie różne rzeczy o czterech ' +
+        'różnych nazwach, których turyści zwykle używają zamiennie i niesłusznie.',
+      'Poza serami warto spróbować kwaśnicy, moskoli i pstrąga z pienińskich ' +
+        'hodowli. W schroniskach i karczmach oscypek podaje się często ' +
+        'z grilla, z żurawiną — to już wersja pod turystów, ale dobra.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'ryba',
+        tytul: 'Oscypek',
+        tekst:
+          'Wędzony, twardy, w kształcie wrzeciona, z charakterystycznym wzorem ' +
+          'odciśniętym przez drewnianą formę. Robiony z owczego mleka ' +
+          'w sezonie wypasu. Nazwa jest chroniona w Unii Europejskiej, więc ' +
+          'to, co leży na kramie zimą, oscypkiem zwykle nie jest.',
+      },
+      {
+        ikona: 'sprzet',
+        tytul: 'Bryndza podhalańska',
+        tekst:
+          'Miękka, słona, rozsmarowywalna — powstaje z rozdrobnionego ' +
+          'i osolonego bundzu. Była pierwszym polskim produktem objętym ' +
+          'unijną ochroną nazwy pochodzenia.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Bundz i redykołka',
+        tekst:
+          'Bundz to świeży, niesolony ser owczy o łagodnym smaku — najlepszy ' +
+          'na pierwszy raz i dla dzieci. Redykołka to małe serki formowane ' +
+          'w zwierzątka i serduszka, dawniej dawane w podarunku podczas ' +
+          'jesiennego redyku.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Żentyca',
+        tekst:
+          'Serwatka, która zostaje po zrobieniu bundzu — pije się ją lekko ' +
+          'kwaśną i podaje w bacówkach. Rzecz, po którą warto sięgnąć raz, ' +
+          'choćby dla samej ciekawości.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Kiedy sery są prawdziwe',
+        tekst:
+          'Owce wypasa się od wiosny do jesieni i tylko wtedy powstają sery ' +
+          'z owczego mleka. Poza sezonem sprzedaje się wyroby krowie ' +
+          'o podobnym kształcie — smaczne, ale to nie to samo. Jeśli zależy ' +
+          'ci na oryginale, pytaj wprost o mleko.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Gdzie próbować',
+        tekst:
+          'Najbliżej prawdy jest przy bacówkach w dolinach — w Pieninach ' +
+          'wypas kulturowy prowadzi się między innymi na Hali Majerz ' +
+          'w parku narodowym. Poza tym kramy w Szczawnicy i Krościenku, ' +
+          'schroniska i karczmy regionalne.',
+      },
+    ],
+    sezon: 'sery z owczego mleka — od wiosny do jesieni',
+    doPotwierdzenia: true,
   },
   {
     slug: 'wypozyczalnie-rowerow',
