@@ -41,6 +41,17 @@ const nextConfig: NextConfig = {
       */
       { source: '/prywatnosc.html', destination: '/prywatnosc', permanent: true },
       { source: '/wsparcie.html', destination: '/wsparcie', permanent: true },
+      /*
+        Wpis „Jazda konna i przejażdżki bryczką" rozpadł się na dwa osobne —
+        to dwie różne rzeczy, robione przez różne osoby i z różnych powodów.
+        Stary adres prowadzi do jazdy konnej, żeby nie zostawiać 404 komuś,
+        kto ma go w zakładkach albo w wynikach wyszukiwania.
+      */
+      {
+        source: '/atrakcje/jazda-konna-i-bryczki',
+        destination: '/atrakcje/jazda-konna',
+        permanent: true,
+      },
     ]
   },
 }

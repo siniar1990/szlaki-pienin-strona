@@ -200,15 +200,27 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'wyciagi',
     lokalizacja: 'szczawnica',
     wyrozniona: true,
+    trasy: ['7D', 'KP23'],
     skrot: 'Wyjazd nad Szczawnicę w kilka minut — i początek kilku szlaków.',
     opis: [
       'Kolej wywozi z centrum uzdrowiska na Palenicę (722 m n.p.m.). Z góry ' +
         'rozciąga się widok na Szczawnicę, dolinę Dunajca i pienińskie grzbiety, ' +
         'a przy dobrej widoczności także na Tatry.',
-      'Dla wielu tras opisanych w tym portalu Palenica jest punktem startowym — ' +
-        'kolej pozwala oszczędzić pierwsze, najbardziej mozolne podejście ' +
-        'i zacząć wędrówkę od razu na grzbiecie.',
+      'Dla większości to najprostszy sposób, żeby wejść wysoko bez podejścia — ' +
+        'ale kolej jest też początkiem dłuższego dnia. Ze szczytu prowadzą ' +
+        'szlaki na Szafranówkę, Wysoki Wierch i dalej grzbietem Małych Pienin ' +
+        'ku Wąwozowi Homole. Można też zjechać na dół pieszo, w niecałą godzinę.',
+      'Bilety są w dwóch wariantach: w jedną stronę, gdy planuje się zejście ' +
+        'pieszo, albo góra–dół. Przy kasach automatycznych płaci się kilka ' +
+        'złotych więcej niż w sklepie internetowym, więc jeśli data jest pewna, ' +
+        'warto kupić z wyprzedzeniem. Są też bilety rodzinne, dla dwojga ' +
+        'dorosłych z jednym albo dwojgiem dzieci.',
+      'Kolej działa przez cały rok, ale godziny zmieniają się z porą roku — ' +
+        'zimą zamyka się wcześnie, latem jeździ do wieczora. Przed wyjazdem ' +
+        'w konkretny dzień warto zerknąć na aktualny rozkład.',
     ],
+    cena: 'Bilet normalny góra–dół od 32 do 39 zł, w jedną stronę od 25 do 32 zł — taniej w sklepie internetowym niż w kasie i taniej poza szczytem sezonu. Ulgowy (dzieci od 5 lat, młodzież, seniorzy) o kilka złotych mniej, bilety rodzinne od 79 zł.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'zjezdzalnia-grawitacyjna-palenica',
@@ -258,19 +270,52 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     doPotwierdzenia: true,
   },
   {
-    slug: 'jazda-konna-i-bryczki',
-    nazwa: 'Jazda konna i przejażdżki bryczką',
+    slug: 'jazda-konna',
+    nazwa: 'Jazda konna',
     kategorie: ['aktywnie', 'rodziny'],
     podkategoria: 'jazda-konna',
-    lokalizacja: 'szczawnica',
-    skrot: 'Bryczki w uzdrowisku i stajnie oferujące jazdę w terenie.',
+    lokalizacja: 'pieniny',
+    trasy: ['4B', '2C'],
+    skrot: 'Stajnie w pienińskich dolinach — nauka jazdy, wyjazdy w teren i konie huculskie.',
     opis: [
-      'Przejażdżka bryczką po uzdrowisku należy do szczawnickiej tradycji — ' +
-        'powozy zabierają na trasę wzdłuż promenady i dolinami. Zimą, przy ' +
-        'odpowiednim śniegu, bryczki zastępują sanie.',
-      'W okolicy działają też stajnie prowadzące jazdę konną w terenie ' +
-        'i naukę jazdy, w tym z końmi rasy huculskiej — odpornej góralskiej ' +
-        'rasie przystosowanej do stromego terenu.',
+      'W pienińskich dolinach działa kilka stajni: prowadzą naukę jazdy dla ' +
+        'początkujących, wyjazdy w teren dla tych, którzy już siedzieli ' +
+        'w siodle, i oprowadzanie dzieci na lonży. Wiele z nich trzyma konie ' +
+        'huculskie — niewielką góralską rasę, odporną i pewną na stromiznach, ' +
+        'wyhodowaną dokładnie do takiego terenu.',
+      'W gminie Szczawnica polecamy stadninę Rajd w dolinie Białej Wody. ' +
+        'Dojście jest samo w sobie przyjemne: z centrum Jaworek idzie się ' +
+        'doliną obok pasterskich szałasów, a stadnina stoi przy drodze, ' +
+        'naprzeciw Muzycznej Owczarni. Można więc połączyć jazdę z koncertem ' +
+        'albo z wejściem w rezerwat Biała Woda, który zaczyna się kawałek dalej.',
+      'Zimą, przy odpowiednim śniegu, część stajni zamienia bryczki na sanie ' +
+        'i organizuje kuligi.',
+    ],
+    doPotwierdzenia: true,
+  },
+  {
+    slug: 'przejazdzki-bryczka',
+    nazwa: 'Przejażdżki bryczką',
+    kategorie: ['rodziny', 'kultura'],
+    podkategoria: 'bryczki',
+    lokalizacja: 'szczawnica',
+    miejscowosc: 'Szczawnica, ul. Zdrojowa',
+    trasy: ['DP'],
+    skrot: 'Uzdrowiskowa tradycja, która nie zniknęła — powozy czekają na ulicy Zdrojowej.',
+    opis: [
+      'Bryczka należy do szczawnickiego krajobrazu odkąd Szczawnica jest ' +
+        'uzdrowiskiem. W dziewiętnastym wieku, gdy Józef Szalay budował tu ' +
+        'zakład zdrojowy, powozy były po prostu środkiem transportu: woziły ' +
+        'kuracjuszy z kolei, między pensjonatami i na punkty widokowe, do ' +
+        'których nikt nie zamierzał iść pieszo w stroju wizytowym.',
+      'Zwyczaj przetrwał zmianę epoki i dziś jest atrakcją samą w sobie. ' +
+        'Woźnice w strojach góralskich czekają z powozami przy ulicy ' +
+        'Zdrojowej — nie trzeba nic rezerwować, wystarczy podejść i się ' +
+        'umówić.',
+      'Najczęściej jeździ się promenadą wzdłuż Grajcarka i dalej Drogą ' +
+        'Pienińską nad Dunajcem, tą samą, którą idą piesi i rowerzyści pod ' +
+        'ścianami przełomu. Zimą, gdy spadnie dość śniegu, bryczki ustępują ' +
+        'miejsca saniom.',
     ],
     doPotwierdzenia: true,
   },
@@ -558,21 +603,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     sezon: 'prom domykający pętlę kursuje od maja do października',
   },
   {
-    slug: 'kladka-do-czerwonego-klasztoru',
-    nazwa: 'Kładka pieszo-rowerowa do Czerwonego Klasztoru',
-    kategorie: ['aktywnie'],
-    podkategoria: 'rowery',
-    lokalizacja: 'sromowce',
-    skrot: 'Przejście na słowacki brzeg przełomu, pieszo albo rowerem.',
-    opis: [
-      'Kładka nad Dunajcem łącząca polski brzeg ze słowackim Czerwonym ' +
-        'Klasztorem. Po słowackiej stronie biegnie ścieżka wzdłuż przełomu — ' +
-        'popularna trasa rowerowa z widokiem na ściany Trzech Koron.',
-      'Granica jest otwarta, ale to nadal granica państwa: dowód osobisty ' +
-        'albo paszport warto mieć przy sobie.',
-    ],
-  },
-  {
     slug: 'muzeum-uzdrowiska',
     nazwa: 'Muzeum Uzdrowiska',
     kategorie: ['kultura'],
@@ -629,7 +659,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'promenada-nad-grajcarkiem',
     nazwa: 'Grajcarek i promenada',
-    kategorie: ['woda', 'rodziny', 'aktywnie'],
+    kategorie: ['woda', 'rodziny'],
     podkategoria: 'grajcarek',
     lokalizacja: 'szczawnica',
     trasy: ['2D'],
