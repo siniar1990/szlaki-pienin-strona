@@ -44,7 +44,15 @@ jobs:
           test "$kod" = "200"
 
   redakcja:
-    if: github.event.schedule == '40 6 * * *' || github.event_name == 'workflow_dispatch'
+    # `needs` razem z `always()`: przy uruchomieniu ręcznym redakcja czeka na
+    # obchód, żeby wybierała spośród świeżo przyniesionych artykułów, a nie
+    # równolegle z ich pobieraniem. Przy nocnym przebiegu obchód jest pomijany
+    # i wtedy `always()` pozwala redakcji ruszyć mimo pominiętej zależności —
+    # bez tego pominięty krok pociągnąłby ją za sobą.
+    needs: [obchod]
+    if: >-
+      always() &&
+      (github.event.schedule == '40 6 * * *' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
       - name: Napisz notkę dnia
