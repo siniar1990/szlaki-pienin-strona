@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Anton, Fraunces, Inter } from 'next/font/google'
+import { Fraunces, Inter } from 'next/font/google'
 
 import { Naglowek } from '@/components/uklad/naglowek'
 import { Stopka } from '@/components/uklad/stopka'
@@ -14,6 +14,11 @@ import './globals.css'
  * stronie ton przewodnika, a nie panelu administracyjnego. Ma oś optyczną,
  * więc wielkie napisy w sekcji powitalnej dostają cieńsze szeryfy niż małe
  * śródtytuły i całość wygląda na złożoną ręcznie.
+ *
+ * Dwa kroje, nie trzy. Był tu jeszcze Anton do wielkich wersalików —
+ * zadeklarowany, wczytywany na KAŻDEJ podstronie i nieużyty ani razu.
+ * Czterdzieści osiem kilobajtów pobierane po to, żeby nic nie narysować.
+ * Font, którego nie widać, jest najdroższą rzeczą, jaką można mieć w stronie.
  *
  * Inter — wszystko, co się czyta i klika. Nudny w najlepszym sensie: świetnie
  * czytelny w małych stopniach, ma komplet polskich znaków i cyfry o równej
@@ -35,20 +40,6 @@ const tekstowy = Inter({
   display: 'swap',
 })
 
-/**
- * Anton — wąskie, ciężkie wersaliki do wielkich napisów w sekcji atrakcji.
- *
- * To głos wzięty wprost z folderu gminy („NA ROWER", „TRASY MTB"): krój
- * plakatowy, który na zdjęciu albo barwnej płaszczyźnie krzyczy, a przy tym
- * zajmuje mało miejsca w poziomie. Używamy go wyłącznie w wersalikach i tylko
- * do nagłówków — w tekście ciągłym byłby nieczytelny.
- */
-const plakatowy = Anton({
-  variable: '--font-plakat',
-  subsets: ['latin', 'latin-ext'],
-  weight: '400',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   // `metadataBase` sprawia, że względne adresy obrazów w OpenGraph zamieniają
@@ -121,7 +112,7 @@ export default function UkladGlowny({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="pl"
-      className={`${tekstowy.variable} ${naglowkowy.variable} ${plakatowy.variable} h-full`}
+      className={`${tekstowy.variable} ${naglowkowy.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-background">
         {/*
