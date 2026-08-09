@@ -4,6 +4,7 @@ import { KATEGORIE_TRAS } from '@/lib/dane/kategorie'
 import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
 import { pobierzAtrakcje, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { PORTAL } from '@/lib/konfiguracja'
+import { pobierzSlugiWiadomosci } from '@/lib/wiadomosci/zapytania'
 
 /**
  * Mapa witryny.
@@ -18,9 +19,9 @@ import { PORTAL } from '@/lib/konfiguracja'
  * bo to one niosą treść.
  */
 // Tak jak przy robots.txt — deklarujemy, że plik powstaje raz, przy budowaniu.
-export const dynamic = 'force-static'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const teraz = new Date()
 
   const strony: MetadataRoute.Sitemap = [
@@ -28,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${PORTAL.adres}/szlaki`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${PORTAL.adres}/atrakcje`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${PORTAL.adres}/mapa`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${PORTAL.adres}/aktualnosci`, changeFrequency: 'daily', priority: 0.8 },
     { url: `${PORTAL.adres}/aplikacja`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${PORTAL.adres}/wyzwania`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${PORTAL.adres}/wsparcie`, changeFrequency: 'yearly', priority: 0.4 },
@@ -79,8 +81,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...strony, ...trasy, ...wyzwania, ...kategorie, ...atrakcje].map((wpis) => ({
-    ...wpis,
-    lastModified: teraz,
+  /*
+    Aktualności mają własną datę zmiany — dla działu informacyjnego to jedyne
+    pole w tej mapie, które naprawdę coś znaczy. Reszta dostaje „teraz", bo
+    zmienia się razem z wdrożeniem.
+  */
+  const wiadomosci: MetadataRoute.Sitemap = (await pobierzSlugiWiadomosci()).map((wiadomosc) => ({
+    url: `${PORTAL.adres}/aktualnosci/${wiadomosc.slug}`,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+    lastModified: wiadomosc.opublikowano,
   }))
+
+  return [
+    ...[...strony, ...trasy, ...wyzwania, ...kategorie, ...atrakcje].map((wpis) => ({
+      ...wpis,
+      lastModified: teraz,
+    })),
+    ...wiadomosci,
+  ]
 }

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { LayoutDashboard, LogOut, Map, QrCode } from 'lucide-react'
+import { LayoutDashboard, LogOut, Map, Newspaper, QrCode, Rss } from 'lucide-react'
 
 import { wyloguj } from '@/app/panel/dzialania'
 
@@ -16,6 +16,8 @@ const MENU_PANELU = [
   { adres: '/panel', etykieta: 'Pulpit', ikona: LayoutDashboard },
   { adres: '/panel/kody', etykieta: 'Tabliczki', ikona: QrCode },
   { adres: '/panel/mapa', etykieta: 'Mapa', ikona: Map },
+  { adres: '/panel/aktualnosci', etykieta: 'Aktualności', ikona: Newspaper },
+  { adres: '/panel/aktualnosci/znaleziska', etykieta: 'Znaleziska', ikona: Rss },
 ] as const
 
 export default function UkladPanelu({ children }: LayoutProps<'/panel'>) {
@@ -37,7 +39,7 @@ export default function UkladPanelu({ children }: LayoutProps<'/panel'>) {
       */}
       <header className="border-b border-las-800 bg-las-900 text-white">
         <div className="obszar flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-3 sm:h-16 sm:flex-nowrap sm:py-0">
-          <span className="font-heading text-lg font-semibold">Panel tabliczek</span>
+          <span className="font-heading text-lg font-semibold">Panel portalu</span>
 
           <form action={wyloguj} className="order-2 sm:order-3">
             <button

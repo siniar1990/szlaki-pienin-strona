@@ -128,6 +128,13 @@ export function Stopka() {
             >
               Panel tabliczek
             </Link>
+            <Link
+              href="/panel/aktualnosci"
+              rel="nofollow"
+              className="text-kamien-400 transition-colors hover:text-las-700"
+            >
+              Panel wiadomości
+            </Link>
           </div>
         </div>
 

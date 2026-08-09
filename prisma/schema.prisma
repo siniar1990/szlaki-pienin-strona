@@ -62,7 +62,7 @@ model KodQr {
   id String @id @default(cuid())
 
   /// Identyfikator z tabliczki, np. „P001". Wchodzi do adresu /qr/P001.
-  kod   String @unique
+  kod   String  @unique
   nazwa String
   opis  String?
 
@@ -162,4 +162,134 @@ model SkanDzienny {
 
   @@id([kodQrId, dzien])
   @@index([dzien])
+}
+
+// ─── Aktualności ───────────────────────────────────────────────────────────
+//
+// Trzy tabele opisują drogę wiadomości od cudzej strony do naszego portalu:
+// źródło, znalezisko i gotowa notka. Rozdzielenie znaleziska od notki jest tu
+// najważniejsze — dzięki niemu obchód może chodzić po sieci codziennie i nic
+// nie publikować, a redakcja wybiera z odłożonych znalezisk wtedy, gdy ma
+// z czego wybierać. Gdyby obchód od razu tworzył notki, każdy przebieg
+// zostawiałby po sobie śmieci do posprzątania.
+
+/// Stan znaleziska w drodze przez redakcję.
+enum StanZnaleziska {
+  /// Świeżo znalezione, jeszcze nieoceniane.
+  NOWY
+  /// Ocenione i odrzucone — zostaje w bazie, żeby nie wracało przy każdym obchodzie.
+  ODRZUCONE
+  /// Wybrane przez redakcję i przerobione na szkic notki.
+  WYKORZYSTANE
+}
+
+enum StanWiadomosci {
+  /// Napisana, czeka na człowieka. Niewidoczna na portalu.
+  SZKIC
+  OPUBLIKOWANA
+  /// Odrzucona przez administratora. Nie kasujemy, żeby redakcja uczyła się
+  /// na tym, czego nie chcemy — i żeby dało się cofnąć pomyłkę.
+  ODRZUCONA
+}
+
+/// Strona, po której chodzi obchód.
+model ZrodloWiadomosci {
+  id    String @id @default(cuid())
+  nazwa String
+
+  /// Adres strony albo wprost kanału RSS/Atom. Obchód sam rozpoznaje, co
+  /// dostał, i szuka kanału w nagłówku strony, gdy podano adres zwykły.
+  adres String @unique
+
+  /// Wykryty adres kanału. Zapisujemy go po pierwszym udanym obchodzie, żeby
+  /// nie powtarzać wykrywania przy każdym przebiegu.
+  adresKanalu String?
+
+  aktywne Boolean @default(true)
+
+  ostatniObchod DateTime?
+  /// Komunikat z ostatniego nieudanego obchodu. Widoczny w panelu — inaczej
+  /// źródło, które przestało odpowiadać, milczałoby tygodniami.
+  ostatniBlad   String?
+
+  utworzono DateTime @default(now())
+  zmieniono DateTime @updatedAt
+
+  znaleziska ZnalezionyArtykul[]
+
+  @@index([aktywne])
+}
+
+/// Jeden artykuł znaleziony u źródła. Trzymamy sam opis i adres — nigdy
+/// całej cudzej treści. To nie jest oszczędność miejsca, tylko granica:
+/// baza portalu nie ma być kopią cudzych serwisów.
+model ZnalezionyArtykul {
+  id       String @id @default(cuid())
+  zrodloId String
+
+  adres String  @unique
+  tytul String
+  /// Zajawka podana przez samo źródło w kanale — zwykle jedno, dwa zdania.
+  opis  String?
+
+  opublikowano DateTime?
+  znaleziono   DateTime  @default(now())
+
+  /// Ocena atrakcyjności 0–100 wystawiona przy wyborze dnia, wraz z krótkim
+  /// uzasadnieniem. Widoczne w panelu, żeby dało się sprawdzić, czemu coś
+  /// przeszło, a coś innego nie.
+  ocena        Int?
+  uzasadnienie String?
+
+  stan StanZnaleziska @default(NOWY)
+
+  zrodlo    ZrodloWiadomosci @relation(fields: [zrodloId], references: [id], onDelete: Cascade)
+  wiadomosc Wiadomosc?
+
+  @@index([stan, znaleziono])
+  @@index([zrodloId])
+}
+
+/// Notka na portalu. Powstaje jako szkic i bez decyzji człowieka nigdy nie
+/// wychodzi poza panel.
+model Wiadomosc {
+  id   String @id @default(cuid())
+  slug String @unique
+
+  tytul String
+  /// Lid — jedno zdanie streszczenia, pokazywane na kartach i w zapowiedzi
+  /// dla wyszukiwarek.
+  lid   String
+  /// Treść jako zwykły tekst; akapity rozdziela pusta linia. Bez znaczników,
+  /// bo notka ma trzy akapity, a nie strukturę dokumentu.
+  tresc String
+
+  /// Zdjęcie główne jako `data:` URL — tak samo jak przy tabliczkach.
+  ///
+  /// Nigdy nie pobiera go redakcja. Zdjęcia w serwisach informacyjnych są
+  /// najczęściej licencjonowane osobno od tekstu i to one, a nie treść, są
+  /// najszybszą drogą do sporu o prawa autorskie. Zdjęcie dokłada człowiek.
+  zdjecie     String?
+  zdjecieOpis String?
+
+  /// Skąd wzięła się informacja. Wypełniane zawsze, gdy notka powstała
+  /// z cudzego artykułu — strona pokazuje to pod treścią i nie da się tego
+  /// pominąć przez zapomnienie.
+  zrodloNazwa String?
+  zrodloAdres String?
+
+  /// Czy notkę napisał model językowy. Do wiadomości administratora — szkic
+  /// maszynowy czyta się inaczej niż własny.
+  odRedakcjiMaszynowej Boolean @default(false)
+
+  stan         StanWiadomosci @default(SZKIC)
+  opublikowano DateTime?
+
+  utworzono DateTime @default(now())
+  zmieniono DateTime @updatedAt
+
+  znaleziskoId String?            @unique
+  znalezisko   ZnalezionyArtykul? @relation(fields: [znaleziskoId], references: [id], onDelete: SetNull)
+
+  @@index([stan, opublikowano])
 }

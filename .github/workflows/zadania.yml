@@ -1,0 +1,58 @@
+name: Zadania cykliczne
+
+# Harmonogram działu aktualności.
+#
+# Dlaczego tutaj, a nie w vercel.json: darmowy plan Vercela dopuszcza wyłącznie
+# zadania dobowe i tylko jedno na projekt. To jedno zajmuje już konserwacja
+# statystyk tabliczek, a obchód źródeł ma chodzić co dwanaście godzin.
+# Harmonogram GitHuba nie ma tych ograniczeń, jest darmowy dla repozytoriów
+# publicznych i stoi obok kodu, którego dotyczy.
+#
+# Wymagane sekrety repozytorium (Settings → Secrets and variables → Actions):
+#   ADRES_PORTALU  — np. https://szlakipienin.pl
+#   SEKRET_ZADAN   — ta sama wartość co zmienna SEKRET_ZADAN na Vercelu
+
+on:
+  schedule:
+    # Godziny w UTC. 5:20 i 17:20 czasu uniwersalnego to 7:20 i 19:20 latem
+    # w Polsce — po porannej i po popołudniowej fali publikacji w lokalnych
+    # serwisach. Nierówne minuty, bo o pełnych godzinach GitHub ma szczyt
+    # i zadania potrafią się opóźnić o kilkanaście minut.
+    - cron: '20 5,17 * * *'
+    # Redakcja pisze notkę raz na dobę, po porannym obchodzie.
+    - cron: '40 6 * * *'
+  # Ręczne uruchomienie — do sprawdzenia świeżo dodanego źródła.
+  workflow_dispatch:
+
+jobs:
+  obchod:
+    # Poranny i wieczorny przebieg obchodu; przy uruchomieniu ręcznym też.
+    if: github.event.schedule != '40 6 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obejdź źródła
+        run: |
+          kod=$(curl -sS -o /tmp/odpowiedz.json -w '%{http_code}' \
+            --max-time 300 \
+            -H "Authorization: Bearer ${{ secrets.SEKRET_ZADAN }}" \
+            "${{ secrets.ADRES_PORTALU }}/api/cron/obchod")
+          cat /tmp/odpowiedz.json
+          echo
+          # Kod inny niż 200 ma zapalić czerwone światło w zakładce Actions —
+          # cicha awaria obchodu oznaczałaby dział aktualności, który po prostu
+          # przestaje dostawać nowe tematy i nikt tego nie zauważa.
+          test "$kod" = "200"
+
+  redakcja:
+    if: github.event.schedule == '40 6 * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Napisz notkę dnia
+        run: |
+          kod=$(curl -sS -o /tmp/odpowiedz.json -w '%{http_code}' \
+            --max-time 300 \
+            -H "Authorization: Bearer ${{ secrets.SEKRET_ZADAN }}" \
+            "${{ secrets.ADRES_PORTALU }}/api/cron/redakcja")
+          cat /tmp/odpowiedz.json
+          echo
+          test "$kod" = "200"

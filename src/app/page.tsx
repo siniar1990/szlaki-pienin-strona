@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { ArrowUpRight, Map as MapIcon, Sparkles } from 'lucide-react'
+import { Map as MapIcon } from 'lucide-react'
 
+import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { KafelkiWyzwan } from '@/components/glowna/kafelki-wyzwan'
@@ -11,6 +12,7 @@ import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
 import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { liczba } from '@/lib/format'
+import { pobierzWiadomosci } from '@/lib/wiadomosci/zapytania'
 
 /**
  * Strona główna portalu.
@@ -19,7 +21,7 @@ import { liczba } from '@/lib/format'
  * przeglądarki trafia gotowy HTML, bez ani jednego kilobajta logiki ładowania.
  */
 
-export default function StronaGlowna() {
+export default async function StronaGlowna() {
   const trasy = pobierzTrasy()
   const statystyki = pobierzStatystyki()
 
@@ -64,9 +66,13 @@ export default function StronaGlowna() {
       liczbaTras: szczyt.trasy.length,
     }))
 
-  const ciekawostki = trasy
-    .flatMap((trasa) => trasa.ciekawostki.map((c) => ({ ...c, trasa })))
-    .slice(0, 3)
+  /*
+    Trzy najnowsze notki. Odczyt z bazy, więc strona główna przestała być
+    w całości statyczna — ale `unstable_cache` trzyma wynik aż do publikacji
+    następnej wiadomości, więc w praktyce baza jest odpytywana raz na dobę,
+    a nie raz na odsłonę.
+  */
+  const wiadomosci = await pobierzWiadomosci(3)
 
   return (
     <>
@@ -159,52 +165,25 @@ export default function StronaGlowna() {
         </div>
       </section>
 
-      {/* ── Ciekawostki ─────────────────────────────────────────────────── */}
-      <section className="sekcja bg-kamien-50">
-        <div className="obszar">
-          <NaglowekSekcji
-            nadtytul="Zajrzyj do przewodnika"
-            tytul="To dopiero zajawka przewodnika"
-            opis={`Przy każdej trasie czekają opisy odcinek po odcinku, wskazówki nawigacyjne, ostrzeżenia i historie przypięte do konkretnych miejsc. Razem ${liczba(statystyki.liczbaTras)} tras, ${liczba(statystyki.liczbaSzczytow)} szczytów i ${liczba(statystyki.liczbaCiekawostek)} ciekawostek — poniżej trzy wyjęte na chybił trafił.`}
-            odnosnik={{ adres: '/szlaki', etykieta: 'Przeglądaj trasy' }}
-          />
+      {/* ── Aktualności ─────────────────────────────────────────────────── */}
+      {wiadomosci.length > 0 && (
+        <section className="sekcja bg-kamien-50">
+          <div className="obszar">
+            <NaglowekSekcji
+              nadtytul="Co słychać w Pieninach"
+              tytul="Aktualności"
+              opis="Zmiany na szlakach, wydarzenia, warunki w górach i sprawy Szczawnicy, Krościenka i Czorsztyna."
+              odnosnik={{ adres: '/aktualnosci', etykieta: 'Wszystkie wiadomości' }}
+            />
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {ciekawostki.map((ciekawostka) => (
-              <article
-                key={`${ciekawostka.trasa.id}-${ciekawostka.tytul}`}
-                className="group flex flex-col rounded-2xl border border-kamien-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony"
-              >
-                <Sparkles className="size-5 text-las-600" aria-hidden />
-                <h3 className="mt-4 font-heading text-xl font-semibold leading-snug text-kamien-900">
-                  {ciekawostka.tytul}
-                </h3>
-                <p className="mt-3 line-clamp-6 flex-1 leading-relaxed text-kamien-600">
-                  {ciekawostka.tekst}
-                </p>
-                <Link
-                  href={`/szlaki/${ciekawostka.trasa.slug}`}
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-las-700 hover:underline"
-                >
-                  Trasa: {ciekawostka.trasa.nazwa}
-                  <ArrowUpRight
-                    className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden
-                  />
-                </Link>
-              </article>
-            ))}
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+              {wiadomosci.map((wiadomosc) => (
+                <KartaWiadomosci key={wiadomosc.slug} wiadomosc={wiadomosc} />
+              ))}
+            </div>
           </div>
-
-          <p className="mt-10 text-center text-kamien-500">
-            Reszta — wraz z mapami offline i nawigacją — czeka w aplikacji i na{' '}
-            <Link href="/szlaki" className="font-medium text-las-700 hover:underline">
-              stronach poszczególnych tras
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Aplikacja ───────────────────────────────────────────────────── */}
       <section className="sekcja">
