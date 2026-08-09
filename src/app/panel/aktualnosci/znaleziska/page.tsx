@@ -1,20 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import {
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  PenLine,
-  RefreshCw,
-  Sparkles,
-  X,
-} from 'lucide-react'
+import { ChevronLeft, ChevronRight, ExternalLink, PenLine, X } from 'lucide-react'
 
 import { baza } from '@/lib/baza'
 import { ETYKIETY_ZNALEZISKA, ileTemu } from '@/lib/wiadomosci/etykiety'
 import { kluczDostepny } from '@/lib/wiadomosci/model-jezykowy'
 
-import { notkaZeZnaleziska, odrzucZnalezisko, uruchomObchod, uruchomRedakcje } from '../dzialania'
+import { PrzyciskiZadan } from '@/components/panel/przyciski-zadan'
+
+import { notkaZeZnaleziska, odrzucZnalezisko } from '../dzialania'
 
 export const metadata: Metadata = {
   title: 'Znaleziska',
@@ -22,6 +16,14 @@ export const metadata: Metadata = {
 }
 
 export const dynamic = 'force-dynamic'
+
+/*
+  Akcje wywoływane z tej strony — obchód z ocenianiem i pisanie notki — trwają
+  kilkadziesiąt sekund. Bez tej deklaracji dostawały domyślny, znacznie
+  krótszy limit i były ucinane w połowie: przycisk „Obejdź źródła teraz"
+  wyglądał na niedziałający, choć zadanie ruszało i nie zdążyło skończyć.
+*/
+export const maxDuration = 60
 
 /**
  * Wykaz artykułów znalezionych u źródeł.
@@ -95,29 +97,7 @@ export default async function StronaZnalezisk({
           <span className="ml-3 text-base font-normal text-kamien-500">{wszystkich}</span>
         </h1>
 
-        <div className="flex flex-wrap gap-3">
-          <form action={uruchomObchod}>
-            <button
-              type="submit"
-              className="inline-flex items-center gap-2 rounded-full border border-kamien-300 px-5 py-2.5 text-sm font-medium text-kamien-700 transition-colors hover:border-las-400 hover:text-las-800"
-            >
-              <RefreshCw className="size-4" aria-hidden />
-              Obejdź źródła teraz
-            </button>
-          </form>
-
-          <form action={uruchomRedakcje}>
-            <button
-              type="submit"
-              disabled={!klucz}
-              title={klucz ? undefined : 'Ustaw KLUCZ_ANTHROPIC, żeby włączyć redakcję maszynową'}
-              className="inline-flex items-center gap-2 rounded-full bg-las-700 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-las-800 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <Sparkles className="size-4" aria-hidden />
-              Napisz notkę dnia
-            </button>
-          </form>
-        </div>
+        <PrzyciskiZadan kluczDostepny={klucz} />
       </div>
 
       {!klucz && (

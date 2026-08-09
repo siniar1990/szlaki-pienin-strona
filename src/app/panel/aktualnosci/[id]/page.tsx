@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 
 import { FormularzWiadomosci } from '@/components/panel/formularz-wiadomosci'
+import { odslonyPozycji } from '@/lib/analityka/statystyki'
 import { baza } from '@/lib/baza'
 import { ETYKIETY_STANU, ileTemu } from '@/lib/wiadomosci/etykiety'
 
@@ -55,6 +56,11 @@ export default async function StronaEdycjiWiadomosci({
   })
   if (!notka) notFound()
 
+  const odslony =
+    notka.stan === 'OPUBLIKOWANA'
+      ? ((await odslonyPozycji('AKTUALNOSC', [notka.slug])).get(notka.slug) ?? 0)
+      : null
+
   const stan = ETYKIETY_STANU[notka.stan]
   const opublikuj = opublikujWiadomosc.bind(null, id)
   const cofnij = cofnijPublikacje.bind(null, id)
@@ -92,6 +98,8 @@ export default async function StronaEdycjiWiadomosci({
             >
               zobacz na portalu
             </Link>
+            {' · '}
+            <span className="font-medium text-kamien-700">{odslony} odsłon</span>
           </>
         )}
       </p>

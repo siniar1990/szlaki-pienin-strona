@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 
+import { LicznikOdslon } from '@/components/analityka/licznik-odslon'
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
 import { DzialaniaTrasy } from '@/components/trasy/dzialania-trasy'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
@@ -108,6 +109,8 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
 
   return (
     <>
+      <LicznikOdslon rodzaj="SZLAK" klucz={slug} />
+
       <DaneStrukturalne trasa={trasa} />
 
       <NaglowekStrony

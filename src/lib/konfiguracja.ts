@@ -31,7 +31,7 @@ export const PORTAL = {
  * Po publikacji wystarczy wkleić tu adresy; nic więcej nie trzeba zmieniać.
  */
 export const SKLEPY = {
-  appStore: '',
+  appStore: 'https://apps.apple.com/pl/app/szlaki-pienin/id6797675813',
   googlePlay: '',
 } as const
 

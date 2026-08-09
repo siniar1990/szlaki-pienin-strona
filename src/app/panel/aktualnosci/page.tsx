@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Bot, PenLine, Plus } from 'lucide-react'
+import { Bot, Eye, PenLine, Plus } from 'lucide-react'
 
+import { odslonyPozycji } from '@/lib/analityka/statystyki'
 import { baza } from '@/lib/baza'
 import { ETYKIETY_STANU, ileTemu } from '@/lib/wiadomosci/etykiety'
-import { odmien } from '@/lib/format'
+import { liczba, odmien } from '@/lib/format'
 
 import { utworzWlasnaNotke } from './dzialania'
 
@@ -35,10 +36,21 @@ export default async function StronaAktualnosciPanelu() {
       zdjecie: true,
       odRedakcjiMaszynowej: true,
       zrodloNazwa: true,
+      slug: true,
       utworzono: true,
       opublikowano: true,
     },
   })
+
+  /*
+    Odsłony dobierane jednym zapytaniem dla całej listy, a nie po jednym na
+    notkę. Przy pięćdziesięciu wpisach różnica to pięćdziesiąt zapytań kontra
+    jedno — a strona i tak nie jest buforowana.
+  */
+  const odslony = await odslonyPozycji(
+    'AKTUALNOSC',
+    notki.filter((notka) => notka.stan === 'OPUBLIKOWANA').map((notka) => notka.slug),
+  )
 
   const szkice = notki.filter((notka) => notka.stan === 'SZKIC')
 
@@ -133,6 +145,15 @@ export default async function StronaAktualnosciPanelu() {
                     {notka.stan === 'OPUBLIKOWANA'
                       ? `opublikowano ${ileTemu(notka.opublikowano)}`
                       : `utworzono ${ileTemu(notka.utworzono)}`}
+
+                    {/* Odsłony tylko przy opublikowanych — przy szkicu byłyby
+                        zawsze zerem i zajmowały miejsce bez powodu. */}
+                    {notka.stan === 'OPUBLIKOWANA' && (
+                      <span className="mt-1.5 flex items-center justify-end gap-1 font-medium text-kamien-700">
+                        <Eye className="size-3.5" aria-hidden />
+                        {liczba(odslony.get(notka.slug) ?? 0)}
+                      </span>
+                    )}
                   </span>
                 </Link>
               </li>

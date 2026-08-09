@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CalendarRange, Info, MapPin, Mountain, Sparkles, Ticket } from 'lucide-react'
 
+import { LicznikOdslon } from '@/components/analityka/licznik-odslon'
 import { PrzewodnikAtrakcji } from '@/components/atrakcje/przewodnik-atrakcji'
 import { WolneMiejscePartnera } from '@/components/atrakcje/wolne-miejsce-partnera'
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
@@ -106,13 +107,30 @@ export async function generateMetadata({
 export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[slug]'>) {
   const { slug } = await params
 
+  /*
+    Licznik stoi tutaj, a nie w widokach niżej, bo atrakcje mają dwa różne
+    wyglądy — z katalogu redakcyjnego i z punktów na trasach — a liczyć chcemy
+    odsłony adresu, nie tego, który szablon się akurat wyświetlił.
+  */
   const zKatalogu = znajdzAtrakcjeTurystyczna(slug)
-  if (zKatalogu) return <WidokKatalogu atrakcja={zKatalogu} />
+  if (zKatalogu) {
+    return (
+      <>
+        <LicznikOdslon rodzaj="ATRAKCJA" klucz={slug} />
+        <WidokKatalogu atrakcja={zKatalogu} />
+      </>
+    )
+  }
 
   const atrakcja = pobierzAtrakcje1(slug)
   if (!atrakcja) notFound()
 
-  return <WidokZTras atrakcja={atrakcja} />
+  return (
+    <>
+      <LicznikOdslon rodzaj="ATRAKCJA" klucz={slug} />
+      <WidokZTras atrakcja={atrakcja} />
+    </>
+  )
 }
 
 /* ── Atrakcja z katalogu redakcyjnego ────────────────────────────────────── */

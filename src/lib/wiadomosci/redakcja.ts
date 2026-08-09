@@ -316,6 +316,36 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     })
   }
 
+  const wynik = await napiszDlaArtykulu(wybrany.id, BUDZET_CALOSCI_MS - (Date.now() - start), {
+    ocena,
+    uzasadnienie: wybor.uzasadnienie,
+  })
+
+  return zakoncz({ ...wynik, odrzucone: doOdrzucenia.length })
+}
+
+/**
+ * Napisanie notki dla wskazanego artykułu.
+ *
+ * Wydzielone z redakcji dnia, bo ta sama czynność potrzebna jest w dwóch
+ * miejscach: po automatycznym wyborze i po ręcznym wskazaniu artykułu
+ * w panelu. Wcześniej przycisk „Napisz notkę" tworzył tylko pustą zajawkę
+ * z tekstem zachęty — działało, ale znaczyło, że administrator, który zobaczył
+ * w wykazie coś lepszego niż wybór redakcji, musiał pisać wszystko sam.
+ */
+export async function napiszDlaArtykulu(
+  znaleziskoId: string,
+  budzetMs: number,
+  wybor?: { ocena?: number; uzasadnienie?: string },
+): Promise<Omit<WynikRedakcji, 'czasMs'>> {
+  const start = Date.now()
+
+  const wybrany = await baza.znalezionyArtykul.findUnique({
+    where: { id: znaleziskoId },
+    include: { zrodlo: { select: { nazwa: true } } },
+  })
+  if (!wybrany) return { stan: 'blad', szczegoly: 'Nie ma takiego artykułu' }
+
   /* ── Czytanie źródła ──────────────────────────────────────────────────── */
 
   let tekstZrodla: string
@@ -323,15 +353,14 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     const { tresc } = await pobierzTekst(wybrany.adres)
     tekstZrodla = wydobadzTresc(tresc).slice(0, NAJWIECEJ_ZNAKOW_ZRODLA)
   } catch (blad) {
-    // Artykuł, którego nie da się pobrać, odkładamy — jutro wybierze się inny.
     await baza.znalezionyArtykul.update({
       where: { id: wybrany.id },
       data: { stan: 'ODRZUCONE', uzasadnienie: 'Nie udało się pobrać treści artykułu' },
     })
-    return zakoncz({
+    return {
       stan: 'blad',
       szczegoly: blad instanceof Error ? blad.message : 'Nie udało się pobrać artykułu',
-    })
+    }
   }
 
   if (tekstZrodla.length < 400) {
@@ -339,7 +368,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
       where: { id: wybrany.id },
       data: { stan: 'ODRZUCONE', uzasadnienie: 'Za mało treści, żeby napisać notkę' },
     })
-    return zakoncz({ stan: 'nic-nie-warte', szczegoly: 'Wybrany artykuł okazał się pusty.' })
+    return { stan: 'nic-nie-warte', szczegoly: 'Artykuł nie ma treści, z której dałoby się pisać.' }
   }
 
   /* ── Pisanie ──────────────────────────────────────────────────────────── */
@@ -359,20 +388,14 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
   let kontrola = { czyste: false, zbieznosci: [] as string[] }
 
   for (const podejscie of [0, 1]) {
-    const zostalo = BUDZET_CALOSCI_MS - (Date.now() - start)
+    const zostalo = budzetMs - (Date.now() - start)
     if (zostalo < MINIMUM_NA_ROZMOWE_MS) {
-      /*
-        Zabrakło czasu. Artykuł zostaje w puli jako nowy — jutro wybierze się
-        na nowo, tym razem od pełnego budżetu. Odkładanie go tutaj karałoby
-        temat za to, że akurat model odpowiadał wolno.
-      */
-      return zakoncz({
-        stan: 'blad',
-        szczegoly:
-          podejscie === 0
-            ? 'Wybór zajął tyle czasu, że nie zostało go na napisanie notki'
-            : 'Zabrakło czasu na poprawienie notki — artykuł wraca do puli',
-      })
+      if (podejscie === 0) {
+        return { stan: 'blad', szczegoly: 'Zabrakło czasu na napisanie notki' }
+      }
+      // Po pierwszym podejściu mamy już tekst — zapisujemy go z ostrzeżeniem
+      // zamiast tracić i jego, i temat.
+      break
     }
 
     let kandydat: OdpowiedzNotki
@@ -391,20 +414,25 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
         ),
       })
     } catch (blad) {
-      return zakoncz({
+      if (ostatnia) break
+      return {
         stan: 'blad',
         szczegoly: blad instanceof BladModelu ? blad.message : 'Nie udało się napisać notki',
-      })
+      }
     }
 
     const akapity = (kandydat.akapity ?? []).map((akapit) => String(akapit).trim()).filter(Boolean)
     if (!kandydat.tytul || !kandydat.lid || akapity.length === 0) {
-      return zakoncz({ stan: 'blad', szczegoly: 'Model zwrócił niekompletną notkę' })
+      if (ostatnia) break
+      return { stan: 'blad', szczegoly: 'Model zwrócił niekompletną notkę' }
     }
 
     kandydat.akapity = akapity
     ostatnia = kandydat
-    kontrola = sprawdzZapozyczenia([kandydat.tytul, kandydat.lid, ...akapity].join('\n'), tekstZrodla)
+    kontrola = sprawdzZapozyczenia(
+      [kandydat.tytul, kandydat.lid, ...akapity].join('\n'),
+      tekstZrodla,
+    )
 
     if (kontrola.czyste) {
       notka = kandydat
@@ -425,9 +453,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     pokazuje je na czerwono i mówi wprost, co poprawić przed publikacją.
   */
   const doZapisu = notka ?? ostatnia
-  if (!doZapisu) {
-    return zakoncz({ stan: 'blad', szczegoly: 'Nie udało się napisać notki' })
-  }
+  if (!doZapisu) return { stan: 'blad', szczegoly: 'Nie udało się napisać notki' }
 
   /* ── Zapis szkicu ─────────────────────────────────────────────────────── */
 
@@ -451,9 +477,9 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     where: { id: wybrany.id },
     data: {
       stan: 'WYKORZYSTANE',
-      ocena,
+      ocena: wybor?.ocena ?? wybrany.ocena,
       uzasadnienie: [
-        wybor.uzasadnienie,
+        wybor?.uzasadnienie,
         `zbieżność ze źródłem: ${udzialWspolnychTrojek(doZapisu.akapity.join(' '), tekstZrodla)}%`,
       ]
         .filter(Boolean)
@@ -462,13 +488,12 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     },
   })
 
-  return zakoncz({
+  return {
     stan: 'utworzono',
     szczegoly: notka
       ? undefined
       : `Szkic wymaga przepisania ${kontrola.zbieznosci.length} fragmentów zapożyczonych ze źródła`,
     wiadomoscId: wiadomosc.id,
-    ocena,
-    odrzucone: doOdrzucenia.length,
-  })
+    ocena: wybor?.ocena,
+  }
 }

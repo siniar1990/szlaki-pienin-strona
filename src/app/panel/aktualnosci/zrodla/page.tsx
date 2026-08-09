@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
-import { AlertTriangle, ExternalLink, Pause, Play, RefreshCw, Rss, Trash2 } from 'lucide-react'
+import { AlertTriangle, ExternalLink, Pause, Play, Rss, Trash2 } from 'lucide-react'
 
 import { FormularzZrodla } from '@/components/panel/formularz-zrodla'
+import { PrzyciskiZadan } from '@/components/panel/przyciski-zadan'
 import { baza } from '@/lib/baza'
 import { ileTemu } from '@/lib/wiadomosci/etykiety'
+import { kluczDostepny } from '@/lib/wiadomosci/model-jezykowy'
 
-import { przelaczZrodlo, uruchomObchod, usunZrodlo } from '../dzialania'
+import { przelaczZrodlo, usunZrodlo } from '../dzialania'
 
 export const metadata: Metadata = {
   title: 'Źródła',
@@ -13,6 +15,9 @@ export const metadata: Metadata = {
 }
 
 export const dynamic = 'force-dynamic'
+
+// Obchód z ocenianiem trwa kilkadziesiąt sekund — patrz wykaz znalezisk.
+export const maxDuration = 60
 
 /**
  * Lista źródeł, po których chodzi obchód.
@@ -28,6 +33,7 @@ export const dynamic = 'force-dynamic'
  * po ponownym dodaniu. Wyłączone źródło po prostu przestaje być odwiedzane.
  */
 export default async function StronaZrodel() {
+  const klucz = kluczDostepny()
   const zrodla = await baza.zrodloWiadomosci.findMany({
     orderBy: [{ aktywne: 'desc' }, { nazwa: 'asc' }],
     include: { _count: { select: { znaleziska: true } } },
@@ -43,15 +49,7 @@ export default async function StronaZrodel() {
           <span className="ml-3 text-base font-normal text-kamien-500">{zrodla.length}</span>
         </h1>
 
-        <form action={uruchomObchod}>
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 rounded-full border border-kamien-300 px-5 py-2.5 text-sm font-medium text-kamien-700 transition-colors hover:border-las-400 hover:text-las-800"
-          >
-            <RefreshCw className="size-4" aria-hidden />
-            Obejdź wszystkie teraz
-          </button>
-        </form>
+        <PrzyciskiZadan kluczDostepny={klucz} />
       </div>
 
       <p className="mt-3 max-w-[70ch] text-sm leading-relaxed text-kamien-600">

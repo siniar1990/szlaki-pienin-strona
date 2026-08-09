@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { przeliczOdslony, usunStareOdslony } from '@/lib/analityka/statystyki'
 import { RETENCJA_DNI, przeliczStatystyki, usunStareZdarzenia } from '@/lib/qr/agregacja'
 import { sprawdzZadanieCykliczne } from '@/lib/panel/zadania'
 
@@ -33,9 +34,17 @@ export async function GET(zadanie: NextRequest) {
   const statystyki = await przeliczStatystyki()
   const usuniete = await usunStareZdarzenia()
 
+  // Odsłony podstron chodzą tą samą drogą co skany tabliczek: agregacja
+  // dzienna i ta sama retencja. Jedno zadanie, bo darmowy plan i tak nie
+  // pozwoli na dwa — i bo obie rzeczy sprzątają dokładnie tak samo.
+  const odslony = await przeliczOdslony()
+  const usunieteOdslony = await usunStareOdslony()
+
   return NextResponse.json({
     ...statystyki,
     usunieteZdarzenia: usuniete,
+    przeliczoneOdslony: odslony,
+    usunieteOdslony,
     retencjaDni: RETENCJA_DNI,
     czasMs: Date.now() - start,
   })

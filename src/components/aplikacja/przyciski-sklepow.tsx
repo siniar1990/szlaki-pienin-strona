@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 
+import { zglos } from '@/components/analityka/licznik-odslon'
 import { SKLEPY } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
 
@@ -11,7 +14,7 @@ import { cn } from '@/lib/utils'
  * ich użycia bez przerysowywania — poza tym są rozpoznawalne odruchowo,
  * bo wyglądają tak samo na każdej stronie, jaką człowiek widział wcześniej.
  *
- * Aplikacja nie jest jeszcze w sklepach, więc odznaki mają dwa stany. Gdy adres
+ * Odznaki mają dwa stany, bo Google Play jeszcze nie ma adresu. Gdy adres
  * w `SKLEPY` jest pusty, renderujemy `span`, a nie `a` — element bez atrybutu
  * `href` nie trafia do kolejności fokusu i czytnik ekranu nie zapowiada go jako
  * odnośnika. To lepsze niż odnośnik z `aria-disabled`, bo ten nadal daje się
@@ -30,7 +33,7 @@ type Wariant = 'jasny' | 'ciemny'
 */
 const WYSOKOSC = 48
 
-type Odznaka = { adres: string; plik: string; opis: string }
+type Odznaka = { adres: string; plik: string; opis: string; nazwa: string }
 
 function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
   const dostepny = odznaka.adres.length > 0
@@ -62,8 +65,22 @@ function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
     )
   }
 
+  /*
+    Kliknięcie w odznakę to jedyne zdarzenie na portalu, które mówi wprost
+    o skuteczności całej strony: człowiek przeszedł od czytania o trasach do
+    pobierania aplikacji. Zliczamy je osobno od odsłon, bo to inna informacja.
+
+    Zgłoszenie idzie przez `sendBeacon`, więc nie opóźnia przejścia do sklepu
+    i nie wymaga wstrzymywania odnośnika — przeglądarka dostarczy je nawet po
+    opuszczeniu strony.
+  */
   return (
-    <a href={odznaka.adres} className={wyglad} rel="noopener">
+    <a
+      href={odznaka.adres}
+      className={wyglad}
+      rel="noopener"
+      onClick={() => zglos('POBRANIE', odznaka.nazwa)}
+    >
       {obraz}
     </a>
   )
@@ -82,11 +99,21 @@ export function PrzyciskiSklepow({
     <div className={cn('flex flex-col gap-4', className)}>
       <div className="flex flex-wrap items-center gap-3">
         <Sklep
-          odznaka={{ adres: SKLEPY.appStore, plik: 'app-store', opis: 'Pobierz z App Store' }}
+          odznaka={{
+            adres: SKLEPY.appStore,
+            plik: 'app-store',
+            opis: 'Pobierz z App Store',
+            nazwa: 'app-store',
+          }}
           wariant={wariant}
         />
         <Sklep
-          odznaka={{ adres: SKLEPY.googlePlay, plik: 'google-play', opis: 'Pobierz z Google Play' }}
+          odznaka={{
+            adres: SKLEPY.googlePlay,
+            plik: 'google-play',
+            opis: 'Pobierz z Google Play',
+            nazwa: 'google-play',
+          }}
           wariant={wariant}
         />
       </div>

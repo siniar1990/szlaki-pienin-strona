@@ -302,3 +302,51 @@ model Wiadomosc {
 
   @@index([stan, opublikowano])
 }
+
+// ─── Odsłony i pobrania ────────────────────────────────────────────────────
+//
+// Ten sam wzorzec, co przy skanach tabliczek, i z tego samego powodu: surowe
+// zdarzenia wyłącznie dopisujemy, a liczniki wylicza agregacja. Bez tego
+// popularna atrakcja miałaby jeden wiersz, do którego ustawiałyby się w kolejce
+// wszystkie zapisy z sezonu.
+//
+// Czego tu celowo NIE MA: adresu IP, ciasteczka, identyfikatora odwiedzającego,
+// adresu strony odsyłającej. Liczymy odsłony, nie ludzi — dokładnie tak jak
+// skany. Dzięki temu portal nadal nie potrzebuje banera zgody, a te dane nie
+// są danymi osobowymi. Odróżnienie dwóch odsłon tej samej osoby od odsłon
+// dwóch osób byłoby ciekawe, ale kosztowałoby wprowadzenie identyfikatora,
+// czyli dokładnie to, czego przy tym portalu nie chcemy.
+
+/// Co zliczamy. Rozdział na atrakcje, szlaki i aktualności jest tu po to, żeby
+/// portal analityczny mógł je pokazać osobno bez zgadywania po adresie.
+enum RodzajZdarzenia {
+  ATRAKCJA
+  SZLAK
+  AKTUALNOSC
+  /// Kliknięcie w odznakę sklepu. Klucz mówi, w którą.
+  POBRANIE
+}
+
+model Zdarzenie {
+  id     BigInt          @id @default(autoincrement())
+  rodzaj RodzajZdarzenia
+  /// Adres podstrony bez ukośnika wiodącego albo nazwa sklepu przy pobraniu.
+  klucz  String
+  czas   DateTime        @default(now())
+
+  @@index([rodzaj, czas])
+  @@index([czas])
+}
+
+/// Dzienna suma odsłon. Trzymana bezterminowo — z niej powstają porównania
+/// sezonów, podczas gdy surowe zdarzenia znikają po okresie retencji.
+model ZdarzenieDzienne {
+  rodzaj RodzajZdarzenia
+  klucz  String
+  dzien  DateTime        @db.Date
+  liczba Int             @default(0)
+
+  @@id([rodzaj, klucz, dzien])
+  @@index([dzien])
+  @@index([rodzaj, dzien])
+}

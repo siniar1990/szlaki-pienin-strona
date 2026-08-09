@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
 
+import { LicznikOdslon } from '@/components/analityka/licznik-odslon'
 import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { PORTAL } from '@/lib/konfiguracja'
@@ -76,6 +77,8 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
 
   return (
     <>
+      <LicznikOdslon rodzaj="AKTUALNOSC" klucz={slug} />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(daneStrukturalne) }}

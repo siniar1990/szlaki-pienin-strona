@@ -5,8 +5,9 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { baza } from '@/lib/baza'
+import { kluczDostepny } from '@/lib/wiadomosci/model-jezykowy'
 import { obejdzZrodla } from '@/lib/wiadomosci/obchod'
-import { napiszNotkeDnia } from '@/lib/wiadomosci/redakcja'
+import { napiszDlaArtykulu, napiszNotkeDnia } from '@/lib/wiadomosci/redakcja'
 import { wolnySlug } from '@/lib/wiadomosci/slug'
 import { ZNACZNIK_WIADOMOSCI } from '@/lib/wiadomosci/zapytania'
 
@@ -83,6 +84,15 @@ function zmianaZdjecia(wartosc: string | undefined) {
   if (wartosc === USUN_ZDJECIE) return { zdjecie: null }
   return { zdjecie: wartosc }
 }
+
+/**
+ * Ile czasu ma pisanie wywołane ręcznie z panelu.
+ *
+ * Mniej niż nocna redakcja, bo tam całość ma sześćdziesiąt sekund funkcji dla
+ * siebie, a tutaj czeka człowiek patrzący na kręcące się kółko. Czterdzieści
+ * sekund starcza na dwa podejścia i nie zamienia kliknięcia w zawieszenie.
+ */
+const BUDZET_RECZNEGO_PISANIA_MS = 40_000
 
 function odswiez() {
   revalidateTag(ZNACZNIK_WIADOMOSCI, 'max')
@@ -217,11 +227,17 @@ export async function utworzWlasnaNotke(): Promise<void> {
 }
 
 /**
- * Szkic ze znaleziska, pisany ręcznie.
+ * Notka dla artykułu wskazanego ręcznie w wykazie.
  *
- * Droga dla administratora, który zobaczył w wykazie coś ciekawego i chce
- * o tym napisać sam — bez czekania na redakcję maszynową i niezależnie od
- * tego, czy klucz do modelu w ogóle jest ustawiony.
+ * **Dlaczego to samo, co robi redakcja dnia.** Bo różnica jest wyłącznie
+ * w tym, kto wskazał artykuł. Wcześniej ten przycisk tworzył pustą zajawkę
+ * z tekstem zachęty — działało, ale znaczyło, że administrator, który zobaczył
+ * w wykazie coś lepszego niż wybór redakcji, musiał pisać wszystko sam.
+ * Teraz wskazanie tematu i napisanie o nim notki to jedno kliknięcie.
+ *
+ * **Dlaczego bez klucza nadal powstaje szkic.** Żeby przycisk zawsze coś
+ * robił. Bez modelu dostajemy zajawkę do wypełnienia razem z odnośnikiem do
+ * źródła — mniej niż notka, ale więcej niż komunikat o błędzie.
  */
 export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
   const znalezisko = await baza.znalezionyArtykul.findUnique({
@@ -234,6 +250,17 @@ export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
   // drugą. Pole `znaleziskoId` ma warunek unikalności, więc i tak by się nie
   // udało, ale komunikat bazy nie tłumaczy nikomu, co się stało.
   if (znalezisko.wiadomosc) redirect(`/panel/aktualnosci/${znalezisko.wiadomosc.id}`)
+
+  if (kluczDostepny()) {
+    const wynik = await napiszDlaArtykulu(znaleziskoId, BUDZET_RECZNEGO_PISANIA_MS)
+    if (wynik.wiadomoscId) {
+      odswiez()
+      revalidatePath('/panel/aktualnosci/znaleziska')
+      redirect(`/panel/aktualnosci/${wynik.wiadomoscId}`)
+    }
+    // Nie udało się — schodzimy do zajawki niżej. Powód jest zapisany przy
+    // znalezisku, więc nie ginie.
+  }
 
   const notka = await baza.wiadomosc.create({
     data: {
@@ -258,6 +285,7 @@ export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
   })
 
   odswiez()
+  revalidatePath('/panel/aktualnosci/znaleziska')
   redirect(`/panel/aktualnosci/${notka.id}`)
 }
 
@@ -319,14 +347,44 @@ export async function usunZrodlo(id: string): Promise<void> {
  * Harmonogram chodzi sam, ale bez możliwości wywołania go ręcznie każde
  * sprawdzenie, czy nowe źródło w ogóle działa, wymagałoby czekania do nocy.
  */
-export async function uruchomObchod(): Promise<void> {
-  await obejdzZrodla()
+export async function uruchomObchod(): Promise<WynikAkcji> {
+  const wynik = await obejdzZrodla()
   revalidatePath('/panel/aktualnosci/zrodla')
   revalidatePath('/panel/aktualnosci/znaleziska')
+
+  const czesci = [
+    `odwiedzono ${wynik.odwiedzone} z ${wynik.zrodla} źródeł`,
+    `nowych artykułów: ${wynik.nowe}`,
+  ]
+  if (wynik.ocenianie.ocenione > 0) czesci.push(`ocenionych: ${wynik.ocenianie.ocenione}`)
+  if (wynik.ocenianie.zostalo > 0) czesci.push(`czeka na ocenę: ${wynik.ocenianie.zostalo}`)
+  if (wynik.bledy.length > 0) czesci.push(`źródeł z błędem: ${wynik.bledy.length}`)
+
+  return { ok: `Obchód zakończony — ${czesci.join(', ')}.` }
 }
 
-export async function uruchomRedakcje(): Promise<void> {
-  await napiszNotkeDnia()
+const OPISY_REDAKCJI: Record<string, string> = {
+  utworzono: 'Szkic notki czeka na liście aktualności.',
+  'brak-kandydatow': 'Nie ma nowych artykułów do wyboru — uruchom najpierw obchód.',
+  'nic-nie-warte': 'Żaden artykuł nie przekroczył progu oceny. Dziś notki nie ma.',
+  'brak-klucza': 'Redakcja maszynowa jest wyłączona — brakuje klucza do modelu.',
+  'za-wczesnie': 'Szkic z ostatnich godzin już istnieje.',
+}
+
+export async function uruchomRedakcje(): Promise<WynikAkcji> {
+  const wynik = await napiszNotkeDnia()
   odswiez()
   revalidatePath('/panel/aktualnosci/znaleziska')
+
+  const opis = OPISY_REDAKCJI[wynik.stan]
+  const szczegoly = wynik.szczegoly ? ` ${wynik.szczegoly}` : ''
+
+  /*
+    Wynik wraca do panelu zamiast znikać. Obie te trasy odpowiadają „w porządku"
+    także wtedy, gdy świadomie nic nie zrobiły — bez komunikatu przycisk
+    wyglądał na niedziałający dokładnie wtedy, gdy zadziałał poprawnie.
+  */
+  return wynik.stan === 'blad'
+    ? { blad: `Redakcja nie napisała notki.${szczegoly}` }
+    : { ok: `${opis ?? 'Gotowe.'}${szczegoly}` }
 }
