@@ -17,6 +17,7 @@ export type KluczIkony =
   | 'sezon'
   | 'trasa'
   | 'adrenalina'
+  | 'woda'
 import type { KategoriaAtrakcji, LokalizacjaAtrakcji } from './kategorie-atrakcji'
 
 /**
@@ -195,31 +196,143 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'uzdrowisko',
     lokalizacja: 'szczawnica',
     wyrozniona: true,
-    skrot: 'Szczawy, dla których w XIX wieku powstało całe uzdrowisko.',
+    skrot: 'Sześć wód leczniczych pod jednym dachem, w odbudowanym „Domu nad Zdrojami”.',
     opis: [
       'Szczawnica wzięła nazwę od szczaw — wód mineralnych nasyconych dwutlenkiem ' +
         'węgla, wypływających w dolinie Grajcarka. To dla nich Józef Szalay ' +
         'zbudował w XIX wieku uzdrowisko, które do dziś wyznacza charakter miasta.',
-      'W pijalni można spróbować wód z kilku ujęć — mają różny smak i różny skład ' +
-        'mineralny, od łagodnych po wyraźnie słone. Kubek do wód kupisz na miejscu; ' +
-        'tradycją jest picie ich powoli, spacerując po parku.',
-      'Wody różnią się na tyle, że warto spróbować kilku i wybrać swoją — ' +
-        'to jedna z niewielu atrakcji w Pieninach, która nie zależy od pogody.',
+      'Pijalnia stoi we wschodniej części Placu Dietla, w „Domu nad Zdrojami” — ' +
+        'budynku wzniesionym przez Józefa Stefana Szalaya w 1863 roku. Dom spłonął ' +
+        'w 2002 roku i został odbudowany przez rodzinę Mańkowskich; ponownie ' +
+        'otwarto go w 2008 roku. Na piętrze mieści się Galeria Pijalni Wód ' +
+        'Mineralnych.',
+      'Nalewa się tu wody z sześciu ujęć i różnią się one bardziej, niż można się ' +
+        'spodziewać: od lekkiej, żelazistej Heleny po Józefa, w którym mineralizacja ' +
+        'jest sześć razy wyższa. Wodę pije się powoli, małymi łykami, spacerując — ' +
+        'tak robiono to tutaj od XIX wieku i tak robi się nadal.',
+      'To jedna z niewielu atrakcji w Pieninach, która nie zależy od pogody. ' +
+        'Godzin otwarcia ani opłat nie podajemy — uzdrowisko nie publikuje ich na ' +
+        'stałe, więc lepiej sprawdzić na miejscu albo zadzwonić.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'woda',
+        tytul: 'Helena — najlżejsza',
+        tekst:
+          'Mineralizacja około 1,8 g/l, z żelazem. Podawana przy dolegliwościach ' +
+          'układu oddechowego i reumatycznych. Dobra na początek, jeśli mocne wody ' +
+          'nie leżą Ci w smaku.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Jan',
+        tekst:
+          'Około 4,6 g/l, z jodem. Znana od 1869 roku, nazwana po Janie Zielonce, ' +
+          'zarządcy zakładu zdrojowego. Kierowana do układu moczowego.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Stefan',
+        tekst:
+          'Około 4,8 g/l, z wapniem. Odkryta w 1828 roku, imię po Stefanie Szalayu. ' +
+          'Polecana przy dolegliwościach dróg oddechowych i alergiach.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Józefina — najstarsza',
+        tekst:
+          'Najstarsze ujęcie uzdrowiska, około 5,9 g/l, z jodem. Imię po Józefinie ' +
+          'Szalayowej. Stosowana przy nieżytach gardła i nosa oraz w profilaktyce astmy.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Józef — najmocniejsza w pijalni',
+        tekst:
+          'Ponad 11 g/l — dwa razy więcej niż Józefina. Ujęta w 1986 roku, nazwana ' +
+          'po budowniczym uzdrowiska. Kierowana do układu pokarmowego.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Magdalena — rekordzistka',
+        tekst:
+          'Odkryta w 1839 roku, mineralizacja rzędu 27 g/l i wysoka zawartość jodu. ' +
+          'Najsilniej zmineralizowana woda Szczawnicy — pije się ją w małych ilościach.',
+      },
     ],
   },
   {
     slug: 'zdroje-szczawnicy',
-    nazwa: 'Zdroje w parkach zdrojowych',
+    nazwa: 'Zdroje Szczawnicy',
     kategorie: ['kultura', 'rodziny'],
     podkategoria: 'uzdrowisko',
     lokalizacja: 'szczawnica',
-    skrot: 'Ujęcia wód rozsiane po Parku Dolnym i Górnym, każde z własnym imieniem.',
+    wyrozniona: true,
+    trasy: ['5A'],
+    skrot: 'Dziewięć nazwanych ujęć wód mineralnych — trzy z nich ogólnodostępne i darmowe.',
     opis: [
-      'Poszczególne źródła noszą imiona — Magdalena, Stefan, Wanda, Józefina, ' +
-        'Szymon — nadane w czasach Szalayów. Część ujęć znajduje się przy ' +
-        'promenadzie i w parkach zdrojowych, gdzie łatwo trafić na nie spacerem.',
-      'Spacer między zdrojami to dobry pomysł na dzień, w którym w górach wisi ' +
-        'mgła: całość mieści się w granicach uzdrowiska i jest po płaskim.',
+      'Wody Szczawnicy biorą się z geologii: masyw Bryjarki zbudowany jest ' +
+        'z andezytów, skał pochodzenia wulkanicznego, i to one odpowiadają za ' +
+        'nasycenie wód dwutlenkiem węgla. Stąd przydomek „góra wód” i stąd całe ' +
+        'uzdrowisko.',
+      'Każde ujęcie ma imię, a imiona pochodzą najczęściej od rodziny Szalayów ' +
+        'i ludzi uzdrowiska: Józefina, Stefan, Józef, Jan. Wody różnią się ' +
+        'zasadniczo — od Heleny z mineralizacją poniżej 2 g/l po Magdalenę ' +
+        'z 27 g/l, jedną z najbardziej zmineralizowanych wód w Polsce.',
+      'Sześć wód nalewa się w Pijalni na Placu Dietla, za opłatą. Trzy — Szymon, ' +
+        'Wanda i Pitoniakówka — są ogólnodostępne i darmowe: przy wejściu na kolej ' +
+        'na Palenicę, w Parku Dolnym powyżej kapliczki oraz przy ulicy Skotnickiej. ' +
+        'Wystarczy przyjść z butelką.',
+      'Obejście zdrojów to dobry pomysł na dzień, w którym w górach wisi mgła — ' +
+        'wszystko mieści się w granicach uzdrowiska i idzie się po płaskim.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'woda',
+        tytul: 'Pitoniakówka — ogólnodostępna',
+        tekst:
+          'Odkryta w latach 30. XX wieku, gdy wójtem Szczawnicy Niżnej był Jan ' +
+          'Pitoniak. Odwiert Józefina II z 1952 roku, ponownie ujęty w 1968. ' +
+          'Szczawa wodorowęglanowo-chlorkowo-sodowa z rekordową zawartością ' +
+          'dwutlenku węgla — 2290 mg/l przy wydajności 21 l/min. Przy ulicy ' +
+          'Skotnickiej, latem ogólnie dostępna.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Szymon — najwydajniejszy',
+        tekst:
+          'Odkryty w połowie XIX wieku, mineralizacja około 3 g/l. Najwydajniejsze ' +
+          'źródło uzdrowiska — dawniej zasilało kąpiele w dolnym zakładzie ' +
+          'zdrojowym. Dziś ogólnodostępne.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Wanda — w Parku Dolnym',
+        tekst:
+          'Znana od lat 60. XIX wieku. Podawana przy nieżytach żołądka i jelit ' +
+          'oraz skazie moczanowej. Ujęcie w Parku Dolnym, ogólnodostępne.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Helena',
+        tekst:
+          'Odwiert w Parku Dolnym, znany od 1966 roku. Najlżejsza z wód — około ' +
+          '1,8 g/l, z żelazem. Nalewana w pijalni.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Józefina, Stefan, Józef',
+        tekst:
+          'Trzy ujęcia z pijalni, nazwane po rodzinie Szalayów. Józefina jest ' +
+          'najstarsza, Stefan pochodzi z 1828 roku, Józef — z 1986 i ma ponad ' +
+          '11 g/l mineralizacji.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Magdalena i Jan',
+        tekst:
+          'Magdalena (1839) to rekord mineralizacji — 27 g/l. Jan (1869) był ' +
+          'kiedyś podstawą butelkowanej „Szczawniczanki”. Obie dostępne w pijalni.',
+      },
     ],
     doPotwierdzenia: true,
   },
@@ -259,16 +372,57 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'rozrywka',
     lokalizacja: 'szczawnica',
     wyrozniona: true,
-    skrot: 'Tor saneczkowy obok kolei krzesełkowej — zjazd sterowany hamulcem.',
+    skrot: 'Serpentyny na stoku Palenicy, wózki do 23 km/h — od 12 zł za przejazd.',
     opis: [
-      'Tor grawitacyjny biegnący serpentynami po stoku Palenicy; wózki ' +
-        'rozpędzają się do dwudziestu trzech kilometrów na godzinę. Jedzie się ' +
-        'na szynie, samodzielnie regulując prędkość dźwignią hamulca, więc zjazd ' +
-        'da się dopasować i do dziecka, i do amatora mocnych wrażeń.',
-      'To najczęściej wskazywana atrakcja na deszczowe popołudnie z dziećmi ' +
-        'i naturalne dopełnienie wyjazdu koleją.',
+      'Tor grawitacyjny biegnący serpentynami po stoku Palenicy. Wózki rozpędzają ' +
+        'się do dwudziestu trzech kilometrów na godzinę, a jedzie się na szynie, ' +
+        'samodzielnie regulując prędkość dźwignią hamulca — więc zjazd da się ' +
+        'dopasować i do dziecka, i do amatora mocnych wrażeń.',
+      'Trasa prowadzi otwartym stokiem z panoramą doliny, co odróżnia ją od ' +
+        'zjeżdżalni schowanych w lesie: widok jest częścią atrakcji, a nie tłem.',
+      'Bilety liczy się na przejazdy, nie na czas, i opłata jest od osoby — także ' +
+        'wtedy, gdy dziecko jedzie z opiekunem na jednym wózku. Im więcej ' +
+        'przejazdów w pakiecie, tym taniej wychodzi jeden.',
+      'Zjeżdżalnia działa od połowy kwietnia do końca listopada i tylko przy ' +
+        'dobrej pogodzie — po deszczu bywa zamknięta, więc przy niepewnej aurze ' +
+        'warto mieć plan zapasowy.',
     ],
-    doPotwierdzenia: true,
+    przewodnik: [
+      {
+        ikona: 'dziecko',
+        tytul: 'Z dzieckiem',
+        tekst:
+          'Dzieci zjeżdżają pod opieką dorosłego i ze względów bezpieczeństwa ' +
+          'zawsze siadają z przodu, przed opiekunem. Dzieci do 4 lat jadą ' +
+          'bezpłatnie na bilecie opiekuna — wiek trzeba potwierdzić dokumentem. ' +
+          'Dzieci w wieku 4–8 lat: bilet dziecka plus bilet opiekuna.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Kiedy czynna',
+        tekst:
+          'Od połowy kwietnia do końca listopada, wyłącznie przy dobrych warunkach ' +
+          'pogodowych. Rozkład bywa zmieniany w trakcie sezonu — przed wyjazdem ' +
+          'w konkretny dzień lepiej sprawdzić aktualny.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Bilety',
+        tekst:
+          'Jeden przejazd 12 zł, pakiet pięciu 45 zł, pakiet dziesięciu 65 zł. ' +
+          'Opłata od osoby. Ceny orientacyjne — cennik operatora nie jest ofertą ' +
+          'handlową i bywa aktualizowany.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Razem z koleją',
+        tekst:
+          'Zjeżdżalnia stoi obok dolnej stacji kolei na Palenicę, więc naturalnie ' +
+          'domyka wyjazd na górę. Bilety na kolej kupuje się osobno.',
+      },
+    ],
+    cena: 'Jeden przejazd 12 zł, pięć przejazdów 45 zł, dziesięć przejazdów 65 zł — od osoby. Dzieci do 4 lat bezpłatnie na bilecie opiekuna.',
+    sezon: 'Od połowy kwietnia do końca listopada, tylko przy dobrej pogodzie.',
   },
   {
     slug: 'czorsztyn-ski-kluszkowce',
@@ -276,14 +430,28 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['zima', 'rodziny'],
     podkategoria: 'narty',
     lokalizacja: 'kluszkowce',
-    skrot: 'Kolej krzesełkowa na Wdżar i całoroczny tor saneczkowy nad jeziorem.',
+    wyrozniona: true,
+    skrot: 'Stok nad Jeziorem Czorsztyńskim — zimą trasy niebieskie i czerwona, latem tor saneczkowy.',
     opis: [
-      'Ośrodek na stoku góry Wdżar nad Jeziorem Czorsztyńskim. Zimą stok ' +
-        'narciarski, poza sezonem — kolej krzesełkowa i tor saneczkowy ' +
-        'z widokiem na jezioro i zamki.',
-      'Z góry widać jednocześnie taflę jeziora, oba zamki i pasmo Pienin, ' +
-        'więc sam wyjazd koleją ma sens także bez zjeżdżania.',
+      'Ośrodek leży na stoku góry Wdżar nad Jeziorem Czorsztyńskim. Ma trzy ' +
+        'urządzenia: kolej krzesełkową i wyciągi orczykowe, którymi na górę ' +
+        'wjeżdża się w pięć minut. Trasy niebieskie są dla początkujących ' +
+        'i uczących się, czerwona — dla tych, którzy już jeżdżą; wyznaczono też ' +
+        'strefy dla snowboardzistów.',
+      'Wszystkie trasy mają naśnieżanie i oświetlenie, więc sezon nie zależy ' +
+        'wyłącznie od pogody, a jeździć można również po zmroku. To rzadkość ' +
+        'w tak małym ośrodku i główny powód, dla którego Czorsztyn-Ski działa ' +
+        'wtedy, gdy sąsiednie stoki stoją.',
+      'Poza zimą ośrodek nie zamyka się na klucz. Latem działa tor saneczkowy, ' +
+        'a kolej krzesełkowa wozi na górę dla samego widoku — z Wdżaru widać ' +
+        'jednocześnie taflę jeziora, oba zamki i pasmo Pienin. Poza wakacjami ' +
+        'kolej jeździ tylko w weekendy.',
+      'Godziny zmieniają się w ciągu sezonu letniego: w maju i czerwcu tor ' +
+        'saneczkowy czynny jest od 10:00 do 17:00, w wakacje do 18:00, ' +
+        'we wrześniu znów do 17:00. Operator zastrzega, że godziny mogą ulec ' +
+        'zmianie ze względu na natężenie ruchu albo warunki atmosferyczne.',
     ],
+    godziny: 'Tor saneczkowy: maj–czerwiec i wrzesień 10:00–17:00, wakacje 10:00–18:00. Poza wakacjami kolej krzesełkowa czynna w weekendy.',
     doPotwierdzenia: true,
   },
   {
@@ -647,17 +815,22 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura', 'rodziny'],
     podkategoria: 'uzdrowisko',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
-  },
-  {
-    slug: 'park-gorny',
-    nazwa: 'Park Górny',
-    kategorie: ['kultura', 'rodziny'],
-    podkategoria: 'uzdrowisko',
-    lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    skrot: 'Park zdrojowy ze stawem, altaną nad źródłem i darmowym ujęciem wody mineralnej.',
+    opis: [
+      'Park Dolny to zieleń zdrojowa w środku Szczawnicy: staw z liliami, wierzby ' +
+        'przy brzegu, kaskada spływająca po kamieniach i drewniana altana ' +
+        'postawiona na murowanym cokole nad ujęciem wody. Alejki są równe ' +
+        'i po płaskim, więc idzie się tędy z wózkiem tak samo dobrze jak pieszo.',
+      'Park ma też praktyczną funkcję, o której łatwo zapomnieć: to jedno ' +
+        'z trzech miejsc w Szczawnicy, gdzie wodę mineralną nabiera się za darmo. ' +
+        'Ujęcie znajduje się powyżej kapliczki. Z Parku Dolnego pochodzą dwie ' +
+        'wody uzdrowiska — Wanda, znana od lat 60. XIX wieku, oraz odwiert Helena, ' +
+        'najlżejsza z tutejszych szczaw.',
+      'To miejsce na godzinę bez planu — usiąść na ławce, wypić nabraną wodę, ' +
+        'przejść się wokół stawu. Dobrze sprawdza się jako przerwa między ' +
+        'pijalnią a promenadą nad Grajcarkiem albo jako całość dnia, gdy w górach ' +
+        'pada.',
+    ],
   },
   {
     slug: 'inhalatorium',

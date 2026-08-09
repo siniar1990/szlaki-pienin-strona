@@ -1,6 +1,7 @@
 import {
   Baby,
   CalendarDays,
+  Droplets,
   Fish,
   Map as MapIcon,
   Backpack,
@@ -34,6 +35,7 @@ const IKONY: Record<KluczIkony, React.ComponentType<{ className?: string }>> = {
   sezon: CalendarDays,
   trasa: Route,
   adrenalina: Zap,
+  woda: Droplets,
 }
 
 export function PrzewodnikAtrakcji({

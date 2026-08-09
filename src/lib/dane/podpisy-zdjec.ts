@@ -77,11 +77,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3AZamek_w_Niedzicy_Wiktor_Baron.jpg',
   },
-  'zdroje-szczawnicy': {
-    autor: 'Henryk Bielamowicz',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3ASzczawnica%2C_Park_Dolny%2C_grota_M._Zyblikiewicza_%28HB7%29.jpg',
-  },
 }
 
 export function podpisZdjecia(slug: string): PodpisZdjecia | null {
