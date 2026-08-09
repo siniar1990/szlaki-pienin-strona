@@ -1016,11 +1016,63 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'kuligi',
     nazwa: 'Kuligi',
-    kategorie: ['aktywnie', 'zima'],
+    kategorie: ['zima', 'aktywnie', 'rodziny'],
     podkategoria: 'jazda-konna',
-    lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    lokalizacja: 'szczawnica',
+    wyrozniona: true,
+    skrot: 'Sanie za koniem po zaśnieżonych dolinach — także wieczorem, przy pochodniach.',
+    opis: [
+      'Kulig to ta sama okolica, tylko zimą i z innej wysokości: siedzi się ' +
+        'nisko, tuż nad śniegiem, a konie idą doliną w tempie, które pozwala ' +
+        'rozejrzeć się na boki. Trasy prowadzą zwykle bocznymi drogami wzdłuż ' +
+        'potoków, z dala od ruchu.',
+      'Kto organizuje. W samej Szczawnicy najprościej dogadać się z woźnicami, ' +
+        'którzy latem stoją z bryczkami przy ulicy Zdrojowej — gdy spadnie ' +
+        'dość śniegu, zamieniają powozy na sanie. W dolinie Białej Wody koło ' +
+        'Jaworek kuligi organizuje stadnina Rajd, ta sama, która przez resztę ' +
+        'roku prowadzi jazdę konną. Poza tym sanie wystawiają gospodarstwa ' +
+        'agroturystyczne w okolicznych dolinach — często razem z noclegiem ' +
+        'albo z ogniskiem na koniec.',
+      'Wieczorna wersja jest osobną atrakcją: kulig z pochodniami, gdy trasę ' +
+        'oświetla wyłącznie ogień niesiony przez jadących. Wygląda to zupełnie ' +
+        'inaczej niż to samo popołudniu i zwykle kończy się przy ognisku ' +
+        'z muzyką i poczęstunkiem.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'sezon',
+        tytul: 'Zależy od śniegu, nie od kalendarza',
+        tekst:
+          'Kulig wymaga pokrywy śnieżnej, więc sezon bywa krótszy albo dłuższy ' +
+          'z roku na rok. Przy słabej zimie część gospodarstw podstawia bryczki ' +
+          'na kołach — warto zapytać, co dostaniesz, gdy śniegu zabraknie.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Rezerwacja i wielkość grupy',
+        tekst:
+          'Sanie zabierają zwykle kilkanaście osób, więc kulig zamawia się dla ' +
+          'grupy i z wyprzedzeniem. Weekendy w ferie schodzą najszybciej.',
+      },
+      {
+        ikona: 'sprzet',
+        tytul: 'Jak się ubrać',
+        tekst:
+          'Podczas jazdy nie ma jak się rozgrzać, a wiatr od sań jest ostrzejszy ' +
+          'niż na spacerze. Ciepłe buty, czapka i rękawice; koce zwykle są ' +
+          'w saniach, ale warto to potwierdzić.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Z dziećmi',
+        tekst:
+          'Kulig sprawdza się z dziećmi w każdym wieku, bo nie wymaga niczego ' +
+          'poza siedzeniem pod kocem. Wersję z pochodniami lepiej zostawić ' +
+          'starszym — trwa dłużej i kończy się po ciemku.',
+      },
+    ],
+    sezon: 'zima, przy odpowiedniej pokrywie śnieżnej',
+    doPotwierdzenia: true,
   },
   {
     slug: 'warsztaty-lokalne',
