@@ -4,8 +4,10 @@ import {
   Fish,
   Map as MapIcon,
   Backpack,
+  Route,
   ShieldCheck,
   Ticket,
+  Zap,
 } from 'lucide-react'
 
 import type { KluczIkony } from '@/lib/tresc/atrakcje-turystyczne'
@@ -30,6 +32,8 @@ const IKONY: Record<KluczIkony, React.ComponentType<{ className?: string }>> = {
   dziecko: Baby,
   zezwolenie: Ticket,
   sezon: CalendarDays,
+  trasa: Route,
+  adrenalina: Zap,
 }
 
 export function PrzewodnikAtrakcji({

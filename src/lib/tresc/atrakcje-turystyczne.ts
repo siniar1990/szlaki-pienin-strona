@@ -15,6 +15,8 @@ export type KluczIkony =
   | 'dziecko'
   | 'zezwolenie'
   | 'sezon'
+  | 'trasa'
+  | 'adrenalina'
 import type { KategoriaAtrakcji, LokalizacjaAtrakcji } from './kategorie-atrakcji'
 
 /**
@@ -1288,8 +1290,97 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['rodziny', 'aktywnie'],
     podkategoria: 'rozrywka',
     lokalizacja: 'kroscienko',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Krościenko nad Dunajcem, ul. Jagiellońska',
+    wyrozniona: true,
+    skrot: 'Sześć tras linowych, zjazd tyrolski nad parkiem i całoroczny Ninja Park — od trzylatka po dorosłych.',
+    opis: [
+      'Park rozrywki ABlandia leży w Krościenku, kawałek od Pienińskiego Parku ' +
+        'Narodowego. Jest rozłożony na drzewach i zbudowany warstwami: od trasy ' +
+        'pół metra nad ziemią dla trzylatków po odcinek jedenaście metrów wyżej ' +
+        'dla tych, którym niestraszne. Dzięki temu na jedno wejście da się ' +
+        'zabrać rodzinę o bardzo różnych ambicjach.',
+      'Cały park pracuje w systemie asekuracji kategorii E — tak zwanym ' +
+        'bezwypięciowym. Instruktor wpina uczestnika przed wejściem na trasę ' +
+        'i wypina dopiero po jej przejściu, więc nie ma fizycznej możliwości ' +
+        'wypięcia się po drodze. To jest ta różnica, przez którą rodzic może ' +
+        'stać na dole i patrzeć, zamiast trzymać dziecko za karabinek.',
+      'Poza trasami linowymi jest zjazd tyrolski nad parkiem, wieża z wahadłem, ' +
+        'skok z hamowaniem magnetycznym, minigolf i całoroczna hala Ninja Park. ' +
+        'Na miejscu są toalety, bezpłatny parking i strefa gastronomiczna.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'dziecko',
+        tytul: 'Trasa Smyk — od 3 lat',
+        tekst:
+          'Najłatwiejsza, na wysokości około pół metra nad ziemią. Dziecko ' +
+          'idzie w uprzęży, a rodzic może iść obok i pomagać przy prowadzeniu ' +
+          'haka. Pierwsze kroki na wysokości bez żadnego ryzyka.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Trasa Żółta — od 6 lat',
+        tekst:
+          'Ponad sto metrów na wysokości dwóch metrów, wymagany wzrost 110 cm. ' +
+          'Bardzo łatwa, dla początkujących zdobywców parków linowych. ' +
+          'Przejście zajmuje jakieś pół godziny.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Trasa Zielona — od 8 lat',
+        tekst:
+          'Ponad 250 metrów, 6–7 metrów nad ziemią, piętnaście przeszkód: ' +
+          'ścianka wspinaczkowa, przejazd na deskorolce, tyrolki, siatki. ' +
+          'Wymagany wzrost 130 cm. Około godziny z instruktażem.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Trasa Niebieska — uniwersalna',
+        tekst:
+          'Ponad 200 metrów, ta sama wysokość co zielona, czternaście ' +
+          'przeszkód. Najbardziej wyważona z całego parku — dobra i dla ' +
+          'dzieci, i dla dorosłych. Około godziny.',
+      },
+      {
+        ikona: 'adrenalina',
+        tytul: 'Trasa Czerwona — Extreme',
+        tekst:
+          'Ponad 350 metrów na wysokości 10–11 metrów i dwadzieścia przeszkód ' +
+          'o podwyższonej trudności. Godzina do półtorej. Wymagany wzrost ' +
+          '140 cm i ukończone 8 lat.',
+      },
+      {
+        ikona: 'adrenalina',
+        tytul: 'ZipLine i skoki',
+        tekst:
+          'Zjazd tyrolski z Wieży Mocy — ponad 120 metrów nad parkiem, ' +
+          'z lądowaniem w pajęczynie na linach bungee, a w drodze powrotnej ' +
+          'pięć kolejnych tyrolek. Do tego BigSwing Tandem (wahadło z 15 ' +
+          'metrów, we dwoje) i QuickFlight — pionowy skok z 13 metrów ' +
+          'z hamowaniem magnetycznym.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Ninja Park — cały rok, pod dachem',
+        tekst:
+          'Hala z torami przeszkód, basenem piankowym i kulkowym, ' +
+          'trampolinami, ścianką i labiryntami w siatkach. Strefy od roczka ' +
+          'do dorosłych, z osobną strefą dla rodziców. Ratunek na deszczowy ' +
+          'dzień i na zimę. Poza tym Strefa Juniora na zewnątrz: trasa ' +
+          'linowa w siatkach, tyrolka dla najmłodszych, dmuchana poduszka ' +
+          'i łódki.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Zanim przyjedziesz',
+        tekst:
+          'Buty sportowe są wymagane. Maksymalna waga na trasach to 120 kg. ' +
+          'Dzieci w wieku 6–8 lat wchodzą na wyższe trasy wyłącznie z osobą ' +
+          'dorosłą (jedna osoba może prowadzić najwyżej dwoje dzieci), ' +
+          'a wszystkim niepełnoletnim musi towarzyszyć opiekun.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'plaza-nad-jeziorem-czorsztynskim',
@@ -1328,15 +1419,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     opis: [],
   },
   {
-    slug: 'bacowki-regionalne',
-    nazwa: 'Bacówki regionalne',
-    kategorie: ['kultura', 'aktywnie'],
-    podkategoria: 'warsztaty',
-    lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
-  },
-  {
     slug: 'ogniska',
     nazwa: 'Ogniska',
     kategorie: ['zima', 'rodziny'],
@@ -1351,8 +1433,61 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['zima', 'aktywnie'],
     podkategoria: 'skutery',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    skrot: 'Przejażdżki z organizatorem na wyznaczonych terenach — w parku narodowym jeździć nie wolno.',
+    opis: [
+      'Skuter śnieżny jest w Pieninach atrakcją zorganizowaną, a nie sposobem ' +
+        'na samodzielne zwiedzanie okolicy. Powód jest prosty: większość ' +
+        'najładniejszych terenów leży w Pienińskim Parku Narodowym albo ' +
+        'w rezerwatach, gdzie poruszanie się pojazdami silnikowymi poza ' +
+        'drogami publicznymi jest zabronione.',
+      'Firmy działające w regionie organizują przejażdżki na terenach, na ' +
+        'które mają zgodę — polanach, prywatnych gruntach, przygotowanych ' +
+        'pętlach i stokach poza godzinami pracy wyciągu. Sprzęt, kask ' +
+        'i instruktaż są po stronie organizatora, więc nie trzeba mieć ' +
+        'niczego swojego.',
+      'Warto pamiętać, że skuter jest głośny i zostawia ślad w terenie, ' +
+        'w którym zimuje zwierzyna. Jazda w wyznaczonym miejscu to nie tylko ' +
+        'kwestia przepisów, ale i tego, żeby okolica nadawała się do ' +
+        'odwiedzenia także następnej zimy.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Gdzie jeździć nie wolno',
+        tekst:
+          'W Pienińskim Parku Narodowym i w rezerwatach — poza drogami ' +
+          'publicznymi obowiązuje zakaz. To samo dotyczy szlaków turystycznych ' +
+          'i tras narciarskich. Wjazd do lasu wymaga zgody właściciela lub ' +
+          'zarządcy terenu.',
+      },
+      {
+        ikona: 'sprzet',
+        tytul: 'Z organizatorem',
+        tekst:
+          'Skuter, kask i krótkie przeszkolenie na miejscu. Część ofert to ' +
+          'jazda samodzielna po wyznaczonej pętli, część — jako pasażer za ' +
+          'kierowcą, co jest jedyną opcją dla dzieci.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Tylko przy śniegu',
+        tekst:
+          'Sezon zależy od pokrywy, nie od kalendarza — w słabsze zimy bywa ' +
+          'krótki albo przerywany. Przed przyjazdem warto potwierdzić, czy ' +
+          'w ogóle się jeździ.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Uprawnienia',
+        tekst:
+          'Do jazdy po drogach publicznych skuterem potrzebne jest prawo ' +
+          'jazdy. Na terenie prywatnym udostępnionym przez organizatora ' +
+          'zasady ustala on sam — zapytaj przy rezerwacji, kto może usiąść ' +
+          'za kierownicą.',
+      },
+    ],
+    sezon: 'zima, przy odpowiedniej pokrywie śnieżnej',
+    doPotwierdzenia: true,
   },
   {
     slug: 'trasy-skiturowe',
@@ -1360,8 +1495,67 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['zima', 'aktywnie'],
     podkategoria: 'skitury',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    wyrozniona: true,
+    trasy: ['RUBIN', 'KP01', '3A'],
+    skrot: 'Podejścia w Beskidzie Sądeckim i Gorcach — bo same Pieniny są na skitury za niskie i za chronione.',
+    opis: [
+      'Trzeba powiedzieć wprost: Pieniny właściwe nie są terenem skiturowym. ' +
+        'Są niskie — Trzy Korony mają 982 metry — a najciekawsze partie leżą ' +
+        'w parku narodowym, gdzie poza wyznaczonymi szlakami poruszać się nie ' +
+        'wolno, także na nartach. Śnieg trzyma się tu krótko i nierówno.',
+      'Prawdziwe skitury zaczynają się tuż obok. Ze Szczawnicy podchodzi się ' +
+        'na grzbiet Beskidu Sądeckiego — Dzwonkówka, dalej Przehyba (1175 m) ' +
+        'i Radziejowa (1266 m), czyli najwyższy szczyt pasma. To są długie, ' +
+        'leśne podejścia z otwarciem widokowym dopiero na górze i zjazdami ' +
+        'duktami oraz polanami. Po drugiej stronie Dunajca ciągną się Gorce ' +
+        'z Turbaczem — teren łagodniejszy, bardziej rozległy, popularny ' +
+        'wśród zaczynających.',
+      'W Małych Pieninach da się podejść na Wysoką (1050 m) i grzbietem ku ' +
+        'Wysokiemu Wierchowi — technicznie łatwo, ale to teren graniczny ' +
+        'i częściowo chroniony, więc trzeba trzymać się szlaków.',
+      'Najprostszy wariant na rozgrzewkę jest w samej Szczawnicy: podejście ' +
+        'stokiem Palenicy poza godzinami pracy wyciągu, za zgodą operatora. ' +
+        'Szkółka na Palenicy prowadzi też kursy skiturowe dla tych, którzy ' +
+        'chcą zacząć z instruktorem.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Park narodowy — tylko szlakami',
+        tekst:
+          'W Pienińskim Parku Narodowym obowiązuje ruch po wyznaczonych ' +
+          'szlakach, również zimą i również na nartach. Zejście z trasy nie ' +
+          'jest kwestią interpretacji — to wykroczenie i realne zagrożenie ' +
+          'dla zimującej zwierzyny.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Dokąd podchodzić',
+        tekst:
+          'Beskid Sądecki: Dzwonkówka, Przehyba, Radziejowa — długie leśne ' +
+          'podejścia i zjazdy duktami. Gorce z Turbaczem: łagodniej ' +
+          'i szerzej. Małe Pieniny: Wysoka i grzbiet ku Wysokiemu Wierchowi.',
+      },
+      {
+        ikona: 'sprzet',
+        tytul: 'Czego potrzeba',
+        tekst:
+          'Poza sprzętem skiturowym — lawinowe ABC (detektor, sonda, ' +
+          'łopata) i umiejętność jego użycia. Zagrożenie lawinowe w tych ' +
+          'pasmach jest mniejsze niż w Tatrach, ale strome, wylesione stoki ' +
+          'i żleby potrafią zaskoczyć po obfitych opadach.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Kiedy jest sens',
+        tekst:
+          'Najpewniej od stycznia do marca, i to wyżej — na grzbietach ' +
+          'Beskidu i w Gorcach. W dolinach śnieg bywa krótko. Przed wyjściem ' +
+          'sprawdź komunikat lawinowy i warunki na szlaku.',
+      },
+    ],
+    sezon: 'zwykle od stycznia do marca, zależnie od pokrywy',
+    doPotwierdzenia: true,
   },
   {
     slug: 'szkolki-narciarskie',
