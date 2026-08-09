@@ -525,15 +525,74 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'zamki',
     lokalizacja: 'niedzica',
     wyrozniona: true,
-    skrot: 'Najlepiej zachowany zamek nad Dunajcem, z muzeum i widokiem na jezioro.',
+    trasy: ['R2'],
+    skrot: 'Najlepiej zachowany zamek nad Dunajcem — muzeum, wozownia i spichlerz, z przewodnikiem w cenie.',
     opis: [
-      'Zamek na skale nad Jeziorem Czorsztyńskim, zbudowany na początku XIV wieku ' +
-        'jako warownia strzegąca granicy węgierskiej. Zachował się w bardzo dobrym ' +
-        'stanie i mieści muzeum wnętrz.',
-      'Z dziedzińców i tarasów widać taflę jeziora i ruiny Czorsztyna po drugiej ' +
-        'stronie. Zamek obrósł legendami — najbardziej znana mówi o inkaskim ' +
-        'skarbie ukrytym w jego murach.',
+      'Zamek stoi na skale nad Jeziorem Czorsztyńskim, zbudowany na początku ' +
+        'XIV wieku jako warownia po węgierskiej stronie granicy — dokładnie ' +
+        'naprzeciw polskiego Czorsztyna. Dwa zamki patrzące na siebie przez wodę ' +
+        'to najkrótsze streszczenie historii tego miejsca.',
+      'Zachował się w bardzo dobrym stanie, w przeciwieństwie do sąsiada. Od lat ' +
+        'pięćdziesiątych opiekuje się nim Stowarzyszenie Historyków Sztuki. ' +
+        'Zamek górny i średni zaadaptowano na muzeum, zachowując historyczny układ ' +
+        'wnętrz — zwiedza się je w tym samym porządku, w jakim się nimi żyło.',
+      'Do zespołu należą jeszcze dwa budynki. W wozowni stoją zabytkowe pojazdy ' +
+        'konne z lat 1900–1939. Spichlerz to drewniana konstrukcja z końca ' +
+        'XVIII wieku, przebudowana w XIX — otwarty tylko w sezonie i biletowany ' +
+        'osobno.',
+      'Zamek obrósł legendami, a najbardziej znana mówi o skarbie Inków ukrytym ' +
+        'w jego murach. Historia jest tyleż nieprawdopodobna, co uparcie ' +
+        'powtarzana — i to ona ściąga tu część zwiedzających.',
     ],
+    przewodnik: [
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Bilety',
+        tekst:
+          'Zamek z wozownią: normalny 35 zł, ulgowy 25 zł — od 1 maja 2026 ' +
+          'odpowiednio 40 i 30 zł. Spichlerz osobno, 10 zł. Ulga dla uczniów, ' +
+          'studentów do 25 lat, seniorów, osób z niepełnosprawnością i ich ' +
+          'opiekunów. Dzieci poniżej pięciu lat wchodzą bezpłatnie przy zwiedzaniu ' +
+          'indywidualnym.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Godziny',
+        tekst:
+          'Od 1 maja do 30 września zamek i wozownia codziennie 9:00–19:00, ' +
+          'spichlerz 9:00–17:00. Od 1 października do 30 kwietnia zamek i wozownia ' +
+          'od wtorku do niedzieli 9:00–16:00; poniedziałki nieczynne, spichlerz ' +
+          'zamknięty.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Przewodnik w cenie',
+        tekst:
+          'Oprowadzanie jest wliczone w bilet — nie trzeba dopłacać ani szukać ' +
+          'przewodnika na miejscu. Grupy liczą maksymalnie 55 osób. Rezerwacji ' +
+          'muzeum nie prowadzi, więc w szczycie sezonu trzeba się liczyć ' +
+          'z czekaniem.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Ile to trwa',
+        tekst:
+          'Spacer po zamku z przewodnikiem to około pięćdziesiąt minut, wozownia ' +
+          'kolejne dziesięć. Warto zarezerwować sobie godzinę, a z podejściem ' +
+          'i spichlerzem — półtorej.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Ostatnie wejście',
+        tekst:
+          'W sezonie: 18:00 z przewodnikiem, 18:20 indywidualnie. Poza sezonem ' +
+          'odpowiednio 15:00 i 15:20. Kasa zamyka się razem z ostatnim wejściem, ' +
+          'więc przyjazd „na styk” bywa przyjazdem za późno.',
+      },
+    ],
+    cena: 'Zamek z wozownią: normalny 35 zł, ulgowy 25 zł (od 1 maja 2026 — 40 i 30 zł). Spichlerz 10 zł. Przewodnik w cenie biletu.',
+    godziny: '1 maja – 30 września codziennie 9:00–19:00; 1 października – 30 kwietnia wtorek–niedziela 9:00–16:00, poniedziałki nieczynne.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'ruiny-zamku-czorsztyn',
@@ -542,14 +601,81 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'zamki',
     lokalizacja: 'czorsztyn',
     wyrozniona: true,
-    skrot: 'Królewska warownia naprzeciw Niedzicy, dziś trwała ruina z tarasem widokowym.',
+    trasy: ['R2'],
+    skrot: 'Królewska warownia naprzeciw Niedzicy — trwała ruina z tarasami widokowymi na Tatry.',
     opis: [
-      'Zamek strzegł polskiej strony granicy i szlaku handlowego wzdłuż Dunajca. ' +
-        'Dziś jest trwałą ruiną udostępnioną do zwiedzania, z basztą, z której ' +
-        'widać całe jezioro i zamek w Niedzicy.',
-      'Dojście od parkingu jest krótkie, ale pod górę — w sam raz na spacer ' +
-        'łączony z rejsem po jeziorze.',
+      'Zamek stoi na skale pięćdziesiąt metrów nad taflą Zbiornika Czorsztyńskiego. ' +
+        'Najstarsze umocnienia — drewniano-ziemne — powstały tu w XIII wieku, ' +
+        'prawdopodobnie z fundacji księżnej Kingi. Warownia miała zatrzymać ' +
+        'posuwającą się na północ kolonizację węgierską i pilnować szlaku ' +
+        'handlowego Via Magna, którym wożono towary między Krakowem a Budą.',
+      'W XIV wieku stanęła tu okrągła wieża o średnicy około dziesięciu metrów, ' +
+        'a wokół niej murowany obwód grubości dwóch metrów, zwieńczony krenelażem. ' +
+        'Od XV wieku zamek był siedzibą niegrodowego starostwa czorsztyńskiego. ' +
+        'Największą przebudowę przeprowadził w XVII wieku Jan Baranowski: ' +
+        'czterokondygnacyjna baszta o murach grubych na ponad dwa metry, wzmocniona ' +
+        'szkarpami i najeżona strzelnicami na każdym poziomie. W 1651 roku odparła ' +
+        'atak oddziałów Kostki Napierskiego.',
+      'Koniec przyszedł powoli. W 1735 roku stacjonujący na zamku Kozacy go ' +
+        'spustoszyli, a w 1790 piorun zapalił dach — nikt go już nie odbudował. ' +
+        'Przez następne dekady mury rozbierano na materiał budowlany. Ratunek ' +
+        'przyszedł ze strony właścicieli: w 1819 roku dobra czorsztyńskie kupili ' +
+        'Drohojowscy, a w 1921 Stanisław Konstanty Drohojowski utworzył tu prywatny ' +
+        'rezerwat. Od 1996 roku zamek należy do Pienińskiego Parku Narodowego.',
+      'Do zwiedzania udostępniono ruiny zamku średniego i górnego, renesansową ' +
+        'basztę Baranowskiego i Zieleniec. W dawnej kuchni zamku górnego działa ' +
+        'wystawa o historii zamku i starostwa, w piwnicy lapidarium z fragmentami ' +
+        'nadproży, portali i kolumn, a w baszcie reprodukcje dawnych widokówek ' +
+        '„Z biegiem Dunajca…”. Z tarasów widać zbiornik, Pieniny Spiskie i Tatry, ' +
+        'z baszty — Podhale, Gorce i Pieniny Czorsztyńskie.',
     ],
+    przewodnik: [
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Bilety',
+        tekst:
+          'Normalny 12 zł, ulgowy 6 zł. Bezpłatnie dzieci do siedmiu lat oraz ' +
+          'mieszkańcy gmin Czorsztyn, Krościenko, Łapsze i Szczawnica. Ulga dla ' +
+          'uczniów, studentów, emerytów, rencistów, osób z niepełnosprawnością ' +
+          'i posiadaczy Karty Dużej Rodziny.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Godziny',
+        tekst:
+          'Od 1 maja do 30 września codziennie 9:00–18:00. Od 1 października do ' +
+          '30 kwietnia 10:00–15:00, w poniedziałki nieczynne. Zamknięte 1 stycznia, ' +
+          '1 listopada, w Boże Narodzenie i Wielkanoc.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Bez przewodnika',
+        tekst:
+          'Pieniński Park Narodowy nie świadczy usług przewodnickich — zwiedza się ' +
+          'samodzielnie, z tablicami i wystawą jako przewodnikiem. Bilet warto ' +
+          'zachować: brak dowodu opłaty oznacza bilet karny w potrójnej wysokości.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Parking',
+        tekst:
+          'Pierwsze półtorej godziny bezpłatnie za okazaniem biletu na zamek. ' +
+          'Później płatne za każdą rozpoczętą godzinę — inaczej dla samochodu, ' +
+          'busa i autokaru.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'To jest park narodowy',
+        tekst:
+          'Zamek leży w granicach Pienińskiego Parku Narodowego. Przy ścieżce na ' +
+          'zamku dolnym rośnie pszonak pieniński — endemit, który nie występuje ' +
+          'nigdzie indziej na świecie. W ruinach lata niepylak apollo. Nie schodź ' +
+          'ze ścieżek.',
+      },
+    ],
+    cena: 'Bilet normalny 12 zł, ulgowy 6 zł. Dzieci do 7 lat bezpłatnie.',
+    godziny: '1 maja – 30 września codziennie 9:00–18:00; 1 października – 30 kwietnia 10:00–15:00, poniedziałki nieczynne.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'muzeum-pieninskie-w-szlachtowej',
@@ -557,15 +683,83 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'muzea',
     lokalizacja: 'szlachtowa',
-    skrot: 'Historia uzdrowiska i dawnej Rusi Szlachtowskiej pod jednym dachem.',
+    wyrozniona: true,
+    trasy: ['4A'],
+    miejscowosc: 'Szlachtowa, ul. Łemkowska 37',
+    skrot: 'Muzeum zbudowane przez górali od zera — kultura ludowa Pienin i historia uzdrowiska.',
     opis: [
-      'Muzeum w Szlachtowej opowiada o dwóch splecionych historiach: powstaniu ' +
-        'szczawnickiego uzdrowiska pod ręką Józefa Szalaya oraz o dawnych ' +
-        'mieszkańcach czterech wsi zwanych Rusią Szlachtowską, wysiedlonych ' +
-        'po drugiej wojnie światowej.',
-      'Dobre miejsce, żeby zrozumieć, dlaczego w Jaworkach i Szlachtowej stoją ' +
-        'cerkwie, choć nikt już w nich nie odprawia nabożeństw w dawnym obrządku.',
+      'To muzeum powstało, bo grupa ludzi uparła się, że powstanie. Pomysł ' +
+        'narodził się jeszcze w dwudziestoleciu międzywojennym — orędownikami ' +
+        'byli pisarz Jan Wiktor i malarz oraz etnograf Konstanty Rayski, który ' +
+        'toczył o placówkę korespondencyjną batalię z ówczesnym Ministerstwem ' +
+        'Sztuki i Kultury. Bezskutecznie, a sprawa była pilna: moda mieszczańska ' +
+        'wypierała z chłopskich izb wszystko, co świadczyło o odrębności ' +
+        'kulturowej, a co sami mieszkańcy zaczynali odczytywać jako dowód niższości.',
+      'Dopiero 3 listopada 1957 roku zebrał się Pieniński Oddział Miłośników ' +
+        'Kultury i Sztuki Góralskiej, a całe posiedzenie poświęcono zakładaniu ' +
+        'muzeum. Eksponaty zbierali górale-społecznicy: Michał Słowik spod Dzwona, ' +
+        'Władysław Malinowski, Wojciech Majerczak i Stanisław Dominik. Lokal dał ' +
+        'w maju 1959 roku dyrektor Uzdrowiska Paweł Kukliński — kilka sal ' +
+        'w „Dworcu Gościnnym”. Otwarto 31 maja 1959 roku.',
+      'Trzy lata później „Dworzec” spłonął. Zbiory zdołano uratować w całości ' +
+        'i po tułaczce po różnych pomieszczeniach wróciły w 1965 roku do kamiennych ' +
+        'piwnic spalonego budynku. Oprowadzał po nich Józef Zachwieja „Madziar”, ' +
+        'szczawnicki rymopis i gawędziarz. Potem muzeum dostało stylową willę ' +
+        '„Pałac” przy Placu Dietla, a w styczniu 1982 roku stało się oddziałem ' +
+        'Muzeum Okręgowego w Nowym Sączu. Dziś mieści się w Szlachtowej, przy ' +
+        'ulicy Łemkowskiej 37.',
+      'W hallu wisi wystawa o samych założycielach — z krótkimi notami ' +
+        'biograficznymi tych czterech górali. To rzadkie i warte uwagi: muzeum, ' +
+        'które zaczyna od opowiedzenia, komu zawdzięcza istnienie.',
     ],
+    przewodnik: [
+      {
+        ikona: 'mapa',
+        tytul: 'Część etnograficzna',
+        tekst:
+          'Kultura ludowa Pienin w komplecie: meble z izby, sprzęty gospodarstwa ' +
+          'domowego, pasterstwo i rolnictwo, obróbka włókna, rybołówstwo, strój ' +
+          'i sztuka ludowa. W dziale strojów są też eksponaty z Rusi Szlachtowskiej.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Część historyczna',
+        tekst:
+          'Dwie sale o uzdrowisku. Pierwsza poświęcona Józefowi Szalayowi, druga ' +
+          'rozwojowi zdrojowiska od przejęcia przez Akademię Umiejętności w Krakowie ' +
+          'po dziś. W tej samej sali eksponaty o drugiej wojnie światowej w Pieninach.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Pokój Jana Wiktora',
+        tekst:
+          'Osobne pomieszczenie z pamiątkami po pisarzu, który był orędownikiem ' +
+          'powstania muzeum i przez lata związał się ze Szczawnicą. Izbę pamiątkową ' +
+          'po jego śmierci zaproponowało w 1971 roku Ministerstwo Kultury i Sztuki.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Godziny',
+        tekst:
+          'Od 1 maja do 30 września: wtorek–sobota 10:00–17:00 (ostatnie wejście ' +
+          '16:15), niedziela 10:00–16:00. Od 1 października do 30 kwietnia ' +
+          '10:00–16:00. Poniedziałki nieczynne, podobnie jak w Wielką Sobotę, ' +
+          'w święta wielkanocne, Boże Ciało, 1 i 6 stycznia, 1 listopada oraz ' +
+          '24–26 grudnia.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Bilety — w niedzielę za darmo',
+        tekst:
+          'Normalny 15 zł, ulgowy 11 zł, rodzinny 43 zł (dwoje dorosłych i dwoje ' +
+          'dzieci do 16 lat), usługa przewodnicka dla grup 55 zł. Niedziela jest ' +
+          'dniem wolnym od opłat za wstęp — ale kończy się godzinę wcześniej ' +
+          'niż pozostałe dni w sezonie.',
+      },
+    ],
+    cena: 'Normalny 15 zł, ulgowy 11 zł, rodzinny 43 zł. W niedziele wstęp bezpłatny.',
+    godziny: '1 maja – 30 września: wtorek–sobota 10:00–17:00, niedziela 10:00–16:00. 1 października – 30 kwietnia: 10:00–16:00. Poniedziałki nieczynne.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'plac-dietla-i-architektura-szalayowska',
@@ -591,12 +785,65 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'swiatynie',
     lokalizacja: 'jaworki',
-    skrot: 'Pozostałość po dawnych mieszkańcach doliny Grajcarka.',
+    wyrozniona: true,
+    trasy: ['2A', '3B'],
+    skrot: 'Dwie cerkwie bez wiernych, dla których je zbudowano — ostatni ślad Rusi Szlachtowskiej.',
     opis: [
-      'Jaworki, Szlachtowa, Biała Woda i Czarna Woda tworzyły Ruś Szlachtowską — ' +
-        'najdalej na zachód wysuniętą wyspę osadnictwa rusińskiego w Karpatach. ' +
-        'Po wysiedleniach po drugiej wojnie światowej zostały po nich cerkwie, ' +
-        'dziś użytkowane jako kościoły rzymskokatolickie.',
+      'Szlachtowa, Jaworki, Biała Woda i Czarna Woda tworzyły Ruś Szlachtowską — ' +
+        'najdalej na zachód wysuniętą wyspę osadnictwa łemkowskiego w Karpatach. ' +
+        'Wsie założono na przełomie XV i XVI wieku, a osiedlała się w nich ludność ' +
+        'wołosko-ruska przychodząca ze wschodu i południa. Przez czterysta lat ' +
+        'była to osobna kultura w środku Pienin.',
+      'Skończyło się w 1947 roku, w ramach akcji „Wisła”. Na spakowanie dobytku ' +
+        'dawano godzinę. W całej gminie Szczawnica po wysiedleniach zostało ' +
+        'osiemnaście osób. Cerkwie zostały puste, a wsie zajęli nowi mieszkańcy.',
+      'Cerkiew w Jaworkach — pod wezwaniem św. Jana Chryzostoma — postawiono ' +
+        'w 1798 roku w miejsce drewnianej z 1680. Zbudowano ją według wzorców ' +
+        'architektury józefińskiej, którą cesarz Józef II narzucał wyznaniom ' +
+        'tolerowanym w monarchii habsburskiej: klasycyzm z resztkami późnego ' +
+        'baroku. W środku został rokokowy ikonostas z końca XVIII wieku ' +
+        'z wizerunkiem patrona, a ściany pokrywa polichromia figuralna, którą ' +
+        'w 1926 roku wykonał Andrij Demkowicz. Do rejestru zabytków wpisano ją ' +
+        'w 1964 roku, a na początku XXI wieku przeszła gruntowny remont — miedziany ' +
+        'dach, osuszenie murów, ogrzewanie geotermalne.',
+      'Cerkiew w Szlachtowej jest młodsza: murowana, z przełomu XIX i XX wieku, ' +
+        'zbudowana na planie krzyża greckiego i zwieńczona trzema kopułami. ' +
+        'Obie służą dziś jako kościoły rzymskokatolickie — jaworska od 1946 roku, ' +
+        'jako filia parafii św. Jana Chrzciciela w Szlachtowej.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Zakopane dzwony',
+        tekst:
+          'Przed opuszczeniem Jaworek Łemkowie zakopali cerkiewne dzwony — żeby ' +
+          'ocalić choć część dziedzictwa przodków. Ludzie wywożeni z godzinnym ' +
+          'wyprzedzeniem myśleli o tym, co zostanie po nich w ziemi.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Biała Woda',
+        tekst:
+          'Ze wsi nie zostało nic poza dwoma samotnymi ruskimi krzyżami. Dolina ' +
+          'jest dziś rezerwatem przyrody — miejsce, w którym łatwiej zobaczyć ' +
+          'skały niż ślad po ludziach.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Czarna Woda',
+        tekst:
+          'Po czwartej wsi Rusi Szlachtowskiej została nazwa ulicy w powiększonych ' +
+          'Jaworkach. To wszystko.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Zanim wejdziesz',
+        tekst:
+          'To czynne kościoły parafialne, nie muzea — poza nabożeństwami bywają ' +
+          'zamknięte. Najpewniej trafisz przed mszą albo po niej. Kontekst całej ' +
+          'tej historii tłumaczy Muzeum Pienińskie w Szlachtowej, kilkaset metrów ' +
+          'od tamtejszej cerkwi.',
+      },
     ],
   },
   {
@@ -727,11 +974,52 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'swiatynie',
     lokalizacja: 'kroscienko',
-    skrot: 'Gotycki kościół z zachowanymi średniowiecznymi malowidłami.',
+    wyrozniona: true,
+    skrot: 'Gotyk z pierwszej połowy XIV wieku, malowidła z czterech stuleci i chrzcielnica z orłem jagiellońskim.',
     opis: [
-      'Najstarszy zabytek Krościenka. We wnętrzu zachowały się gotyckie ' +
-        'polichromie — rzadkość na tę skalę w małych karpackich kościołach.',
-      'Stoi przy rynku, którego układ pamięta średniowieczną lokację miasta.',
+      'Najstarszy zabytek Krościenka i jeden z najstarszych w Pieninach. ' +
+        'Wzniesiony z łamanego kamienia w pierwszej połowie XIV wieku — ' +
+        'w źródłach istnieje już w 1350 roku. Stoi przy rynku, którego układ ' +
+        'pamięta średniowieczną lokację miasta.',
+      'Wnętrze jest właściwie warstwowym zapisem czterech stuleci malarstwa. ' +
+        'Najstarszy jest czternastowieczny fresk świętej Barbary. Z XV wieku ' +
+        'pochodzi Ukrzyżowanie z widoczną, niepełną datą „149…”. Największa ' +
+        'całość to dwadzieścia cztery sceny z życia Chrystusa — od Zwiastowania ' +
+        'po Wniebowstąpienie — które w 1589 roku wymalował Jakub Korab z Nowego ' +
+        'Targu.',
+      'Kościół nie stoi w kształcie, w jakim go zbudowano. W 1546 roku, za ' +
+        'księdza Marcina z Piotrkowa, powiększono go o obecną nawę, a w XVIII ' +
+        'wieku dwa razy trawił go pożar — w 1755 i 1788 roku.',
+      'Z wyposażenia warto zauważyć osiemnastowieczny ołtarz główny, ' +
+        'siedemnastowieczną drewnianą rzeźbę Matki Boskiej, siedmiogłosowe organy ' +
+        'z 1827 roku i witraże z lat 1964–1966.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Chrzcielnica z 1493 roku',
+        tekst:
+          'Kamienna, wykuta w warsztacie sądeckiego mistrza Marcina Proszki. ' +
+          'Zdobią ją orzeł jagielloński i herby rycerskie — uchodzi za ' +
+          'chrzcielnicę z najbogatszym zestawem herbów rycerskich w Polsce. ' +
+          'Tradycja mówi, że była darem króla Jana Olbrachta.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Dzwony młodsze niż kościół',
+        tekst:
+          'Trzy obecne dzwony ufundowano dopiero w latach 1949–1955. Poprzednie ' +
+          'zarekwirowano na potrzeby wojenne: raz w 1917 roku, drugi raz w 1942. ' +
+          'Ta sama historia powtórzyła się w dwóch wojnach.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Kiedy wejść',
+        tekst:
+          'To czynny kościół parafialny, nie muzeum. Poza godzinami nabożeństw ' +
+          'bywa zamknięty, a malowidła najlepiej ogląda się przy dziennym ' +
+          'świetle. Najprościej trafić przed mszą albo tuż po niej.',
+      },
     ],
   },
   {
@@ -807,13 +1095,62 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'muzea',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Szczawnica, Plac Dietla 1',
+    skrot: 'Dwieście lat uzdrowiska w trzech wystawach — w willi „Pałac” przy Placu Dietla.',
+    opis: [
+      'Kameralna wystawa o historii kurortu, jego najważniejszych mieszkańcach ' +
+        'i tradycjach regionu. Mieści się w eleganckiej willi „Pałac” przy ' +
+        'historycznym Placu Dietla — pod tym samym adresem, pod którym przez lata ' +
+        'stało Muzeum Pienińskie, zanim przeniosło się do Szlachtowej.',
+      'Ekspozycja dzieli się na trzy części i każda opowiada inną historię: ' +
+        'o wodzie, o ludziach i o tym, jak w ogóle dało się tu dojechać. ' +
+        'Ostatnia z nich jest najbardziej zaskakująca — bo o drodze do zdrojów ' +
+        'zwykle się nie myśli, a to ona przez sto lat decydowała, kto tu dotrze.',
+      'Muzeum wydaje też własne publikacje: opracowania, wspomnienia i przewodniki ' +
+        'po okolicy.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'woda',
+        tytul: 'Uzdrowisko Szczawnica — 200 lat tradycji',
+        tekst:
+          'O źródłach leczniczych i ich eksploatacji przez stulecia. Właściwości ' +
+          'tutejszych wód znano już w XVI wieku, ale gwałtowny rozwój kurortu ' +
+          'zaczął się dopiero w drugiej połowie XIX wieku, za sprawą Szalayów.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Stadniccy w Szczawnicy',
+        tekst:
+          'O zasługach tego małopolskiego rodu. W 1909 roku hrabia Adam Stadnicki ' +
+          'kupił szczawnicki kurort i uczynił z niego jedno z najnowocześniejszych ' +
+          'uzdrowisk w Europie.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Jak podróżowano do szczawnickich zdrojów',
+        tekst:
+          'Dawne środki lokomocji i akcesoria potrzebne w trudnej podróży przez ' +
+          'góry: opisy popularnych dróg, elementy powozów i bryczek, walizy oraz ' +
+          'owadobójczy „proszek perski”. Najbardziej ludzka część wystawy.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Godziny i bilety',
+        tekst:
+          'Muzeum czynne od 9:00 do 14:00, bilety od 6 zł. Szczegóły i aktualne ' +
+          'godziny na stronie szczawnica-muzeum.pl — warto sprawdzić przed ' +
+          'przyjściem, bo dzień kończy się tu wcześnie.',
+      },
+    ],
+    cena: 'Od 6 zł.',
+    godziny: 'Codziennie 9:00–14:00.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'park-dolny',
     nazwa: 'Park Dolny',
-    kategorie: ['kultura', 'rodziny'],
+    kategorie: ['rodziny'],
     podkategoria: 'uzdrowisko',
     lokalizacja: 'szczawnica',
     skrot: 'Park zdrojowy ze stawem, altaną nad źródłem i darmowym ujęciem wody mineralnej.',
@@ -839,8 +1176,57 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'uzdrowisko',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Szczawnica, Park Górny 2',
+    trasy: ['5B'],
+    skrot: 'Biały modernizm z lat trzydziestych w Parku Zdrojowym — dziś czynne sanatorium.',
+    opis: [
+      'Budynek postawił w latach 1934–1936 hrabia Adam Stadnicki, w miejscu ' +
+        'wcześniejszego domu zdrojowego. Stoi w sercu Parku Zdrojowego i jest ' +
+        'jednym z najbardziej rozpoznawalnych obiektów Szczawnicy — biała bryła ' +
+        'z kolumnadą i szerokimi schodami, wyraźnie z innej epoki niż drewniane ' +
+        'wille Szalayowskie w dole.',
+      'Inhalatorium nie jest jednak zabytkiem do zwiedzania, tylko czynnym ' +
+        'sanatorium. Mieści zakład przyrodoleczniczy ze specjalistycznymi ' +
+        'poradniami, a jego znakiem firmowym są inhalacje solankowo-celkowe ' +
+        'stosowane w leczeniu dróg oddechowych. Kuracjusze mają dwa zabiegi ' +
+        'dziennie, zlecane przez lekarza, z nadzorem lekarskim i opieką ' +
+        'pielęgniarską.',
+      'Obiekt jest niewielki: 29 miejsc w pokojach jedno-, dwu- i wieloosobowych ' +
+        'z łazienkami. Turysta zobaczy go więc raczej z zewnątrz — i to wystarczy, ' +
+        'bo cała siła tego budynku jest w bryle i w miejscu, w którym ją postawiono.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'To działające sanatorium',
+        tekst:
+          'Nie ma tu wystawy ani zwiedzania — wnętrza służą kuracjuszom. Z zewnątrz ' +
+          'budynek ogląda się swobodnie, stoi przy alejkach Parku Zdrojowego.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Inhalacje solankowo-celkowe',
+        tekst:
+          'Specjalność zakładu, stosowana w leczeniu dróg oddechowych. Zabiegi ' +
+          'przysługują kuracjuszom na zlecenie lekarza, po dwa dziennie.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Dla kuracjuszy',
+        tekst:
+          'Osobodzień z zakwaterowaniem, wyżywieniem i nadzorem lekarskim: 270 zł ' +
+          'w sezonie, 250 zł poza sezonem. Sam nocleg 130 zł i 110 zł. Parking ' +
+          '20 zł za dobę. Rezerwacja telefoniczna w uzdrowisku.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Po drodze',
+        tekst:
+          'Inhalatorium mija się na trasie z Placu Dietla przez Park Górny ' +
+          'w stronę Dworca Gościnnego — po lewej, tuż przed ulicą Jana Wiktora.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'kosciol-swietego-wojciecha',
@@ -848,17 +1234,41 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'swiatynie',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
-  },
-  {
-    slug: 'fontanna-kobieta',
-    nazwa: 'Fontanna „Kobieta”',
-    kategorie: ['kultura'],
-    podkategoria: 'architektura',
-    lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    skrot: 'Neogotyk z pienińskiego kamienia — i kolonia rzadkich nietoperzy na strychu.',
+    opis: [
+      'Parafia w Szczawnicy istnieje od 1350 roku, ale obecny kościół jest ' +
+        'znacznie młodszy: budowano go w latach 1882–1892 według projektu ' +
+        'Stanisława Eljasza-Radzikowskiego. Prace prowadził ksiądz Jan Oleksik. ' +
+        'Neogotycka bryła powstała z pienińskiego kamienia i cegły — materiału ' +
+        'wziętego stąd, z okolicy.',
+      'Wyposażenie robiono przez trzydzieści lat i przez kilka rąk. Ołtarz główny ' +
+        'i chrzcielnicę wykonał w latach 1892–1894 Kazimierz Chodziński, cztery ' +
+        'ołtarze boczne i ambonę — rzeźbiarz Władysław Łuczkiewicz w latach ' +
+        '1894–1900. Osiemnastogłosowe organy zbudował w 1895 roku Tomasz Fall, ' +
+        'a polichromię figuralną wykonał w 1923 roku Karol Polityński.',
+      'Na wieży wiszą dwa dzwony o bardzo różnym wieku: Józef z 1860 roku, ' +
+        'przeniesiony jeszcze z poprzedniego kościoła, i Wojciech odlany ' +
+        'w 1948 roku w ludwisarni Schwabego.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Nietoperze na strychu',
+        tekst:
+          'Poddasze kościoła zajmuje kolonia podkowca małego — rzadkiego gatunku ' +
+          'nietoperza, objętego ochroną. Nie widać go z dołu i nie o to chodzi: ' +
+          'to jeden z tych przypadków, w których zabytek jest jednocześnie ' +
+          'siedliskiem przyrodniczym.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Kiedy wejść',
+        tekst:
+          'To czynny kościół parafialny. Poza nabożeństwami bywa zamknięty, ' +
+          'a wnętrze z pięcioma ołtarzami najlepiej ogląda się przy świetle ' +
+          'dziennym. Odpusty przypadają 23 kwietnia i 27 czerwca.',
+      },
+    ],
   },
   {
     slug: 'promenada-nad-grajcarkiem',
@@ -1450,15 +1860,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     doPotwierdzenia: true,
   },
   {
-    slug: 'rynek-w-kroscienku',
-    nazwa: 'Rynek w Krościenku',
-    kategorie: ['kultura'],
-    podkategoria: 'architektura',
-    lokalizacja: 'kroscienko',
-    skrot: '',
-    opis: [],
-  },
-  {
     slug: 'park-linowy-kroscienko',
     nazwa: 'Park linowy w Krościenku',
     kategorie: ['rodziny', 'aktywnie'],
@@ -1631,8 +2032,71 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'muzea',
     lokalizacja: 'slowacja',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Červený Kláštor, Słowacja',
+    wyrozniona: true,
+    skrot: 'Klasztor ufundowany jako pokuta za morderstwo — i dom mnicha, który podobno latał.',
+    opis: [
+      'Historia Czerwonego Klasztoru zaczyna się od zabójstwa. Fundatorem był ' +
+        'Kokosz Berzeviczy, a fundacja nie wzięła się z pobożnego odruchu, tylko ' +
+        'z pokuty nałożonej na niego za zabicie prepozyta krzyżowców. Klasztor ' +
+        'szybko się usamodzielnił dzięki przywilejom od miejscowych feudałów: ' +
+        'prawu połowu ryb w Dunajcu, zgodzie na młyn i produkcję mąki, a przede ' +
+        'wszystkim na warzenie piwa. To piwo, nie modlitwa, zbudowało majątek ' +
+        'opactwa.',
+      'Rozwój przerwał najazd husytów. Zakonnicy odbudowali zniszczenia, ale ' +
+        'bracia z czasem zaczęli odchodzić i w 1567 roku klasztor przestał ' +
+        'istnieć — zabudowania przeszły na rzecz państwa. Dopiero w 1711 roku ' +
+        'oddano je kamedułom Kongregacji Monte Corona. Włoscy mnisi rozbudowali ' +
+        'opactwo w baroku o budynki mieszkalne, kościół i dzwonnicę, otworzyli ' +
+        'zajazd dla pielgrzymów i aptekę, i szybko stali się częścią lokalnej ' +
+        'społeczności.',
+      'W 1907 roku pożar znów strawił zabudowania i klasztor popadł w ruinę. ' +
+        'Remonty ruszyły po pierwszej wojnie światowej, ale gruntowna odbudowa ' +
+        'zaczęła się dopiero w 1955 roku i trwała jedenaście lat. Po jej ' +
+        'zakończeniu — mimo czasów, w jakich to się działo — obiekt udostępniono ' +
+        'zwiedzającym jako zabytek kultury i sztuki Pienin.',
+      'Klasztor leży po słowackiej stronie Dunajca, naprzeciw Sromowiec Niżnych. ' +
+        'To zagranica: płaci się w euro, a przy sobie trzeba mieć dokument.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Ojciec Cyprian — latający mnich',
+        tekst:
+          'Klasztorny aptekarz, słynny w całej okolicy z umiejętności medycznych ' +
+          'i wszechstronnego wykształcenia. Stworzył zielnik z ponad 270 miejscowymi ' +
+          'roślinami. Legenda dodaje resztę: że na własnoręcznie zbudowanej ' +
+          'maszynie przeleciał nad Pieninami. Zielnik istnieje naprawdę — reszta ' +
+          'to opowieść, którą wciąż się tu snuje.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Godziny — cały rok',
+        tekst:
+          'Muzeum czynne siedem dni w tygodniu. Styczeń, luty, listopad i grudzień: ' +
+          '9:00–16:00. Marzec, kwiecień, wrzesień i październik: 9:00–17:00. ' +
+          'Maj: 9:00–18:00. Czerwiec, lipiec i sierpień: 8:00–19:00.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Bilety w euro',
+        tekst:
+          'Dorośli 6 €, emeryci z legitymacją i studenci 4 €, uczniowie oraz osoby ' +
+          'z legitymacją osoby niepełnosprawnej 3 €. Bezpłatnie dzieci do sześciu ' +
+          'lat, księża, zakonnice i zakonnicy oraz posiadacze legitymacji ICOM.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Śluby i sesje',
+        tekst:
+          'Obrzęd ślubny w kościele św. Antoniego Pustelnika albo na terenie ' +
+          'klasztoru kosztuje 50 €, sesja fotograficzna młodej pary na terenie ' +
+          'klasztoru — 10 €.',
+      },
+    ],
+    cena: 'Dorośli 6 €, ulgowy 4 €, uczniowie 3 €. Dzieci do 6 lat bezpłatnie.',
+    godziny: 'Cały rok, codziennie. Zima 9:00–16:00, wiosna i jesień 9:00–17:00, maj 9:00–18:00, wakacje 8:00–19:00.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'muzyczna-owczarnia',
@@ -1640,8 +2104,43 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'muzyka',
     lokalizacja: 'jaworki',
-    skrot: '',
-    opis: [],
+    wyrozniona: true,
+    skrot: 'Przeniesiona bacówka, w której gra się ponad sto koncertów rocznie — i honorowy prezes Nigel Kennedy.',
+    opis: [
+      'W 1997 roku Wieńczysław Kołodziejski przeniósł do Jaworek starą bacówkę ' +
+        'z pasterskich polan i przerobił ją na salę koncertową. Klub otwarto ' +
+        '24 stycznia 1999 roku. Sala mieści dziewięćdziesiąt osób, do tego jest ' +
+        'niewielka galeria sztuki i dwanaście bezpłatnych miejsc noclegowych ' +
+        'dla artystów — to ostatnie tłumaczy, dlaczego to miejsce w ogóle działa ' +
+        'w tej skali.',
+      'Rocznie odbywa się tu ponad sto koncertów. Od 2004 roku Owczarnia prowadzi ' +
+        'też międzynarodowe warsztaty muzyczne — gitara, bas, perkusja, ' +
+        'instrumenty klawiszowe i wokal — z zajęciami prowadzonymi przez muzyków ' +
+        'pokroju Marka Raduliego i Wojciecha Pilichowskiego.',
+      'Wokół Jaworek osiedliło się sporo muzyków. Honorowym prezesem komitetu ' +
+        'założycielskiego jest skrzypek Nigel Kennedy, który świętował tu swoje ' +
+        'pięćdziesiąte urodziny. Domy w okolicy mieli także Jarosław Śmietana ' +
+        'i Kuba Badach. To nie jest scena, która ściąga gwiazdy z daleka — ' +
+        'to scena, przy której one zamieszkały.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'zasady',
+        tytul: 'Wiatrak koźlak',
+        tekst:
+          'W 2001 roku obok Owczarni stanął tradycyjny wiatrak typu koźlak, ' +
+          'którego współwłaścicielem jest gitarzysta Marek Raduli. Przeniesiona ' +
+          'bacówka i wiatrak w jednym miejscu — Jaworki mają własną logikę.',
+      },
+      {
+        ikona: 'trasa',
+        tytul: 'Dziewięćdziesiąt miejsc',
+        tekst:
+          'Sala klubowo-koncertowa jest mała i to jej największa zaleta: nikt ' +
+          'nie siedzi daleko od sceny. Na głośniejsze nazwiska bilety schodzą ' +
+          'z wyprzedzeniem, więc program warto sprawdzić przed przyjazdem.',
+      },
+    ],
   },
   {
     slug: 'skutery-sniezne',

@@ -62,20 +62,10 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3ASromowce_Wyzne_przystan_flisacka_3.jpg',
   },
-  'ruiny-zamku-czorsztyn': {
-    autor: 'Mqrcin79',
-    licencja: 'CC BY 3.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AZamek_Czorsztyn_3.jpg',
-  },
   'wyciag-w-jaworkach': {
     autor: 'Andrzej Otrębski',
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3AJaworki_wyciag_Homole_1.jpg',
-  },
-  'zamek-dunajec-w-niedzicy': {
-    autor: 'Wiktor Baron | www.baronphotography.eu',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AZamek_w_Niedzicy_Wiktor_Baron.jpg',
   },
 }
 
