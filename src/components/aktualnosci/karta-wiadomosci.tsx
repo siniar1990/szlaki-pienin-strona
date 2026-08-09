@@ -1,16 +1,22 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, Newspaper } from 'lucide-react'
 
-import { dataPolska, type WiadomoscNaLiscie } from '@/lib/wiadomosci/zapytania'
+import { adresZdjecia, dataPolska, type WiadomoscNaLiscie } from '@/lib/wiadomosci/zapytania'
 
 /**
  * Karta notki na liście aktualności i na stronie głównej.
  *
- * **Dlaczego zwykły `<img>`, a nie komponent obrazu Next.js.** Zdjęcia notek
- * są zapisane jako `data:` URL w bazie. Optymalizator Next.js pobiera obraz
- * spod adresu, żeby go przeskalować — a `data:` URL nie jest adresem, spod
- * którego da się cokolwiek pobrać. Obraz jest już zmniejszony w przeglądarce
- * przy wgrywaniu, więc nie ma tu czego optymalizować.
+ * **Dlaczego komponent obrazu Next.js, a nie zwykły `<img>` z `data:` URL.**
+ * Pierwsza wersja wstawiała zdjęcie wprost z bazy jako `data:` URL i to był
+ * błąd, który zważył trzy megabajty: taki obraz ląduje w HTML-u, i to dwa
+ * razy — raz w znaczniku, raz w ładunku, z którego React odtwarza stronę.
+ * Nie da się go też zapamiętać w pamięci podręcznej ani wczytać leniwie,
+ * bo nie jest osobnym zasobem.
+ *
+ * Teraz zdjęcie ma własny adres, więc Next.js może je przeskalować do
+ * rozmiaru karty — zamiast kilobajtów tysiąca na miniaturkę idzie ich
+ * kilkadziesiąt.
  *
  * **Dlaczego karta bez zdjęcia nie pokazuje zastępczej grafiki.** Szara plama
  * z ikoną nie niesie informacji, a zabiera miejsce tytułowi. Notka bez
@@ -31,19 +37,24 @@ export function KartaWiadomosci({
         'transition-all duration-300 hover:-translate-y-1 hover:border-las-300 hover:shadow-uniesiony'
       }
     >
-      {wiadomosc.zdjecie ? (
+      {wiadomosc.maZdjecie ? (
         <Link
           href={`/aktualnosci/${wiadomosc.slug}`}
-          className="block aspect-[16/9] overflow-hidden bg-kamien-100"
+          className="relative block aspect-[16/9] overflow-hidden bg-kamien-100"
           tabIndex={-1}
           aria-hidden
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={wiadomosc.zdjecie}
+          <Image
+            src={adresZdjecia(wiadomosc.slug)}
             alt={wiadomosc.zdjecieOpis ?? ''}
-            className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            loading="lazy"
+            fill
+            /*
+              Karta zajmuje całą szerokość na telefonie, dwie trzecie
+              w wyróżnieniu i jedną trzecią w siatce. Bez tej podpowiedzi
+              przeglądarka pobrałaby wariant na całą szerokość ekranu.
+            */
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         </Link>
       ) : (

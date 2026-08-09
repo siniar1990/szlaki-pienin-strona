@@ -230,7 +230,7 @@ export function FormularzWiadomosci({
           <span className="text-sm leading-relaxed text-kamien-700">
             <span className="font-medium">To istotna zmiana treści</span>
             <span className="mt-0.5 block text-kamien-500">
-              Zaznacz, gdy poprawka zmienia sens notki — na stronie pojawi się „Zaktualizowano",
+              Zaznacz, gdy poprawka zmienia sens notki — na stronie pojawi się {'„Zaktualizowano”'},
               a nowa data trafi do mapy witryny i danych strukturalnych. Przy poprawie
               literówki zostaw puste.
             </span>

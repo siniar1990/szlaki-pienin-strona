@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import { PORTAL } from '@/lib/konfiguracja'
 import { NAGLOWKI_XML } from '@/lib/seo/naglowki'
 import { kanalRss } from '@/lib/seo/xml'
-import { pobierzWiadomosci } from '@/lib/wiadomosci/zapytania'
+import { adresZdjecia, pobierzWiadomosci } from '@/lib/wiadomosci/zapytania'
 
 /**
  * Kanał RSS działu aktualności.
@@ -30,9 +30,7 @@ export async function GET() {
       opublikowano: notka.opublikowano,
       // Zdjęcie podajemy przez trasę oddającą bajty, a nie jako `data:` URL —
       // czytniki muszą móc je pobrać.
-      zdjecie: notka.zdjecie
-        ? `${PORTAL.adres}/aktualnosci/${notka.slug}/zdjecie`
-        : undefined,
+      zdjecie: notka.maZdjecie ? `${PORTAL.adres}${adresZdjecia(notka.slug)}` : undefined,
     })),
     {
       tytul: `${PORTAL.nazwa} — aktualności`,

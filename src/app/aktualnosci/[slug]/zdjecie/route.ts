@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { pobierzWiadomosc } from '@/lib/wiadomosci/zapytania'
+import { pobierzZdjecieNotki } from '@/lib/wiadomosci/zapytania'
 
 /**
  * Zdjęcie główne notki jako zwykły obrazek pod własnym adresem.
@@ -30,9 +30,9 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params
-  const wiadomosc = await pobierzWiadomosc(slug)
+  const zdjecie = await pobierzZdjecieNotki(slug)
 
-  if (!wiadomosc?.zdjecie) {
+  if (!zdjecie) {
     return new NextResponse('Brak zdjęcia', { status: 404 })
   }
 
@@ -42,7 +42,7 @@ export async function GET(
     więc wzorzec jest tu wystarczający — a niepasujące dane traktujemy jak brak
     zdjęcia zamiast odsyłać uszkodzony plik.
   */
-  const dopasowanie = /^data:(image\/[a-z+]+);base64,(.+)$/i.exec(wiadomosc.zdjecie)
+  const dopasowanie = /^data:(image\/[a-z+]+);base64,(.+)$/i.exec(zdjecie)
   if (!dopasowanie) {
     return new NextResponse('Nieprawidłowy format zdjęcia', { status: 404 })
   }

@@ -33,7 +33,6 @@ export default async function StronaAktualnosciPanelu() {
       tytul: true,
       lid: true,
       stan: true,
-      zdjecie: true,
       odRedakcjiMaszynowej: true,
       zrodloNazwa: true,
       slug: true,
@@ -50,6 +49,20 @@ export default async function StronaAktualnosciPanelu() {
   const odslony = await odslonyPozycji(
     'AKTUALNOSC',
     notki.filter((notka) => notka.stan === 'OPUBLIKOWANA').map((notka) => notka.slug),
+  )
+
+  /*
+    Sama obecność zdjęcia, nie jego zawartość. Wybieranie kolumny `zdjecie`
+    razem z wierszami ciągnęło z bazy megabajty na miniaturki — przy stu
+    notkach ze zdjęciem po megabajcie strona nie dałaby się otworzyć.
+  */
+  const zeZdjeciem = new Set(
+    (
+      await baza.wiadomosc.findMany({
+        where: { zdjecie: { not: null } },
+        select: { id: true },
+      })
+    ).map((wiersz) => wiersz.id),
   )
 
   const szkice = notki.filter((notka) => notka.stan === 'SZKIC')
@@ -104,9 +117,14 @@ export default async function StronaAktualnosciPanelu() {
                       najczęstszy powód, dla którego szkic nie nadaje się
                       jeszcze do publikacji. */}
                   <span className="hidden size-20 shrink-0 overflow-hidden rounded-xl bg-kamien-100 sm:block">
-                    {notka.zdjecie && (
+                    {zeZdjeciem.has(notka.id) && (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={notka.zdjecie} alt="" className="size-full object-cover" />
+                      <img
+                        src={`/api/panel/wiadomosci/${notka.id}/zdjecie`}
+                        alt=""
+                        loading="lazy"
+                        className="size-full object-cover"
+                      />
                     )}
                   </span>
 

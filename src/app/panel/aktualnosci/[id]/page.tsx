@@ -51,6 +51,14 @@ export default async function StronaEdycjiWiadomosci({
 
   const notka = await baza.wiadomosc.findUnique({
     where: { id },
+    omit: {
+      /*
+        Zdjęcie zostaje w bazie. Podgląd w formularzu bierze je z trasy
+        `/api/panel/wiadomosci/<id>/zdjecie` — inaczej megabajtowy `data:` URL
+        wędrowałby do przeglądarki razem z HTML-em strony edycji.
+      */
+      zdjecie: true,
+    },
     include: {
       znalezisko: {
         select: { ocena: true, uzasadnienie: true, tytul: true, adres: true },
@@ -58,6 +66,9 @@ export default async function StronaEdycjiWiadomosci({
     },
   })
   if (!notka) notFound()
+
+  const maZdjecie =
+    (await baza.wiadomosc.count({ where: { id, zdjecie: { not: null } } })) > 0
 
   const odslony =
     notka.stan === 'OPUBLIKOWANA'
@@ -233,9 +244,9 @@ export default async function StronaEdycjiWiadomosci({
             <PunktSeo spelniony label="Dane strukturalne NewsArticle" />
             <PunktSeo spelniony label="Autor i data publikacji" />
             <PunktSeo
-              spelniony={Boolean(notka.zdjecie)}
+              spelniony={maZdjecie}
               label="Zdjęcie do Open Graph"
-              uwaga={notka.zdjecie ? undefined : 'bez zdjęcia notka wygląda ubogo po udostępnieniu'}
+              uwaga={maZdjecie ? undefined : 'bez zdjęcia notka wygląda ubogo po udostępnieniu'}
             />
           </ul>
         </section>
@@ -249,7 +260,7 @@ export default async function StronaEdycjiWiadomosci({
             tytul: notka.tytul,
             lid: notka.lid,
             tresc: notka.tresc,
-            zdjecie: notka.zdjecie,
+            zdjecie: maZdjecie ? `/api/panel/wiadomosci/${id}/zdjecie` : null,
             zdjecieOpis: notka.zdjecieOpis,
             zrodloNazwa: notka.zrodloNazwa,
             zrodloAdres: notka.zrodloAdres,

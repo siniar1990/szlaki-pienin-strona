@@ -11,10 +11,17 @@ import { baza } from '@/lib/baza'
  * bazy przy każdym wejściu byłoby płaceniem czasem odpowiedzi za dane, które
  * i tak się nie zmieniły. Wpis unieważnia publikacja, więc opóźnienia nie ma.
  *
- * **Dlaczego zapytania zwracają wąskie zestawy pól.** Notka trzyma zdjęcie
- * jako `data:` URL, czyli kilkaset kilobajtów tekstu. Lista dwudziestu notek
- * z pełną treścią i zdjęciami to kilka megabajtów przeniesione z bazy po to,
- * żeby pokazać dwadzieścia tytułów.
+ * **Dlaczego strony publiczne NIGDY nie dostają zdjęcia.** Zdjęcie jest
+ * w bazie jako `data:` URL. Podane do komponentu trafia w całości do HTML-a —
+ * i to dwa razy, bo raz w znaczniku obrazka, a drugi w ładunku, z którego
+ * React odtwarza stronę w przeglądarce. Megabajtowa fotografia na trzech
+ * kartach zamieniła stronę główną w dokument ważący 3,4 MB, a czas do
+ * największego elementu urósł do szesnastu sekund na telefonie.
+ *
+ * Dlatego odczyty zwracają wyłącznie `maZdjecie`, a strony sięgają po obraz
+ * pod adresem `/aktualnosci/<slug>/zdjecie` — czyli tą samą trasą, którą
+ * i tak musiały dostać wyszukiwarki i Facebook. Przeglądarka pobiera go
+ * osobnym żądaniem, zapamiętuje na rok i wczytuje leniwie.
  */
 
 export const ZNACZNIK_WIADOMOSCI = 'wiadomosci'
@@ -67,7 +74,8 @@ export type WiadomoscNaLiscie = {
   slug: string
   tytul: string
   lid: string
-  zdjecie: string | null
+  /** Czy notka ma zdjęcie. Sam obraz idzie osobną trasą — patrz nagłówek. */
+  maZdjecie: boolean
   zdjecieOpis: string | null
   opublikowano: Date
   /** Data istotnej zmiany treści, jeśli notka była poprawiana po publikacji. */
@@ -87,20 +95,37 @@ const pobierzWiadomosciZPamieci = unstable_cache(
         where: { stan: 'OPUBLIKOWANA', opublikowano: { not: null } },
         orderBy: { opublikowano: 'desc' },
         take: ile,
+        /*
+          `zdjecie` NIE jest tu wybierane. Baza zwróciłaby megabajty tekstu
+          po to, żeby ustalić, czy obraz istnieje — a to samo mówi warunek
+          `not: null` policzony po stronie bazy.
+        */
         select: {
           slug: true,
           tytul: true,
           lid: true,
-          zdjecie: true,
           zdjecieOpis: true,
           opublikowano: true,
           zaktualizowano: true,
         },
       })
 
+      const zeZdjeciem = new Set(
+        (
+          await baza.wiadomosc.findMany({
+            where: { stan: 'OPUBLIKOWANA', zdjecie: { not: null } },
+            select: { slug: true },
+          })
+        ).map((wiersz) => wiersz.slug),
+      )
+
       // `opublikowano` jest w bazie opcjonalne, ale warunek wyżej gwarantuje
       // wartość — zawężenie typu robimy tutaj, żeby strony nie musiały.
-      return wiersze.map((wiersz) => ({ ...wiersz, opublikowano: wiersz.opublikowano as Date }))
+      return wiersze.map((wiersz) => ({
+        ...wiersz,
+        maZdjecie: zeZdjeciem.has(wiersz.slug),
+        opublikowano: wiersz.opublikowano as Date,
+      }))
     }, []),
   ['wiadomosci-lista'],
   { tags: [ZNACZNIK_WIADOMOSCI] },
@@ -116,16 +141,23 @@ const pobierzWiadomoscZPamieci = unstable_cache(
           tytul: true,
           lid: true,
           tresc: true,
-          zdjecie: true,
           zdjecieOpis: true,
           opublikowano: true,
           zaktualizowano: true,
           zrodloNazwa: true,
           zrodloAdres: true,
+          // Sama obecność, nie zawartość — Prisma nie umie zwrócić „czy pole
+          // nie jest puste", więc bierzemy je osobnym, wąskim zapytaniem.
         },
       })
+      if (!wiersz) return null
 
-      return wiersz ? { ...wiersz, opublikowano: wiersz.opublikowano as Date } : null
+      const zdjecie = await baza.wiadomosc.findFirst({
+        where: { slug, zdjecie: { not: null } },
+        select: { slug: true },
+      })
+
+      return { ...wiersz, maZdjecie: zdjecie !== null, opublikowano: wiersz.opublikowano as Date }
     }, null),
   ['wiadomosc-jedna'],
   { tags: [ZNACZNIK_WIADOMOSCI] },
@@ -178,6 +210,33 @@ export async function pobierzSlugiWiadomosci(): Promise<
     opublikowano: data(wiersz.opublikowano),
     zaktualizowano: dataAlboNull(wiersz.zaktualizowano),
   }))
+}
+
+/**
+ * Adres, pod którym leży zdjęcie notki.
+ *
+ * Jedno miejsce dla stron, znaczników Open Graph i kanału RSS — inaczej ta
+ * sama ścieżka byłaby wpisana w czterech plikach i przy zmianie trzeba by
+ * pamiętać o wszystkich.
+ */
+export function adresZdjecia(slug: string): string {
+  return `/aktualnosci/${slug}/zdjecie`
+}
+
+/**
+ * Sam obraz notki, wyłącznie dla trasy, która go oddaje.
+ *
+ * Świadomie poza `pobierzWiadomosc`: tamta funkcja obsługuje strony i jej
+ * wynik trafia do HTML-a, więc nie ma prawa nieść megabajtowego napisu.
+ */
+export async function pobierzZdjecieNotki(slug: string): Promise<string | null> {
+  return bezpiecznie(async () => {
+    const wiersz = await baza.wiadomosc.findFirst({
+      where: { slug, stan: 'OPUBLIKOWANA' },
+      select: { zdjecie: true },
+    })
+    return wiersz?.zdjecie ?? null
+  }, null)
 }
 
 /** Rozbija treść na akapity. Pusta linia rozdziela, puste wpisy odpadają. */

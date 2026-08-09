@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
@@ -8,6 +9,7 @@ import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { PORTAL } from '@/lib/konfiguracja'
 import {
+  adresZdjecia,
   akapity,
   dataZGodzina,
   ostatniaZmiana,
@@ -41,7 +43,7 @@ export async function generateMetadata({
   const wiadomosc = await pobierzWiadomosc(slug)
   if (!wiadomosc) return { title: 'Nie znaleziono wiadomości' }
 
-  const obrazek = wiadomosc.zdjecie ? `${PORTAL.adres}/aktualnosci/${slug}/zdjecie` : undefined
+  const obrazek = wiadomosc.maZdjecie ? `${PORTAL.adres}${adresZdjecia(slug)}` : undefined
   const zmieniono = ostatniaZmiana(wiadomosc)
 
   return {
@@ -88,7 +90,7 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
     polega na tym, że jest świeży.
   */
   const zmieniono = ostatniaZmiana(wiadomosc)
-  const obrazek = wiadomosc.zdjecie ? `${PORTAL.adres}/aktualnosci/${slug}/zdjecie` : null
+  const obrazek = wiadomosc.maZdjecie ? `${PORTAL.adres}${adresZdjecia(slug)}` : null
 
   /*
     Opis strukturalny artykułu.
@@ -157,13 +159,22 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
 
       <article className="obszar py-12 lg:py-16">
         <div className="mx-auto max-w-[46rem]">
-          {wiadomosc.zdjecie && (
+          {wiadomosc.maZdjecie && (
             <figure className="mb-10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={wiadomosc.zdjecie}
+              <Image
+                src={adresZdjecia(slug)}
                 alt={wiadomosc.zdjecieOpis ?? wiadomosc.tytul}
-                className="w-full rounded-2xl border border-kamien-200 object-cover"
+                width={1600}
+                height={900}
+                /*
+                  Zdjęcie główne notki jest największym elementem strony, więc
+                  ładuje się z pierwszeństwem — inaczej przeglądarka zaczyna
+                  je pobierać dopiero po skryptach i czas do jego pojawienia
+                  się rośnie o kilka sekund.
+                */
+                priority
+                sizes="(max-width: 768px) 100vw, 736px"
+                className="h-auto w-full rounded-2xl border border-kamien-200 object-cover"
               />
               {wiadomosc.zdjecieOpis && (
                 <figcaption className="mt-3 text-sm text-kamien-500">
