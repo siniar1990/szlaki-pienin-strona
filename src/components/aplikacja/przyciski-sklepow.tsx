@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 import { zglos } from '@/components/analityka/licznik-odslon'
-import { SKLEPY } from '@/lib/konfiguracja'
+import { dataPremiery, SKLEPY } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
 
 /**
@@ -20,6 +20,10 @@ import { cn } from '@/lib/utils'
  * odnośnika. To lepsze niż odnośnik z `aria-disabled`, bo ten nadal daje się
  * kliknąć i prowadzi donikąd.
  *
+ * Sklep bez adresu, ale z zapowiedzianą datą, dostaje ją podpisem pod odznaką.
+ * Data znika sama w chwili wpisania adresu do `SKLEPY` — nie ma jak zostawić
+ * na stronie terminu, który już minął.
+ *
  * Po wpisaniu adresów w `konfiguracja.ts` te same odznaki stają się zwykłymi
  * odnośnikami — bez zmiany czegokolwiek tutaj.
  */
@@ -33,7 +37,14 @@ type Wariant = 'jasny' | 'ciemny'
 */
 const WYSOKOSC = 48
 
-type Odznaka = { adres: string; plik: string; opis: string; nazwa: string }
+type Odznaka = {
+  adres: string
+  plik: string
+  opis: string
+  nazwa: string
+  /** Zapowiedziana data premiery — tylko gdy sklepu jeszcze nie ma. */
+  premiera: string | null
+}
 
 function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
   const dostepny = odznaka.adres.length > 0
@@ -57,10 +68,32 @@ function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
   )
 
   if (!dostepny) {
+    /*
+      Data premiery stoi POD odznaką, nie w zdaniu obok. Odznaka jest miejscem,
+      w którym wzrok zatrzymuje się na wyszarzonym elemencie i zadaje pytanie
+      „dlaczego nie da się kliknąć" — odpowiedź musi być tam, a nie dwie linijki
+      niżej, gdzie trafia dopiero ktoś, kto czyta całość.
+    */
     return (
-      <span className={wyglad}>
-        {obraz}
-        <span className="sr-only">— jeszcze niedostępne</span>
+      <span className="inline-flex flex-col items-start gap-1.5">
+        <span className={wyglad}>
+          {obraz}
+          <span className="sr-only">
+            {odznaka.premiera ? `— dostępne od ${odznaka.premiera}` : '— jeszcze niedostępne'}
+          </span>
+        </span>
+
+        {odznaka.premiera && (
+          <span
+            aria-hidden
+            className={cn(
+              'text-xs font-medium',
+              wariant === 'jasny' ? 'text-white/85' : 'text-kamien-600',
+            )}
+          >
+            od {odznaka.premiera}
+          </span>
+        )}
       </span>
     )
   }
@@ -94,16 +127,36 @@ export function PrzyciskiSklepow({
   className?: string
 }) {
   const wSklepach = SKLEPY.appStore.length > 0 || SKLEPY.googlePlay.length > 0
+  const premieraAndroida = dataPremiery('googlePlay')
+
+  /*
+    Trzy różne zdania, bo są trzy różne sytuacje i każda wymaga czego innego.
+    Najciekawsza jest środkowa: aplikacja JEST w App Store, ale nie w Google
+    Play. Bez wskazania Androida wprost połowa odwiedzających uznaje, że
+    aplikacja po prostu dla nich nie istnieje.
+  */
+  const zdanie = !wSklepach
+    ? 'Czeka na publikację w sklepach — wszystkie trasy, opisy i mapy są już dostępne na tej stronie.'
+    : premieraAndroida
+      ? `Nie wymaga konta ani logowania. Wersja na Androida pojawi się w Google Play ${premieraAndroida}.`
+      : 'Nie wymaga konta ani logowania.'
 
   return (
     <div className={cn('flex flex-col gap-4', className)}>
-      <div className="flex flex-wrap items-center gap-3">
+      {/*
+        Wyrównanie do GÓRY, nie do środka. Odznaka z podpisem premiery jest
+        wyższa od tej bez niego, a wyśrodkowanie podnosiło ją względem
+        sąsiadki — dwie odznaki tej samej wielkości stały na różnych
+        wysokościach i wyglądało to na usterkę.
+      */}
+      <div className="flex flex-wrap items-start gap-3">
         <Sklep
           odznaka={{
             adres: SKLEPY.appStore,
             plik: 'app-store',
             opis: 'Pobierz z App Store',
             nazwa: 'app-store',
+            premiera: dataPremiery('appStore'),
           }}
           wariant={wariant}
         />
@@ -113,6 +166,7 @@ export function PrzyciskiSklepow({
             plik: 'google-play',
             opis: 'Pobierz z Google Play',
             nazwa: 'google-play',
+            premiera: dataPremiery('googlePlay'),
           }}
           wariant={wariant}
         />
@@ -129,10 +183,7 @@ export function PrzyciskiSklepow({
           wariant === 'jasny' ? 'text-white/85' : 'text-kamien-600',
         )}
       >
-        <span className="font-medium">Aplikacja jest darmowa i bez reklam.</span>{' '}
-        {wSklepach
-          ? 'Nie wymaga konta ani logowania.'
-          : 'Czeka na publikację w sklepach — wszystkie trasy, opisy i mapy są już dostępne na tej stronie.'}
+        <span className="font-medium">Aplikacja jest darmowa i bez reklam.</span> {zdanie}
       </p>
     </div>
   )

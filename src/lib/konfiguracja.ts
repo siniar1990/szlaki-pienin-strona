@@ -52,6 +52,33 @@ export function czySklepDostepny(sklep: Sklep): boolean {
 }
 
 /**
+ * Zapowiedziane daty premier w sklepach, w których aplikacji jeszcze nie ma.
+ *
+ * **Dlaczego data, a nie samo „wkrótce".** Ktoś z Androidem, który trafia na
+ * portal i widzi wyszarzoną odznakę bez wyjaśnienia, wychodzi i nie wraca.
+ * Konkretny dzień daje mu powód, żeby zajrzeć ponownie — a nam obowiązek,
+ * żeby go dotrzymać.
+ *
+ * Wpis znika stąd w chwili, gdy w `SKLEPY` pojawi się adres: komponent
+ * pokazuje datę wyłącznie przy sklepie bez odnośnika, więc opublikowanie
+ * aplikacji samo zdejmuje zapowiedź. Nie ma jak zostawić na stronie daty,
+ * która już minęła.
+ */
+export const PREMIERY: Partial<Record<Sklep, string>> = {
+  googlePlay: '2026-08-24',
+}
+
+/** Data premiery po polsku, np. „24 sierpnia". `null`, gdy nie zapowiedziano. */
+export function dataPremiery(sklep: Sklep): string | null {
+  const dzien = PREMIERY[sklep]
+  if (!dzien || czySklepDostepny(sklep)) return null
+
+  return new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long' }).format(
+    new Date(`${dzien}T12:00:00Z`),
+  )
+}
+
+/**
  * Źródła treści — pokazywane przy trasach i atrakcjach.
  *
  * Portal nie jest autorem opisów tras; są z przewodnika PTTK. Podpisanie
