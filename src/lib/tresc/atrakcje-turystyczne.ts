@@ -1077,11 +1077,61 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'warsztaty-lokalne',
     nazwa: 'Lokalne warsztaty',
-    kategorie: ['aktywnie', 'kultura'],
+    kategorie: ['aktywnie', 'kultura', 'rodziny'],
     podkategoria: 'warsztaty',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    wyrozniona: true,
+    skrot: 'Malowanie góralskich wzorów na drewnie, szkle i glinie — zajęcia dla grup, od przedszkola po dorosłych.',
+    opis: [
+      'Warsztaty rękodzieła są tym, co zostaje z Pienin, gdy pogoda nie ' +
+        'pozwala wyjść w góry — i tym, co da się zabrać do domu. Prowadzą je ' +
+        'osoby z regionu, zwykle w pensjonatach w promieniu kilkunastu ' +
+        'kilometrów od Krościenka, dla grup umówionych z wyprzedzeniem.',
+      'Zajęcia zaczynają się zwykle od krótkiej prelekcji, a dopiero potem ' +
+        'sięga się po pędzel. To nie jest przypadek: wzór góralski ma swoją ' +
+        'gramatykę, a strój, z którego pochodzi, swoją historię — bez tego ' +
+        'malowanie byłoby przerysowywaniem kształtów bez zrozumienia.',
+      'Warianty dobiera się do wieku i wprawy grupy. Najprościej maluje się ' +
+        'na sklejce brzozowej, trudniej na plastrze drewna albo na glinie, ' +
+        'a najtrudniej na szkle — to ostatnie bywa zajęciem na pół dnia ' +
+        'i wymaga wcześniejszego kontaktu z pędzlem.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'sprzet',
+        tytul: 'Malowanie góralskich wzorów',
+        tekst:
+          'Podstawowe zajęcia: prelekcja o strojach góralskich, potem godzina ' +
+          'do półtorej malowania wzorów pienińskich albo podhalańskich. Do ' +
+          'wyboru podłoże — sklejka brzozowa, plaster drewna albo glina.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Zwierzęta chronione Pienin',
+        tekst:
+          'Wariant dla dzieci: prelekcja o ochronie przyrody i malowanie ' +
+          'pienińskich zwierząt na sklejce. Półtorej do dwóch godzin. ' +
+          'Przedszkolaki przyjmowane są na warsztaty drewniane.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Bombki choinkowe',
+        tekst:
+          'Zimowy wariant, bez sztywnych szablonów — maluje się bombkę ' +
+          'medalion albo kulę. Osobno prowadzone są warsztaty bombek ' +
+          'szklanych, dla młodzieży licealnej i dorosłych: trzy do czterech ' +
+          'godzin i wymagana wcześniejsza wprawa.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Rezerwacja z wyprzedzeniem',
+        tekst:
+          'Warsztaty organizuje się dla grup, nie dla pojedynczych osób, ' +
+          'a termin zamawia się od kilku dni do dwóch tygodni wcześniej, ' +
+          'zależnie od wariantu i liczby uczestników.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'degustacje-regionalne',
