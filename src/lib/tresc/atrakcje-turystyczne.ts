@@ -493,7 +493,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'velo-dunajec',
     nazwa: 'Velo Dunajec',
-    kategorie: ['aktywnie', 'woda'],
+    kategorie: ['aktywnie'],
     podkategoria: 'rowery',
     lokalizacja: 'pieniny',
     miejscowosc: 'wzdłuż Dunajca',
@@ -523,7 +523,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'velo-czorsztyn',
     nazwa: 'Velo Czorsztyn',
-    kategorie: ['woda', 'aktywnie', 'rodziny'],
+    kategorie: ['aktywnie', 'rodziny'],
     podkategoria: 'rowery',
     lokalizacja: 'czorsztyn',
     wyrozniona: true,
@@ -693,7 +693,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'rafting-na-dunajcu',
     nazwa: 'Rafting na Dunajcu',
-    kategorie: ['woda', 'aktywnie'],
+    kategorie: ['aktywnie'],
     podkategoria: 'splywy',
     lokalizacja: 'pieniny',
     miejscowosc: 'Sromowce — Szczawnica',
@@ -727,7 +727,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'kajaki-na-dunajcu',
     nazwa: 'Kajaki na Dunajcu',
-    kategorie: ['woda', 'aktywnie'],
+    kategorie: ['aktywnie'],
     podkategoria: 'splywy',
     lokalizacja: 'pieniny',
     miejscowosc: 'Sromowce — Szczawnica lub dalej',

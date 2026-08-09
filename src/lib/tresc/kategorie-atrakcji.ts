@@ -36,13 +36,16 @@ export const KATEGORIE_ATRAKCJI: DefinicjaKategoriiAtrakcji[] = [
     klucz: 'woda',
     nazwa: 'Woda i Dunajec',
     opis:
-      'Przełom z pokładu tratwy, rafting i kajaki, rejsy po Jeziorze ' +
-      'Czorsztyńskim oraz Grajcarek w środku Szczawnicy.',
+      'Przełom z pokładu tratwy, rejsy po Jeziorze Czorsztyńskim, zapora ' +
+      'w Niedzicy i Grajcarek w środku Szczawnicy. Sporty na wodzie i rower ' +
+      'wzdłuż rzeki znajdziesz w kategorii „Aktywnie”.',
   },
   {
     klucz: 'aktywnie',
     nazwa: 'Aktywnie',
-    opis: 'Rower, koń, off-road i warsztaty — dla tych, którzy nie chcą tylko patrzeć.',
+    opis:
+      'Rafting i kajaki na Dunajcu, trasy Velo, koń, off-road i warsztaty — ' +
+      'dla tych, którzy nie chcą tylko patrzeć.',
   },
   {
     klucz: 'rodziny',
