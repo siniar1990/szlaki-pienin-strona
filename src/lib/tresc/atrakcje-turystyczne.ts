@@ -457,15 +457,71 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   },
   {
     slug: 'wyciag-w-jaworkach',
-    nazwa: 'Wyciąg krzesełkowy w Jaworkach',
+    nazwa: 'Arena Narciarska Jaworki-Homole',
     kategorie: ['zima', 'rodziny'],
     podkategoria: 'narty',
     lokalizacja: 'jaworki',
-    skrot: 'Wyjazd nad Jaworki, blisko wylotu Wąwozu Homole.',
+    wyrozniona: true,
+    skrot: 'Kolej krzesełkowa Homole i sześć tras — od niebieskiej do nieratrakowanej „czwórki”.',
     opis: [
-      'Wyciąg wywozi na grzbiet nad Jaworkami. Blisko stąd do Wąwozu Homole ' +
+      'Ośrodek leży tuż przy wylocie Wąwozu Homole, przebudowany i unowocześniony ' +
+        'w ostatnich latach. Serce stacji to dwuosobowa kolej krzesełkowa Homole ' +
+        'firmy Leitner: 610 metrów długości, 116 metrów przewyższenia, średnie ' +
+        'nachylenie 19 procent, przepustowość 1028 osób na godzinę. Wjazd trwa ' +
+        'cztery minuty.',
+      'Tras jest sześć, o łącznej długości około 4400 metrów, i rozpiętość ' +
+        'trudności jest tu spora. Trasa numer 4 ma ponad 900 metrów, jest bardzo ' +
+        'trudna i celowo nie przygotowuje się jej ratrakiem — to propozycja dla ' +
+        'tych, którzy szukają nieprzetartego stoku, a nie równej autostrady. ' +
+        'Na drugim końcu jest trasa numer 5 przy orczyku „Storczyk”: niebieska, ' +
+        'ratrakowana, przeznaczona do nauki jazdy.',
+      'Pomiędzy nimi leżą trasy 1, 2 i 3 — od sześciuset do siedmiuset ' +
+        'sześćdziesięciu metrów, o małej i średniej trudności, wszystkie ' +
+        'naśnieżane. Trasa numer 2 jest dodatkowo oświetlona, więc jeździ się ją ' +
+        'także wieczorem. Krótka „jedynka a” o długości dwustu metrów pełni rolę ' +
+        'dojazdowej.',
+      'Poza koleją działają wyciągi talerzykowe: „Storczyk” o długości dwustu ' +
+        'metrów i „Tubing” o długości stu pięćdziesięciu, oba o przepustowości ' +
+        'siedmiuset osób na godzinę, a przy biurze szkoły narciarskiej ' +
+        'bezpodporowy wyciąg dla dzieci i początkujących.',
+      'Latem kolej wozi na grzbiet nad Jaworkami — stąd blisko do Wąwozu Homole ' +
         'i do szlaków w Małych Pieninach.',
     ],
+    przewodnik: [
+      {
+        ikona: 'snieg',
+        tytul: 'Kolej Homole',
+        tekst:
+          'Dwuosobowa kolej krzesełkowa Leitner: 610 metrów, 116 metrów ' +
+          'przewyższenia, 1028 osób na godzinę, cztery minuty wjazdu. Obok niej ' +
+          'biegnie trasa numer 3.',
+      },
+      {
+        ikona: 'adrenalina',
+        tytul: 'Trasa nr 4 — bez ratraka',
+        tekst:
+          'Ponad 900 metrów, bardzo trudna i świadomie nieprzygotowywana. Jedyna ' +
+          'taka w okolicy — jeździ się ją na własnych warunkach i na własną ' +
+          'odpowiedzialność.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Trasa nr 5 i „Storczyk”',
+        tekst:
+          'Niebieska, ratrakowana, obsługiwana orczykiem „Storczyk” w górnej ' +
+          'części ośrodka — to tutaj uczy się jeździć szkoła narciarska. Obok ' +
+          'bezpodporowy wyciąg dla najmłodszych.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Wieczorem i latem',
+        tekst:
+          'Trasa numer 2 jest naśnieżana i oświetlona, więc stok pracuje po ' +
+          'zmroku. Poza zimą kolej wozi turystów na grzbiet — Wąwóz Homole jest ' +
+          'stąd na wyciągnięcie ręki.',
+      },
+    ],
+    sezon: 'Sezon zimowy; latem kolej krzesełkowa jako wyjazd widokowy.',
     doPotwierdzenia: true,
   },
   {
@@ -1331,8 +1387,61 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['zima'],
     podkategoria: 'narty',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    wyrozniona: true,
+    skrot: 'Cztery trasy, około czterech kilometrów — z czarną trasą z homologacją FIS na szczycie.',
+    opis: [
+      'Stacja narciarska na Palenicy jest mała, ale nierówna w dobrym sensie: ' +
+        'na czterech kilometrach tras mieszczą się i stok dla uczącego się ' +
+        'dziecka, i czarna trasa z homologacją FIS. Rzadko się zdarza, żeby ' +
+        'jedno i drugie było w zasięgu tej samej kolei krzesełkowej.',
+      'Palenica I to trasa czarna o długości kilometra, jedyna nieoświetlona — ' +
+        'i jedyna z homologacją FIS, czyli dopuszczona do zawodów. Palenica II ' +
+        'ma 1,8 kilometra, jest czerwona, ale nazywana rodzinną: dłuższa, ' +
+        'łagodniejsza, oświetlona i naśnieżana. Dwie trasy Szafranówka — ' +
+        'niebieska o długości 400 metrów i druga 500-metrowa — służą tym, którzy ' +
+        'dopiero zaczynają.',
+      'Na górę wjeżdża się czteroosobową koleją krzesełkową albo jednym z trzech ' +
+        'wyciągów orczykowych: Szafranówka I ma 310 metrów, II — 333, III — 258. ' +
+        'Wjazd trwa jedną, dwie minuty, więc kolejki rozładowują się szybko.',
+      'Stoki są ratrakowane i sztucznie naśnieżane, a poza Palenicą I także ' +
+        'oświetlone — więc jeździ się również wieczorem. To ma znaczenie ' +
+        'w Pieninach, gdzie zima bywa krótka i kapryśna: naśnieżanie decyduje ' +
+        'o tym, czy sezon w ogóle będzie.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'adrenalina',
+        tytul: 'Palenica I — czarna, z homologacją FIS',
+        tekst:
+          'Kilometr, bez oświetlenia. Dopuszczona do zawodów — jedyna taka ' +
+          'w okolicy. Jeździ się ją za dnia i z szacunkiem.',
+      },
+      {
+        ikona: 'snieg',
+        tytul: 'Palenica II — czerwona, ale rodzinna',
+        tekst:
+          '1,8 kilometra, oświetlona i naśnieżana. Formalnie czerwona, w praktyce ' +
+          'najdłuższy i najprzyjemniejszy zjazd na stacji — tu spędza się ' +
+          'większość dnia.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Szafranówka I i II — dla zaczynających',
+        tekst:
+          'Krótkie trasy: 400 i 500 metrów, oświetlone i naśnieżane, obsługiwane ' +
+          'orczykami. Tu pracuje szkoła narciarska i tu robi się pierwsze zjazdy.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Jazda wieczorem',
+        tekst:
+          'Wszystkie trasy poza Palenicą I są oświetlone, więc stacja pracuje ' +
+          'także po zmroku. Godziny jazd nocnych zależą od sezonu i warunków — ' +
+          'warto sprawdzić rozkład przed wyjazdem.',
+      },
+    ],
+    sezon: 'Sezon zimowy; stoki ratrakowane i sztucznie naśnieżane.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'rafting-na-dunajcu',

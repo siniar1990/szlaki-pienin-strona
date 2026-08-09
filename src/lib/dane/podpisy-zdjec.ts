@@ -62,11 +62,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3ASromowce_Wyzne_przystan_flisacka_3.jpg',
   },
-  'wyciag-w-jaworkach': {
-    autor: 'Andrzej Otrębski',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AJaworki_wyciag_Homole_1.jpg',
-  },
 }
 
 export function podpisZdjecia(slug: string): PodpisZdjecia | null {
