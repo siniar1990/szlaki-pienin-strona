@@ -251,7 +251,7 @@ function NiePodlaczone() {
         <code className="rounded bg-kamien-100 px-1.5 py-0.5 font-mono text-xs">
           GOOGLE_WERYFIKACJA
         </code>{' '}
-        z kodem, który Search Console podaje przy metodzie „Tag HTML" — portal wstawi go
+        z kodem, który Search Console podaje przy metodzie {'„Tag HTML”'} — portal wstawi go
         wtedy w nagłówek każdej strony.
       </p>
     </>
