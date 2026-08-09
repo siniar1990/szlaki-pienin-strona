@@ -12,7 +12,7 @@ import { napiszNotkeDnia } from '@/lib/wiadomosci/redakcja'
  * miejsce, w którym trzeba by to zrobić świadomie, a nie przez przeoczenie.
  */
 export const dynamic = 'force-dynamic'
-export const maxDuration = 300
+export const maxDuration = 60
 
 export async function GET(zadanie: NextRequest) {
   const odmowa = sprawdzZadanieCykliczne(zadanie)

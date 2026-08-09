@@ -17,7 +17,7 @@ import { obejdzZrodla } from '@/lib/wiadomosci/obchod'
  * przyniósłby nic poza ruchem na cudzych serwerach.
  */
 export const dynamic = 'force-dynamic'
-export const maxDuration = 300
+export const maxDuration = 60
 
 export async function GET(zadanie: NextRequest) {
   const odmowa = sprawdzZadanieCykliczne(zadanie)

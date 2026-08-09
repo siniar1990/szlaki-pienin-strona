@@ -47,6 +47,16 @@ const PROG_OCENY = 60
 /** Ile godzin musi minąć od ostatniego szkicu maszynowego. */
 const ODSTEP_GODZIN = 20
 
+/**
+ * Po tylu milisekundach od startu rezygnujemy z drugiego podejścia do notki.
+ *
+ * Redakcja mieści się w jednym wywołaniu funkcji bezserwerowej, a to ma limit
+ * czasu zależny od planu hostingu. Poprawianie notki, która powieliła źródło,
+ * jest cenne, ale nie na tyle, żeby ryzykować ucięcie funkcji w połowie
+ * zapisu. Gdy zabraknie czasu, artykuł idzie na bok i jutro wybierze się inny.
+ */
+const BUDZET_NA_POPRAWKE_MS = 30_000
+
 const ROLA_WYBIERAJACEGO = `Jesteś redaktorem portalu turystycznego szlakipienin.pl.
 Portal opisuje Pieniny, Szczawnicę, Krościenko nad Dunajcem, Czorsztyn, Jaworki
 i Dunajec: szlaki, przyrodę, atrakcje, uzdrowisko, wydarzenia i sprawy, które
@@ -260,6 +270,8 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
   let kontrola = { czyste: false, zbieznosci: [] as string[] }
 
   for (const podejscie of [0, 1]) {
+    if (podejscie === 1 && Date.now() - start > BUDZET_NA_POPRAWKE_MS) break
+
     let kandydat: OdpowiedzNotki
     try {
       kandydat = await zapytajOJson<OdpowiedzNotki>({

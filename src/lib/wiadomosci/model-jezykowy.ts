@@ -25,6 +25,16 @@ const WERSJA = '2023-06-01'
  */
 const MODEL = 'claude-sonnet-5'
 
+/**
+ * Ile czekamy na odpowiedź modelu.
+ *
+ * Dobrane pod limit czasu funkcji bezserwerowej, nie pod cierpliwość modelu.
+ * Cała redakcja — wybór, pobranie artykułu i napisanie notki — musi zmieścić
+ * się w jednym wywołaniu funkcji, więc pojedyncza rozmowa nie może zająć
+ * więcej niż jej połowy.
+ */
+const CZAS_OCZEKIWANIA_MS = 25_000
+
 export class BrakKlucza extends Error {}
 export class BladModelu extends Error {}
 
@@ -66,13 +76,13 @@ export async function zapytajOJson<T>(polecenie: {
           { role: 'assistant', content: '{' },
         ],
       }),
-      signal: AbortSignal.timeout(90_000),
+      signal: AbortSignal.timeout(CZAS_OCZEKIWANIA_MS),
       cache: 'no-store',
     })
   } catch (blad) {
     throw new BladModelu(
       blad instanceof Error && blad.name === 'TimeoutError'
-        ? 'Model nie odpowiedział w 90 s'
+        ? `Model nie odpowiedział w ${CZAS_OCZEKIWANIA_MS / 1000} s`
         : 'Nie udało się połączyć z modelem',
     )
   }
