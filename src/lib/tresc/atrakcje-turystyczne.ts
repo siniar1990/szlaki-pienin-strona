@@ -93,32 +93,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     sezon: 'od wiosny do jesieni, zależnie od stanu wody',
   },
   {
-    slug: 'przystan-flisacka-katy',
-    nazwa: 'Przystań flisacka w Kątach',
-    kategorie: ['woda'],
-    podkategoria: 'przystanie',
-    lokalizacja: 'sromowce',
-    skrot: 'Miejsce, w którym zaczyna się spływ przełomem Dunajca.',
-    opis: [
-      'Główna przystań flisacka. Stąd wypływają tratwy w przełom Dunajca. ' +
-        'Przy przystani jest duży parking, punkty gastronomiczne i stragany.',
-      'Warto przyjechać wcześnie rano — w szczycie sezonu kolejka do tratw ' +
-        'potrafi być długa, a poranne światło w przełomie jest najładniejsze.',
-    ],
-  },
-  {
-    slug: 'przystan-flisacka-szczawnica',
-    nazwa: 'Przystań flisacka w Szczawnicy',
-    kategorie: ['woda'],
-    podkategoria: 'przystanie',
-    lokalizacja: 'szczawnica',
-    skrot: 'Koniec spływu i początek promenady wzdłuż Dunajca.',
-    opis: [
-      'Miejsce, w którym tratwy dobijają do brzegu po przepłynięciu przełomu. ' +
-        'Stąd blisko do centrum uzdrowiska i do dolnej stacji kolei na Palenicę.',
-    ],
-  },
-  {
     slug: 'jezioro-czorsztynskie-rejsy',
     nazwa: 'Jezioro Czorsztyńskie i rejsy statkiem',
     kategorie: ['woda', 'rodziny'],
@@ -500,7 +474,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'kladka-do-czerwonego-klasztoru',
     nazwa: 'Kładka pieszo-rowerowa do Czerwonego Klasztoru',
-    kategorie: ['woda', 'aktywnie'],
+    kategorie: ['aktywnie'],
     podkategoria: 'rowery',
     lokalizacja: 'sromowce',
     skrot: 'Przejście na słowacki brzeg przełomu, pieszo albo rowerem.',
@@ -568,12 +542,25 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   },
   {
     slug: 'promenada-nad-grajcarkiem',
-    nazwa: 'Promenada nad Grajcarkiem',
-    kategorie: ['rodziny', 'aktywnie'],
-    podkategoria: 'spacery',
+    nazwa: 'Grajcarek i promenada',
+    kategorie: ['woda', 'rodziny', 'aktywnie'],
+    podkategoria: 'grajcarek',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    trasy: ['2D'],
+    skrot: 'Potok w środku Szczawnicy i deptak wzdłuż niego — latem najprostszy sposób na popołudnie z dziećmi.',
+    opis: [
+      'Grajcarek płynie przez samo centrum Szczawnicy i wpada do Dunajca. ' +
+        'Wzdłuż niego biegnie równa, brukowana promenada — bez podejść, bez ' +
+        'samochodów, z ławkami po drodze. Idzie się nią wózkiem, na rowerze ' +
+        'i na hulajnodze, więc jest to trasa, na którą nie trzeba się szykować.',
+      'Latem to najprostszy pomysł na popołudnie z rodziną. Woda jest płytka ' +
+        'i kamienista, brzegi łagodne, więc dzieci brodzą i budują tamy, ' +
+        'a dorośli siedzą obok. W upał nad potokiem jest wyraźnie chłodniej ' +
+        'niż w mieście.',
+      'Promenada łączy centrum uzdrowiska z dolną stacją kolei na Palenicę ' +
+        'i z drogą w stronę Jaworek, więc bywa też początkiem dłuższego dnia — ' +
+        'i najwygodniejszym powrotem, gdy nogi mają już dość grani.',
+    ],
   },
   {
     slug: 'palenica',
@@ -618,15 +605,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     opis: [],
   },
   {
-    slug: 'przystan-flisacka-sromowce-nizne',
-    nazwa: 'Przystań flisacka w Sromowcach Niżnych',
-    kategorie: ['woda'],
-    podkategoria: 'przystanie',
-    lokalizacja: 'sromowce',
-    skrot: '',
-    opis: [],
-  },
-  {
     slug: 'rafting-na-dunajcu',
     nazwa: 'Rafting na Dunajcu',
     kategorie: ['woda', 'aktywnie'],
@@ -645,18 +623,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     opis: [],
   },
   {
-    slug: 'przeprawa-przez-dunajec',
-    nazwa: 'Przeprawa przez Dunajec',
-    kategorie: ['woda'],
-    podkategoria: 'przeprawy',
-    lokalizacja: 'sromowce',
-    skrot: '',
-    opis: [],
-  },
-  {
     slug: 'wedkarstwo',
     nazwa: 'Wędkarstwo',
-    kategorie: ['woda', 'aktywnie'],
+    kategorie: ['aktywnie'],
     podkategoria: 'wedkarstwo',
     lokalizacja: 'pieniny',
     skrot: '',
@@ -728,7 +697,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'przystan-kajakowa-kroscienko',
     nazwa: 'Przystań kajakowa w Krościenku',
-    kategorie: ['woda', 'aktywnie'],
+    kategorie: ['aktywnie'],
     podkategoria: 'przystanie',
     lokalizacja: 'kroscienko',
     skrot: '',
@@ -746,7 +715,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'plaza-nad-jeziorem-czorsztynskim',
     nazwa: 'Plaża nad Jeziorem Czorsztyńskim',
-    kategorie: ['woda', 'rodziny'],
+    kategorie: ['rodziny'],
     podkategoria: 'plaze',
     lokalizacja: 'czorsztyn',
     skrot: '',
@@ -755,7 +724,7 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'plaza-w-niedzicy',
     nazwa: 'Plaża w Niedzicy',
-    kategorie: ['woda', 'rodziny'],
+    kategorie: ['rodziny'],
     podkategoria: 'plaze',
     lokalizacja: 'niedzica',
     skrot: '',

@@ -90,6 +90,10 @@ export default function StronaWsparcie() {
         <Proza>
           <h2>Kontakt</h2>
           <p>
+            Najprościej przez <a href="/kontakt">formularz kontaktowy</a> — pytanie
+            trafia do nas od razu i nie trzeba szukać adresu.
+          </p>
+          <p>
             <a href={`mailto:${PORTAL.kontakt}`}>{PORTAL.kontakt}</a>
           </p>
           <p>

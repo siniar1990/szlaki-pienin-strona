@@ -35,7 +35,9 @@ export const KATEGORIE_ATRAKCJI: DefinicjaKategoriiAtrakcji[] = [
   {
     klucz: 'woda',
     nazwa: 'Woda i Dunajec',
-    opis: 'Przełom z pokładu tratwy, przystanie flisackie, kajaki, rejsy i plaże nad jeziorem.',
+    opis:
+      'Przełom z pokładu tratwy, rafting i kajaki, rejsy po Jeziorze ' +
+      'Czorsztyńskim oraz Grajcarek w środku Szczawnicy.',
   },
   {
     klucz: 'aktywnie',

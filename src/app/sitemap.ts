@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${PORTAL.adres}/aplikacja`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${PORTAL.adres}/wyzwania`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${PORTAL.adres}/wsparcie`, changeFrequency: 'yearly', priority: 0.4 },
+    { url: `${PORTAL.adres}/kontakt`, changeFrequency: 'yearly', priority: 0.5 },
     { url: `${PORTAL.adres}/prywatnosc`, changeFrequency: 'yearly', priority: 0.3 },
   ]
 

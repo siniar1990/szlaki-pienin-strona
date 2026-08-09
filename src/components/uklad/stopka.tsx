@@ -26,7 +26,8 @@ const KOLUMNY = [
     tytul: 'Aplikacja',
     odnosniki: [
       { adres: '/aplikacja', etykieta: 'O aplikacji' },
-      { adres: '/wsparcie', etykieta: 'Wsparcie i kontakt' },
+      { adres: '/wsparcie', etykieta: 'Wsparcie i pomoc' },
+      { adres: '/kontakt', etykieta: 'Napisz do nas' },
       { adres: '/prywatnosc', etykieta: 'Prywatność' },
     ],
   },

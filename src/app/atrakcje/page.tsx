@@ -5,10 +5,11 @@ import { Mountain } from 'lucide-react'
 import { FiltryAtrakcji } from '@/components/atrakcje/filtry-atrakcji'
 import { KartaAtrakcji } from '@/components/atrakcje/karta-atrakcji'
 import { PartnerKategorii } from '@/components/atrakcje/partner-kategorii'
+import { WolneMiejscePartnera } from '@/components/atrakcje/wolne-miejsce-partnera'
 import { pobierzAtrakcje } from '@/lib/dane/zrodlo'
 import { PORTAL } from '@/lib/konfiguracja'
 import { ATRAKCJE_TURYSTYCZNE, atrakcjeWKategorii } from '@/lib/tresc/atrakcje-turystyczne'
-import { KATEGORIE_ATRAKCJI } from '@/lib/tresc/kategorie-atrakcji'
+import { KATEGORIE_ATRAKCJI, type KategoriaAtrakcji } from '@/lib/tresc/kategorie-atrakcji'
 
 export const metadata: Metadata = {
   title: 'Atrakcje Pienin',
@@ -36,6 +37,9 @@ export const metadata: Metadata = {
  * jedna. Kuligi są zimowe i aktywne naraz i szukający w obu kategoriach ma
  * prawo je znaleźć.
  */
+/** Kategorie, w których szukamy partnera. Rozszerza się dopisaniem klucza. */
+const KATEGORIE_Z_ZAPROSZENIEM: KategoriaAtrakcji[] = ['woda']
+
 export default function StronaAtrakcji() {
   const kategorieZTrescia = KATEGORIE_ATRAKCJI.map((kategoria) => ({
     ...kategoria,
@@ -107,6 +111,16 @@ export default function StronaAtrakcji() {
 
             {/* Nie renderuje niczego, dopóki kategoria nie ma partnera. */}
             <PartnerKategorii kategoria={kategoria.klucz} />
+
+            {/*
+              Zaproszenie dla partnerów — na razie tylko w tej jednej kategorii.
+              Ogłoszenie przy każdej sekcji zamieniłoby katalog w słup
+              ogłoszeniowy, a wisi po to, żeby znaleźć pierwszego partnera,
+              nie żeby ozdabiać stronę.
+            */}
+            {KATEGORIE_Z_ZAPROSZENIEM.includes(kategoria.klucz) && (
+              <WolneMiejscePartnera kategoria={kategoria.klucz} />
+            )}
 
             <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {kategoria.atrakcje.map((atrakcja) => (
