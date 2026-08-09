@@ -19,6 +19,14 @@ import { kilometry } from '@/lib/format'
  * i czytelnikowi, który musi wiedzieć, gdzie trafił, i wyszukiwarce, dla
  * której strona bez nagłówka to strona bez tematu.
  *
+ * **Dlaczego ta strona nie trzyma się szerokości `obszar`.** Reszta portalu
+ * ogranicza treść do 1280 pikseli, bo dłuższe wiersze tekstu czyta się gorzej —
+ * to jest reguła typograficzna i ma sens wszędzie tam, gdzie treścią są zdania.
+ * Mapa nie jest zdaniem. Każdy piksel szerokości to kawałek Pienin widoczny
+ * bez przesuwania, a na szerokim ekranie ograniczenie zostawiało po obu
+ * stronach po sto czterdzieści pikseli pustego tła. Zostaje wąski margines,
+ * żeby ramka nie kleiła się do krawędzi okna.
+ *
  * Sama mapa doładowuje się w przeglądarce — MapLibre sięga do `window` już
  * przy imporcie, więc przy budowaniu statycznym nie ma prawa się wykonać,
  * a przy okazji nie obciąża stron, na których mapy nie ma.
@@ -62,7 +70,7 @@ export default function StronaMapy() {
         zajmuje 60% wysokości, a lista idzie pod nią.
       */}
       <div className="lg:flex lg:h-[calc(100dvh-6rem)] lg:flex-col">
-        <div className="obszar shrink-0 border-b border-kamien-200 bg-kamien-50 py-3">
+        <div className="w-full shrink-0 border-b border-kamien-200 bg-kamien-50 px-5 py-3 sm:px-8 lg:px-6">
           <nav aria-label="Okruszki" className="mb-2">
             <ol className="flex items-center gap-1.5 text-sm text-kamien-500">
               <li>
@@ -90,7 +98,7 @@ export default function StronaMapy() {
           </div>
         </div>
 
-        <div className="obszar py-6 lg:min-h-0 lg:flex-1 lg:py-4">
+        <div className="w-full px-5 py-6 sm:px-8 lg:min-h-0 lg:flex-1 lg:px-6 lg:py-4">
           <MapaSzlakow wysokosc="pelna" />
         </div>
       </div>

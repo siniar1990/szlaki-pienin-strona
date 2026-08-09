@@ -389,6 +389,12 @@ function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
     konieczne — bez niego element siatki nie zejdzie poniżej wysokości swojej
     treści i lista zamiast przewijać się wewnątrz, rozepchnęłaby stronę.
   */
+  /*
+    Lista ma stałą szerokość, a cały zysk z szerszego okna idzie do mapy.
+    Zwężenie jej przy okazji rozciągania strony wyglądało na optymalizację,
+    a w praktyce łamało plakietki tras do drugiej linii — każdy wiersz urósł
+    wtedy o połowę i lista mieściła mniej szlaków niż przed zmianą.
+  */
   const wysokoscSiatki = pelna ? 'lg:h-full lg:min-h-0' : ''
   const wysokoscKafla = pelna ? 'lg:h-full lg:min-h-0' : 'lg:h-[78vh]'
 
