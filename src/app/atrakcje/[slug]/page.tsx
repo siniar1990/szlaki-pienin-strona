@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CalendarRange, Info, MapPin, Mountain, Sparkles, Ticket } from 'lucide-react'
 
+import { PrzewodnikAtrakcji } from '@/components/atrakcje/przewodnik-atrakcji'
 import { WolneMiejscePartnera } from '@/components/atrakcje/wolne-miejsce-partnera'
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
@@ -311,6 +312,10 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
               ))}
             </ul>
           </section>
+        )}
+
+        {atrakcja.przewodnik && (
+          <PrzewodnikAtrakcji tytul="W praktyce" punkty={atrakcja.przewodnik} />
         )}
 
         {/*

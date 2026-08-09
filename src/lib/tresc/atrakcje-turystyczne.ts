@@ -1,4 +1,20 @@
 import { nazwaLokalizacji } from './kategorie-atrakcji'
+
+/**
+ * Dopuszczalne ikony w przewodniku.
+ *
+ * Zamknięty zbiór, a nie dowolny napis: komponent mapuje te klucze na
+ * konkretne ikony, a literówka w nazwie dałaby pustą dziurę w układzie
+ * zamiast błędu przy budowaniu.
+ */
+export type KluczIkony =
+  | 'ryba'
+  | 'zasady'
+  | 'mapa'
+  | 'sprzet'
+  | 'dziecko'
+  | 'zezwolenie'
+  | 'sezon'
 import type { KategoriaAtrakcji, LokalizacjaAtrakcji } from './kategorie-atrakcji'
 
 /**
@@ -43,6 +59,18 @@ export type AtrakcjaTurystyczna = {
   skrot: string
   /** Pełny opis na stronę atrakcji. Pusta lista = brak treści. */
   opis: string[]
+  /**
+   * Praktyczny przewodnik w punktach, z ikoną przy każdym.
+   *
+   * Dla atrakcji, przy których sam opis nie wystarcza, bo trzeba coś wiedzieć
+   * przed wyjściem z domu: gdzie wolno, czego potrzeba, na co uważać. Akapity
+   * nadają się do opowiadania, ale kto szuka jednej konkretnej informacji,
+   * przebiega wzrokiem po ikonach, a nie czyta czterech akapitów.
+   *
+   * Pole opcjonalne i rzadkie — nie każda atrakcja go potrzebuje i nie każdą
+   * warto rozdmuchiwać do rozmiarów poradnika.
+   */
+  przewodnik?: { ikona: KluczIkony; tytul: string; tekst: string }[]
   /**
    * Trasy z aplikacji, które prowadzą przez to miejsce — po identyfikatorze
    * (`5D`, `SZMARAGD`). Nie przepisujemy tu nazw ani długości: strona pobiera
@@ -795,8 +823,77 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['aktywnie'],
     podkategoria: 'wedkarstwo',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Dunajec i dopływy',
+    wyrozniona: true,
+    skrot: 'Jedenaście kilometrów łowiska specjalnego na Dunajcu, muchowe rzeki Podhala i łowiska komercyjne dla rodzin.',
+    opis: [
+      'Dunajec jest jedną z najbardziej znanych rzek muchowych w Polsce, ' +
+        'a odcinek pieniński ściąga wędkarzy przez cały rok — także zza ' +
+        'granicy. Powodem jest łowisko specjalne o zaostrzonych zasadach: ' +
+        'ryb się z niego nie zabiera, więc jest ich tam po prostu więcej.',
+      'Jeśli nie masz uprawnień, sprzętu ani ochoty na formalności, zostają ' +
+        'łowiska komercyjne. To zupełnie inna forma wędkowania — bliżej ' +
+        'popołudnia z dzieckiem niż sportu — i o niej też jest niżej.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'ryba',
+        tytul: 'Łowisko Specjalne Dunajec',
+        tekst:
+          'Około jedenastu kilometrów rzeki: od ujścia Krośniczanki w Krościenku ' +
+          'nad Dunajcem do ujścia Ochotnicy w Tylmanowej. Do niemal każdego ' +
+          'fragmentu da się podjechać samochodem, co przy wędkarstwie ' +
+          'muchowym bywa rzadkim luksusem.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Zasady na łowisku specjalnym',
+        tekst:
+          'Na całym odcinku wolno łowić wyłącznie na haczyki bezzadziorowe, ' +
+          'a złowionych ryb nie zabiera się ze sobą. Ten jeden zapis sprawia, ' +
+          'że szansa na złowienie pstrąga jest tu wielokrotnie wyższa niż na ' +
+          'sąsiednich odcinkach rzeki.',
+      },
+      {
+        ikona: 'sprzet',
+        tytul: 'Co tu pływa',
+        tekst:
+          'Pstrąg potokowy — najliczniejszy i najczęstszy cel. Poza nim ' +
+          'głowacica, lipień, kleń, brzana i świnka. Na suchą muchę i na ' +
+          'nimfę łowi się pstrągi i lipienie, na streamery poluje się ' +
+          'na głowacicę.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Rzeki w zasięgu jednego dnia',
+        tekst:
+          'Poza Dunajcem w promieniu godziny jazdy są trzy rzeki o zupełnie ' +
+          'różnym charakterze: Białka Tatrzańska — szybka i dzika, Biały ' +
+          'Dunajec — z wodospadami w górnym biegu i głębokimi dołami niżej, ' +
+          'oraz Czarny Dunajec, który na czterdziestu ośmiu kilometrach ' +
+          'zmienia się z górskiego potoku w spokojną rzekę z meandrami.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Czego potrzeba na wodach ogólnodostępnych',
+        tekst:
+          'Do wędkowania na rzece potrzebna jest karta wędkarska i zezwolenie ' +
+          'na dany obwód rybacki; łowisko specjalne ma dodatkowo własny ' +
+          'regulamin i osobne zezwolenie. Zasady i ceny ustala gospodarz wód, ' +
+          'więc kupuje się je u niego, a nie na miejscu nad wodą.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Z dzieckiem — łowiska komercyjne',
+        tekst:
+          'Na łowisku komercyjnym, takim jak Łowisko Pstrąga, nie trzeba ani ' +
+          'karty wędkarskiej, ani własnego sprzętu. Bierze się wędkę na ' +
+          'miejscu, łowi pstrąga i można go od razu zjeść — rybę przygotowują ' +
+          'na miejscu. Dla dziecka to zwykle pierwsze złowione w życiu ryby ' +
+          'i cały pomysł na popołudnie.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'off-road',
