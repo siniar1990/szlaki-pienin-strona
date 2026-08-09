@@ -72,11 +72,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY 3.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3AZamek_Czorsztyn_3.jpg',
   },
-  'splyw-dunajcem-tratwami': {
-    autor: 'Andrzej Otrębski',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3ASromowce_Wyzne_przystan_flisacka_2.jpg',
-  },
   'wyciag-w-jaworkach': {
     autor: 'Andrzej Otrębski',
     licencja: 'CC BY-SA 4.0',

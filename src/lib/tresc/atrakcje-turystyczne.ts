@@ -77,16 +77,25 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['woda'],
     podkategoria: 'splywy',
     lokalizacja: 'sromowce',
+    miejscowosc: 'Sromowce Wyżne — Szczawnica',
     wyrozniona: true,
-    skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka w stroju góralskim.',
+    trasy: ['DP'],
+    skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka. Dwa warianty: do Szczawnicy albo dalej, do Krościenka.',
     opis: [
       'Najbardziej znana atrakcja Pienin i jedyny sposób, żeby zobaczyć przełom ' +
-        'Dunajca od strony wody. Tratwy wypływają z przystani w Kątach w Sromowcach ' +
-        'Wyżnych i płyną przełomem pod ścianami Trzech Koron i Sokolicy.',
-      'Spływ kończy się w Szczawnicy albo — na krótszym wariancie — w Krościenku. ' +
-        'Tratwą steruje flisak, który po drodze opowiada o mijanych skałach i ' +
-        'legendach; tradycja flisacka na Dunajcu sięga XIX wieku i jest ' +
-        'przekazywana w pienińskich rodzinach z pokolenia na pokolenie.',
+        'Dunajca od strony wody. Tratwy wypływają z przystani w Kątach ' +
+        'w Sromowcach Wyżnych i płyną przełomem pod ścianami Trzech Koron ' +
+        'i Sokolicy.',
+      'Trasy są dwie i różnią się tym, gdzie się kończą. Krótsza dobija do ' +
+        'przystani w Szczawnicy — to około osiemnastu kilometrów i mniej więcej ' +
+        'dwie godziny na wodzie. Dłuższa płynie dalej w dół rzeki, do ' +
+        'Krościenka: około dwudziestu trzech kilometrów i pół godziny więcej. ' +
+        'Sam przełom, czyli to, po co się płynie, jest na obu taki sam — ' +
+        'dłuższy wariant dokłada spokojniejszy odcinek za wylotem przełomu.',
+      'Tratwą steruje flisak, który po drodze opowiada o mijanych skałach ' +
+        'i legendach. Tradycja flisacka na Dunajcu sięga XIX wieku i jest ' +
+        'przekazywana w pienińskich rodzinach z pokolenia na pokolenie; ' +
+        'w Szczawnicy tratwy wita ozdobna drewniana brama przystani.',
       'Powrót do samochodu zostawionego w Kątach organizują przewoźnicy busami; ' +
         'można też wrócić rowerem ścieżką wzdłuż rzeki.',
     ],

@@ -143,6 +143,22 @@ export const PARTNERZY_KATEGORII: Record<KategoriaAtrakcji, PartnerKategorii | n
   zima: null,
 }
 
+/**
+ * Strony atrakcji, na których wisi zaproszenie dla przyszłego partnera.
+ *
+ * Nie na stronie katalogu, tylko na wybranych stronach pojedynczych atrakcji —
+ * lista atrakcji ma zostać wolna od ogłoszeń. Kto wchodzi na `/atrakcje`, szuka
+ * pomysłu na dzień; ogłoszenie w tym miejscu przeszkadza wszystkim, żeby
+ * dotrzeć do jednej osoby.
+ *
+ * Na stronie konkretnej atrakcji jest inaczej: ktoś, kto czyta o raftingu,
+ * może akurat prowadzić firmę raftingową. Ogłoszenie trafia więc bliżej
+ * właściwego czytelnika i nie zaśmieca drogi pozostałym.
+ *
+ * Rozszerza się dopisaniem slugu.
+ */
+export const ZAPROSZENIA_NA_STRONACH: readonly string[] = ['rafting-na-dunajcu']
+
 export function partnerKategorii(kategoria: KategoriaAtrakcji): PartnerKategorii | null {
   const wpis = PARTNERZY_KATEGORII[kategoria]
   return wpis?.wlaczony ? wpis : null
