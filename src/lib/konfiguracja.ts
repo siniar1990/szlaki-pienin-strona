@@ -12,6 +12,8 @@ export const PORTAL = {
     'Szlaki piesze i rowerowe, atrakcje, mapy offline i nawigacja GPS — ' +
     'przewodnik po Pieninach na telefon i w przeglądarce.',
   jezyk: 'pl-PL',
+  /** Adres bez protokołu — czytelniejszy w temacie wiadomości. */
+  adresSkrocony: 'szlakipienin.pl',
   kontakt: 'siniar1990@gmail.com',
   /**
    * Kto firmuje notki w dziale aktualności.
@@ -40,6 +42,19 @@ export const PORTAL = {
  *
  * Po publikacji wystarczy wkleić tu adresy; nic więcej nie trzeba zmieniać.
  */
+/**
+ * Klucz dostępu formularza kontaktowego (Web3Forms).
+ *
+ * Jawny z założenia usługi — w ich dokumentacji stoi wprost w polu ukrytym
+ * formularza. Pozwala wyłącznie wysłać wiadomość na jeden zdefiniowany adres
+ * i nie daje dostępu do niczego więcej.
+ *
+ * Stoi tu, a nie w zmiennej środowiskowej, bo zmienna sugerowałaby sekret,
+ * którym to nie jest — a przy okazji wymagałaby konfiguracji przy każdym
+ * nowym środowisku, nie chroniąc niczego.
+ */
+export const KLUCZ_WEB3FORMS = '25f55b8f-5d20-475a-97cd-14cdeb050128'
+
 export const SKLEPY = {
   appStore: 'https://apps.apple.com/pl/app/szlaki-pienin/id6797675813',
   googlePlay: '',
