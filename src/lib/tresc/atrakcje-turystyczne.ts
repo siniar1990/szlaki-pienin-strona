@@ -18,6 +18,7 @@ export type KluczIkony =
   | 'trasa'
   | 'adrenalina'
   | 'woda'
+  | 'snieg'
 import type { KategoriaAtrakcji, LokalizacjaAtrakcji } from './kategorie-atrakcji'
 
 /**
@@ -1557,21 +1558,72 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   },
   {
     slug: 'plaza-nad-jeziorem-czorsztynskim',
-    nazwa: 'Plaża nad Jeziorem Czorsztyńskim',
+    nazwa: 'Plaże nad Jeziorem Czorsztyńskim',
     kategorie: ['rodziny'],
     podkategoria: 'plaze',
     lokalizacja: 'czorsztyn',
-    skrot: '',
-    opis: [],
-  },
-  {
-    slug: 'plaza-w-niedzicy',
-    nazwa: 'Plaża w Niedzicy',
-    kategorie: ['rodziny'],
-    podkategoria: 'plaze',
-    lokalizacja: 'niedzica',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Niedzica, Kluszkowce, Frydman, Falsztyn',
+    wyrozniona: true,
+    skrot: 'Cztery różne brzegi jeziora — od strzeżonego kąpieliska pod zamkiem po dzikie zatoki.',
+    opis: [
+      'Jezioro Czorsztyńskie ma bardzo różne brzegi i to jest jego zaleta: ' +
+        'w promieniu kilkunastu kilometrów da się wybrać między plażą z ratownikiem ' +
+        'i boiskiem a zatoką, w której przez pół dnia nie widać nikogo. Wybór ' +
+        'sprowadza się do tego, czego się szuka — wygody czy ciszy.',
+      'Plaża Zamajerz w Niedzicy jest jedynym strzeżonym kąpieliskiem nad ' +
+        'jeziorem i jedyną piaszczystą. Leży u stóp zamku Dunajec, z widokiem na ' +
+        'ruiny Czorsztyna po drugiej stronie wody. Ma przystań, wypożyczalnię ' +
+        'sprzętu wodnego i rowerów wodnych, wyznaczone miejsca na ognisko, ' +
+        'gastronomię i boisko do siatkówki plażowej. To wybór na dzień z dziećmi ' +
+        'albo na wypoczynek połączony ze zwiedzaniem zamku.',
+      'Reszta brzegów to plaże niestrzeżone — kąpiel odbywa się tam na własną ' +
+        'odpowiedzialność, bez ratownika i bez wyznaczonego kąpieliska. Warto ' +
+        'o tym pamiętać, bo jezioro jest zaporowe: dno bywa strome, a poziom wody ' +
+        'zmienia się w ciągu sezonu.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'dziecko',
+        tytul: 'Zamajerz w Niedzicy — z ratownikiem',
+        tekst:
+          'Jedyne strzeżone kąpielisko nad jeziorem i jedyna piaszczysta plaża. ' +
+          'Przystań, wypożyczalnia sprzętu wodnego i rowerów wodnych, miejsca na ' +
+          'ognisko, gastronomia i boisko do siatkówki. Pod zamkiem Dunajec.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Kluszkowce — trawa zamiast piasku',
+        tekst:
+          'Zamiast plaży zielona murawa i łagodne zejście do wody, więc dobrze ' +
+          'wchodzi się tu z dzieckiem. Jest boisko do siatkówki. Spokojniej ' +
+          'niż w Niedzicy.',
+      },
+      {
+        ikona: 'woda',
+        tytul: 'Frydman i Podprzylasek — dla ciszy',
+        tekst:
+          'Frydman jest kamienisty, ale odwdzięcza się czystą wodą i spokojem. ' +
+          'Nieopodal leży Podprzylasek — jeszcze cichszy, praktycznie bez ' +
+          'infrastruktury.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Falsztyn i Zatoka Kosarzyska — dziko',
+        tekst:
+          'Dzikie brzegi między Falsztynem a Niedzicą, przy Zielonych Skałkach. ' +
+          'Bez zaplecza, za to z widokiem na obydwa zamki.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Bezpieczeństwo',
+        tekst:
+          'Poza Zamajerzem nie ma ratowników ani wyznaczonych kąpielisk. Jezioro ' +
+          'jest zbiornikiem zaporowym — poziom wody zmienia się w sezonie, a dno ' +
+          'potrafi opadać stromo tuż przy brzegu.',
+      },
+    ],
+    sezon: 'Kąpiel latem; przystanie i wypożyczalnie działają w sezonie żeglugowym.',
+    doPotwierdzenia: true,
   },
   {
     slug: 'czerwony-klasztor',
@@ -1588,15 +1640,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['kultura'],
     podkategoria: 'muzyka',
     lokalizacja: 'jaworki',
-    skrot: '',
-    opis: [],
-  },
-  {
-    slug: 'ogniska',
-    nazwa: 'Ogniska',
-    kategorie: ['zima', 'rodziny'],
-    podkategoria: 'rozrywka',
-    lokalizacja: 'pieniny',
     skrot: '',
     opis: [],
   },
@@ -1736,8 +1779,91 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['zima', 'rodziny'],
     podkategoria: 'narty',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Szczawnica, Jaworki, Kluszkowce',
+    wyrozniona: true,
+    skrot: 'Trzy szkoły z licencją SITN — na Palenicy, w Jaworkach i w Kluszkowcach.',
+    opis: [
+      'Pieniny to dobre miejsce na pierwszy dzień na nartach. Stoki są krótkie ' +
+        'i łagodne, kolejki krótsze niż w większych ośrodkach, a przy każdym ' +
+        'z trzech wyciągów działa szkoła z instruktorami licencjonowanymi przez ' +
+        'SITN-PZN. Różnią się na tyle, że wybór ma sens.',
+      'Na Palenicy w Szczawnicy szkoła prowadzi przedszkole narciarskie dla ' +
+        'najmłodszych, kursy dla dzieci i dorosłych, obozy doskonalące technikę ' +
+        'i trening na tyczkach dla tych, którzy chcą jeździć szybciej. Uczy się ' +
+        'też snowboardu. Lekcja trwa 50 minut, na miejscu jest wypożyczalnia. ' +
+        'Biuro mieści się przy ulicy Głównej 7.',
+      'Arena Narciarska Jaworki-Homole ma licencję A SITN-PZN i przyjmuje ' +
+        'początkujących od czwartego roku życia. Poza nauczaniem początkowym ' +
+        'prowadzi snowboard, szkolenie sportowe na slalomie z pomiarem czasu ' +
+        'i kursy kadrowe. Ośrodek ma osobny wyciąg orczykowy dla dzieci oraz ' +
+        'wyciąg linowy przy biurze szkoły, a trasa numer 5 przy orczyku ' +
+        '„Storczyk” jest niebieska i przeznaczona do nauki.',
+      'Czorsztyn-Ski w Kluszkowcach uczy według Programu Nauczania Dzieci ' +
+        'SITN PZN 2020 — przez zabawę, w grupach do ośmiu osób, a najmłodsze ' +
+        'grupy początkujące liczą maksymalnie cztery–pięć osób na instruktora. ' +
+        'W ferie działają kursy pięciodniowe. Ośrodek prowadzi też szkolenia ' +
+        'na monoski dla osób z niepełnosprawnością ruchową — jedyna taka oferta ' +
+        'w okolicy.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'snieg',
+        tytul: 'Palenica — Szczawnica',
+        tekst:
+          'Przedszkole narciarskie, kursy dla dzieci i dorosłych, obozy ' +
+          'doskonalące, trening na tyczkach, snowboard. Lekcja 50 minut, zajęcia ' +
+          'ruszają rano, po południu bywa taniej. Biuro przy ul. Głównej 7, ' +
+          'wypożyczalnia na miejscu.',
+      },
+      {
+        ikona: 'snieg',
+        tytul: 'Jaworki — Arena Narciarska Homole',
+        tekst:
+          'Licencja A SITN-PZN, początkujący od 4 lat, lekcja 55 minut. Osobny ' +
+          'orczyk dla dzieci i niebieska trasa nr 5 do nauki. Poza podstawami ' +
+          'także snowboard i slalom z pomiarem czasu.',
+      },
+      {
+        ikona: 'snieg',
+        tytul: 'Czorsztyn-Ski — Kluszkowce',
+        tekst:
+          'Grupy do 8 osób, najmłodsze 4–5 osób na instruktora, program SITN PZN ' +
+          '2020. Lekcja 55 minut (50 minut jazdy i 5 na podsumowanie). W ferie ' +
+          'kursy pięciodniowe. Szkoła stoi przy wyciągach dla początkujących.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Od jakiego wieku',
+        tekst:
+          'W Jaworkach zajęcia zaczynają się od czwartego roku życia. Na Palenicy ' +
+          'najmłodszymi zajmuje się przedszkole narciarskie, w Kluszkowcach ' +
+          'dzieci uczą się przez zabawę w bardzo małych grupach. Wszędzie liczy ' +
+          'się to samo: dziecko musi chcieć.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Ile to kosztuje',
+        tekst:
+          'Jaworki, sezon 2025/26: lekcja dla jednej osoby 160 zł, dla dwóch ' +
+          '100 zł od osoby, trzech 80 zł, czterech 70 zł — płatność gotówką. ' +
+          'Kluszkowce: lekcja indywidualna od 170 zł, pakiet dziesięciu godzin ' +
+          '1650–2650 zł, kurs feryjny 10-godzinny 990 zł, 20-godzinny ze ' +
+          'śniadaniem 1590 zł. Palenica nie publikuje cennika — ceny grupowe ' +
+          'ustala się indywidualnie.',
+      },
+      {
+        ikona: 'sprzet',
+        tytul: 'Sprzęt i karnet',
+        tekst:
+          'Lekcja to praca instruktora — narty, buty i karnet na wyciąg trzeba ' +
+          'mieć osobno. Przy każdym z trzech ośrodków działa wypożyczalnia. ' +
+          'Zapisy najlepiej telefonicznie i z wyprzedzeniem: w ferie terminy ' +
+          'schodzą szybko.',
+      },
+    ],
+    cena: 'Lekcja indywidualna od 160 zł (Jaworki) i od 170 zł (Kluszkowce); im więcej osób w grupie, tym taniej na osobę. Kursy feryjne w Kluszkowcach 990–1590 zł. Karnet i sprzęt osobno.',
+    sezon: 'Sezon zimowy, zależnie od warunków i pracy wyciągów.',
+    doPotwierdzenia: true,
   },
 ]
 

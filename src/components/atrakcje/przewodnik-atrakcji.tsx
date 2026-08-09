@@ -7,6 +7,7 @@ import {
   Backpack,
   Route,
   ShieldCheck,
+  Snowflake,
   Ticket,
   Zap,
 } from 'lucide-react'
@@ -36,6 +37,7 @@ const IKONY: Record<KluczIkony, React.ComponentType<{ className?: string }>> = {
   trasa: Route,
   adrenalina: Zap,
   woda: Droplets,
+  snieg: Snowflake,
 }
 
 export function PrzewodnikAtrakcji({
