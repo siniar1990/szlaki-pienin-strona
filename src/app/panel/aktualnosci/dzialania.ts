@@ -9,6 +9,11 @@ import { kluczDostepny } from '@/lib/wiadomosci/model-jezykowy'
 import { obejdzZrodla } from '@/lib/wiadomosci/obchod'
 import { napiszDlaArtykulu, napiszNotkeDnia } from '@/lib/wiadomosci/redakcja'
 import { wolnySlug } from '@/lib/wiadomosci/slug'
+import {
+  godzinyPublikacji,
+  NAJMNIEJ_NOTEK,
+  NAJWIECEJ_NOTEK,
+} from '@/lib/wiadomosci/ustawienia'
 import { ZNACZNIK_WIADOMOSCI } from '@/lib/wiadomosci/zapytania'
 
 /**
@@ -436,4 +441,56 @@ export async function uruchomRedakcje(): Promise<WynikAkcji> {
   return wynik.stan === 'blad'
     ? { blad: `Redakcja nie napisała notki.${szczegoly}` }
     : { ok: `${opis ?? 'Gotowe.'}${szczegoly}` }
+}
+
+/* ── Ustawienia redakcji ──────────────────────────────────────────────── */
+
+const SchematUstawien = z.object({
+  notekDziennie: z.coerce
+    .number()
+    .int()
+    .min(NAJMNIEJ_NOTEK, `Najmniej ${NAJMNIEJ_NOTEK} notka dziennie`)
+    .max(NAJWIECEJ_NOTEK, `Najwięcej ${NAJWIECEJ_NOTEK} notek dziennie`),
+  publikowanieAutomatyczne: z.enum(['tak', 'nie']),
+})
+
+/**
+ * Zapis ustawień redakcji.
+ *
+ * `upsert` zamiast `update`, bo wiersz może jeszcze nie istnieć — migracja
+ * go zakłada, ale baza założona od zera z samego schematu już nie. Klucz jest
+ * stały, więc drugiego wiersza nie da się utworzyć nawet przypadkiem.
+ */
+export async function zapiszUstawienia(
+  _stan: WynikAkcji,
+  dane: FormData,
+): Promise<WynikAkcji> {
+  const wynik = SchematUstawien.safeParse({
+    notekDziennie: dane.get('notekDziennie'),
+    publikowanieAutomatyczne: dane.get('publikowanieAutomatyczne') ?? 'nie',
+  })
+  if (!wynik.success) return { blad: wynik.error.issues[0].message }
+
+  const { notekDziennie } = wynik.data
+  const automatycznie = wynik.data.publikowanieAutomatyczne === 'tak'
+
+  await baza.ustawieniaRedakcji.upsert({
+    where: { klucz: 'jedyne' },
+    create: { klucz: 'jedyne', notekDziennie, publikowanieAutomatyczne: automatycznie },
+    update: { notekDziennie, publikowanieAutomatyczne: automatycznie },
+  })
+
+  revalidatePath('/panel/aktualnosci/ustawienia')
+
+  const pory = godzinyPublikacji(notekDziennie)
+    .map((godzina) => `${String(godzina).padStart(2, '0')}:00`)
+    .join(', ')
+
+  return {
+    ok:
+      `Zapisano. ${notekDziennie} ${notekDziennie === 1 ? 'notka' : 'notki'} dziennie o ${pory}. ` +
+      (automatycznie
+        ? 'Notki będą publikowane automatycznie.'
+        : 'Każda notka poczeka na Twoje zatwierdzenie.'),
+  }
 }

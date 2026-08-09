@@ -54,6 +54,20 @@ export const metadata: Metadata = {
   // `metadataBase` sprawia, że względne adresy obrazów w OpenGraph zamieniają
   // się w pełne — bez tego podgląd linku na Facebooku zostaje bez grafiki.
   metadataBase: new URL(PORTAL.adres),
+
+  /*
+    Potwierdzenie własności witryny w Google Search Console.
+
+    Znacznik pojawia się tylko wtedy, gdy zmienna jest ustawiona — pusty
+    `<meta name="google-site-verification">` byłby gorszy niż jego brak,
+    bo Google odrzuciłby potwierdzenie i nie powiedział dlaczego.
+
+    Sam znacznik nie daje Google'owi żadnego dostępu do portalu; mówi
+    wyłącznie „ta witryna należy do konta, które zna ten kod".
+  */
+  verification: process.env.GOOGLE_WERYFIKACJA
+    ? { google: process.env.GOOGLE_WERYFIKACJA }
+    : undefined,
   title: {
     default: `${PORTAL.nazwa} — przewodnik po Pieninach`,
     // Podstrony podają własny tytuł, a ten szablon dokleja markę.

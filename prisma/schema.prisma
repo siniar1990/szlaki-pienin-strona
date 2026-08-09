@@ -359,3 +359,31 @@ model ZdarzenieDzienne {
   @@index([dzien])
   @@index([rodzaj, dzien])
 }
+
+/// Ustawienia redakcji — jeden wiersz na cały portal.
+///
+/// **Dlaczego tabela, a nie zmienne środowiskowe.** Zmienna wymaga wdrożenia
+/// przy każdej zmianie, a to są pokrętła, którymi właściciel ma kręcić sam,
+/// z panelu, i widzieć skutek następnego dnia. Klucz stały wymusza jeden
+/// wiersz: nie ma jak przypadkiem utworzyć drugiego zestawu ustawień, który
+/// po tygodniu okazałby się tym, którego nikt nie czyta.
+model UstawieniaRedakcji {
+  /// Zawsze `jedyne`. Warunek unikalności pilnuje, żeby wiersz był jeden.
+  klucz String @id @default("jedyne")
+
+  /// Ile notek dziennie ma powstać. Od 1 do 10.
+  ///
+  /// Godziny publikacji wyliczamy z tej liczby, dzieląc równo przedział
+  /// od 5:00 do 23:00 — nie zapisujemy ich, bo byłyby wtedy dwa źródła
+  /// prawdy i pierwsza zmiana liczby zostawiłaby stare godziny.
+  notekDziennie Int @default(1)
+
+  /// Czy redakcja publikuje sama, bez czekania na zatwierdzenie.
+  ///
+  /// Domyślnie wyłączone i to jest świadome: portal firmuje właściciel,
+  /// a model bywa pewny siebie i przy tym w błędzie. Włączenie tego
+  /// przełącznika jest decyzją, którą trzeba podjąć raz i świadomie.
+  publikowanieAutomatyczne Boolean @default(false)
+
+  zmieniono DateTime @updatedAt
+}

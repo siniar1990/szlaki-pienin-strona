@@ -1,10 +1,19 @@
+import { revalidatePath, revalidateTag } from 'next/cache'
+
 import { baza } from '@/lib/baza'
 
 import { wydobadzTresc } from './kanal'
 import { BladModelu, kluczDostepny, MODELE, zapytajOJson } from './model-jezykowy'
 import { pobierzTekst } from './siec'
 import { wolnySlug } from './slug'
+import {
+  godzinaWPolsce,
+  ileNotekDoTejPory,
+  poczatekDnia,
+  pobierzUstawienia,
+} from './ustawienia'
 import { sprawdzZapozyczenia, udzialWspolnychTrojek } from './zapozyczenia'
+import { ZNACZNIK_WIADOMOSCI } from './zapytania'
 
 /**
  * Redakcja: wybór artykułu dnia i napisanie własnej notki.
@@ -54,9 +63,6 @@ const NAJWIECEJ_ZNAKOW_ZRODLA = 12_000
  * tydzień trafia się rzecz naprawdę ciekawa.
  */
 const PROG_OCENY = 60
-
-/** Ile godzin musi minąć od ostatniego szkicu maszynowego. */
-const ODSTEP_GODZIN = 20
 
 /**
  * Ile czasu ma cała redakcja.
@@ -139,6 +145,8 @@ export type WynikRedakcji = {
   stan: 'utworzono' | 'brak-kandydatow' | 'nic-nie-warte' | 'brak-klucza' | 'za-wczesnie' | 'blad'
   szczegoly?: string
   wiadomoscId?: string
+  /** Czy notka od razu trafiła na portal. */
+  opublikowana?: boolean
   ocena?: number
   odrzucone?: number
   czasMs: number
@@ -176,19 +184,32 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
   }
 
   /*
-    Zabezpieczenie przed dwoma szkicami tego samego dnia. Harmonogram woła tę
-    trasę raz dziennie, ale zadania cykliczne bywają powtarzane przy awariach,
-    a ręczne wywołanie z panelu jest jedno kliknięcie od przypadku.
+    Harmonogram dnia.
+
+    Zamiast pytać „czy minęło dwadzieścia godzin od ostatniej notki", pytamy
+    „ile notek powinno już dziś istnieć i ile faktycznie powstało". Różnica
+    jest istotna przy kilku notkach dziennie: przy odstępie godzinowym
+    przerwa w działaniu harmonogramu przesuwałaby wszystkie kolejne pory na
+    resztę dnia, a przy porównaniu z planem po prostu się nadrabia.
+
+    Piszemy najwyżej jedną notkę na wywołanie. Zaległość nadrobi następny
+    przebieg — na pięć notek w jednym wywołaniu funkcji i tak nie starczyłoby
+    czasu.
   */
-  const swiezy = await baza.wiadomosc.findFirst({
-    where: {
-      odRedakcjiMaszynowej: true,
-      utworzono: { gte: new Date(Date.now() - ODSTEP_GODZIN * 60 * 60 * 1000) },
-    },
-    select: { id: true },
+  const ustawienia = await pobierzUstawienia()
+  const powinno = ileNotekDoTejPory(ustawienia.notekDziennie, godzinaWPolsce())
+  const dzisiaj = await baza.wiadomosc.count({
+    where: { odRedakcjiMaszynowej: true, utworzono: { gte: poczatekDnia() } },
   })
-  if (swiezy) {
-    return zakoncz({ stan: 'za-wczesnie', szczegoly: `Szkic z ostatnich ${ODSTEP_GODZIN} godzin już istnieje.` })
+
+  if (dzisiaj >= powinno) {
+    return zakoncz({
+      stan: 'za-wczesnie',
+      szczegoly:
+        powinno === 0
+          ? 'Pierwsza pora publikacji jeszcze nie nadeszła.'
+          : `Dziś powstało ${dzisiaj} z ${ustawienia.notekDziennie} zaplanowanych notek — kolejna o następnej porze.`,
+    })
   }
 
   const kandydaci = await baza.znalezionyArtykul.findMany({
@@ -319,6 +340,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
   const wynik = await napiszDlaArtykulu(wybrany.id, BUDZET_CALOSCI_MS - (Date.now() - start), {
     ocena,
     uzasadnienie: wybor.uzasadnienie,
+    publikuj: ustawienia.publikowanieAutomatyczne,
   })
 
   return zakoncz({ ...wynik, odrzucone: doOdrzucenia.length })
@@ -336,7 +358,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
 export async function napiszDlaArtykulu(
   znaleziskoId: string,
   budzetMs: number,
-  wybor?: { ocena?: number; uzasadnienie?: string },
+  wybor?: { ocena?: number; uzasadnienie?: string; publikuj?: boolean },
 ): Promise<Omit<WynikRedakcji, 'czasMs'>> {
   const start = Date.now()
 
@@ -457,6 +479,15 @@ export async function napiszDlaArtykulu(
 
   /* ── Zapis szkicu ─────────────────────────────────────────────────────── */
 
+  /*
+    Publikacja automatyczna — ale nigdy notki, która nie przeszła kontroli
+    zapożyczeń. Właściciel włączając ten przełącznik godzi się na to, że nie
+    przeczyta tekstu przed publikacją; nie godzi się na wypuszczenie na portal
+    fragmentów przepisanych z cudzego artykułu. Taka notka zawsze czeka
+    w panelu, niezależnie od ustawienia.
+  */
+  const publikowac = Boolean(wybor?.publikuj) && notka !== null
+
   const wiadomosc = await baza.wiadomosc.create({
     data: {
       slug: await wolnySlug(doZapisu.tytul),
@@ -467,7 +498,8 @@ export async function napiszDlaArtykulu(
       zrodloNazwa: wybrany.zrodlo.nazwa,
       zrodloAdres: wybrany.adres,
       odRedakcjiMaszynowej: true,
-      stan: 'SZKIC',
+      stan: publikowac ? 'OPUBLIKOWANA' : 'SZKIC',
+      opublikowano: publikowac ? new Date() : null,
       znaleziskoId: wybrany.id,
     },
     select: { id: true },
@@ -488,12 +520,36 @@ export async function napiszDlaArtykulu(
     },
   })
 
+  /*
+    Notka opublikowana automatycznie musi natychmiast trafić do wszystkich
+    kanałów — inaczej istniałaby tylko w bazie, a portal, mapa witryny i RSS
+    pokazywałyby stan sprzed publikacji aż do następnego wdrożenia. Ta sama
+    lista adresów, co przy zatwierdzeniu ręcznym w panelu.
+  */
+  if (publikowac) {
+    revalidateTag(ZNACZNIK_WIADOMOSCI, 'max')
+    for (const sciezka of [
+      '/',
+      '/aktualnosci',
+      '/sitemap.xml',
+      '/sitemap-posts.xml',
+      '/news-sitemap.xml',
+      '/rss.xml',
+    ]) {
+      revalidatePath(sciezka)
+    }
+  }
+
   return {
     stan: 'utworzono',
     szczegoly: notka
-      ? undefined
-      : `Szkic wymaga przepisania ${kontrola.zbieznosci.length} fragmentów zapożyczonych ze źródła`,
+      ? publikowac
+        ? 'Notka opublikowana automatycznie.'
+        : undefined
+      : `Szkic wymaga przepisania ${kontrola.zbieznosci.length} fragmentów zapożyczonych ze źródła` +
+        (wybor?.publikuj ? ' — dlatego NIE została opublikowana automatycznie.' : ''),
     wiadomoscId: wiadomosc.id,
+    opublikowana: publikowac,
     ocena: wybor?.ocena,
   }
 }

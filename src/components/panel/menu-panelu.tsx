@@ -10,6 +10,8 @@ import {
   Newspaper,
   QrCode,
   Rss,
+  Search,
+  Settings,
   Signpost,
 } from 'lucide-react'
 
@@ -52,6 +54,7 @@ const DZIALY = [
       { adres: '/panel/aktualnosci', etykieta: 'Aktualności', ikona: Newspaper },
       { adres: '/panel/aktualnosci/znaleziska', etykieta: 'Znaleziska', ikona: Rss },
       { adres: '/panel/aktualnosci/zrodla', etykieta: 'Źródła', ikona: Signpost },
+      { adres: '/panel/aktualnosci/ustawienia', etykieta: 'Ustawienia', ikona: Settings },
     ],
   },
   {
@@ -62,6 +65,7 @@ const DZIALY = [
     pozycje: [
       { adres: '/panel/analityka', etykieta: 'Odsłony', ikona: BarChart3 },
       { adres: '/panel/analityka/pobrania', etykieta: 'Pobrania', ikona: Download },
+      { adres: '/panel/analityka/google', etykieta: 'Google', ikona: Search },
     ],
   },
 ] as const

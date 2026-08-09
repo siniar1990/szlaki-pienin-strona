@@ -19,15 +19,24 @@ on:
     # serwisach. Nierówne minuty, bo o pełnych godzinach GitHub ma szczyt
     # i zadania potrafią się opóźnić o kilkanaście minut.
     - cron: '20 5,17 * * *'
-    # Redakcja pisze notkę raz na dobę, po porannym obchodzie.
-    - cron: '40 6 * * *'
+    # Redakcja sprawdza co godzinę, czy minęła kolejna pora publikacji.
+    #
+    # Liczba notek dziennie jest ustawiana w panelu (1-10), a godziny wynikają
+    # z równego podziału przedziału 5:00-23:00 czasu polskiego. Harmonogram nie
+    # zna tych godzin — po prostu puka co godzinę, a redakcja sama decyduje,
+    # czy pora już nadeszła. Dzięki temu zmiana ustawienia działa od zaraz i nie
+    # wymaga dotykania tego pliku.
+    #
+    # Godzina 4 UTC to 6:00 w Polsce latem i 5:00 zimą; zakres 4-21 UTC pokrywa
+    # z zapasem całe okno publikacji w obu porach roku.
+    - cron: '35 4-21 * * *'
   # Ręczne uruchomienie — do sprawdzenia świeżo dodanego źródła.
   workflow_dispatch:
 
 jobs:
   obchod:
     # Poranny i wieczorny przebieg obchodu; przy uruchomieniu ręcznym też.
-    if: github.event.schedule != '40 6 * * *'
+    if: github.event.schedule != '35 4-21 * * *'
     runs-on: ubuntu-latest
     steps:
       - name: Obejdź źródła
@@ -64,7 +73,7 @@ jobs:
     needs: [obchod]
     if: >-
       always() &&
-      (github.event.schedule == '40 6 * * *' || github.event_name == 'workflow_dispatch')
+      (github.event.schedule == '35 4-21 * * *' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
       - name: Napisz notkę dnia
@@ -89,11 +98,17 @@ jobs:
           case "$stan" in
             utworzono)
               ocena=$(jq -r '.ocena // "?"' /tmp/odpowiedz.json)
-              echo "::notice::Szkic notki czeka w panelu · ocena wyboru $ocena/100"
+              opublikowana=$(jq -r '.opublikowana // false' /tmp/odpowiedz.json)
+              if [ "$opublikowana" = "true" ]; then
+                echo "::notice::Notka OPUBLIKOWANA automatycznie · ocena wyboru $ocena/100"
+              else
+                echo "::notice::Szkic notki czeka w panelu · ocena wyboru $ocena/100"
+              fi
               ;;
             nic-nie-warte|brak-kandydatow|za-wczesnie)
-              # To są zamierzone wyniki, nie awarie. Dzień bez wiadomości
-              # jest w tym projekcie decyzją, a nie usterką.
+              # To są zamierzone wyniki, nie awarie. „za-wczesnie" znaczy, że
+              # kolejna pora publikacji jeszcze nie nadeszła — przy sprawdzaniu
+              # co godzinę jest to najczęstsza odpowiedź i tak ma być.
               echo "::notice::Redakcja nic nie napisała ($stan). $szczegoly"
               ;;
             *)
