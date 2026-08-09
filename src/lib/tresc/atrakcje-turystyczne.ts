@@ -959,9 +959,59 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     nazwa: 'Paintball',
     kategorie: ['aktywnie'],
     podkategoria: 'paintball',
-    lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    lokalizacja: 'pieniny',
+    skrot: 'Gra w terenie dla grup — wieczory kawalerskie, panieńskie i wyjazdy firmowe.',
+    opis: [
+      'Paintball to atrakcja dla grupy, nie dla pojedynczej osoby, i właśnie ' +
+        'dlatego trafia w trzy okazje: wieczór kawalerski, wieczór panieński ' +
+        'i wyjazd integracyjny firmy. Dzieli ludzi na dwie drużyny, daje im ' +
+        'wspólny cel i godzinę biegania po lesie — po czym wszyscy mają ' +
+        'o czym opowiadać przy stole.',
+      'Sprzęt jest po stronie organizatora: markery, maski, kombinezony ' +
+        'i kulki. Prowadzący tłumaczy zasady i pilnuje bezpieczeństwa, więc ' +
+        'nikt nie musi mieć wcześniejszego doświadczenia — wystarczy ubranie, ' +
+        'którego nie szkoda, i buty do lasu.',
+      'Pola gry urządza się w terenie leśnym albo na przygotowanych placach ' +
+        'z przeszkodami. Gra się zwykle w kilku scenariuszach: zdobycie flagi, ' +
+        'obrona punktu, eliminacja — im większa grupa, tym więcej wariantów ' +
+        'ma sens.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'sprzet',
+        tytul: 'Co dostajesz na miejscu',
+        tekst:
+          'Marker, maskę ochronną, kombinezon i przydział kulek. Dokupienie ' +
+          'kolejnych kulek to zwykle najczęstsza dopłata, bo pierwsza porcja ' +
+          'kończy się szybciej, niż wszyscy się spodziewają.',
+      },
+      {
+        ikona: 'dziecko',
+        tytul: 'Od ilu lat',
+        tekst:
+          'Klasyczny paintball ma ograniczenie wiekowe i wymaga zgody ' +
+          'opiekuna dla niepełnoletnich. Dla młodszych dzieci część ' +
+          'organizatorów ma lżejszy wariant z mniejszym ciśnieniem — warto ' +
+          'zapytać przy rezerwacji.',
+      },
+      {
+        ikona: 'zezwolenie',
+        tytul: 'Rezerwacja z wyprzedzeniem',
+        tekst:
+          'Gra dla grupy wymaga umówienia terminu i podania liczby osób — ' +
+          'nie jest to atrakcja, na którą wpada się z marszu. W sezonie ' +
+          'weekendy bywają zajęte na kilka tygodni naprzód.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'W co się ubrać',
+        tekst:
+          'Ubranie z długim rękawem i nogawką, którego nie szkoda — kulki ' +
+          'barwią i zostawiają siniaki. Buty zakryte, najlepiej trekkingowe. ' +
+          'Maski nie zdejmuje się na polu gry ani na chwilę.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'kuligi',
