@@ -211,8 +211,9 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     wyrozniona: true,
     skrot: 'Tor saneczkowy obok kolei krzesełkowej — zjazd sterowany hamulcem.',
     opis: [
-      'Tor grawitacyjny biegnący stokiem Palenicy. Jedzie się w wózku na ' +
-        'szynie, samodzielnie regulując prędkość dźwignią hamulca, więc zjazd ' +
+      'Tor grawitacyjny biegnący serpentynami po stoku Palenicy; wózki ' +
+        'rozpędzają się do dwudziestu trzech kilometrów na godzinę. Jedzie się ' +
+        'na szynie, samodzielnie regulując prędkość dźwignią hamulca, więc zjazd ' +
         'da się dopasować i do dziecka, i do amatora mocnych wrażeń.',
       'To najczęściej wskazywana atrakcja na deszczowe popołudnie z dziećmi ' +
         'i naturalne dopełnienie wyjazdu koleją.',
@@ -577,11 +578,35 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   {
     slug: 'palenica',
     nazwa: 'Palenica',
-    kategorie: ['przyroda', 'rodziny'],
+    kategorie: ['przyroda', 'rodziny', 'zima'],
     podkategoria: 'punkty-widokowe',
     lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    wyrozniona: true,
+    // Trasy zaczynające się na szczycie albo przez niego przechodzące.
+    // Pełną listę widać po kliknięciu — tu tylko te, które opisują sam wjazd
+    // i najbliższe grzbietowe wyjścia.
+    trasy: ['7D', 'KP23', 'KP20', '2A'],
+    skrot: 'Szczyt nad Szczawnicą, na który wjeżdża się krzesełkiem. Widok, zjeżdżalnia i początek grzbietu Małych Pienin.',
+    opis: [
+      'Palenica jest najłatwiej dostępnym punktem widokowym w okolicy: ' +
+        'krzesełko rusza z centrum uzdrowiska i po kilku minutach jest się ' +
+        'na górze, bez podejścia. Ze szczytu widać Szczawnicę, dolinę Dunajca ' +
+        'i pienińskie grzbiety, a przy dobrej widoczności także Tatry.',
+      'To szczyt urządzony pod rodziny. Jest ogrodzony plac zabaw ze ' +
+        'ściankami wspinaczkowymi i długą krętą zjeżdżalnią, jest ścieżka ' +
+        'edukacyjna z wielkimi figurami zwierząt — niedźwiedź, ryś, borsuk, ' +
+        'salamandra, bocian — i osobna Żmijowa Zjeżdżalnia po drodze. Stokiem ' +
+        'biegnie tor grawitacyjny, na którym wózki rozpędzają się do ' +
+        'dwudziestu trzech kilometrów na godzinę.',
+      'Zimą Palenica zamienia się w ośrodek narciarski: około czterech ' +
+        'kilometrów tras o różnym stopniu trudności, oświetlonych po zmroku, ' +
+        'oraz szkółka, w której uczą jazdy na nartach i desce, a bardziej ' +
+        'zaawansowanych zabierają na skitury i freeride.',
+      'Dla idących dalej szczyt jest bramą na grzbiet Małych Pienin — stąd ' +
+        'prowadzą szlaki na Szafranówkę, Wysoki Wierch i dalej ku Wąwozowi ' +
+        'Homole. Na górze stoi schronisko „Groń", a przy dolnej stacji jest ' +
+        'gdzie zjeść przed wyjściem albo po zejściu.',
+    ],
   },
   {
     slug: 'trasy-narciarskie-palenica',
