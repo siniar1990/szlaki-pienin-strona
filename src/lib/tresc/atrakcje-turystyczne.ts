@@ -730,8 +730,34 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['woda', 'aktywnie'],
     podkategoria: 'splywy',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Sromowce — Szczawnica lub dalej',
+    wyrozniona: true,
+    skrot: 'Przełom na własnych rękach — kajakiem jedno- lub dwuosobowym, od czternastu kilometrów w górę.',
+    opis: [
+      'Kajak to najbardziej samodzielny sposób na ten sam przełom, którym płyną ' +
+        'tratwy i pontony. Siedzi się nisko, tuż nad wodą, i wiosłuje samemu — ' +
+        'bez flisaka i bez sternika. Rzeka nie jest trudna, ale kajak wymaga ' +
+        'więcej uwagi niż ponton, bo reaguje na każde pociągnięcie wiosłem.',
+      'Do wyboru są kajaki jednoosobowe i dwuosobowe; część wypożyczalni ma ' +
+        'w ofercie także pontony, gdy grupa jest większa albo dzieci za małe na ' +
+        'własny kajak. W cenie idzie zwykle komplet: kajak, wiosła, atestowana ' +
+        'kamizelka, kask i wodoszczelny worek na telefon.',
+      'Tras jest kilka i różnią się tym, gdzie się kończą. Najkrótsze prowadzą ' +
+        'ze Sromowiec do Szczawnicy — czternaście do osiemnastu kilometrów, ' +
+        'około dwóch godzin na wodzie. Dłuższe idą dalej w dół rzeki, do ' +
+        'Krościenka albo aż do Tylmanowej, i wtedy trzeba zarezerwować pół dnia ' +
+        'albo więcej.',
+      'Wymagania zależą od jednostki i od wypożyczalni, więc warto zapytać ' +
+        'przed rezerwacją. Zwykle na kajak jednoosobowy wsiada się dopiero jako ' +
+        'nastolatek i trzeba umieć wiosłować, a młodsze dzieci płyną z dorosłym ' +
+        'w kajaku dwuosobowym albo w pontonie. Część firm wymaga umiejętności ' +
+        'pływania, część nie.',
+      'Powrót na start jest wliczony albo dopłacany — bus jedzie około pół ' +
+        'godziny. Da się też wrócić rowerem doliną, w mniej więcej godzinę.',
+    ],
+    cena: 'Orientacyjnie od około 50 zł za osobę w kajaku jednoosobowym i od około 65 zł w dwuosobowym; pontony drożej. Dzieci taniej albo bezpłatnie, zależnie od wieku i organizatora.',
+    sezon: 'zwykle od kwietnia do października',
+    doPotwierdzenia: true,
   },
   {
     slug: 'wedkarstwo',
