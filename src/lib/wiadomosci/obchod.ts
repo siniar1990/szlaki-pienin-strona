@@ -59,10 +59,46 @@ export type WynikObchodu = {
   /** Ile źródeł faktycznie zdążyliśmy odwiedzić. */
   odwiedzone: number
   nowe: number
+  /** Ile artykułów wypadło z puli, bo się zestarzały. */
+  zdezaktualizowane: number
   bledy: { zrodlo: string; powod: string }[]
   /** Czy zabrakło czasu — wtedy reszta czeka na następny przebieg. */
   przerwane: boolean
   czasMs: number
+}
+
+/**
+ * Wypycha z puli artykuły, które się zestarzały.
+ *
+ * Redakcja ogląda przy wyborze czterdzieści najnowszych znalezisk. Wszystko
+ * starsze nie ma szans zostać wybrane nigdy — a mimo to leży w wykazie
+ * i puchnie: przy dwudziestu nowych artykułach dziennie po roku byłoby ich
+ * kilka tysięcy, wykaz stałby się nieczytelny, a jego pierwsza strona
+ * przestałaby cokolwiek znaczyć.
+ *
+ * Granica jest ta sama, co przy przyjmowaniu. Skoro nie wciągamy artykułów
+ * starszych niż trzydzieści dni, to nie ma powodu trzymać w puli tych, które
+ * przez trzydzieści dni nie zostały wybrane. Wiadomość sprzed miesiąca nie
+ * jest już wiadomością.
+ *
+ * Nie kasujemy ich — zmieniają stan na odrzucone z czytelnym powodem. Dzięki
+ * temu ich adresy zostają w bazie i obchód nie przyniesie ich ponownie przy
+ * następnym przejściu po tym samym kanale.
+ */
+async function odlozZestarzale(granica: Date): Promise<number> {
+  const [zData, bezDaty] = await Promise.all([
+    baza.znalezionyArtykul.updateMany({
+      where: { stan: 'NOWY', opublikowano: { not: null, lt: granica } },
+      data: { stan: 'ODRZUCONE', uzasadnienie: 'Zdezaktualizowane — starsze niż 30 dni' },
+    }),
+    // Bez daty publikacji liczymy od dnia, w którym artykuł znaleźliśmy.
+    baza.znalezionyArtykul.updateMany({
+      where: { stan: 'NOWY', opublikowano: null, znaleziono: { lt: granica } },
+      data: { stan: 'ODRZUCONE', uzasadnienie: 'Zdezaktualizowane — leży w puli ponad 30 dni' },
+    }),
+  ])
+
+  return zData.count + bezDaty.count
 }
 
 type Zrodlo = { id: string; nazwa: string; adres: string; adresKanalu: string | null }
@@ -99,7 +135,20 @@ export async function obejdzZrodla(): Promise<WynikObchodu> {
     }
   }
 
-  return { zrodla: zrodla.length, odwiedzone, nowe, bledy, przerwane, czasMs: Date.now() - start }
+  // Sprzątanie po zebraniu, nie przed: artykuł przyniesiony przed chwilą
+  // z datą sprzed miesiąca ma wypaść w tym samym przebiegu, a nie leżeć
+  // w wykazie do jutra.
+  const zdezaktualizowane = await odlozZestarzale(granica)
+
+  return {
+    zrodla: zrodla.length,
+    odwiedzone,
+    nowe,
+    zdezaktualizowane,
+    bledy,
+    przerwane,
+    czasMs: Date.now() - start,
+  }
 }
 
 async function odwiedz(

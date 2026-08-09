@@ -127,16 +127,35 @@ export async function zapytajOJson<T>(polecenie: {
     throw new BladModelu(`Model odpowiedział kodem ${odpowiedz.status}. ${tresc.slice(0, 300)}`)
   }
 
-  const dane = (await odpowiedz.json()) as { content?: { type: string; text?: string }[] }
+  const dane = (await odpowiedz.json()) as {
+    content?: { type: string; text?: string }[]
+    stop_reason?: string
+  }
   const tekst = (dane.content ?? [])
     .filter((czesc) => czesc.type === 'text')
     .map((czesc) => czesc.text ?? '')
     .join('')
 
+  /*
+    Przycięcie odpowiedzi rozpoznajemy osobno i nazywamy po imieniu. Bez tego
+    urwany w połowie JSON zgłaszał się jako „odpowiedź nie jest poprawnym
+    JSON-em" — komunikat prawdziwy, ale kierujący diagnozę w złą stronę:
+    winowajcą nie jest format, tylko za mały limit długości.
+  */
+  if (dane.stop_reason === 'max_tokens') {
+    throw new BladModelu(
+      'Odpowiedź modelu została przycięta limitem długości — polecenie prosi o za dużo',
+    )
+  }
+
   try {
     return JSON.parse(wytnijJson(tekst)) as T
   } catch (blad) {
     if (blad instanceof BladModelu) throw blad
-    throw new BladModelu('Odpowiedź modelu nie jest poprawnym JSON-em')
+    // Początek odpowiedzi w komunikacie: bez niego diagnoza wymaga zgadywania,
+    // co model właściwie odpisał.
+    throw new BladModelu(
+      `Odpowiedź modelu nie jest poprawnym JSON-em. Początek: ${tekst.slice(0, 200)}`,
+    )
   }
 }

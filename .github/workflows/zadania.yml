@@ -48,7 +48,8 @@ jobs:
           odwiedzone=$(jq -r '.odwiedzone // 0' /tmp/odpowiedz.json)
           nowe=$(jq -r '.nowe // 0' /tmp/odpowiedz.json)
           bledy=$(jq -r '.bledy | length' /tmp/odpowiedz.json)
-          echo "::notice::Odwiedzono $odwiedzone źródeł · nowych artykułów: $nowe · źródeł z błędem: $bledy"
+          stare=$(jq -r '.zdezaktualizowane // 0' /tmp/odpowiedz.json)
+          echo "::notice::Odwiedzono $odwiedzone źródeł · nowych: $nowe · zdezaktualizowanych: $stare · z błędem: $bledy"
           test "$odwiedzone" -gt 0
 
   redakcja:

@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ExternalLink, PenLine, RefreshCw, Sparkles, X } from 'lucide-react'
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  PenLine,
+  RefreshCw,
+  Sparkles,
+  X,
+} from 'lucide-react'
 
 import { baza } from '@/lib/baza'
 import { ETYKIETY_ZNALEZISKA, ileTemu } from '@/lib/wiadomosci/etykiety'
@@ -29,12 +37,34 @@ export const dynamic = 'force-dynamic'
  * Odrzucone pokazujemy osobno i krótko: służą do sprawdzenia, czy redakcja
  * nie wyrzuca rzeczy, które powinny przejść.
  */
-export default async function StronaZnalezisk() {
-  const [nowe, odrzucone, klucz] = await Promise.all([
+/**
+ * Ile znalezisk mieści się na jednej stronie.
+ *
+ * Wykaz potrafi liczyć kilkaset pozycji — pierwszy obchód przyniósł od razu
+ * miesiąc wstecz z dwudziestu kilku serwisów. Wczytywanie wszystkich naraz
+ * dałoby stronę, która ładuje się sekundę i której nikt nie przewinie do
+ * końca. Sześćdziesiąt to około trzech obrotów kółkiem myszy.
+ */
+const NA_STRONIE = 60
+
+export default async function StronaZnalezisk({
+  searchParams,
+}: PageProps<'/panel/aktualnosci/znaleziska'>) {
+  const parametry = await searchParams
+  const zadana = Number(Array.isArray(parametry.strona) ? parametry.strona[0] : parametry.strona)
+  const strona = Number.isFinite(zadana) && zadana > 1 ? Math.floor(zadana) : 1
+
+  const [wszystkich, nowe, odrzucone, klucz] = await Promise.all([
+    // Osobne zliczenie, bo długość wczytanej listy to liczba pozycji na tej
+    // stronie, a nie w całej puli. Wcześniej nagłówek pokazywał „80" przy
+    // trzystu osiemdziesięciu jeden znaleziskach i wyglądało to na gubienie
+    // danych przez obchód.
+    baza.znalezionyArtykul.count({ where: { stan: 'NOWY' } }),
     baza.znalezionyArtykul.findMany({
       where: { stan: 'NOWY' },
       orderBy: [{ opublikowano: 'desc' }, { znaleziono: 'desc' }],
-      take: 80,
+      skip: (strona - 1) * NA_STRONIE,
+      take: NA_STRONIE,
       include: { zrodlo: { select: { nazwa: true } } },
     }),
     baza.znalezionyArtykul.findMany({
@@ -46,12 +76,14 @@ export default async function StronaZnalezisk() {
     Promise.resolve(kluczDostepny()),
   ])
 
+  const stron = Math.max(1, Math.ceil(wszystkich / NA_STRONIE))
+
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="font-heading text-2xl font-semibold text-kamien-900">
           Znaleziska
-          <span className="ml-3 text-base font-normal text-kamien-500">{nowe.length}</span>
+          <span className="ml-3 text-base font-normal text-kamien-500">{wszystkich}</span>
         </h1>
 
         <div className="flex flex-wrap gap-3">
@@ -156,6 +188,45 @@ export default async function StronaZnalezisk() {
             )
           })}
         </ul>
+      )}
+
+      {stron > 1 && (
+        <nav
+          aria-label="Strony wykazu"
+          className="mt-6 flex flex-wrap items-center justify-between gap-4"
+        >
+          <p className="text-sm text-kamien-500">
+            Strona {strona} z {stron} · pozycje {(strona - 1) * NA_STRONIE + 1}–
+            {Math.min(strona * NA_STRONIE, wszystkich)} z {wszystkich}
+          </p>
+
+          <div className="flex gap-2">
+            {/*
+              Dwa odnośniki zamiast numerów wszystkich stron. Przy siedmiu
+              stronach numery są zbędne, a przy trzydziestu zajęłyby więcej
+              miejsca niż sam wykaz — a i tak nikt nie skacze do strony
+              dziewiątej wykazu wiadomości.
+            */}
+            {strona > 1 && (
+              <Link
+                href={`/panel/aktualnosci/znaleziska?strona=${strona - 1}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-kamien-300 px-4 py-2 text-sm text-kamien-700 transition-colors hover:border-las-400 hover:text-las-800"
+              >
+                <ChevronLeft className="size-4" aria-hidden />
+                Nowsze
+              </Link>
+            )}
+            {strona < stron && (
+              <Link
+                href={`/panel/aktualnosci/znaleziska?strona=${strona + 1}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-kamien-300 px-4 py-2 text-sm text-kamien-700 transition-colors hover:border-las-400 hover:text-las-800"
+              >
+                Starsze
+                <ChevronRight className="size-4" aria-hidden />
+              </Link>
+            )}
+          </div>
+        </nav>
       )}
 
       {odrzucone.length > 0 && (

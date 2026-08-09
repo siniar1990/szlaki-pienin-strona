@@ -82,7 +82,9 @@ Odrzucaj:
 
 Oceniaj surowo. Ocena to liczba 0-100 mówiąca, na ile warto o tym napisać
 na tym konkretnym portalu. Jeżeli żaden artykuł nie zasługuje na notkę,
-zwróć wybrany: null.`
+zwróć wybrany: null.
+
+Odpowiadasz numerami porządkowymi artykułów z listy, nie ich tytułami.`
 
 const ROLA_PISZACEGO = `Jesteś redaktorem portalu turystycznego szlakipienin.pl.
 Piszesz krótkie notki informacyjne po polsku.
@@ -121,10 +123,12 @@ export type WynikRedakcji = {
 }
 
 type OdpowiedzWyboru = {
-  wybrany: string | null
+  /** Numer porządkowy z listy w poleceniu, nie identyfikator z bazy. */
+  wybrany: number | null
   ocena?: number
   uzasadnienie?: string
-  odrzucone?: { id: string; powod: string }[]
+  /** Numery porządkowe artykułów spoza tematyki portalu. */
+  odrzucone?: number[]
 }
 
 type OdpowiedzNotki = {
@@ -176,26 +180,39 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
 
   /* ── Wybór ────────────────────────────────────────────────────────────── */
 
+  /*
+    Kandydaci są ponumerowani, a nie oznaczeni identyfikatorami z bazy.
+
+    Pierwsza wersja wysyłała identyfikatory cuid i prosiła o listę odrzuconych
+    w postaci obiektów z powodem. Przy czterdziestu artykułach sama ta lista
+    zajmowała prawie dwa tysiące tokenów wyjścia — odpowiedź nie mieściła się
+    w limicie długości i urywała w połowie, a JSON przestawał się rozkładać.
+
+    Numery porządkowe rozwiązują to przy okazji dwóch innych rzeczy: model nie
+    ma jak przekręcić dwudziestopięcioznakowego identyfikatora, a lista
+    odrzuconych to teraz `[1,4,7]` zamiast trzydziestu obiektów.
+  */
   let wybor: OdpowiedzWyboru
   try {
     wybor = await zapytajOJson<OdpowiedzWyboru>({
       model: MODELE.wybor,
       rolaSystemowa: ROLA_WYBIERAJACEGO,
-      najwiecejZnakow: 2000,
+      najwiecejZnakow: 1500,
       tresc:
         'Artykuły do oceny:\n\n' +
         kandydaci
           .map(
-            (artykul) =>
-              `id: ${artykul.id}\n` +
-              `źródło: ${artykul.zrodlo.nazwa}\n` +
-              `tytuł: ${artykul.tytul}\n` +
-              (artykul.opis ? `zajawka: ${artykul.opis}\n` : ''),
+            (artykul, numer) =>
+              `${numer + 1}. [${artykul.zrodlo.nazwa}] ${artykul.tytul}` +
+              (artykul.opis ? `\n   ${artykul.opis.slice(0, 200)}` : ''),
           )
           .join('\n') +
-        '\n\nOdpowiedz wyłącznie obiektem JSON o polach: ' +
-        '"wybrany" (id albo null), "ocena" (0-100), "uzasadnienie" (jedno zdanie), ' +
-        '"odrzucone" (lista obiektów {"id","powod"} dla artykułów spoza tematyki portalu).',
+        '\n\nOdpowiedz obiektem JSON o polach:\n' +
+        '"wybrany" — numer wybranego artykułu albo null,\n' +
+        '"ocena" — liczba 0-100,\n' +
+        '"uzasadnienie" — jedno krótkie zdanie,\n' +
+        '"odrzucone" — tablica samych numerów artykułów spoza tematyki portalu, ' +
+        'np. [1,4,7]. Bez powodów, bez obiektów.',
     })
   } catch (blad) {
     return zakoncz({
@@ -204,22 +221,31 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     })
   }
 
+  /** Numer z odpowiedzi na artykuł z listy. Poza zakresem znaczy `null`. */
+  const poNumerze = (numer: unknown) => {
+    const indeks = Number(numer) - 1
+    return Number.isInteger(indeks) && indeks >= 0 && indeks < kandydaci.length
+      ? kandydaci[indeks]
+      : null
+  }
+
   /*
     Odrzucone znikają z puli na stałe. Bez tego ten sam komunikat o sesji rady
     wracałby do oceny codziennie i codziennie zajmował miejsce w poleceniu —
     po miesiącu model wybierałby spośród samych śmieci.
   */
-  const doOdrzucenia = (wybor.odrzucone ?? []).filter((wpis) =>
-    kandydaci.some((artykul) => artykul.id === wpis.id),
-  )
-  for (const wpis of doOdrzucenia) {
-    await baza.znalezionyArtykul.update({
-      where: { id: wpis.id },
-      data: { stan: 'ODRZUCONE', uzasadnienie: wpis.powod?.slice(0, 300) ?? null },
+  const doOdrzucenia = (Array.isArray(wybor.odrzucone) ? wybor.odrzucone : [])
+    .map(poNumerze)
+    .filter((artykul): artykul is (typeof kandydaci)[number] => artykul !== null)
+
+  if (doOdrzucenia.length > 0) {
+    await baza.znalezionyArtykul.updateMany({
+      where: { id: { in: doOdrzucenia.map((artykul) => artykul.id) } },
+      data: { stan: 'ODRZUCONE', uzasadnienie: 'Poza tematyką portalu' },
     })
   }
 
-  const wybrany = kandydaci.find((artykul) => artykul.id === wybor.wybrany)
+  const wybrany = poNumerze(wybor.wybrany)
   const ocena = wybor.ocena ?? 0
 
   if (!wybrany || ocena < PROG_OCENY) {
