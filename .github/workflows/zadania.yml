@@ -49,7 +49,10 @@ jobs:
           nowe=$(jq -r '.nowe // 0' /tmp/odpowiedz.json)
           bledy=$(jq -r '.bledy | length' /tmp/odpowiedz.json)
           stare=$(jq -r '.zdezaktualizowane // 0' /tmp/odpowiedz.json)
+          ocenione=$(jq -r '.ocenianie.ocenione // 0' /tmp/odpowiedz.json)
+          bezOceny=$(jq -r '.ocenianie.zostalo // 0' /tmp/odpowiedz.json)
           echo "::notice::Odwiedzono $odwiedzone źródeł · nowych: $nowe · zdezaktualizowanych: $stare · z błędem: $bledy"
+          echo "::notice::Ocenionych w tym przebiegu: $ocenione · czeka na ocenę: $bezOceny"
           test "$odwiedzone" -gt 0
 
   redakcja:

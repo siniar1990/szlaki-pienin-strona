@@ -62,7 +62,16 @@ export default async function StronaZnalezisk({
     baza.znalezionyArtykul.count({ where: { stan: 'NOWY' } }),
     baza.znalezionyArtykul.findMany({
       where: { stan: 'NOWY' },
-      orderBy: [{ opublikowano: 'desc' }, { znaleziono: 'desc' }],
+      /*
+        Od najwyżej ocenionych, a nieocenione na końcu. Wykaz służy do
+        wyłuskania rzeczy wartych notki, a nie do przeglądania kroniki —
+        data jest tu drugorzędna i rozstrzyga dopiero przy równej ocenie.
+      */
+      orderBy: [
+        { ocena: { sort: 'desc', nulls: 'last' } },
+        { opublikowano: 'desc' },
+        { znaleziono: 'desc' },
+      ],
       skip: (strona - 1) * NA_STRONIE,
       take: NA_STRONIE,
       include: { zrodlo: { select: { nazwa: true } } },
@@ -121,6 +130,11 @@ export default async function StronaZnalezisk({
         </p>
       )}
 
+      <p className="mt-4 text-sm text-kamien-500">
+        Liczba przy artykule to ocena redakcji w skali 0–100. Wykaz jest posortowany
+        od najwyższych; od 60 w górę artykuł może zostać wybrany na notkę dnia.
+      </p>
+
       {nowe.length === 0 ? (
         <p className="mt-10 rounded-2xl border border-dashed border-kamien-300 p-12 text-center text-kamien-500">
           Nic nowego. Sprawdź{' '}
@@ -137,6 +151,8 @@ export default async function StronaZnalezisk({
 
             return (
               <li key={znalezisko.id} className="flex flex-wrap items-start gap-4 p-5">
+                <Ocena wartosc={znalezisko.ocena} />
+
                 <div className="min-w-0 flex-1">
                   <p className="text-xs text-kamien-500">
                     {znalezisko.zrodlo.nazwa} ·{' '}
@@ -256,5 +272,45 @@ export default async function StronaZnalezisk({
         </details>
       )}
     </>
+  )
+}
+
+/**
+ * Ocena artykułu jako plakietka.
+ *
+ * **Dlaczego liczba, a nie gwiazdki albo pasek.** Ocena wystawiana przez model
+ * nie jest pomiarem — jest opinią wyrażoną liczbą. Pasek postępu sugerowałby
+ * dokładność, której tu nie ma; naga liczba mówi „tyle wyszło" i nic ponadto.
+ *
+ * Trzy progi wystarczą, bo tyle jest realnych decyzji: napisać, zajrzeć,
+ * pominąć. Próg redakcji to 60 — powyżej niego artykuł mógłby zostać wybrany
+ * na notkę dnia, i to jest granica, która naprawdę coś znaczy.
+ */
+function Ocena({ wartosc }: { wartosc: number | null }) {
+  if (wartosc === null) {
+    return (
+      <span
+        title="Jeszcze nieoceniony — dostanie ocenę przy najbliższym obchodzie"
+        className="grid size-11 shrink-0 place-items-center rounded-xl border border-dashed border-kamien-300 text-xs text-kamien-400"
+      >
+        —
+      </span>
+    )
+  }
+
+  const klasa =
+    wartosc >= 60
+      ? 'border-las-200 bg-las-50 text-las-800'
+      : wartosc >= 35
+        ? 'border-amber-200 bg-amber-50 text-amber-900'
+        : 'border-kamien-200 bg-kamien-100 text-kamien-500'
+
+  return (
+    <span
+      title={`Ocena redakcji: ${wartosc}/100. Próg napisania notki to 60.`}
+      className={`grid size-11 shrink-0 place-items-center rounded-xl border text-sm font-semibold tabular-nums ${klasa}`}
+    >
+      {wartosc}
+    </span>
   )
 }

@@ -1,6 +1,7 @@
 import { baza } from '@/lib/baza'
 
 import { odczytajZrodlo } from './kanal'
+import { ocenNieocenione, type WynikOceniania } from './ocenianie'
 import { BladPobierania } from './siec'
 
 /**
@@ -52,7 +53,17 @@ const NARAZ = 4
  * na dwa razy więcej serwisów, niż mamy. Ogranicznik jest więc siatką
  * bezpieczeństwa, a nie mechanizmem, o który zahaczamy w normalnej pracy.
  */
-const BUDZET_MS = 45_000
+const BUDZET_MS = 30_000
+
+/**
+ * Ile czasu zostaje na ocenianie znalezisk po zakończeniu obchodu.
+ *
+ * Sam obchód mieści się w kilkunastu sekundach, więc reszta deklarowanego
+ * limitu funkcji stoi bezczynnie. Ocenianie wchodzi w to miejsce i kończy na
+ * granicy paczki — zaległość rozkłada się wtedy na kilka przebiegów zamiast
+ * ryzykować ucięcie funkcji dla czegoś, co nie jest pilne.
+ */
+const BUDZET_OCENIANIA_MS = 22_000
 
 export type WynikObchodu = {
   zrodla: number
@@ -64,6 +75,7 @@ export type WynikObchodu = {
   bledy: { zrodlo: string; powod: string }[]
   /** Czy zabrakło czasu — wtedy reszta czeka na następny przebieg. */
   przerwane: boolean
+  ocenianie: WynikOceniania
   czasMs: number
 }
 
@@ -140,6 +152,13 @@ export async function obejdzZrodla(): Promise<WynikObchodu> {
   // w wykazie do jutra.
   const zdezaktualizowane = await odlozZestarzale(granica)
 
+  /*
+    Ocenianie na końcu, na resztkach budżetu. Jest dodatkiem: gdyby się nie
+    udało, obchód i tak przyniósł artykuły, a wykaz i tak je pokaże — tyle że
+    bez liczby obok.
+  */
+  const ocenianie = await ocenNieocenione(BUDZET_OCENIANIA_MS)
+
   return {
     zrodla: zrodla.length,
     odwiedzone,
@@ -147,6 +166,7 @@ export async function obejdzZrodla(): Promise<WynikObchodu> {
     zdezaktualizowane,
     bledy,
     przerwane,
+    ocenianie,
     czasMs: Date.now() - start,
   }
 }
