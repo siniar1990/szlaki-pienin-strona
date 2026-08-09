@@ -32,11 +32,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3ACerkiew_Jaworki.jpg',
   },
-  'jezioro-czorsztynskie-rejsy': {
-    autor: 'Jakub Hałun',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AWidok_na_Tatry_i_Jezioro_Czorszty%C5%84skie_wcze%C5%9Bnie_rano_z_Lubania%2C_20230715_0501_7075.jpg',
-  },
   'kladka-do-czerwonego-klasztoru': {
     autor: 'Henryk Bielamowicz',
     licencja: 'CC BY-SA 4.0',

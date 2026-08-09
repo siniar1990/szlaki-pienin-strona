@@ -77,27 +77,25 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['woda'],
     podkategoria: 'splywy',
     lokalizacja: 'sromowce',
-    miejscowosc: 'Sromowce Wyżne — Szczawnica',
+    miejscowosc: 'Sromowce — Szczawnica',
     wyrozniona: true,
     trasy: ['DP'],
-    skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka. Dwa warianty: do Szczawnicy albo dalej, do Krościenka.',
+    skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka. Dwie przystanie początkowe, meta zawsze w Szczawnicy.',
     opis: [
       'Najbardziej znana atrakcja Pienin i jedyny sposób, żeby zobaczyć przełom ' +
-        'Dunajca od strony wody. Tratwy wypływają z przystani w Kątach ' +
-        'w Sromowcach Wyżnych i płyną przełomem pod ścianami Trzech Koron ' +
-        'i Sokolicy.',
-      'Trasy są dwie i różnią się tym, gdzie się kończą. Krótsza dobija do ' +
-        'przystani w Szczawnicy — to około osiemnastu kilometrów i mniej więcej ' +
-        'dwie godziny na wodzie. Dłuższa płynie dalej w dół rzeki, do ' +
-        'Krościenka: około dwudziestu trzech kilometrów i pół godziny więcej. ' +
-        'Sam przełom, czyli to, po co się płynie, jest na obu taki sam — ' +
-        'dłuższy wariant dokłada spokojniejszy odcinek za wylotem przełomu.',
-      'Tratwą steruje flisak, który po drodze opowiada o mijanych skałach ' +
-        'i legendach. Tradycja flisacka na Dunajcu sięga XIX wieku i jest ' +
-        'przekazywana w pienińskich rodzinach z pokolenia na pokolenie; ' +
-        'w Szczawnicy tratwy wita ozdobna drewniana brama przystani.',
-      'Powrót do samochodu zostawionego w Kątach organizują przewoźnicy busami; ' +
-        'można też wrócić rowerem ścieżką wzdłuż rzeki.',
+        'Dunajca od strony wody. Tratwą steruje flisak, który po drodze ' +
+        'opowiada o mijanych skałach i legendach — płynie się pod ścianami ' +
+        'Trzech Koron i Sokolicy.',
+      'Spływ zaczyna się na jednej z dwóch przystani: w Sromowcach Wyżnych — ' +
+        'Kątach albo w Sromowcach Niżnych. Kąty leżą wyżej rzeki, więc ta trasa ' +
+        'jest dłuższa; ze Sromowiec Niżnych płynie się krócej. Bilety kupuje ' +
+        'się w kasach na obu przystaniach.',
+      'Niezależnie od tego, skąd się wypływa, spływ kończy się w Szczawnicy, ' +
+        'przy przystani z ozdobną drewnianą bramą. Tradycja flisacka na Dunajcu ' +
+        'sięga XIX wieku i jest przekazywana w pienińskich rodzinach ' +
+        'z pokolenia na pokolenie.',
+      'Powrót do samochodu zostawionego przy przystani startowej organizują ' +
+        'przewoźnicy busami; można też wrócić rowerem ścieżką wzdłuż rzeki.',
     ],
     sezon: 'od wiosny do jesieni, zależnie od stanu wody',
   },
@@ -108,14 +106,24 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'rejsy',
     lokalizacja: 'czorsztyn',
     wyrozniona: true,
-    skrot: 'Sztuczne jezioro między dwoma zamkami, z rejsami wzdłuż brzegów.',
+    skrot: 'Sztuczne jezioro między dwoma zamkami — rejsy, plaże, żagle i ścieżka dookoła.',
     opis: [
-      'Zbiornik powstał po spiętrzeniu Dunajca zaporą w Niedzicy. Z jego taflą ' +
-        'sąsiadują dwa zamki stojące naprzeciw siebie: ruiny Czorsztyna po ' +
-        'północnej stronie i zamek Dunajec w Niedzicy po południowej.',
+      'Zbiornik powstał po spiętrzeniu Dunajca zaporą w Niedzicy. Nad jego ' +
+        'taflą stoją naprzeciw siebie dwa zamki: ruiny Czorsztyna po północnej ' +
+        'stronie i zamek Dunajec w Niedzicy po południowej — widok, którego ' +
+        'nie było tu przed zalaniem doliny.',
       'Po jeziorze kursują statki i mniejsze jednostki, łączące przystanie po ' +
         'obu stronach. To najwygodniejszy sposób, żeby zobaczyć oba zamki ' +
-        'jednego dnia bez objeżdżania jeziora samochodem.',
+        'jednego dnia bez objeżdżania jeziora samochodem, a przy okazji jedyny, ' +
+        'z którego widać je oba naraz z wody.',
+      'Poza rejsami jezioro żyje sportami. Wieje tu na tyle regularnie, że ' +
+        'zbiornik ma swoje miejsce na mapie windsurferów; pod żagle wypływają ' +
+        'też jachty, a bliżej brzegu jeżdżą deski z wiosłem, kajaki i rowery ' +
+        'wodne. Wypożyczalnie działają przy przystaniach w sezonie.',
+      'Brzegi są łagodne i miejscami przygotowane do kąpieli — z plażami, ' +
+        'trawą i miejscem na koc. Dookoła jeziora biegnie ścieżka rowerowa, ' +
+        'więc da się je objechać w jeden dzień, zaglądając po drodze do obu ' +
+        'zamków i pod zaporę.',
     ],
     sezon: 'sezon letni',
     doPotwierdzenia: true,

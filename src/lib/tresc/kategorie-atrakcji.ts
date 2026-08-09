@@ -157,7 +157,10 @@ export const PARTNERZY_KATEGORII: Record<KategoriaAtrakcji, PartnerKategorii | n
  *
  * Rozszerza się dopisaniem slugu.
  */
-export const ZAPROSZENIA_NA_STRONACH: readonly string[] = ['rafting-na-dunajcu']
+export const ZAPROSZENIA_NA_STRONACH: readonly string[] = [
+  'rafting-na-dunajcu',
+  'jezioro-czorsztynskie-rejsy',
+]
 
 export function partnerKategorii(kategoria: KategoriaAtrakcji): PartnerKategorii | null {
   const wpis = PARTNERZY_KATEGORII[kategoria]
