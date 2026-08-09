@@ -496,14 +496,66 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['aktywnie', 'woda'],
     podkategoria: 'rowery',
     lokalizacja: 'pieniny',
-    skrot: 'Asfaltowa trasa rowerowa wzdłuż rzeki, bez ruchu samochodowego.',
+    miejscowosc: 'wzdłuż Dunajca',
+    wyrozniona: true,
+    skrot: 'Dalekobieżna trasa rowerowa wzdłuż całego Dunajca. Przez Pieniny prowadzi brzegiem Jeziora Czorsztyńskiego i doliną rzeki.',
     opis: [
-      'Trasa rowerowa biegnąca doliną Dunajca, w dużej części wydzielona ' +
-        'z ruchu samochodowego. Odcinek pieniński prowadzi wzdłuż Jeziora ' +
-        'Czorsztyńskiego i dalej ku Szczawnicy.',
-      'Najpopularniejsze połączenie: zjazd tratwą albo pontonem w dół rzeki ' +
-        'i powrót rowerem tą samą doliną, ale po drugiej stronie wody.',
+      'Velo Dunajec to jedna z małopolskich tras dalekobieżnych: prowadzi ' +
+        'doliną Dunajca, od podnóża Tatr aż po ujście rzeki do Wisły. ' +
+        'Powstaje etapami, więc jedne odcinki są gotowym asfaltem wydzielonym ' +
+        'z ruchu, a inne prowadzą jeszcze bocznymi drogami — przed dłuższym ' +
+        'wyjazdem warto sprawdzić stan budowy na aktualnej mapie trasy.',
+      'W Pieninach trasa trzyma się wody. Wchodzi w rejon od strony Nowego ' +
+        'Targu, obiega Jezioro Czorsztyńskie, mija zaporę w Niedzicy i schodzi ' +
+        'doliną Dunajca przez Krościenko i Szczawnicę, a dalej biegnie ku ' +
+        'Sądecczyźnie. To odcinek płaski w porównaniu z resztą okolicy — ' +
+        'rzeka wyznacza trasę, więc podjazdy są krótkie i rzadkie.',
+      'Najpopularniejsze połączenie w Pieninach jest takie: w dół rzeki ' +
+        'tratwą albo pontonem, a z powrotem rowerem tą samą doliną, tylko ' +
+        'po drugiej stronie wody. Wypożyczalnie działają w Szczawnicy ' +
+        'i w miejscowościach nad jeziorem.',
+      'Velo Dunajec nie jest tym samym co Velo Czorsztyn — ta druga to pętla ' +
+        'wokół samego jeziora. Obie stykają się nad zbiornikiem i da się je ' +
+        'łączyć w jeden dzień.',
     ],
+    doPotwierdzenia: true,
+  },
+  {
+    slug: 'velo-czorsztyn',
+    nazwa: 'Velo Czorsztyn',
+    kategorie: ['woda', 'aktywnie', 'rodziny'],
+    podkategoria: 'rowery',
+    lokalizacja: 'czorsztyn',
+    wyrozniona: true,
+    trasy: ['R2'],
+    skrot: 'Pętla dookoła Jeziora Czorsztyńskiego — 27 km asfaltu od zamku do zamku, domknięta promem.',
+    opis: [
+      'Dwa zamki patrzą na siebie przez jezioro, a Velo Czorsztyn łączy je ' +
+        'dookoła wody: od zamku Dunajec w Niedzicy po ruiny w Czorsztynie. ' +
+        'Dwadzieścia siedem kilometrów, asfalt na całej długości i niemal bez ' +
+        'samochodów — z niecałymi dwustoma metrami podejść w sumie.',
+      'Najtrudniejsze jest na początku. Pierwsze kilometry to krótki, ale ' +
+        'ostry podjazd pod Falsztyn, miejscami do siedmiu procent; mniej ' +
+        'wprawni prowadzą tam rower bez wstydu. Falsztyn leży na 621 metrach, ' +
+        'najwyżej na całej trasie, i jest jedynym miejscem, z którego widać ' +
+        'Tatry ponad taflą jeziora.',
+      'Potem robi się łatwo. Zjazd do Frydmana nad zachodni kraniec jeziora — ' +
+        'zabytkowy kościół, przystań jachtowa i ostatnie zaplecze przed długim ' +
+        'odcinkiem. Kawałek dalej, 450 metrów od szlaku, stoi drewniany kościół ' +
+        'św. Michała Archanioła w Dębnie: XV wiek, zachowana gotycka ' +
+        'polichromia, Lista Światowego Dziedzictwa UNESCO. Warto zostawić rower ' +
+        'i wejść.',
+      'Środek trasy jest najbardziej „jeziorny": szlak wchodzi na korony wałów ' +
+        'przeciwpowodziowych i prowadzi nimi kilometrami — płasko, bez ' +
+        'skrzyżowań, z wodą po jednej stronie i Pieninami na horyzoncie. ' +
+        'Za Maniowami kładka pieszo-rowerowa przenosi trasę na drugą stronę, ' +
+        'a w Kluszkowcach czeka plaża, gastronomia i wypożyczalnie.',
+      'Ostatnie półtora kilometra biegnie brzegiem pod ruiny Czorsztyna, skąd ' +
+        'widać naraz Tatry, Pieniny i Niedzicę po drugiej stronie wody. Pętlę ' +
+        'domyka prom odpływający spod zamku — kursuje od maja do października, ' +
+        'więc poza sezonem trzeba wracać tą samą drogą albo naokoło przez zaporę.',
+    ],
+    sezon: 'prom domykający pętlę kursuje od maja do października',
   },
   {
     slug: 'kladka-do-czerwonego-klasztoru',
@@ -644,8 +696,33 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['woda', 'aktywnie'],
     podkategoria: 'splywy',
     lokalizacja: 'pieniny',
-    skrot: '',
-    opis: [],
+    miejscowosc: 'Sromowce — Szczawnica',
+    wyrozniona: true,
+    skrot: 'Przełom Dunajca pontonem, z wiosłem w ręku. Około 15 km i dwie–trzy godziny na wodzie.',
+    opis: [
+      'To ten sam przełom co przy tratwach flisackich, tylko przeżywany ' +
+        'inaczej: siedzi się w pontonie, trzyma wiosło i samemu prowadzi łódź. ' +
+        'Nurt robi resztę. Rzeka jest tu spokojna — w skali trudności to ' +
+        'najłatwiejszy stopień — więc płyną rodziny z dziećmi, wycieczki ' +
+        'szkolne i ludzie, którzy nigdy wcześniej nie mieli wiosła w ręku.',
+      'Trasa liczy około piętnastu kilometrów i zajmuje dwie do trzech godzin. ' +
+        'Startuje się w Sromowcach, kończy w Szczawnicy. Pontony mieszczą ' +
+        'zwykle od dwóch do dwunastu osób, więc płynie się własną grupą, ' +
+        'a nie ze wszystkimi naraz.',
+      'Wypożyczenie jest proste, bo w cenie jest komplet: ponton, wiosła, ' +
+        'kamizelka asekuracyjna, kask i wodoszczelny worek na telefon. ' +
+        'Chłodniejszego dnia bywa do wzięcia pianka. Można płynąć ze sternikiem ' +
+        'albo bez — przy większych grupach sternik zwykle wchodzi w cenę, przy ' +
+        'mniejszych jest dopłatą.',
+      'Trzeba pomyśleć o powrocie na start, bo samochód zostaje przy ' +
+        'przystani startowej albo na parkingu w Szczawnicy. Organizatorzy ' +
+        'dowożą busem — jazda zajmuje jakieś pół godziny. Da się też wrócić ' +
+        'rowerem doliną, około półtorej do dwóch godzin, albo pieszo Drogą ' +
+        'Pienińską, ale to już cały dzień.',
+    ],
+    cena: 'Orientacyjnie od około 80 do 130 zł za osobę dorosłą, zależnie od organizatora i tego, czy w cenie jest dojazd busem albo rowerem. Dzieci taniej, grupy po negocjacji.',
+    sezon: 'zwykle od 1 kwietnia do 31 października',
+    doPotwierdzenia: true,
   },
   {
     slug: 'kajaki-na-dunajcu',
