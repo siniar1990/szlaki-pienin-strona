@@ -88,7 +88,21 @@ function zwinAtrybucje(pojemnik: HTMLElement | null): void {
     .forEach((element) => element.classList.remove('maplibregl-compact-show'))
 }
 
-export function MapaSzlakow() {
+/**
+ * Tryb wysokości mapy.
+ *
+ * `sekcja` to mapa osadzona w toku strony — ma stałą wysokość i zostawia
+ * miejsce na treść nad i pod sobą. `pelna` wypełnia rodzica i służy stronie
+ * poświęconej wyłącznie mapie, gdzie wszystko inne jest tylko ramką.
+ *
+ * Dlaczego to jest przełącznik, a nie osobny komponent: różnica sprowadza się
+ * do dwóch klas wysokości, a wszystko poniżej — filtrowanie, zaznaczanie,
+ * synchronizacja listy z mapą — jest identyczne. Dwa komponenty znaczyłyby
+ * dwa miejsca do poprawiania przy każdej zmianie zachowania.
+ */
+export type WysokoscMapy = 'sekcja' | 'pelna'
+
+export function MapaSzlakow({ wysokosc = 'sekcja' }: { wysokosc?: WysokoscMapy } = {}) {
   const [klient] = useState(
     () =>
       new QueryClient({
@@ -105,12 +119,12 @@ export function MapaSzlakow() {
 
   return (
     <QueryClientProvider client={klient}>
-      <Zawartosc />
+      <Zawartosc wysokosc={wysokosc} />
     </QueryClientProvider>
   )
 }
 
-function Zawartosc() {
+function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
   const { data, isPending, isError } = useQuery<ZbiorSladow>({
     queryKey: ['slady-szlakow'],
     queryFn: async () => {
@@ -367,8 +381,21 @@ function Zawartosc() {
       ?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [wybrany])
 
+  const pelna = wysokosc === 'pelna'
+
+  /*
+    Przy trybie pełnym wysokość dyktuje rodzic: siatka rozciąga się na cały
+    dostępny obszar, a oba kafle biorą z niego sto procent. `min-h-0` jest tu
+    konieczne — bez niego element siatki nie zejdzie poniżej wysokości swojej
+    treści i lista zamiast przewijać się wewnątrz, rozepchnęłaby stronę.
+  */
+  const wysokoscSiatki = pelna ? 'lg:h-full lg:min-h-0' : ''
+  const wysokoscKafla = pelna ? 'lg:h-full lg:min-h-0' : 'lg:h-[78vh]'
+
   return (
-    <div className="grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[26rem_minmax(0,1fr)]">
+    <div
+      className={`grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[26rem_minmax(0,1fr)] ${wysokoscSiatki}`}
+    >
       {/*
         ── Lista szlaków ───────────────────────────────────────────────
         Na telefonie idzie POD mapę, na dużym ekranie wraca na lewo.
@@ -380,7 +407,9 @@ function Zawartosc() {
         zaczyna się poniżej krawędzi ekranu i trzeba do niej doscrollować,
         żeby zobaczyć cokolwiek — a to mapa jest tu powodem wejścia.
       */}
-      <div className="order-2 flex flex-col rounded-2xl border border-kamien-200 bg-white lg:order-1 lg:h-[78vh]">
+      <div
+        className={`order-2 flex flex-col rounded-2xl border border-kamien-200 bg-white lg:order-1 ${wysokoscKafla}`}
+      >
         <div className="border-b border-kamien-200 p-4">
           <div className="relative">
             <Search
@@ -518,7 +547,7 @@ function Zawartosc() {
       {/* ── Mapa ──────────────────────────────────────────────────────── */}
       <div
         ref={ramkaMapy}
-        className="order-1 relative h-[60vh] overflow-hidden rounded-2xl border border-kamien-200 bg-kamien-100 lg:order-2 lg:h-[78vh]"
+        className={`order-1 relative h-[60vh] overflow-hidden rounded-2xl border border-kamien-200 bg-kamien-100 lg:order-2 ${wysokoscKafla}`}
       >
         <div ref={pojemnik} className="size-full" />
 

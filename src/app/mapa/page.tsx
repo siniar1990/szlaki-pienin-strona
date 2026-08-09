@@ -1,12 +1,23 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import { ChevronRight } from 'lucide-react'
 
-import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { pobierzTrasy } from '@/lib/dane/zrodlo'
 import { kilometry } from '@/lib/format'
 
 /**
  * Mapa szlaków.
+ *
+ * **Dlaczego ta strona nie ma zwykłego nagłówka.** Wszystkie inne podstrony
+ * zaczynają się od paska z tytułem, lidem i powietrzem wokół — bo na nich
+ * treścią jest tekst. Tutaj treścią jest mapa i każdy centymetr zabrany na
+ * wstęp jest centymetrem, na którym nie widać szlaku. Nagłówek zostaje, ale
+ * ściśnięty do jednego rzędu: okruszki, tytuł i liczby w jednej linii.
+ *
+ * **Dlaczego mimo to nie usuwamy go zupełnie.** `h1` jest tu potrzebny —
+ * i czytelnikowi, który musi wiedzieć, gdzie trafił, i wyszukiwarce, dla
+ * której strona bez nagłówka to strona bez tematu.
  *
  * Sama mapa doładowuje się w przeglądarce — MapLibre sięga do `window` już
  * przy imporcie, więc przy budowaniu statycznym nie ma prawa się wykonać,
@@ -16,7 +27,7 @@ const MapaSzlakow = dynamic(
   () => import('@/components/mapa/mapa-szlakow').then((m) => m.MapaSzlakow),
   {
     loading: () => (
-      <div className="grid h-[70vh] place-items-center rounded-2xl bg-kamien-100 text-sm text-kamien-500">
+      <div className="grid h-[60vh] place-items-center rounded-2xl bg-kamien-100 text-sm text-kamien-500 lg:h-full">
         Wczytywanie mapy…
       </div>
     ),
@@ -40,16 +51,58 @@ export default function StronaMapy() {
 
   return (
     <>
-      <NaglowekStrony
-        okruszki={[{ nazwa: 'Mapa', adres: '/mapa' }]}
-        tytul="Mapa szlaków Pienin"
-        lead={`${trasy.length} szlaków, razem ${kilometry(sumaKm)}. Lista po lewej jest pogrupowana tak samo jak w aplikacji. Kliknij ślad na mapie albo wybierz trasę z listy — druga strona zaznaczy się sama.`}
-      />
+      {/*
+        Na dużym ekranie cała ta ramka ma wysokość okna pomniejszoną o pasek
+        nawigacji (6rem), a mapa dostaje z niej wszystko, co zostanie po
+        zwartym nagłówku. Jednostka `dvh` zamiast `vh` ze względu na telefony:
+        `vh` liczy się tam względem okna z rozwiniętym paskiem adresu, więc
+        przy zwiniętym treść wystawałaby poza ekran.
 
-      <div className="obszar py-10 lg:py-14">
-        <MapaSzlakow />
+        Poniżej `lg` układ zostaje bez zmian — na wąskim ekranie mapa i tak
+        zajmuje 60% wysokości, a lista idzie pod nią.
+      */}
+      <div className="lg:flex lg:h-[calc(100dvh-6rem)] lg:flex-col">
+        <div className="obszar shrink-0 border-b border-kamien-200 bg-kamien-50 py-3">
+          <nav aria-label="Okruszki" className="mb-2">
+            <ol className="flex items-center gap-1.5 text-sm text-kamien-500">
+              <li>
+                <Link href="/" className="hover:text-las-700">
+                  Start
+                </Link>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <ChevronRight className="size-3.5 text-kamien-400" aria-hidden />
+                <span aria-current="page" className="text-kamien-700">
+                  Mapa
+                </span>
+              </li>
+            </ol>
+          </nav>
 
-        <p className="mt-8 max-w-[70ch] text-sm leading-relaxed text-kamien-500">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <h1 className="font-heading text-2xl font-semibold text-kamien-900">
+              Mapa szlaków Pienin
+            </h1>
+            <p className="text-sm text-kamien-600">
+              {trasy.length} szlaków, razem {kilometry(sumaKm)}. Kliknij ślad na mapie albo
+              wybierz trasę z listy — druga strona zaznaczy się sama.
+            </p>
+          </div>
+        </div>
+
+        <div className="obszar py-6 lg:min-h-0 lg:flex-1 lg:py-4">
+          <MapaSzlakow wysokosc="pelna" />
+        </div>
+      </div>
+
+      {/*
+        Nota o źródłach zostaje pod mapą, poza obszarem pełnoekranowym.
+        Wymaga przewinięcia i to jest w porządku: licencja OpenStreetMap
+        wymaga podania autorstwa, a nie pokazywania go bez przerwy — samo
+        źródło podkładu jest dodatkowo w przycisku „i" na mapie.
+      */}
+      <div className="obszar py-10">
+        <p className="max-w-[70ch] text-sm leading-relaxed text-kamien-500">
           Podkład mapy: OpenFreeMap na danych OpenStreetMap. Ślady pochodzą
           z zapisów GPS. Mapa nie zastępuje mapy papierowej — w terenie bez
           zasięgu korzystaj z map offline w aplikacji.
