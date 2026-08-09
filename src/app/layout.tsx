@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Anton, Fraunces, Inter } from 'next/font/google'
 
 import { Naglowek } from '@/components/uklad/naglowek'
@@ -103,6 +103,18 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   formatDetection: { telephone: false },
+}
+
+/**
+ * Barwa paska przeglądarki na telefonie.
+ *
+ * Musi mieszkać w `viewport`, a nie w `metadata` — Next.js przeniósł tam to
+ * pole i w metadanych jest po prostu ignorowane. Wartość ta sama, co
+ * `theme_color` w manifeście: gdyby się rozjechały, pasek migałby przy
+ * przejściu ze skrótu na ekranie głównym do zwykłej karty.
+ */
+export const viewport: Viewport = {
+  themeColor: '#14342a',
 }
 
 export default function UkladGlowny({ children }: LayoutProps<'/'>) {
