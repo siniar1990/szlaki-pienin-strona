@@ -900,9 +900,59 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     nazwa: 'Off-road',
     kategorie: ['aktywnie'],
     podkategoria: 'off-road',
-    lokalizacja: 'szczawnica',
-    skrot: '',
-    opis: [],
+    lokalizacja: 'pieniny',
+    wyrozniona: true,
+    skrot: 'Wyprawy 4x4, buggy i quadami z organizatorem albo trasy enduro i quadowe na własnym sprzęcie.',
+    opis: [
+      'W okolicy działa sporo firm, które organizują wyprawy w teren — ' +
+        'terenowymi samochodami 4x4, buggy albo quadami. Nie trzeba mieć ' +
+        'niczego swojego ani żadnego doświadczenia: sprzęt jest na miejscu, ' +
+        'a przewodnik prowadzi grupę trasą, którą zna. Część ofert to jazda ' +
+        'z kierowcą, część za kierownicą pod okiem instruktora, więc znajdzie ' +
+        'się coś i dla rodziny z dziećmi, i dla szukających mocniejszych wrażeń.',
+      'Dla przyjeżdżających z własnym sprzętem okolica ma drugą twarz. ' +
+        'Wokół Pienin, w Gorcach i Beskidzie Sądeckim, ciągną się dziesiątki ' +
+        'kilometrów dróg leśnych i gospodarczych, po których jeździ się enduro ' +
+        'i quadem — od łagodnych przejazdów dolinami po odcinki wymagające ' +
+        'wprawy.',
+    ],
+    przewodnik: [
+      {
+        ikona: 'sprzet',
+        tytul: 'Z organizatorem',
+        tekst:
+          'Sprzęt, kask i przewodnik po stronie firmy. Wyprawy trwają zwykle ' +
+          'od godziny do pół dnia, a trasa dobierana jest do grupy — inaczej ' +
+          'wozi się rodzinę z dziećmi, inaczej wieczór kawalerski.',
+      },
+      {
+        ikona: 'mapa',
+        tytul: 'Własnym sprzętem',
+        tekst:
+          'Sieć dróg leśnych i gospodarczych wokół Pienin, w Gorcach ' +
+          'i Beskidzie Sądeckim. Warto z góry sprawdzić przebieg trasy, bo ' +
+          'część dróg leśnych bywa okresowo zamykana na czas wywózki drewna.',
+      },
+      {
+        ikona: 'zasady',
+        tytul: 'Gdzie jeździć nie wolno',
+        tekst:
+          'W Pienińskim Parku Narodowym i w rezerwatach jazda pojazdami ' +
+          'silnikowymi poza drogami publicznymi jest zabroniona. To samo ' +
+          'dotyczy szlaków pieszych i rowerowych. Wjazd do lasu wymaga zgody ' +
+          'właściciela albo zarządcy terenu — brak zakazu na tabliczce nie ' +
+          'znaczy, że wolno.',
+      },
+      {
+        ikona: 'sezon',
+        tytul: 'Kiedy',
+        tekst:
+          'Najwięcej wyjazdów odbywa się od wiosny do jesieni, ale część firm ' +
+          'jeździ przez cały rok — zimą po śniegu, co bywa najciekawszym ' +
+          'wariantem. Po dużych opadach trasy bywają zamykane.',
+      },
+    ],
+    doPotwierdzenia: true,
   },
   {
     slug: 'paintball',
