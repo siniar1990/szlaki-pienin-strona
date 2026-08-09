@@ -17,13 +17,23 @@ const ADRES = 'https://api.anthropic.com/v1/messages'
 const WERSJA = '2023-06-01'
 
 /**
- * Model do pisania notek.
+ * Dwa modele, bo redakcja robi dwie różne rzeczy.
  *
- * Świadomie nie najszybszy z rodziny: notka powstaje raz dziennie, więc koszt
- * jest znikomy niezależnie od wyboru, a różnica widać w tym, czy tekst brzmi
- * jak napisany przez człowieka, czy jak streszczenie z automatu.
+ * **Wybór artykułu to klasyfikacja.** „Czy ten tytuł dotyczy Pienin i czy
+ * warto o tym napisać" to pytanie, na które mniejszy model odpowiada tak samo
+ * dobrze jak większy, a kosztuje kilka razy mniej. Przy czterdziestu
+ * kandydatach dziennie to najdroższa część zadania pod względem liczby
+ * tokenów wejścia — i najmniej wymagająca pod względem myślenia.
+ *
+ * **Pisanie notki to redakcja tekstu.** Tu różnica widać od razu: czy tekst
+ * brzmi jak napisany przez człowieka, czy jak streszczenie z automatu. Notka
+ * powstaje raz dziennie i ma trzysta słów, więc oszczędzanie na tym kroku
+ * dałoby grosze, a kosztowałoby jakość jedynej rzeczy, którą czyta czytelnik.
  */
-const MODEL = 'claude-sonnet-5'
+const MODEL_WYBIERAJACY = 'claude-haiku-4-5-20251001'
+const MODEL_PISZACY = 'claude-sonnet-5'
+
+export const MODELE = { wybor: MODEL_WYBIERAJACY, pisanie: MODEL_PISZACY } as const
 
 /**
  * Ile czekamy na odpowiedź modelu.
@@ -43,14 +53,35 @@ export function kluczDostepny(): boolean {
 }
 
 /**
- * Zadaje modelowi pytanie i zwraca odpowiedź rozłożoną z JSON-a.
+ * Wycina obiekt JSON z odpowiedzi modelu.
  *
- * Odpowiedź wymuszamy przez wstępne wypełnienie wypowiedzi modelu nawiasem
- * otwierającym. To najprostszy sposób, żeby dostać sam obiekt zamiast obiektu
- * poprzedzonego zdaniem „Oto odpowiedź:" — a takie zdanie wywraca rozkładanie
- * JSON-a i psuje całe zadanie.
+ * **Dlaczego to jest potrzebne.** Pierwsza wersja wymuszała czysty JSON,
+ * zaczynając wypowiedź modelu nawiasem otwierającym. Sztuczka jest znana
+ * i skuteczna, ale nie wszystkie modele ją przyjmują — ten odpowiedział
+ * kodem 400 z komunikatem, że rozmowa musi kończyć się wypowiedzią człowieka.
+ *
+ * Zamiast tego prosimy o sam JSON w poleceniu i sprzątamy po odpowiedzi:
+ * zdejmujemy ewentualne ogrodzenie ```json, a potem bierzemy fragment od
+ * pierwszej klamry otwierającej do ostatniej zamykającej. Dzięki temu zdanie
+ * „Oto odpowiedź:" przed obiektem albo komentarz po nim niczego nie psują.
+ */
+function wytnijJson(tekst: string): string {
+  const bezOgrodzenia = tekst.replace(/```(?:json)?/gi, '').trim()
+  const poczatek = bezOgrodzenia.indexOf('{')
+  const koniec = bezOgrodzenia.lastIndexOf('}')
+
+  if (poczatek === -1 || koniec <= poczatek) {
+    throw new BladModelu('W odpowiedzi modelu nie ma obiektu JSON')
+  }
+
+  return bezOgrodzenia.slice(poczatek, koniec + 1)
+}
+
+/**
+ * Zadaje modelowi pytanie i zwraca odpowiedź rozłożoną z JSON-a.
  */
 export async function zapytajOJson<T>(polecenie: {
+  model: string
   rolaSystemowa: string
   tresc: string
   najwiecejZnakow?: number
@@ -68,12 +99,16 @@ export async function zapytajOJson<T>(polecenie: {
         'anthropic-version': WERSJA,
       },
       body: JSON.stringify({
-        model: MODEL,
+        model: polecenie.model,
         max_tokens: polecenie.najwiecejZnakow ?? 2000,
         system: polecenie.rolaSystemowa,
         messages: [
-          { role: 'user', content: polecenie.tresc },
-          { role: 'assistant', content: '{' },
+          {
+            role: 'user',
+            content:
+              polecenie.tresc +
+              '\n\nOdpowiedz wyłącznie obiektem JSON, bez żadnego tekstu przed nim ani po nim.',
+          },
         ],
       }),
       signal: AbortSignal.timeout(CZAS_OCZEKIWANIA_MS),
@@ -99,9 +134,9 @@ export async function zapytajOJson<T>(polecenie: {
     .join('')
 
   try {
-    // Doklejamy nawias, którym zaczęliśmy wypowiedź modelu.
-    return JSON.parse(`{${tekst}`) as T
-  } catch {
+    return JSON.parse(wytnijJson(tekst)) as T
+  } catch (blad) {
+    if (blad instanceof BladModelu) throw blad
     throw new BladModelu('Odpowiedź modelu nie jest poprawnym JSON-em')
   }
 }

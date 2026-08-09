@@ -161,9 +161,32 @@ export async function odrzucWiadomosc(id: string): Promise<void> {
   odswiez()
 }
 
+/**
+ * Usunięcie notki zwraca jej artykuł źródłowy do puli.
+ *
+ * Bez tego kroku artykuł zostawał na zawsze oznaczony jako wykorzystany,
+ * choć nic z niego nie powstało — przepadał z wykazu znalezisk i nie mógł
+ * już zostać wybrany ani ręcznie, ani przez redakcję. Skasowanie szkicu,
+ * który wyszedł źle, powinno cofać sytuację do stanu sprzed jego napisania,
+ * a nie kasować temat razem z nieudaną próbą.
+ */
 export async function usunWiadomosc(id: string): Promise<void> {
+  const notka = await baza.wiadomosc.findUnique({
+    where: { id },
+    select: { znaleziskoId: true },
+  })
+
   await baza.wiadomosc.delete({ where: { id } })
+
+  if (notka?.znaleziskoId) {
+    await baza.znalezionyArtykul.update({
+      where: { id: notka.znaleziskoId },
+      data: { stan: 'NOWY', ocena: null, uzasadnienie: null },
+    })
+  }
+
   odswiez()
+  revalidatePath('/panel/aktualnosci/znaleziska')
   redirect('/panel/aktualnosci')
 }
 

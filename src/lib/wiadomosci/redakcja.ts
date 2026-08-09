@@ -1,7 +1,7 @@
 import { baza } from '@/lib/baza'
 
 import { wydobadzTresc } from './kanal'
-import { BladModelu, kluczDostepny, zapytajOJson } from './model-jezykowy'
+import { BladModelu, kluczDostepny, MODELE, zapytajOJson } from './model-jezykowy'
 import { pobierzTekst } from './siec'
 import { wolnySlug } from './slug'
 import { sprawdzZapozyczenia, udzialWspolnychTrojek } from './zapozyczenia'
@@ -179,6 +179,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
   let wybor: OdpowiedzWyboru
   try {
     wybor = await zapytajOJson<OdpowiedzWyboru>({
+      model: MODELE.wybor,
       rolaSystemowa: ROLA_WYBIERAJACEGO,
       najwiecejZnakow: 2000,
       tresc:
@@ -275,6 +276,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     let kandydat: OdpowiedzNotki
     try {
       kandydat = await zapytajOJson<OdpowiedzNotki>({
+        model: MODELE.pisanie,
         rolaSystemowa: ROLA_PISZACEGO,
         najwiecejZnakow: 2000,
         tresc: polecenieNotki(

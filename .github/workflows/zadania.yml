@@ -38,10 +38,18 @@ jobs:
             "${{ secrets.ADRES_PORTALU }}/api/cron/obchod")
           cat /tmp/odpowiedz.json
           echo
-          # Kod inny niż 200 ma zapalić czerwone światło w zakładce Actions —
-          # cicha awaria obchodu oznaczałaby dział aktualności, który po prostu
-          # przestaje dostawać nowe tematy i nikt tego nie zauważa.
+
+          # Kod inny niż 200 to awaria wywołania — zły sekret albo zły adres.
           test "$kod" = "200"
+
+          # Ale kod 200 nie znaczy jeszcze, że obchód cokolwiek zrobił.
+          # Zero odwiedzonych źródeł to awaria, o której trzeba wiedzieć,
+          # a nie cisza, którą łatwo przeoczyć.
+          odwiedzone=$(jq -r '.odwiedzone // 0' /tmp/odpowiedz.json)
+          nowe=$(jq -r '.nowe // 0' /tmp/odpowiedz.json)
+          bledy=$(jq -r '.bledy | length' /tmp/odpowiedz.json)
+          echo "::notice::Odwiedzono $odwiedzone źródeł · nowych artykułów: $nowe · źródeł z błędem: $bledy"
+          test "$odwiedzone" -gt 0
 
   redakcja:
     # `needs` razem z `always()`: przy uruchomieniu ręcznym redakcja czeka na
@@ -63,4 +71,29 @@ jobs:
             "${{ secrets.ADRES_PORTALU }}/api/cron/redakcja")
           cat /tmp/odpowiedz.json
           echo
+
           test "$kod" = "200"
+
+          # Najważniejsza część tego pliku. Redakcja odpowiada kodem 200 także
+          # wtedy, gdy świadomie nic nie napisała — i wtedy, gdy się wywróciła.
+          # Bez rozróżnienia stanów zielona zakładka Actions znaczyłaby
+          # „poszło" również przy braku klucza albo błędzie modelu, czyli
+          # dokładnie wtedy, gdy trzeba zareagować.
+          stan=$(jq -r '.stan // "brak-odpowiedzi"' /tmp/odpowiedz.json)
+          szczegoly=$(jq -r '.szczegoly // ""' /tmp/odpowiedz.json)
+
+          case "$stan" in
+            utworzono)
+              ocena=$(jq -r '.ocena // "?"' /tmp/odpowiedz.json)
+              echo "::notice::Szkic notki czeka w panelu · ocena wyboru $ocena/100"
+              ;;
+            nic-nie-warte|brak-kandydatow|za-wczesnie)
+              # To są zamierzone wyniki, nie awarie. Dzień bez wiadomości
+              # jest w tym projekcie decyzją, a nie usterką.
+              echo "::notice::Redakcja nic nie napisała ($stan). $szczegoly"
+              ;;
+            *)
+              echo "::error::Redakcja zgłosiła problem ($stan). $szczegoly"
+              exit 1
+              ;;
+          esac
