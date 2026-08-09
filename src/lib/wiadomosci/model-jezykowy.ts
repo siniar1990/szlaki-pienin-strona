@@ -36,12 +36,12 @@ const MODEL_PISZACY = 'claude-sonnet-5'
 export const MODELE = { wybor: MODEL_WYBIERAJACY, pisanie: MODEL_PISZACY } as const
 
 /**
- * Ile czekamy na odpowiedź modelu.
+ * Domyślny czas oczekiwania na odpowiedź.
  *
- * Dobrane pod limit czasu funkcji bezserwerowej, nie pod cierpliwość modelu.
- * Cała redakcja — wybór, pobranie artykułu i napisanie notki — musi zmieścić
- * się w jednym wywołaniu funkcji, więc pojedyncza rozmowa nie może zająć
- * więcej niż jej połowy.
+ * Wołający zwykle podaje własny, bo cała redakcja — wybór, pobranie artykułu
+ * i napisanie notki — musi zmieścić się w jednym wywołaniu funkcji
+ * bezserwerowej. Kto ma limit do podziału, ten musi go dzielić świadomie,
+ * a nie liczyć na to, że każdy krok zdąży.
  */
 const CZAS_OCZEKIWANIA_MS = 25_000
 
@@ -85,7 +85,10 @@ export async function zapytajOJson<T>(polecenie: {
   rolaSystemowa: string
   tresc: string
   najwiecejZnakow?: number
+  /** Ile czekamy na tę konkretną odpowiedź. */
+  czasMs?: number
 }): Promise<T> {
+  const czasOczekiwania = polecenie.czasMs ?? CZAS_OCZEKIWANIA_MS
   const klucz = process.env.KLUCZ_ANTHROPIC
   if (!klucz) throw new BrakKlucza('Brak zmiennej KLUCZ_ANTHROPIC')
 
@@ -111,13 +114,13 @@ export async function zapytajOJson<T>(polecenie: {
           },
         ],
       }),
-      signal: AbortSignal.timeout(CZAS_OCZEKIWANIA_MS),
+      signal: AbortSignal.timeout(czasOczekiwania),
       cache: 'no-store',
     })
   } catch (blad) {
     throw new BladModelu(
       blad instanceof Error && blad.name === 'TimeoutError'
-        ? `Model nie odpowiedział w ${CZAS_OCZEKIWANIA_MS / 1000} s`
+        ? `Model nie odpowiedział w ${Math.round(czasOczekiwania / 1000)} s`
         : 'Nie udało się połączyć z modelem',
     )
   }

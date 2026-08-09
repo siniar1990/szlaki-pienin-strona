@@ -28,8 +28,19 @@ import { sprawdzZapozyczenia, udzialWspolnychTrojek } from './zapozyczenia'
  * kliknięcia człowieka.
  */
 
-/** Ile znalezisk pokazujemy modelowi przy wyborze. */
-const NAJWIECEJ_KANDYDATOW = 40
+/**
+ * Ile znalezisk pokazujemy modelowi przy wyborze.
+ *
+ * Było czterdzieści i to okazało się za dużo — nie objętościowo, tylko
+ * czasowo: im dłuższa lista, tym dłużej trwa odpowiedź, a cała redakcja ma
+ * jedno wywołanie funkcji na wszystko. Dwadzieścia pięć spokojnie pokrywa
+ * dobowy przyrost ze wszystkich źródeł, a lista jest posortowana od
+ * najnowszych, więc obcinamy najstarsze, nie najlepsze.
+ */
+const NAJWIECEJ_KANDYDATOW = 25
+
+/** Do tylu skracamy listę, gdy pierwsza próba nie zdążyła z odpowiedzią. */
+const KANDYDACI_PRZY_PONOWIENIU = 12
 
 /** Ile znaków cudzego artykułu wystarczy, żeby napisać o nim notkę. */
 const NAJWIECEJ_ZNAKOW_ZRODLA = 12_000
@@ -48,14 +59,25 @@ const PROG_OCENY = 60
 const ODSTEP_GODZIN = 20
 
 /**
- * Po tylu milisekundach od startu rezygnujemy z drugiego podejścia do notki.
+ * Ile czasu ma cała redakcja.
  *
- * Redakcja mieści się w jednym wywołaniu funkcji bezserwerowej, a to ma limit
- * czasu zależny od planu hostingu. Poprawianie notki, która powieliła źródło,
- * jest cenne, ale nie na tyle, żeby ryzykować ucięcie funkcji w połowie
- * zapisu. Gdy zabraknie czasu, artykuł idzie na bok i jutro wybierze się inny.
+ * Trasa deklaruje sześćdziesiąt sekund, więc pięćdziesiąt pięć zostawia zapas
+ * na zapis do bazy i odesłanie odpowiedzi. Wszystko poniżej musi się w tym
+ * zmieścić: wybór, pobranie cudzego artykułu i napisanie notki.
+ *
+ * **Dlaczego budżet dzielony, a nie stały limit na każdą rozmowę.** Pierwsza
+ * wersja dawała obu rozmowom po dwadzieścia pięć sekund niezależnie. Wybór
+ * przekroczył swój limit i całość padła — mimo że na napisanie notki czasu
+ * było w bród. Teraz każdy krok dostaje tyle, ile naprawdę zostało, więc
+ * wolniejszy wybór zabiera czas pisaniu, zamiast wywracać zadanie.
  */
-const BUDZET_NA_POPRAWKE_MS = 30_000
+const BUDZET_CALOSCI_MS = 55_000
+
+/** Ile czasu daje się wyborowi. Ma być szybki — prosimy o kilkanaście słów. */
+const BUDZET_WYBORU_MS = 20_000
+
+/** Poniżej tylu milisekund nie ma sensu zaczynać kolejnej rozmowy. */
+const MINIMUM_NA_ROZMOWE_MS = 12_000
 
 const ROLA_WYBIERAJACEGO = `Jesteś redaktorem portalu turystycznego szlakipienin.pl.
 Portal opisuje Pieniny, Szczawnicę, Krościenko nad Dunajcem, Czorsztyn, Jaworki
@@ -192,15 +214,18 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     ma jak przekręcić dwudziestopięcioznakowego identyfikatora, a lista
     odrzuconych to teraz `[1,4,7]` zamiast trzydziestu obiektów.
   */
-  let wybor: OdpowiedzWyboru
-  try {
-    wybor = await zapytajOJson<OdpowiedzWyboru>({
+  const zapytajOWybor = (lista: typeof kandydaci, czasMs: number) =>
+    zapytajOJson<OdpowiedzWyboru>({
       model: MODELE.wybor,
       rolaSystemowa: ROLA_WYBIERAJACEGO,
-      najwiecejZnakow: 1500,
+      // Krótka odpowiedź to szybka odpowiedź. Poprzednia wersja prosiła
+      // o wyjaśnienia przy każdym odrzuconym artykule i generowanie tego
+      // trwało dłużej niż limit czasu całej rozmowy.
+      najwiecejZnakow: 400,
+      czasMs,
       tresc:
         'Artykuły do oceny:\n\n' +
-        kandydaci
+        lista
           .map(
             (artykul, numer) =>
               `${numer + 1}. [${artykul.zrodlo.nazwa}] ${artykul.tytul}` +
@@ -211,21 +236,56 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
         '"wybrany" — numer wybranego artykułu albo null,\n' +
         '"ocena" — liczba 0-100,\n' +
         '"uzasadnienie" — jedno krótkie zdanie,\n' +
-        '"odrzucone" — tablica samych numerów artykułów spoza tematyki portalu, ' +
-        'np. [1,4,7]. Bez powodów, bez obiektów.',
+        '"odrzucone" — tablica samych numerów artykułów rażąco spoza tematyki ' +
+        'portalu, najwyżej dziesięć, np. [1,4,7].\n\n' +
+        'Nie opisuj swojego rozumowania. Sam obiekt JSON, nic więcej.',
     })
-  } catch (blad) {
-    return zakoncz({
-      stan: 'blad',
-      szczegoly: blad instanceof BladModelu ? blad.message : 'Nie udało się wybrać artykułu',
-    })
+
+  /*
+    Jedno ponowienie na krótszej liście.
+
+    Wolna odpowiedź przy wyborze potrafiła zabrać cały dzień: zadanie kończyło
+    się błędem, a notka nie powstawała wcale. Skrócenie listy o połowę zwykle
+    wystarcza, żeby model zdążył, a że jest posortowana od najnowszych,
+    obcinamy najstarsze pozycje — czyli te, które i tak miały najmniejsze
+    szanse. Ponawiamy tylko wtedy, gdy zostało dość czasu, żeby po udanym
+    wyborze napisać jeszcze notkę.
+  */
+  let uzytaLista = kandydaci
+  let wybor: OdpowiedzWyboru
+  try {
+    wybor = await zapytajOWybor(uzytaLista, BUDZET_WYBORU_MS)
+  } catch (pierwszyBlad) {
+    const zostalo = BUDZET_CALOSCI_MS - (Date.now() - start)
+    if (zostalo < MINIMUM_NA_ROZMOWE_MS * 2) {
+      return zakoncz({
+        stan: 'blad',
+        szczegoly:
+          pierwszyBlad instanceof BladModelu ? pierwszyBlad.message : 'Nie udało się wybrać artykułu',
+      })
+    }
+
+    uzytaLista = kandydaci.slice(0, KANDYDACI_PRZY_PONOWIENIU)
+    try {
+      wybor = await zapytajOWybor(uzytaLista, MINIMUM_NA_ROZMOWE_MS)
+    } catch (drugiBlad) {
+      return zakoncz({
+        stan: 'blad',
+        szczegoly:
+          drugiBlad instanceof BladModelu
+            ? `${drugiBlad.message} (także przy skróconej liście)`
+            : 'Nie udało się wybrać artykułu',
+      })
+    }
   }
 
   /** Numer z odpowiedzi na artykuł z listy. Poza zakresem znaczy `null`. */
   const poNumerze = (numer: unknown) => {
     const indeks = Number(numer) - 1
-    return Number.isInteger(indeks) && indeks >= 0 && indeks < kandydaci.length
-      ? kandydaci[indeks]
+    // Numeracja dotyczy listy faktycznie wysłanej — przy ponowieniu jest ona
+    // krótsza od pełnej puli i sięganie do `kandydaci` dałoby inny artykuł.
+    return Number.isInteger(indeks) && indeks >= 0 && indeks < uzytaLista.length
+      ? uzytaLista[indeks]
       : null
   }
 
@@ -297,7 +357,21 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
   let kontrola = { czyste: false, zbieznosci: [] as string[] }
 
   for (const podejscie of [0, 1]) {
-    if (podejscie === 1 && Date.now() - start > BUDZET_NA_POPRAWKE_MS) break
+    const zostalo = BUDZET_CALOSCI_MS - (Date.now() - start)
+    if (zostalo < MINIMUM_NA_ROZMOWE_MS) {
+      /*
+        Zabrakło czasu. Artykuł zostaje w puli jako nowy — jutro wybierze się
+        na nowo, tym razem od pełnego budżetu. Odkładanie go tutaj karałoby
+        temat za to, że akurat model odpowiadał wolno.
+      */
+      return zakoncz({
+        stan: 'blad',
+        szczegoly:
+          podejscie === 0
+            ? 'Wybór zajął tyle czasu, że nie zostało go na napisanie notki'
+            : 'Zabrakło czasu na poprawienie notki — artykuł wraca do puli',
+      })
+    }
 
     let kandydat: OdpowiedzNotki
     try {
@@ -305,6 +379,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
         model: MODELE.pisanie,
         rolaSystemowa: ROLA_PISZACEGO,
         najwiecejZnakow: 2000,
+        czasMs: zostalo,
         tresc: polecenieNotki(
           podejscie === 0
             ? ''
