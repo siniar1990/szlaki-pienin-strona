@@ -294,6 +294,15 @@ model Wiadomosc {
   stan         StanWiadomosci @default(SZKIC)
   opublikowano DateTime?
 
+  /// Data ostatniej ISTOTNEJ zmiany treści — nie każdego zapisu.
+  ///
+  /// `zmieniono` obok zmienia się przy poprawie literówki, więc nie nadaje się
+  /// na `lastmod` w mapie witryny ani na `dateModified` w danych
+  /// strukturalnych. Podawanie tam szumu uczy wyszukiwarkę, że nasze sygnały
+  /// zmiany nic nie znaczą. To pole ustawia administrator świadomie, gdy
+  /// poprawka zmienia sens notki, a nie jej interpunkcję.
+  zaktualizowano DateTime?
+
   utworzono DateTime @default(now())
   zmieniono DateTime @updatedAt
 

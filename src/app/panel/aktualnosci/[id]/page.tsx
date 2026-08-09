@@ -5,6 +5,8 @@ import {
   AlertTriangle,
   ArrowLeft,
   Bot,
+  Check,
+  Minus,
   ExternalLink,
   Eye,
   EyeOff,
@@ -15,6 +17,7 @@ import {
 import { FormularzWiadomosci } from '@/components/panel/formularz-wiadomosci'
 import { odslonyPozycji } from '@/lib/analityka/statystyki'
 import { baza } from '@/lib/baza'
+import { wOknieNews } from '@/lib/seo/xml'
 import { ETYKIETY_STANU, ileTemu } from '@/lib/wiadomosci/etykiety'
 
 import {
@@ -208,10 +211,41 @@ export default async function StronaEdycjiWiadomosci({
         </div>
       )}
 
+      {/* ── Stan SEO ────────────────────────────────────────────────────── */}
+      {notka.stan === 'OPUBLIKOWANA' && (
+        <section className="mt-6 rounded-2xl border border-kamien-200 bg-white p-5">
+          <h2 className="font-heading text-base font-semibold text-kamien-900">Stan SEO</h2>
+          <p className="mt-1 text-sm text-kamien-500">
+            Czy notka jest przygotowana do znalezienia przez wyszukiwarki. To nie znaczy,
+            że Google ją już zaindeksował — tego portal nie wie i wiedzieć nie może.
+          </p>
+
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            <PunktSeo spelniony label="Publiczny adres" />
+            <PunktSeo spelniony label="Adres kanoniczny" />
+            <PunktSeo spelniony label="W mapie witryny" />
+            <PunktSeo
+              spelniony={wOknieNews(notka.opublikowano ?? new Date())}
+              label="W mapie Google News"
+              uwaga="tylko przez dwa dni od publikacji"
+            />
+            <PunktSeo spelniony label="W kanale RSS" />
+            <PunktSeo spelniony label="Dane strukturalne NewsArticle" />
+            <PunktSeo spelniony label="Autor i data publikacji" />
+            <PunktSeo
+              spelniony={Boolean(notka.zdjecie)}
+              label="Zdjęcie do Open Graph"
+              uwaga={notka.zdjecie ? undefined : 'bez zdjęcia notka wygląda ubogo po udostępnieniu'}
+            />
+          </ul>
+        </section>
+      )}
+
       <div className="mt-8 max-w-3xl">
         <FormularzWiadomosci
           akcja={zapisz}
           wartosci={{
+            opublikowana: notka.stan === 'OPUBLIKOWANA',
             tytul: notka.tytul,
             lid: notka.lid,
             tresc: notka.tresc,
@@ -223,5 +257,43 @@ export default async function StronaEdycjiWiadomosci({
         />
       </div>
     </>
+  )
+}
+
+/**
+ * Jeden punkt listy stanu SEO.
+ *
+ * Świadomie nie pisze „zaindeksowane w Google" — portal nie ma połączenia
+ * z Search Console i nie ma jak tego stwierdzić. Mówi wyłącznie o tym, co
+ * sam robi: że notka jest publiczna, opisana i wystawiona w kanałach.
+ */
+function PunktSeo({
+  spelniony,
+  label,
+  uwaga,
+}: {
+  spelniony: boolean
+  label: string
+  uwaga?: string
+}) {
+  return (
+    <li className="flex items-start gap-2 text-sm">
+      <span
+        className={
+          'mt-0.5 grid size-4 shrink-0 place-items-center rounded-full ' +
+          (spelniony ? 'bg-las-100 text-las-800' : 'bg-kamien-200 text-kamien-500')
+        }
+      >
+        {spelniony ? (
+          <Check className="size-3" aria-hidden />
+        ) : (
+          <Minus className="size-3" aria-hidden />
+        )}
+      </span>
+      <span className={spelniony ? 'text-kamien-700' : 'text-kamien-500'}>
+        {label}
+        {uwaga && <span className="block text-xs text-kamien-400">{uwaga}</span>}
+      </span>
+    </li>
   )
 }

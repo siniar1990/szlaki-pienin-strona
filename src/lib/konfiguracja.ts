@@ -13,6 +13,16 @@ export const PORTAL = {
     'przewodnik po Pieninach na telefon i w przeglądarce.',
   jezyk: 'pl-PL',
   kontakt: 'siniar1990@gmail.com',
+  /**
+   * Kto firmuje notki w dziale aktualności.
+   *
+   * Organizacja, nie osoba — i to jest decyzja świadoma. Notki powstają
+   * z przeglądu lokalnej prasy, szkic pisze model, a zatwierdza je właściciel
+   * portalu. Podpisanie tego imieniem i nazwiskiem sugerowałoby reporterską
+   * pracę w terenie, której nie było. Schema.org dopuszcza organizację jako
+   * autora i to jest tu jedyny uczciwy zapis.
+   */
+  redakcja: 'Redakcja Szlaki Pienin',
   /** Nazwa aplikacji w sklepach; używana też w danych strukturalnych. */
   aplikacja: {
     nazwa: 'Szlaki Pienin',

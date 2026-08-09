@@ -13,7 +13,9 @@
     "baza:migracja": "prisma migrate dev",
     "baza:wgraj": "prisma db seed",
     "baza:podglad": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "test": "vitest run",
+    "test:obserwuj": "vitest"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -52,7 +54,8 @@
     "pngjs": "7.0.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

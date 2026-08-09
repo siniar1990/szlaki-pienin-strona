@@ -9,7 +9,8 @@ import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { PORTAL } from '@/lib/konfiguracja'
 import {
   akapity,
-  dataPolska,
+  dataZGodzina,
+  ostatniaZmiana,
   pobierzWiadomosc,
   pobierzWiadomosci,
 } from '@/lib/wiadomosci/zapytania'
@@ -40,15 +41,36 @@ export async function generateMetadata({
   const wiadomosc = await pobierzWiadomosc(slug)
   if (!wiadomosc) return { title: 'Nie znaleziono wiadomości' }
 
+  const obrazek = wiadomosc.zdjecie ? `${PORTAL.adres}/aktualnosci/${slug}/zdjecie` : undefined
+  const zmieniono = ostatniaZmiana(wiadomosc)
+
   return {
     title: wiadomosc.tytul,
     description: wiadomosc.lid,
+    /*
+      Adres kanoniczny bez parametrów. Odnośnik z `?utm_source=facebook`
+      prowadzi do tej samej strony, a bez tego wpisu wyszukiwarka mogłaby
+      uznać go za osobny artykuł i podzielić między dwa adresy to, co
+      powinno liczyć się jednemu.
+    */
     alternates: { canonical: `/aktualnosci/${slug}` },
     openGraph: {
       type: 'article',
       title: wiadomosc.tytul,
       description: wiadomosc.lid,
+      url: `${PORTAL.adres}/aktualnosci/${slug}`,
+      siteName: PORTAL.nazwa,
+      locale: PORTAL.jezyk,
       publishedTime: wiadomosc.opublikowano.toISOString(),
+      modifiedTime: zmieniono.toISOString(),
+      authors: [PORTAL.redakcja],
+      images: obrazek ? [{ url: obrazek, alt: wiadomosc.zdjecieOpis ?? wiadomosc.tytul }] : undefined,
+    },
+    twitter: {
+      card: obrazek ? 'summary_large_image' : 'summary',
+      title: wiadomosc.tytul,
+      description: wiadomosc.lid,
+      images: obrazek ? [obrazek] : undefined,
     },
   }
 }
@@ -65,14 +87,34 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
     data publikacji obok tytułu robi różnicę w dziale, którego cała wartość
     polega na tym, że jest świeży.
   */
+  const zmieniono = ostatniaZmiana(wiadomosc)
+  const obrazek = wiadomosc.zdjecie ? `${PORTAL.adres}/aktualnosci/${slug}/zdjecie` : null
+
+  /*
+    Opis strukturalny artykułu.
+
+    Każde pole musi odpowiadać temu, co widać na stronie — `dateModified`
+    tylko wtedy, gdy notka faktycznie była poprawiana, autor ten sam, którego
+    czyta człowiek pod tytułem. Dane strukturalne mówiące co innego niż treść
+    są gorsze niż ich brak: Google traktuje rozjazd jako sygnał, że witrynie
+    nie można ufać.
+  */
   const daneStrukturalne = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: wiadomosc.tytul,
     description: wiadomosc.lid,
     datePublished: wiadomosc.opublikowano.toISOString(),
-    mainEntityOfPage: `${PORTAL.adres}/aktualnosci/${slug}`,
-    publisher: { '@type': 'Organization', name: PORTAL.nazwa },
+    dateModified: zmieniono.toISOString(),
+    author: { '@type': 'Organization', name: PORTAL.redakcja, url: PORTAL.adres },
+    publisher: { '@type': 'Organization', name: PORTAL.nazwa, url: PORTAL.adres },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${PORTAL.adres}/aktualnosci/${slug}`,
+    },
+    inLanguage: PORTAL.jezyk,
+    ...(obrazek ? { image: [obrazek] } : {}),
+    ...(wiadomosc.zrodloAdres ? { isBasedOn: wiadomosc.zrodloAdres } : {}),
   }
 
   return (
@@ -92,12 +134,24 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
         tytul={wiadomosc.tytul}
         lead={wiadomosc.lid}
         dodatek={
-          <time
-            dateTime={wiadomosc.opublikowano.toISOString()}
-            className="text-sm font-medium text-kamien-500"
-          >
-            {dataPolska(wiadomosc.opublikowano)}
-          </time>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-kamien-500">
+            <span className="font-medium text-kamien-700">{PORTAL.redakcja}</span>
+            <span aria-hidden>·</span>
+            <time dateTime={wiadomosc.opublikowano.toISOString()} className="font-medium">
+              {dataZGodzina(wiadomosc.opublikowano)}
+            </time>
+
+            {/* Data poprawki tylko wtedy, gdy notka naprawdę była zmieniana —
+                w przeciwnym razie sugerowałaby świeżość, której nie ma. */}
+            {wiadomosc.zaktualizowano && (
+              <>
+                <span aria-hidden>·</span>
+                <time dateTime={wiadomosc.zaktualizowano.toISOString()}>
+                  Zaktualizowano: {dataZGodzina(wiadomosc.zaktualizowano)}
+                </time>
+              </>
+            )}
+          </div>
         }
       />
 

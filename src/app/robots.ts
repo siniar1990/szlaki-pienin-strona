@@ -17,6 +17,14 @@ import { PORTAL } from '@/lib/konfiguracja'
  *
  * Wskazanie mapy witryny jest tu ważniejsze niż same zakazy: to po niej
  * Google znajduje 130 podstron, do których nie prowadzi żadne menu.
+ *
+ * Podajemy mapę indeksową, a nie trzy osobne — indeks prowadzi do wszystkich,
+ * a wymienianie ich tutaj po jednej znaczyłoby, że dodanie czwartej wymaga
+ * pamiętania o dwóch miejscach.
+ *
+ * Świadomie NIE blokujemy `Googlebot-News` ani żadnego innego robota
+ * wyszukiwarki: dział aktualności ma być przez nie znajdowany, a osobna
+ * reguła dla nich mogłaby to tylko popsuć.
  */
 export default function robots(): MetadataRoute.Robots {
   return {

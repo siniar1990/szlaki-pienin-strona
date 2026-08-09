@@ -26,6 +26,8 @@ const DLUZSZY_BOK = 1600
 const JAKOSC = 0.82
 
 export type WartosciWiadomosci = {
+  /** Czy notka jest już na portalu — decyduje o pokazaniu znacznika zmiany. */
+  opublikowana?: boolean
   tytul: string
   lid: string
   tresc: string
@@ -211,6 +213,30 @@ export function FormularzWiadomosci({
           </div>
         </div>
       </fieldset>
+
+      {/*
+        Znacznik istotnej zmiany ma sens dopiero przy notce, która jest już na
+        portalu. Przy szkicu każda zmiana jest oczywista i nie ma komu jej
+        ogłaszać, więc pole tylko zaśmiecałoby formularz.
+      */}
+      {wartosci.opublikowana && (
+        <label className="flex items-start gap-3 rounded-2xl border border-kamien-200 bg-kamien-50 p-4">
+          <input
+            type="checkbox"
+            name="istotnaZmiana"
+            value="tak"
+            className="mt-0.5 size-4 shrink-0 accent-las-700"
+          />
+          <span className="text-sm leading-relaxed text-kamien-700">
+            <span className="font-medium">To istotna zmiana treści</span>
+            <span className="mt-0.5 block text-kamien-500">
+              Zaznacz, gdy poprawka zmienia sens notki — na stronie pojawi się „Zaktualizowano",
+              a nowa data trafi do mapy witryny i danych strukturalnych. Przy poprawie
+              literówki zostaw puste.
+            </span>
+          </span>
+        </label>
+      )}
 
       {stan.blad && (
         <p role="alert" className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-red-800">

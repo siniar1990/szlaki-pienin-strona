@@ -44,6 +44,8 @@ export type WiadomoscNaLiscie = {
   zdjecie: string | null
   zdjecieOpis: string | null
   opublikowano: Date
+  /** Data istotnej zmiany treści, jeśli notka była poprawiana po publikacji. */
+  zaktualizowano: Date | null
 }
 
 export type WiadomoscPelna = WiadomoscNaLiscie & {
@@ -67,6 +69,7 @@ export const pobierzWiadomosci = unstable_cache(
           zdjecie: true,
           zdjecieOpis: true,
           opublikowano: true,
+          zaktualizowano: true,
         },
       })
 
@@ -91,6 +94,7 @@ export const pobierzWiadomosc = unstable_cache(
           zdjecie: true,
           zdjecieOpis: true,
           opublikowano: true,
+          zaktualizowano: true,
           zrodloNazwa: true,
           zrodloAdres: true,
         },
@@ -104,12 +108,12 @@ export const pobierzWiadomosc = unstable_cache(
 
 /** Same adresy — do mapy strony. */
 export const pobierzSlugiWiadomosci = unstable_cache(
-  async (): Promise<{ slug: string; opublikowano: Date }[]> =>
+  async (): Promise<{ slug: string; opublikowano: Date; zaktualizowano: Date | null }[]> =>
     bezpiecznie(async () => {
       const wiersze = await baza.wiadomosc.findMany({
         where: { stan: 'OPUBLIKOWANA', opublikowano: { not: null } },
         orderBy: { opublikowano: 'desc' },
-        select: { slug: true, opublikowano: true },
+        select: { slug: true, opublikowano: true, zaktualizowano: true },
       })
       return wiersze.map((wiersz) => ({ ...wiersz, opublikowano: wiersz.opublikowano as Date }))
     }, []),
@@ -125,7 +129,7 @@ export function akapity(tresc: string): string[] {
     .filter(Boolean)
 }
 
-/** Data po polsku, w formie używanej w nagłówkach notek. */
+/** Data po polsku, w formie używanej na kartach. */
 export function dataPolska(data: Date): string {
   return new Intl.DateTimeFormat('pl-PL', {
     day: 'numeric',
@@ -133,4 +137,38 @@ export function dataPolska(data: Date): string {
     year: 'numeric',
     timeZone: 'Europe/Warsaw',
   }).format(data)
+}
+
+/**
+ * Data z godziną — na stronie pojedynczej notki.
+ *
+ * Dział informacyjny bez godziny publikacji jest o połowę mniej wiarygodny:
+ * przy komunikacie o zamknięciu szlaku różnica między „rano" a „wieczorem"
+ * decyduje o tym, czy informacja jest jeszcze aktualna. Czas liczony w strefie
+ * warszawskiej, bo o niej myśli czytelnik.
+ */
+export function dataZGodzina(data: Date): string {
+  return new Intl.DateTimeFormat('pl-PL', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Warsaw',
+  }).format(data)
+}
+
+/**
+ * Data ostatniej istotnej zmiany — do `lastmod` i `dateModified`.
+ *
+ * Świadomie NIE bierzemy pola `zmieniono`, które baza uaktualnia przy każdym
+ * zapisie. Poprawka literówki nie jest zmianą, o której warto powiadamiać
+ * wyszukiwarkę; wysyłanie takiego sygnału przy każdym drobiazgu uczy ją, że
+ * nasze sygnały zmiany nic nie znaczą.
+ */
+export function ostatniaZmiana(wiadomosc: {
+  opublikowano: Date
+  zaktualizowano: Date | null
+}): Date {
+  return wiadomosc.zaktualizowano ?? wiadomosc.opublikowano
 }

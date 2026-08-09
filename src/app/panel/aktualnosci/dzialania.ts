@@ -53,6 +53,13 @@ const SchematWiadomosci = z.object({
     )
     .optional()
     .or(z.literal('')),
+  /*
+    Świadoma deklaracja „to jest istotna zmiana". Ustawia datę, która trafia
+    do `lastmod` w mapie witryny i do `dateModified` w danych strukturalnych.
+    Bez pola byłaby tam data każdego zapisu, łącznie z poprawą przecinka —
+    a sygnał zmiany wysyłany przy każdym drobiazgu przestaje cokolwiek znaczyć.
+  */
+  istotnaZmiana: z.coerce.boolean().optional(),
   zdjecie: z
     .string()
     .max(NAJWIEKSZE_ZDJECIE, 'Zdjęcie jest za duże')
@@ -71,6 +78,7 @@ function zFormularza(dane: FormData) {
     zdjecieOpis: dane.get('zdjecieOpis'),
     zrodloNazwa: dane.get('zrodloNazwa'),
     zrodloAdres: dane.get('zrodloAdres'),
+    istotnaZmiana: dane.get('istotnaZmiana') === 'tak',
     zdjecie: dane.get('zdjecie') ?? undefined,
   })
 }
@@ -99,6 +107,29 @@ function odswiez() {
   revalidatePath('/panel/aktualnosci')
 }
 
+/**
+ * Unieważnienie wszystkiego, co widzi świat zewnętrzny.
+ *
+ * Wywoływane przy publikacji i przy jej cofnięciu. Wymienione tu adresy to
+ * pełna lista miejsc, w których notka się pokazuje: strona główna, wykaz,
+ * sama notka, trzy mapy witryny i kanał RSS. Bez tego administrator musiałby
+ * po publikacji ręcznie odświeżać mapę witryny — czyli dokładnie to, czego
+ * ten system ma nie wymagać.
+ *
+ * Znacznik `ZNACZNIK_WIADOMOSCI` załatwia odczyty z bazy, ale trasy XML mają
+ * własne wpisy w pamięci podręcznej brzegowej i trzeba je wskazać po adresie.
+ */
+function odswiezKanaly() {
+  revalidateTag(ZNACZNIK_WIADOMOSCI, 'max')
+  revalidatePath('/')
+  revalidatePath('/aktualnosci')
+  revalidatePath('/aktualnosci/[slug]', 'page')
+  revalidatePath('/sitemap.xml')
+  revalidatePath('/sitemap-posts.xml')
+  revalidatePath('/news-sitemap.xml')
+  revalidatePath('/rss.xml')
+}
+
 export async function zapiszWiadomosc(
   id: string,
   _stan: WynikAkcji,
@@ -107,7 +138,8 @@ export async function zapiszWiadomosc(
   const wynik = zFormularza(dane)
   if (!wynik.success) return { blad: wynik.error.issues[0].message }
 
-  const { tytul, lid, tresc, zdjecieOpis, zrodloNazwa, zrodloAdres, zdjecie } = wynik.data
+  const { tytul, lid, tresc, zdjecieOpis, zrodloNazwa, zrodloAdres, zdjecie, istotnaZmiana } =
+    wynik.data
 
   await baza.wiadomosc.update({
     where: { id },
@@ -127,6 +159,7 @@ export async function zapiszWiadomosc(
         następne prawdziwe ostrzeżenie też zostanie przewinięte.
       */
       zapozyczenia: null,
+      ...(istotnaZmiana ? { zaktualizowano: new Date() } : {}),
       // Adres notki idzie za tytułem tylko dopóki nic nie jest opublikowane.
       // Po publikacji zmiana adresu zepsułaby odnośniki, które ktoś mógł już
       // gdzieś wkleić — a to gorsze niż adres nieprzystający do tytułu.
@@ -137,7 +170,14 @@ export async function zapiszWiadomosc(
 
   odswiez()
   revalidatePath(`/panel/aktualnosci/${id}`)
-  return { ok: 'Zapisano.' }
+  // Zmiana treści opublikowanej notki musi dotrzeć na portal i do kanałów.
+  odswiezKanaly()
+
+  return {
+    ok: istotnaZmiana
+      ? 'Zapisano i oznaczono jako istotną aktualizację — data zmiany trafi do mapy witryny.'
+      : 'Zapisano.',
+  }
 }
 
 async function nowySlugJesliSzkic(id: string, tytul: string): Promise<string | undefined> {
@@ -164,15 +204,13 @@ export async function opublikujWiadomosc(id: string): Promise<void> {
   })
 
   odswiez()
-  revalidatePath('/aktualnosci')
-  revalidatePath('/')
+  odswiezKanaly()
 }
 
 export async function cofnijPublikacje(id: string): Promise<void> {
   await baza.wiadomosc.update({ where: { id }, data: { stan: 'SZKIC' } })
   odswiez()
-  revalidatePath('/aktualnosci')
-  revalidatePath('/')
+  odswiezKanaly()
 }
 
 export async function odrzucWiadomosc(id: string): Promise<void> {
