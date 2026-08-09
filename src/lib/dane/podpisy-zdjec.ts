@@ -57,11 +57,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 2.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3AMUZEUM_PIENI%C5%83SKIE_IM._J%C3%93ZEFA_SZALAYA_W_SZCZAWNICY%2C_fot._M._Klag_%28MIK%2C_2002%29_%283533924164%29.jpg',
   },
-  'pieninski-park-narodowy': {
-    autor: 'Qvidemus',
-    licencja: 'CC BY 3.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AW_drodze_na_Trzy_Korony%2C_poranek.jpg',
-  },
   'plac-dietla-i-architektura-szalayowska': {
     autor: 'Mach240390',
     licencja: 'CC BY 4.0',
@@ -72,11 +67,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3ASromowce_Wyzne_przystan_flisacka_3.jpg',
   },
-  'rezerwat-biala-woda': {
-    autor: 'Szydzio',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3ARezerwat_Bia%C5%82a_Woda_-_br%C3%B3d.jpg',
-  },
   'ruiny-zamku-czorsztyn': {
     autor: 'Mqrcin79',
     licencja: 'CC BY 3.0',
@@ -86,16 +76,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     autor: 'Andrzej Otrębski',
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3ASromowce_Wyzne_przystan_flisacka_2.jpg',
-  },
-  'wawoz-homole': {
-    autor: 'Andrzej Otrębski',
-    licencja: 'CC BY-SA 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AJaworki_Wawoz_Homole_01.jpg',
-  },
-  'wodospad-zaskalnik': {
-    autor: 'Mach240390',
-    licencja: 'CC BY 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3AWodospadZaskalnik-SopotnickiPotok-POL%2C_Szczawnica.jpg',
   },
   'wyciag-w-jaworkach': {
     autor: 'Andrzej Otrębski',

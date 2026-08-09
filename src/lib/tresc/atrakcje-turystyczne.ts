@@ -43,6 +43,13 @@ export type AtrakcjaTurystyczna = {
   skrot: string
   /** Pełny opis na stronę atrakcji. Pusta lista = brak treści. */
   opis: string[]
+  /**
+   * Trasy z aplikacji, które prowadzą przez to miejsce — po identyfikatorze
+   * (`5D`, `SZMARAGD`). Nie przepisujemy tu nazw ani długości: strona pobiera
+   * je z danych aplikacji, więc po korekcie trasy w telefonie zmieniają się
+   * same, a niedopasowanie jest niemożliwe.
+   */
+  trasy?: string[]
   sezon?: string
   /** Wymaga potwierdzenia na miejscu — szczegóły bywają zmienne. */
   doPotwierdzenia?: boolean
@@ -346,28 +353,51 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     podkategoria: 'wawozy',
     lokalizacja: 'jaworki',
     wyrozniona: true,
-    skrot: 'Wapienna szczelina ze ścianami wysokimi na kilkadziesiąt metrów.',
+    trasy: ['5D', 'SZMARAGD'],
+    skrot: 'Osiemset metrów wapiennej szczeliny, którą wyżłobiła Kamionka. Ściany do 120 metrów.',
     opis: [
-      'Najbardziej efektowny wąwóz w Pieninach: potok wyżłobił w wapieniu ' +
-        'wąską szczelinę, nad którą ściany wznoszą się na kilkadziesiąt metrów. ' +
-        'Dnem prowadzi wygodna ścieżka z kładkami.',
-      'Przejście jest krótkie i nadaje się dla dzieci, ale bywa mokro i ślisko — ' +
-        'buty z porządną podeszwą są tu bardziej na miejscu niż sandały. ' +
-        'Wąwóz leży w rezerwacie, więc obowiązuje ścieżka i cisza.',
+      'Wąwóz ma osiemset metrów długości, a wyżłobił go potok Kamionka, ' +
+        'który do dziś płynie jego dnem. Wapienne ściany sięgają miejscami ' +
+        'stu dwudziestu metrów, a odległość między nimi spada do kilku — idzie ' +
+        'się kładkami tuż nad wodą, z niebem widocznym jako wąski pas nad głową. ' +
+        'Wejścia strzeże skalna baszta zwana Wapiennikiem.',
+      'Rezerwat utworzono w 1963 roku na obszarze blisko sześćdziesięciu ' +
+        'hektarów i nadano mu imię Jana Wiktora (1890–1967), pisarza, który ' +
+        'rozsławił Pieniny w książkach. To najpopularniejszy wąwóz Małych ' +
+        'Pienin: latem potrafi go odwiedzić ponad dwa tysiące osób dziennie, ' +
+        'więc kto chce mieć go dla siebie, przychodzi rano albo poza sezonem.',
+      'Jaworki, u których wylotu leży wąwóz, mają własną historię, widoczną ' +
+        'od razu po wjeździe do wsi. Mieszkali tu Rusini, a po nich został ' +
+        'murowany budynek cerkwi z XIX wieku, zamieniony po wojnie na kościół. ' +
+        'Wieś leży u zbiegu dwóch dolin — Białej Wody i Homole — i obie ' +
+        'prowadzą w rezerwaty.',
     ],
   },
   {
     slug: 'wodospad-zaskalnik',
     nazwa: 'Wodospad Zaskalnik',
-    kategorie: ['przyroda'],
+    kategorie: ['przyroda', 'rodziny'],
     podkategoria: 'wodospady',
-    lokalizacja: 'jaworki',
+    // Sewerynówka to dzielnica Szczawnicy, nie Jaworek — wcześniejszy wpis
+    // przypisywał wodospad do niewłaściwej miejscowości.
+    lokalizacja: 'szczawnica',
+    miejscowosc: 'Szczawnica, Sewerynówka',
     wyrozniona: true,
-    skrot: 'Kilkumetrowy wodospad w rezerwacie, kilkanaście minut od drogi.',
+    trasy: ['1D', '5B', '1B', '3C'],
+    skrot: 'Pięciometrowy próg na Potoku Sopotnickim, trzy kilometry od centrum Szczawnicy.',
     opis: [
-      'Wodospad na potoku w rezerwacie Zaskalskie-Bodnarówka, do którego ' +
-        'prowadzi krótkie dojście od drogi na Jaworki. Najokazalszy po ' +
-        'roztopach i po większych opadach.',
+      'Woda spada z wysokości drugiego piętra na wapienny próg i przez lata ' +
+        'wybiła pod nim nieckę — na tyle głęboką, że w upał moczy się w niej ' +
+        'nogi cała rodzina. Powyżej progu jest jasna łąka, na której da się ' +
+        'rozłożyć koc.',
+      'Wodospad zmienia się przez rok bardziej niż cokolwiek innego w okolicy. ' +
+        'Najokazalszy jest wiosną, po roztopach. Zimą potrafi zamarznąć w lodową ' +
+        'kolumnę. Latem bywa skromny — nie obiecuj dzieciom Niagary.',
+      'Sewerynówka leży na uboczu, z dala od głównego ruchu, i to jest połowa ' +
+        'jej uroku. Z centrum Szczawnicy idzie się tu około czterdziestu pięciu ' +
+        'minut, prawie po płaskim; parking jest kilkanaście metrów od wodospadu, ' +
+        'a obok zatrzymuje się szczawnicka ciuchcia. Droga mija drewniany ' +
+        'kościółek z 1925 roku, w którym latem odprawiane są msze.',
     ],
   },
   {
@@ -376,13 +406,28 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['przyroda'],
     podkategoria: 'rezerwaty',
     lokalizacja: 'jaworki',
-    skrot: 'Dolina z wapiennymi ostańcami i śladami po nieistniejącej wsi.',
+    trasy: ['4D', '4B'],
+    skrot: 'Dolina wapiennych skałek nad potokiem, którym szło się do wsi, której już nie ma.',
     opis: [
-      'Dolina potoku Biała Woda z charakterystycznymi skalnymi ostańcami ' +
-        'sterczącymi ponad łąkami. Trasa jest łagodna i szeroka, dobra ' +
-        'z dziećmi i z wózkiem terenowym na pierwszym odcinku.',
-      'W dolinie stała kiedyś wieś o tej samej nazwie — po jej mieszkańcach ' +
-        'zostały fundamenty i zdziczałe drzewa owocowe.',
+      'Nazwa bierze się od dna potoku: jasny wapień prześwieca przez wodę tak, ' +
+        'że wydaje się mleczna. Rezerwat utworzono w 1963 roku na trzydziestu ' +
+        'kilku hektarach — nie w jednym kawałku, ale w czterech, rozdzielonych ' +
+        'pastwiskami i polami. Idzie się doliną wygodnie, także z rowerem.',
+      'Skały mają tu własne imiona i własne historie. Smolegowa Skała opada ' +
+        'urwiskiem do potoku, a na jej północnej ścianie rosną rośliny, które ' +
+        'w Polsce spotyka się jeszcze tylko w Tatrach — dębik ośmiopłatkowy, ' +
+        'konietlica alpejska, pępawa Jacquina. Czerwona Skałka bywa nazywana ' +
+        'Sfinksem, a naprzeciw niej Konowalskie Skały układają się w skalny ' +
+        'amfiteatr. Kawałek za granicą rezerwatu stoi Bazaltowa Skałka: ' +
+        'w tym jednym miejscu, jakieś sto milionów lat temu, magma przebiła ' +
+        'się na powierzchnię i zastygła.',
+      'Do 1947 roku była tu wieś. Mieszkali w niej Rusini, potomkowie ' +
+        'wołoskich pasterzy, którzy przyszli w te doliny w XIV wieku; żyli ' +
+        'z owiec, roli i drobnego rzemiosła — słynęli z naprawiania stłuczonych ' +
+        'glinianych garnków, które sklejali i wzmacniali drutem. W ramach ' +
+        'akcji „Wisła" wysiedlono ich, a zabudowania spalono. Po wsi zostały ' +
+        'fundamenty pod trawą i zdziczałe drzewa owocowe, które nadal owocują ' +
+        'przy ścieżce.',
     ],
   },
   {
@@ -390,15 +435,37 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     nazwa: 'Pieniński Park Narodowy',
     kategorie: ['przyroda'],
     podkategoria: 'parki',
-    lokalizacja: 'kroscienko',
+    // Park obejmuje Masyw Trzech Koron, Pieniny Czorsztyńskie, Pieninki
+    // i przełom Dunajca — leży w kilku gminach naraz. W Krościenku jest tylko
+    // dyrekcja, więc przypisanie go tam wprowadzałoby w błąd.
+    lokalizacja: 'pieniny',
+    miejscowosc: 'Pieniny Właściwe',
     wyrozniona: true,
-    skrot: 'Park chroniący przełom Dunajca; pawilon wejściowy w Krościenku.',
+    trasy: ['TK2', 'TK1', 'KP19', 'DP'],
+    skrot: 'Pierwszy park narodowy w Polsce, utworzony w 1932 roku. Trzy Korony, Sokolica i przełom Dunajca.',
     opis: [
-      'Park narodowy obejmujący Pieniny Właściwe z przełomem Dunajca, Trzema ' +
-        'Koronami i Sokolicą. Obowiązują w nim bilety wstępu, ruch wyłącznie ' +
-        'po znakowanych szlakach i zakaz wprowadzania psów.',
-      'W Krościenku działa Pawilon Wejściowy z wystawą o przyrodzie Pienin — ' +
-        'warto zajrzeć przed wyjściem na Trzy Korony, żeby wiedzieć, na co patrzeć.',
+      'Powstał 1 czerwca 1932 roku jako pierwszy park narodowy w Polsce. ' +
+        'W tym samym roku swój park utworzyli Czechosłowacy po drugiej stronie ' +
+        'granicy — i tak Pieniny stały się pierwszym miejscem w Europie, gdzie ' +
+        'dwa państwa objęły ochroną jedno pasmo z dwóch stron. Zaczęło się ' +
+        'jedenaście lat wcześniej od siedmiu hektarów łąk wokół ruin zamku ' +
+        'w Czorsztynie.',
+      'Park obejmuje Masyw Trzech Koron, Pieniny Czorsztyńskie, Pieninki ' +
+        'i przełom Dunajca — a na tym niewielkim obszarze rośnie ponad tysiąc ' +
+        'gatunków roślin naczyniowych, w tym dwa, których nie ma nigdzie ' +
+        'indziej na świecie: pszonak pieniński i mniszek pieniński. Motyli ' +
+        'naliczono około tysiąca sześciuset. Najsłynniejszy z nich, niepylak ' +
+        'apollo, ma tu własny program ochronny.',
+      'Sporo tutejszej przyrody nie przetrwałoby bez koszenia. Pienińskie łąki ' +
+        'powstały przez stulecia gospodarowania i zarosłyby lasem, gdyby ich ' +
+        'nie kosić — więc park kosi je i wywozi siano, a na Hali Majerz wypasa ' +
+        'owce. Wiosną pracownicy przenoszą przez drogę do Sromowiec żaby, ' +
+        'żeby nie ginęły pod kołami.',
+      'Dla turystów przygotowano trzydzieści pięć kilometrów szlaków oraz ' +
+        'galerie widokowe na Trzech Koronach i Sokolicy. To jednocześnie ' +
+        'najintensywniej odwiedzany park narodowy w Polsce w przeliczeniu na ' +
+        'hektar — warto wiedzieć, zanim się stanie w kolejce na Okrąglicę ' +
+        'w lipcową sobotę.',
     ],
   },
   {

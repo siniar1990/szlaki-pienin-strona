@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CalendarRange, Info, MapPin, Mountain, Sparkles } from 'lucide-react'
@@ -6,6 +7,8 @@ import { CalendarRange, Info, MapPin, Mountain, Sparkles } from 'lucide-react'
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
+import { podpisZdjecia } from '@/lib/dane/podpisy-zdjec'
+import { zdjecieAtrakcji } from '@/lib/dane/zdjecia-atrakcji'
 import type { Atrakcja } from '@/lib/dane/typy'
 import {
   naListe,
@@ -13,7 +16,7 @@ import {
   pobierzAtrakcje1,
   pobierzTrasePoId,
 } from '@/lib/dane/zrodlo'
-import { etykietaTypu, kolorTypu, metry } from '@/lib/format'
+import { czas, etykietaTypu, kilometry, kolorTypu, metry } from '@/lib/format'
 import { PORTAL, ZRODLA } from '@/lib/konfiguracja'
 import { nazwaKategorii, nazwaLokalizacji } from '@/lib/tresc/kategorie-atrakcji'
 import {
@@ -110,6 +113,17 @@ export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[s
 
 function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
   const kategoria = atrakcja.kategorie[0]
+  const zdjecie = zdjecieAtrakcji(atrakcja.slug)
+  const podpis = zdjecie ? podpisZdjecia(atrakcja.slug) : null
+
+  /*
+    Trasy z aplikacji po identyfikatorze. `filter(Boolean)` odsiewa te, których
+    w danych nie ma — trasa mogła zostać przemianowana albo usunięta
+    w aplikacji, a wtedy lepiej pokazać o jedną mniej niż wywalić stronę.
+  */
+  const trasyTedy = (atrakcja.trasy ?? [])
+    .map((id) => pobierzTrasePoId(id))
+    .filter((trasa): trasa is NonNullable<typeof trasa> => trasa !== null)
   /*
     Pokrewne szukamy najpierw w tej samej kategorii i tej samej miejscowości —
     „co jeszcze mogę zrobić tutaj" jest częstszym pytaniem niż „co jeszcze jest
@@ -190,6 +204,44 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
         }
       />
 
+      {/*
+        Zdjęcie na całą szerokość treści, nad opisem.
+
+        Karta w katalogu pokazuje je w kadrze 4:3 i w miniaturze; tutaj jest
+        miejsce, żeby zobaczyć miejsce naprawdę. Proporcje szersze niż na
+        karcie, bo krajobraz górski czyta się w poziomie, a wysokie zdjęcie
+        spychałoby opis pod krawędź ekranu.
+      */}
+      {zdjecie && (
+        <div className="obszar pt-10 lg:pt-14">
+          <figure className="overflow-hidden rounded-2xl">
+            <Image
+              src={zdjecie}
+              alt={`${atrakcja.nazwa} — ${miejsceAtrakcji(atrakcja)}`}
+              width={1600}
+              height={900}
+              priority
+              sizes="(max-width: 1280px) 100vw, 1200px"
+              className="aspect-[16/9] w-full object-cover"
+            />
+            {podpis && (
+              <figcaption className="mt-2 text-xs text-kamien-500">
+                fot.{' '}
+                <a
+                  href={podpis.strona}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="underline underline-offset-2 hover:text-las-700"
+                >
+                  {podpis.autor}
+                </a>{' '}
+                · {podpis.licencja}
+              </figcaption>
+            )}
+          </figure>
+        </div>
+      )}
+
       <div className="obszar py-14 lg:py-20">
         <div className="max-w-[68ch] space-y-5 text-[1.0625rem] leading-[1.75] text-kamien-700">
           {atrakcja.opis.length > 0 ? (
@@ -208,6 +260,53 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
             </p>
           )}
         </div>
+
+        {/*
+          Trasy, które tędy prowadzą.
+
+          Nazwy, długości i czasy pobieramy z danych aplikacji po
+          identyfikatorze trasy — w katalogu atrakcji stoi wyłącznie lista
+          identyfikatorów. Gdyby przepisać je obok, po pierwszej korekcie
+          w telefonie strona zaczęłaby podawać nieaktualne liczby, a nikt by
+          tego nie zauważył.
+        */}
+        {trasyTedy.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-heading text-xl font-semibold text-kamien-900">
+              Trasy, które tędy prowadzą
+            </h2>
+            <p className="mt-1 text-sm text-kamien-600">
+              {trasyTedy.length === 1
+                ? 'Jedna opisana trasa z aplikacji przechodzi przez to miejsce.'
+                : `${trasyTedy.length} opisane trasy z aplikacji przechodzą przez to miejsce.`}
+            </p>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              {trasyTedy.map((trasa) => (
+                <li key={trasa.id}>
+                  <Link
+                    href={`/szlaki/${trasa.slug}`}
+                    className="group flex h-full flex-col rounded-2xl border border-kamien-200 bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-las-300 hover:shadow-uniesiony"
+                  >
+                    <span className="font-heading text-base font-semibold text-kamien-900 transition-colors group-hover:text-las-700">
+                      {trasa.nazwa}
+                    </span>
+                    <span className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm tabular-nums text-kamien-600">
+                      <span>{kilometry(trasa.dlugoscKm)}</span>
+                      <span aria-hidden className="text-kamien-300">
+                        ·
+                      </span>
+                      <span>{czas(trasa.czasMin.tam)}</span>
+                      <span aria-hidden className="text-kamien-300">
+                        ·
+                      </span>
+                      <span>↑ {metry(trasa.sumaPodejscM.tam)}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/*
           Uczciwa nota zamiast udawania wszechwiedzy. Portal opisuje, czym
