@@ -77,23 +77,25 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     kategorie: ['woda'],
     podkategoria: 'splywy',
     lokalizacja: 'sromowce',
-    miejscowosc: 'Sromowce — Szczawnica',
+    miejscowosc: 'Sromowce — Szczawnica lub Krościenko',
     wyrozniona: true,
     trasy: ['DP'],
-    skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka. Dwie przystanie początkowe, meta zawsze w Szczawnicy.',
+    skrot: 'Przełom Dunajca z pokładu tratwy prowadzonej przez flisaka. Dwie przystanie startowe i dwie mety do wyboru.',
     opis: [
       'Najbardziej znana atrakcja Pienin i jedyny sposób, żeby zobaczyć przełom ' +
-        'Dunajca od strony wody. Tratwą steruje flisak, który po drodze ' +
-        'opowiada o mijanych skałach i legendach — płynie się pod ścianami ' +
-        'Trzech Koron i Sokolicy.',
+        'Dunajca od strony wody — płynie się pod ścianami Trzech Koron ' +
+        'i Sokolicy.',
       'Spływ zaczyna się na jednej z dwóch przystani: w Sromowcach Wyżnych — ' +
         'Kątach albo w Sromowcach Niżnych. Kąty leżą wyżej rzeki, więc ta trasa ' +
         'jest dłuższa; ze Sromowiec Niżnych płynie się krócej. Bilety kupuje ' +
         'się w kasach na obu przystaniach.',
-      'Niezależnie od tego, skąd się wypływa, spływ kończy się w Szczawnicy, ' +
-        'przy przystani z ozdobną drewnianą bramą. Tradycja flisacka na Dunajcu ' +
-        'sięga XIX wieku i jest przekazywana w pienińskich rodzinach ' +
-        'z pokolenia na pokolenie.',
+      'Mety też są dwie: w Szczawnicy, przy przystani z ozdobną drewnianą ' +
+        'bramą, albo dalej w dół rzeki — w Krościenku nad Dunajcem. Kombinacja ' +
+        'przystani startowej i mety decyduje o tym, jak długo się płynie; ' +
+        'przewoźnik podaje warianty przy kasie.',
+      'Tradycja flisacka na Dunajcu sięga XIX wieku i jest przekazywana ' +
+        'w pienińskich rodzinach z pokolenia na pokolenie. Flisak steruje ' +
+        'tratwą i po drodze opowiada o mijanych skałach i legendach.',
       'Powrót do samochodu zostawionego przy przystani startowej organizują ' +
         'przewoźnicy busami; można też wrócić rowerem ścieżką wzdłuż rzeki.',
     ],
@@ -130,16 +132,31 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
   },
   {
     slug: 'zapora-w-niedzicy',
-    nazwa: 'Zapora w Niedzicy',
+    nazwa: 'Zapora i elektrownia w Niedzicy',
     kategorie: ['kultura', 'woda'],
     podkategoria: 'technika',
     lokalizacja: 'niedzica',
-    skrot: 'Korona zapory z widokiem na jezioro z jednej i dolinę Dunajca z drugiej strony.',
+    wyrozniona: true,
+    skrot: 'Korona zapory dostępna bez biletu, a pod nią elektrownia i tunel pięćdziesiąt metrów pod wodą.',
     opis: [
       'Zapora spiętrzająca Dunajec, która utworzyła Jezioro Czorsztyńskie. ' +
         'Koroną prowadzi przejście — z jednej strony rozciąga się widok na taflę ' +
         'jeziora i zamki, z drugiej na dolinę Dunajca i Pieniny.',
+      'Po koronie można spacerować bezpłatnie, bez ograniczeń i o każdej porze. ' +
+        'Sama zapora jest więc atrakcją, po którą nie trzeba niczego planować ' +
+        'ani kupować — wystarczy przyjść.',
+      'Wnętrze to osobna historia i wymaga przewodnika. Do zwiedzania udostępniono ' +
+        'pomieszczenia technologiczne elektrowni wraz z urządzeniami do produkcji ' +
+        'prądu oraz podziemny tunel — galerię kontrolną zapory głównej, ' +
+        'poprowadzoną w skale około pięćdziesięciu metrów pod wodą i nasypem.',
+      'Trasy są dwie. „Ogólne zwiedzanie elektrowni" obejmuje małą galerię pod ' +
+        'przelewem stokowym, wewnętrzny balkon widokowy oraz dwa poziomy ' +
+        'technologiczne: halę maszyn i poziom pokrywy turbiny — zajmuje około ' +
+        'godziny. „Szczegółowe zwiedzanie elektrowni i zapory" dokłada do tego ' +
+        'przejście galerią kontrolno-pomiarową zapory głównej z wejściem na ' +
+        'koronę i trwa około dwóch godzin.',
     ],
+    cena: 'Korona zapory bezpłatnie. Zwiedzanie z przewodnikiem 22 zł od osoby albo 220–480 zł za grupę, zależnie od liczebności.',
   },
   {
     slug: 'pijalnia-wod-mineralnych',
@@ -743,15 +760,6 @@ export const ATRAKCJE_TURYSTYCZNE: AtrakcjaTurystyczna[] = [
     nazwa: 'Plaża w Niedzicy',
     kategorie: ['rodziny'],
     podkategoria: 'plaze',
-    lokalizacja: 'niedzica',
-    skrot: '',
-    opis: [],
-  },
-  {
-    slug: 'elektrownia-wodna-niedzica',
-    nazwa: 'Elektrownia wodna w Niedzicy',
-    kategorie: ['kultura'],
-    podkategoria: 'technika',
     lokalizacja: 'niedzica',
     skrot: '',
     opis: [],

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { CalendarRange, Info, MapPin, Mountain, Sparkles } from 'lucide-react'
+import { CalendarRange, Info, MapPin, Mountain, Sparkles, Ticket } from 'lucide-react'
 
 import { WolneMiejscePartnera } from '@/components/atrakcje/wolne-miejsce-partnera'
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
@@ -314,6 +314,30 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
         )}
 
         {/*
+          Bilety i godziny — blok pojawia się dopiero, gdy dane są w katalogu.
+          Do tej pory portal zasadniczo ich nie publikuje, bo zmieniają się co
+          sezon; wpisujemy je wtedy, gdy przyszły od operatora i warto je znać
+          przed wyjazdem.
+        */}
+        {(atrakcja.cena || atrakcja.godziny) && (
+          <div className="mt-10 max-w-[68ch] rounded-2xl border border-kamien-200 bg-white p-6">
+            <h2 className="flex items-center gap-2.5 font-heading text-base font-semibold text-kamien-900">
+              <Ticket className="size-4 text-las-600" aria-hidden />
+              Bilety i wejście
+            </h2>
+            {atrakcja.cena && (
+              <p className="mt-3 leading-relaxed text-kamien-700">{atrakcja.cena}</p>
+            )}
+            {atrakcja.godziny && (
+              <p className="mt-2 leading-relaxed text-kamien-700">{atrakcja.godziny}</p>
+            )}
+            <p className="mt-3 text-sm text-kamien-500">
+              Stan na dzień publikacji — przed wyjazdem potwierdź u operatora.
+            </p>
+          </div>
+        )}
+
+        {/*
           Zaproszenie dla partnera kategorii — tylko na wskazanych stronach
           i tylko dopóki kategoria nie ma partnera. Stoi pod opisem, a nie nad
           nim: czytelnik ma najpierw dostać to, po co przyszedł.
@@ -332,9 +356,9 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
         <p className="mt-10 flex max-w-[68ch] items-start gap-3 rounded-xl border border-kamien-200 bg-kamien-50 p-5 text-sm leading-relaxed text-kamien-600">
           <Info className="mt-0.5 size-4 shrink-0 text-kamien-500" aria-hidden />
           <span>
-            Opisujemy, czym jest to miejsce — bez godzin otwarcia, cen i terminów.
-            Takie dane zmieniają się co sezon, więc przed wyjazdem sprawdź je
-            u operatora atrakcji.
+            {atrakcja.cena || atrakcja.godziny
+              ? 'Opisujemy, czym jest to miejsce. Ceny i godziny zmieniają się co sezon — te podane wyżej pochodzą od operatora i warto je potwierdzić przed wyjazdem.'
+              : 'Opisujemy, czym jest to miejsce — bez godzin otwarcia, cen i terminów. Takie dane zmieniają się co sezon, więc przed wyjazdem sprawdź je u operatora atrakcji.'}
             {atrakcja.doPotwierdzenia && ' Szczegóły działania tej atrakcji potwierdź na miejscu.'}
           </span>
         </p>

@@ -77,11 +77,6 @@ export const PODPISY_ZDJEC: Record<string, PodpisZdjecia> = {
     licencja: 'CC BY-SA 4.0',
     strona: 'https://commons.wikimedia.org/wiki/File%3AZamek_w_Niedzicy_Wiktor_Baron.jpg',
   },
-  'zapora-w-niedzicy': {
-    autor: 'Jakub Hałun',
-    licencja: 'CC BY 4.0',
-    strona: 'https://commons.wikimedia.org/wiki/File%3ANiedzica_Dam%2C_view_from_the_Niedzica_Castle%2C_20260228_1335_9726.jpg',
-  },
   'zdroje-szczawnicy': {
     autor: 'Henryk Bielamowicz',
     licencja: 'CC BY-SA 4.0',
