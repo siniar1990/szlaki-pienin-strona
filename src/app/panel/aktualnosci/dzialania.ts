@@ -108,6 +108,15 @@ export async function zapiszWiadomosc(
       zdjecieOpis: zdjecieOpis || null,
       zrodloNazwa: zrodloNazwa || null,
       zrodloAdres: zrodloAdres || null,
+      /*
+        Ręczna poprawka zdejmuje ostrzeżenie o zapożyczeniach.
+
+        Znacznik mówi „model powielił te fragmenty" i traci sens w chwili,
+        gdy człowiek przeszedł przez tekst. Zostawienie go na stałe zrobiłoby
+        z niego ozdobę, którą po tygodniu każdy przewija wzrokiem — a wtedy
+        następne prawdziwe ostrzeżenie też zostanie przewinięte.
+      */
+      zapozyczenia: null,
       // Adres notki idzie za tytułem tylko dopóki nic nie jest opublikowane.
       // Po publikacji zmiana adresu zepsułaby odnośniki, które ktoś mógł już
       // gdzieś wkleić — a to gorsze niż adres nieprzystający do tytułu.

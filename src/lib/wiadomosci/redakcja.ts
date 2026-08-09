@@ -354,6 +354,8 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     '"akapity" (lista 3-4 akapitów, każdy 2-4 zdania).'
 
   let notka: OdpowiedzNotki | null = null
+  /** Ostatnia napisana wersja — także ta, która nie przeszła kontroli. */
+  let ostatnia: OdpowiedzNotki | null = null
   let kontrola = { czyste: false, zbieznosci: [] as string[] }
 
   for (const podejscie of [0, 1]) {
@@ -401,6 +403,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     }
 
     kandydat.akapity = akapity
+    ostatnia = kandydat
     kontrola = sprawdzZapozyczenia([kandydat.tytul, kandydat.lid, ...akapity].join('\n'), tekstZrodla)
 
     if (kontrola.czyste) {
@@ -409,31 +412,32 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     }
   }
 
-  if (!notka) {
-    /*
-      Dwa razy pod rząd z przepisanym fragmentem. Odkładamy ten artykuł
-      i zostawiamy ślad w uzasadnieniu — jeśli to się powtarza przy artykułach
-      pisanych bardzo suchym, urzędowym językiem, znaczy, że nie ma jak
-      napisać o tym inaczej, i taki temat po prostu do nas nie pasuje.
-    */
-    await baza.znalezionyArtykul.update({
-      where: { id: wybrany.id },
-      data: {
-        stan: 'ODRZUCONE',
-        uzasadnienie: `Notka powielała źródło dosłownie: ${kontrola.zbieznosci[0] ?? '—'}`,
-      },
-    })
-    return zakoncz({ stan: 'blad', szczegoly: 'Notka powielała źródło — odłożono artykuł.' })
+  /*
+    Notka po dwóch podejściach nadal powiela źródło.
+
+    Pierwsza wersja wyrzucała ją i odkładała artykuł — i to była zła decyzja.
+    Nic nie trafia na portal bez kliknięcia człowieka, więc jedyne, co dawało
+    wyrzucenie, to stracony temat i pusty panel. Człowiek, który widzi notkę
+    razem z wypisanymi fragmentami do przepisania, jest w lepszej sytuacji niż
+    człowiek, który nie widzi nic.
+
+    Szkic powstaje więc mimo wszystko, ale z zapisanymi zbieżnościami — panel
+    pokazuje je na czerwono i mówi wprost, co poprawić przed publikacją.
+  */
+  const doZapisu = notka ?? ostatnia
+  if (!doZapisu) {
+    return zakoncz({ stan: 'blad', szczegoly: 'Nie udało się napisać notki' })
   }
 
   /* ── Zapis szkicu ─────────────────────────────────────────────────────── */
 
   const wiadomosc = await baza.wiadomosc.create({
     data: {
-      slug: await wolnySlug(notka.tytul),
-      tytul: notka.tytul.slice(0, 200),
-      lid: notka.lid.slice(0, 400),
-      tresc: notka.akapity.join('\n\n'),
+      slug: await wolnySlug(doZapisu.tytul),
+      tytul: doZapisu.tytul.slice(0, 200),
+      lid: doZapisu.lid.slice(0, 400),
+      tresc: doZapisu.akapity.join('\n\n'),
+      zapozyczenia: notka ? null : kontrola.zbieznosci.join('\n'),
       zrodloNazwa: wybrany.zrodlo.nazwa,
       zrodloAdres: wybrany.adres,
       odRedakcjiMaszynowej: true,
@@ -450,7 +454,7 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
       ocena,
       uzasadnienie: [
         wybor.uzasadnienie,
-        `zbieżność ze źródłem: ${udzialWspolnychTrojek(notka.akapity.join(' '), tekstZrodla)}%`,
+        `zbieżność ze źródłem: ${udzialWspolnychTrojek(doZapisu.akapity.join(' '), tekstZrodla)}%`,
       ]
         .filter(Boolean)
         .join(' · ')
@@ -460,6 +464,9 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
 
   return zakoncz({
     stan: 'utworzono',
+    szczegoly: notka
+      ? undefined
+      : `Szkic wymaga przepisania ${kontrola.zbieznosci.length} fragmentów zapożyczonych ze źródła`,
     wiadomoscId: wiadomosc.id,
     ocena,
     odrzucone: doOdrzucenia.length,

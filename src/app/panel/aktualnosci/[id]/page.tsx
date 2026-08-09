@@ -1,7 +1,16 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Bot, ExternalLink, Eye, EyeOff, Trash2, X } from 'lucide-react'
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Bot,
+  ExternalLink,
+  Eye,
+  EyeOff,
+  Trash2,
+  X,
+} from 'lucide-react'
 
 import { FormularzWiadomosci } from '@/components/panel/formularz-wiadomosci'
 import { baza } from '@/lib/baza'
@@ -133,6 +142,31 @@ export default async function StronaEdycjiWiadomosci({
           </button>
         </form>
       </div>
+
+      {/* ── Zapożyczenia ───────────────────────────────────────────────── */}
+      {notka.zapozyczenia && (
+        <div className="mt-6 rounded-2xl border border-red-300 bg-red-50 p-5">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold text-red-900">
+            <AlertTriangle className="size-4" aria-hidden />
+            Te fragmenty są identyczne jak w artykule źródłowym
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-red-900/80">
+            Model napisał notkę dwa razy i za każdym razem powielił poniższe ciągi słów.
+            Przepisz je własnymi słowami przed publikacją — fakty wolno przenosić,
+            cudze sformułowania nie. Po poprawieniu treści to ostrzeżenie zniknie.
+          </p>
+          <ul className="mt-4 space-y-2">
+            {notka.zapozyczenia.split('\n').map((fragment) => (
+              <li
+                key={fragment}
+                className="rounded-lg bg-white/70 px-3 py-2 font-mono text-xs text-red-900"
+              >
+                …{fragment}…
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* ── Skąd to się wzięło ─────────────────────────────────────────── */}
       {notka.odRedakcjiMaszynowej && (

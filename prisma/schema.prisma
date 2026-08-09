@@ -282,6 +282,15 @@ model Wiadomosc {
   /// maszynowy czyta się inaczej niż własny.
   odRedakcjiMaszynowej Boolean @default(false)
 
+  /// Fragmenty identyczne jak w artykule źródłowym, rozdzielone znakiem nowej
+  /// linii. Wypełniane tylko wtedy, gdy kontrola zapożyczeń je znalazła.
+  ///
+  /// Notka z takim znacznikiem nadal powstaje i czeka w panelu — bo ukrycie
+  /// jej przed człowiekiem nie usuwa problemu, tylko odbiera możliwość
+  /// naprawienia go. Panel pokazuje te fragmenty wprost, żeby dało się je
+  /// przepisać przed publikacją.
+  zapozyczenia String?
+
   stan         StanWiadomosci @default(SZKIC)
   opublikowano DateTime?
 
