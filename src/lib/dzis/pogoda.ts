@@ -69,8 +69,9 @@ type OdpowiedzApi = {
     snow_depth?: number
   }
   daily?: {
-    sunrise?: string[]
-    sunset?: string[]
+    /** Sekundy epoki — patrz `timeformat` w zapytaniu. */
+    sunrise?: number[]
+    sunset?: number[]
     temperature_2m_max?: number[]
     temperature_2m_min?: number[]
     precipitation_sum?: number[]
@@ -89,6 +90,16 @@ async function zapytaj(
     current:
       'temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,snow_depth',
     timezone: 'Europe/Warsaw',
+    /*
+      Godziny w sekundach epoki, a nie w napisach.
+
+      Open-Meteo zwraca „2026-08-10T05:22" bez oznaczenia strefy, a taki napis
+      JavaScript czyta jako czas lokalny maszyny — na Vercelu UTC. Wschód
+      słońca wychodził wtedy o dwie godziny za późno, czyli akurat ta liczba,
+      po którą ktoś tu przychodzi („zdążę jeszcze na Sokolicę?"), była
+      nieprawdziwa. Liczba sekund nie ma tej dwuznaczności.
+    */
+    timeformat: 'unixtime',
     // Dwa dni tylko tam, gdzie pytamy o wschody i zachody — wieczorem
     // potrzebny jest jutrzejszy wschód. Reszta i tak bierze bieżący odczyt.
     forecast_days: zDobowa ? '2' : '1',
@@ -127,6 +138,11 @@ function punkt(dane: OdpowiedzApi): PogodaPunktu {
   }
 }
 
+/** Sekundy epoki na datę; brak wartości daje bieżącą chwilę zamiast NaN. */
+function zSekund(sekundy: number | undefined): Date {
+  return sekundy === undefined ? new Date() : new Date(sekundy * 1000)
+}
+
 export async function pobierzPogode(): Promise<Pogoda | null> {
   try {
     const [wDolinie, naGrani] = await Promise.all([zapytaj(DOLINA, true), zapytaj(GRAN, false)])
@@ -140,11 +156,11 @@ export async function pobierzPogode(): Promise<Pogoda | null> {
       opadDzis: dobowa?.precipitation_sum?.[0] ?? 0,
       porywy: Math.round(dobowa?.wind_gusts_10m_max?.[0] ?? 0),
       uv: Math.round(dobowa?.uv_index_max?.[0] ?? 0),
-      wschod: new Date(dobowa?.sunrise?.[0] ?? Date.now()),
-      zachod: new Date(dobowa?.sunset?.[0] ?? Date.now()),
+      wschod: zSekund(dobowa?.sunrise?.[0]),
+      zachod: zSekund(dobowa?.sunset?.[0]),
       // Gdyby drugi dzień z jakiegoś powodu nie przyszedł, wracamy do
       // dzisiejszego wschodu — różni się o minutę, więc lepszy niż pusty kafelek.
-      wschodJutro: new Date(dobowa?.sunrise?.[1] ?? dobowa?.sunrise?.[0] ?? Date.now()),
+      wschodJutro: zSekund(dobowa?.sunrise?.[1] ?? dobowa?.sunrise?.[0]),
     }
   } catch (blad) {
     /*

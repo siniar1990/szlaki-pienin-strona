@@ -18,6 +18,8 @@
  * i w poniedziałek.
  */
 
+import type { ChwilaWPolsce } from './czas'
+
 /** Dzień tygodnia zgodnie z `Date`: 0 to niedziela. */
 const PONIEDZIALEK = 1
 
@@ -139,13 +141,15 @@ function wOkresie(okno: OknoOtwarcia, miesiac: number, dzien: number): boolean {
 /**
  * Stan wszystkich obiektów o podanej chwili.
  *
- * `teraz` jest parametrem, a nie odczytem zegara w środku — inaczej nie dałoby
+ * Bierze rozłożoną chwilę, a nie `Date`, i to nie jest wygoda tylko
+ * poprawność: wszystkie cztery liczby muszą pochodzić z polskiego zegara.
+ * Odczytanie miesiąca i dnia wprost z `Date` dawało je z zegara serwera —
+ * patrz `chwilaWPolsce`.
+ *
+ * Chwila jest parametrem, a nie odczytem zegara w środku, bo inaczej nie dałoby
  * się tego przetestować, a błąd wyszedłby dopiero w poniedziałek w listopadzie.
  */
-export function coCzynne(teraz: Date, godzina: number, dzienTygodnia: number): StanObiektu[] {
-  const miesiac = teraz.getMonth() + 1
-  const dzien = teraz.getDate()
-
+export function coCzynne({ miesiac, dzien, godzina, dzienTygodnia }: ChwilaWPolsce): StanObiektu[] {
   return OBIEKTY.map((obiekt) => {
     const dzisiejszeOkno = obiekt.okna.find(
       (okno) =>

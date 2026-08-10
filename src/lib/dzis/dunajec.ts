@@ -19,6 +19,8 @@
  * kilometrów. Pokazujemy stan i zostawiamy ocenę tym, którzy ją podejmują.
  */
 
+import { zPolskiegoCzasu } from './czas'
+
 const ADRES = 'https://danepubliczne.imgw.pl/api/data/hydro/'
 
 /** Nazwa stacji tak, jak nazywa ją IMGW. */
@@ -65,10 +67,16 @@ export async function pobierzStanDunajca(): Promise<StanDunajca | null> {
       sprzed doby jest bezużyteczna, a podana bez ostrzeżenia myląca, więc
       taką odrzucamy zamiast pokazywać.
     */
+    /*
+      IMGW podaje godzinę polską bez oznaczenia strefy. Odczytana wprost
+      przez `new Date` byłaby czasem lokalnym serwera, czyli na Vercelu UTC —
+      i cały odczyt przesuwałby się o dwie godziny w przód, także w rachunku
+      świeżości poniżej.
+    */
     const pomiar = wiersz.stan_wody_data_pomiaru
-      ? new Date(wiersz.stan_wody_data_pomiaru.replace(' ', 'T'))
+      ? zPolskiegoCzasu(wiersz.stan_wody_data_pomiaru)
       : null
-    if (!pomiar || Number.isNaN(pomiar.getTime())) return null
+    if (!pomiar) return null
     if (Date.now() - pomiar.getTime() > 24 * 60 * 60 * 1000) return null
 
     const temperatura = wiersz.temperatura_wody ? Number(wiersz.temperatura_wody) : null

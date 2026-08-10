@@ -1,7 +1,6 @@
 import { unstable_cache } from 'next/cache'
 
-import { godzinaWPolsce } from '@/lib/wiadomosci/ustawienia'
-
+import { chwilaWPolsce } from './czas'
 import { coCzynne, type StanObiektu } from './czynne'
 import { pobierzStanDunajca, type StanDunajca } from './dunajec'
 import { pobierzPogode, type Pogoda } from './pogoda'
@@ -87,19 +86,9 @@ export async function pobierzDaneDnia(): Promise<DaneDnia> {
     },
     dunajec: dunajec && { ...dunajec, pomiar: data(dunajec.pomiar) },
     powietrze,
-    obiekty: coCzynne(teraz, godzinaWPolsce(teraz), dzienTygodniaWPolsce(teraz)),
+    obiekty: coCzynne(chwilaWPolsce(teraz)),
     odczyt: teraz,
   }
-}
-
-/** Dzień tygodnia w strefie warszawskiej: 0 to niedziela. */
-function dzienTygodniaWPolsce(teraz: Date): number {
-  const nazwa = new Intl.DateTimeFormat('en-US', {
-    weekday: 'short',
-    timeZone: 'Europe/Warsaw',
-  }).format(teraz)
-
-  return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(nazwa)
 }
 
 /**
@@ -123,3 +112,5 @@ export { opisPowietrza, PROG_WARTY_UWAGI } from './powietrze'
 export type { Powietrze } from './powietrze'
 export type { StanDunajca } from './dunajec'
 export type { StanObiektu } from './czynne'
+export { chwilaWPolsce, zPolskiegoCzasu } from './czas'
+export type { ChwilaWPolsce } from './czas'

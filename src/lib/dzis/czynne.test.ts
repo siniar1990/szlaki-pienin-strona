@@ -15,10 +15,21 @@ import { coCzynne, OBIEKTY } from './czynne'
  * module, gdzie zwykłe porównanie dat daje wynik odwrotny do zamierzonego.
  */
 
-/** Data z godziną i dniem tygodnia policzonym z niej samej. */
+/**
+ * Stan obiektu w danym dniu i o danej godzinie.
+ *
+ * Dzień tygodnia liczymy z daty przez `Date.UTC`, a nie przez `new Date(iso)`:
+ * ten drugi czyta napis jako czas lokalny maszyny, więc na komputerze
+ * w Ameryce „2026-01-12" wypadało jeszcze w niedzielę i test zamku
+ * w poniedziałek przechodził albo nie zależnie od tego, kto go uruchamiał.
+ */
 function stan(iso: string, godzina: number, slug: string) {
-  const data = new Date(iso)
-  return coCzynne(data, godzina, data.getDay()).find((s) => s.obiekt.slug === slug)!
+  const [rok, miesiac, dzien] = iso.split('-').map(Number)
+  const dzienTygodnia = new Date(Date.UTC(rok, miesiac - 1, dzien)).getUTCDay()
+
+  return coCzynne({ miesiac, dzien, godzina, dzienTygodnia }).find(
+    (s) => s.obiekt.slug === slug,
+  )!
 }
 
 describe('zamek w Niedzicy', () => {
