@@ -4,6 +4,7 @@ import { useActionState, useRef, useState } from 'react'
 import { ImagePlus, Trash2 } from 'lucide-react'
 
 import type { WynikAkcji } from '@/app/panel/aktualnosci/dzialania'
+import { ZdjecieZaDuze, zdjecieZPliku } from '@/lib/panel/zdjecie'
 
 /**
  * Formularz notki.
@@ -13,6 +14,12 @@ import type { WynikAkcji } from '@/app/panel/aktualnosci/dzialania'
  * prosto z aparatu wpisałoby tam kilkanaście megabajtów tekstu. Zdjęcie
  * główne artykułu ma jednak inne zadanie niż zdjęcie słupka, dlatego dłuższy
  * bok to 1600 px, a nie 1200 — obraz idzie na całą szerokość kolumny tekstu.
+ *
+ * **Jakość dobiera się sama** — patrz `zdjecieZPliku`. Stała jakość dawała
+ * przy zdjęciach gęstych w szczegóły ponad megabajt, a tyle właśnie wynosi
+ * limit akcji serwerowej w Next.js; zapis kończył się wtedy białym ekranem
+ * „This page couldn't load", bo żądanie było odrzucane przed wykonaniem
+ * jakiegokolwiek naszego kodu.
  *
  * **Dlaczego treść to zwykłe pole tekstowe, a nie edytor.** Notka ma trzy
  * akapity. Edytor z paskiem narzędzi kusiłby pogrubieniami i nagłówkami,
@@ -48,20 +55,31 @@ export function FormularzWiadomosci({
 
   const [zdjecie, ustawZdjecie] = useState<string | null>(wartosci.zdjecie ?? null)
   const [zmienioneZdjecie, ustawZmienioneZdjecie] = useState<string>('')
+  const [bladZdjecia, ustawBladZdjecia] = useState<string | null>(null)
   const wybor = useRef<HTMLInputElement>(null)
 
   const wczytajZdjecie = async (plik: File) => {
-    const obraz = await createImageBitmap(plik)
-    const skala = Math.min(1, DLUZSZY_BOK / Math.max(obraz.width, obraz.height))
-    const plotno = document.createElement('canvas')
-    plotno.width = Math.round(obraz.width * skala)
-    plotno.height = Math.round(obraz.height * skala)
-    plotno.getContext('2d')?.drawImage(obraz, 0, 0, plotno.width, plotno.height)
-    obraz.close()
-
-    const dane = plotno.toDataURL('image/jpeg', JAKOSC)
-    ustawZdjecie(dane)
-    ustawZmienioneZdjecie(dane)
+    ustawBladZdjecia(null)
+    try {
+      const dane = await zdjecieZPliku(plik, DLUZSZY_BOK, JAKOSC)
+      ustawZdjecie(dane)
+      ustawZmienioneZdjecie(dane)
+    } catch (blad) {
+      /*
+        Komunikat przy polu zamiast wywrotki po kliknięciu „Zapisz". Wcześniej
+        za duże zdjęcie przechodziło przez formularz bez słowa i dopiero
+        serwer odmawiał — a odmowa akcji serwerowej nie ma jak się pokazać
+        w formularzu, więc kończyła się białym ekranem.
+      */
+      ustawBladZdjecia(
+        blad instanceof ZdjecieZaDuze
+          ? 'Tego zdjęcia nie da się zapisać — spróbuj przyciąć je albo zmniejszyć przed wgraniem.'
+          : 'Nie udało się odczytać pliku. Czy na pewno to zdjęcie?',
+      )
+      ustawZdjecie(null)
+      ustawZmienioneZdjecie('')
+      if (wybor.current) wybor.current.value = ''
+    }
   }
 
   return (
@@ -159,6 +177,12 @@ export function FormularzWiadomosci({
             if (plik) void wczytajZdjecie(plik)
           }}
         />
+
+        {bladZdjecia && (
+          <p role="alert" className="mt-3 text-sm text-red-700">
+            {bladZdjecia}
+          </p>
+        )}
         {/* Wartość niesie sam obraz albo znacznik skasowania. Pusto znaczy
             „nie ruszaj tego, co jest w bazie". */}
         <input type="hidden" name="zdjecie" value={zmienioneZdjecie} />

@@ -5,6 +5,7 @@ import { useActionState, useRef, useState } from 'react'
 import { Crosshair, ImagePlus, Trash2 } from 'lucide-react'
 
 import type { WynikAkcji } from '@/app/panel/dzialania'
+import { ZdjecieZaDuze, zdjecieZPliku } from '@/lib/panel/zdjecie'
 
 /**
  * Formularz tabliczki — ten sam przy tworzeniu i przy edycji.
@@ -69,6 +70,7 @@ export function FormularzKodu({
 
   const [zdjecie, ustawZdjecie] = useState<string | null>(wartosci.zdjecie ?? null)
   const [zmienioneZdjecie, ustawZmienioneZdjecie] = useState<string>('')
+  const [bladZdjecia, ustawBladZdjecia] = useState<string | null>(null)
   const wybor = useRef<HTMLInputElement>(null)
 
   /**
@@ -125,19 +127,24 @@ export function FormularzKodu({
    * go w tej postaci oznaczałoby długie czekanie na słabym zasięgu — czyli
    * dokładnie w tych warunkach, w których się pracuje w terenie — i wpisanie
    * do bazy kilkunastu megabajtów tekstu. Skalujemy więc na miejscu.
+   *
+   * Jakość dobiera się sama, aż wynik zmieści się w limicie akcji serwerowej
+   * — ten sam mechanizm co przy notkach, gdzie stała jakość potrafiła ten
+   * limit przekroczyć i zapis kończył się białym ekranem.
    */
   const wczytajZdjecie = async (plik: File) => {
-    const obraz = await createImageBitmap(plik)
-    const skala = Math.min(1, DLUZSZY_BOK / Math.max(obraz.width, obraz.height))
-    const plotno = document.createElement('canvas')
-    plotno.width = Math.round(obraz.width * skala)
-    plotno.height = Math.round(obraz.height * skala)
-    plotno.getContext('2d')?.drawImage(obraz, 0, 0, plotno.width, plotno.height)
-    obraz.close()
-
-    const dane = plotno.toDataURL('image/jpeg', JAKOSC)
-    ustawZdjecie(dane)
-    ustawZmienioneZdjecie(dane)
+    ustawBladZdjecia(null)
+    try {
+      const dane = await zdjecieZPliku(plik, DLUZSZY_BOK, JAKOSC)
+      ustawZdjecie(dane)
+      ustawZmienioneZdjecie(dane)
+    } catch (blad) {
+      ustawBladZdjecia(
+        blad instanceof ZdjecieZaDuze
+          ? 'Tego zdjęcia nie da się zapisać — spróbuj zrobić je jeszcze raz.'
+          : 'Nie udało się odczytać pliku. Czy na pewno to zdjęcie?',
+      )
+    }
   }
 
   return (
@@ -278,6 +285,12 @@ export function FormularzKodu({
             zdarzenie.target.value = ''
           }}
         />
+
+        {bladZdjecia && (
+          <p role="alert" className="mt-3 text-sm text-red-700">
+            {bladZdjecia}
+          </p>
+        )}
 
         <p className="mt-3 text-sm text-kamien-500">
           Jedno zdjęcie do rozpoznania tabliczki w terenie. Zmniejszamy je

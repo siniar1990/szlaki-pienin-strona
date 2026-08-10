@@ -36,11 +36,21 @@ export type WynikAkcji = { blad?: string; ok?: string }
 const USUN_ZDJECIE = 'usun'
 
 /**
- * Zdjęcie główne notki bywa większe niż zdjęcie tabliczki: tam chodzi
- * o rozpoznanie słupka, tu o obraz na całą szerokość artykułu. Przeglądarka
- * zmniejsza je do 1600 px, co daje zwykle 300–500 kB po zakodowaniu.
+ * Największe zdjęcie, jakie przyjmiemy.
+ *
+ * Wartość wynika z `NAJWIEKSZY_LADUNEK` — przeglądarka dociska zdjęcie do
+ * 900 kB, więc wszystko powyżej znaczy, że coś ominęło formularz. Zapas jest
+ * po to, żeby o odrzuceniu decydował ten komunikat, a nie limit akcji
+ * serwerowej: ten drugi zwraca 413 przed wykonaniem naszego kodu i pokazuje
+ * się w przeglądarce jako biały ekran, bez słowa o tym, co jest nie tak.
+ *
+ * Kolejność jest więc celowa i musi zostać zachowana:
+ * 900 kB (przeglądarka) < 1,5 MB (to sprawdzenie) < 3 MB (`bodySizeLimit`).
+ *
+ * Wcześniej stało tu 2,5 MB przy limicie transportu 1 MB — czyli walidacja
+ * przepuszczała ponad dwa razy więcej, niż dało się w ogóle wysłać.
  */
-const NAJWIEKSZE_ZDJECIE = 2_500_000
+const NAJWIEKSZE_ZDJECIE = 1_500_000
 
 const SchematWiadomosci = z.object({
   tytul: z.string().trim().min(5, 'Tytuł musi mieć co najmniej pięć znaków').max(200),

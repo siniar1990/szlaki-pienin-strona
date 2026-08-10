@@ -30,6 +30,30 @@ const nextConfig: NextConfig = {
   // go za korzeń projektu. Wskazujemy wprost, gdzie jest nasz.
   turbopack: { root: __dirname },
 
+  experimental: {
+    serverActions: {
+      /*
+        Domyślny limit akcji serwerowej to jeden megabajt — i to on wywracał
+        zapis notki ze zdjęciem. Zdjęcia panelu jadą jako `data:` URL wewnątrz
+        formularza, a zdjęcie gęste w szczegóły potrafiło po zakodowaniu
+        przekroczyć megabajt. Next odrzucał wtedy całe żądanie kodem 413,
+        zanim wykonał jakikolwiek nasz kod, więc nie było jak pokazać błędu
+        przy polu — przeglądarka dostawała biały ekran „This page couldn't
+        load".
+
+        Właściwą naprawą jest dociskanie zdjęcia w przeglądarce do 900 kB
+        (`src/lib/panel/zdjecie.ts`); ta wartość jest drugą linią, na wypadek
+        gdyby kiedyś do formularza doszło duże pole tekstowe. Trzymamy ją
+        wyraźnie ponad limitem walidacji, żeby o odrzuceniu decydował nasz
+        komunikat, a nie milczący błąd transportu.
+
+        Wyżej niż 4 MB nie ma sensu: funkcje na Vercelu i tak nie przyjmą
+        żądania większego niż 4,5 MB.
+      */
+      bodySizeLimit: '3mb',
+    },
+  },
+
   async redirects() {
     return [
       /*

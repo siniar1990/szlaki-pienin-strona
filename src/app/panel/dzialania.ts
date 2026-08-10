@@ -29,10 +29,14 @@ import { ZNACZNIK_TABLICZEK } from '@/lib/qr/znaczniki'
 /**
  * Największe zdjęcie, jakie przyjmiemy.
  *
- * Przeglądarka zmniejsza zdjęcie przed wysłaniem, więc typowe ma 150–250 kB
- * po zakodowaniu. Półtora megabajta zostawia zapas na nietypowe przypadki
- * i jednocześnie odcina próbę wgrania pliku prosto z aparatu, która wpisałaby
- * do bazy kilkanaście megabajtów tekstu.
+ * Przeglądarka dociska zdjęcie do 900 kB przed wysłaniem, więc typowe ma
+ * 150–250 kB po zakodowaniu. Półtora megabajta zostawia zapas na nietypowe
+ * przypadki i jednocześnie odcina próbę wgrania pliku prosto z aparatu, która
+ * wpisałaby do bazy kilkanaście megabajtów tekstu.
+ *
+ * Wartość musi zostać poniżej `bodySizeLimit` z `next.config.ts` — powyżej
+ * niego żądanie jest odrzucane przez Next kodem 413, zanim ten komunikat
+ * ma szansę powstać.
  */
 const NAJWIEKSZE_ZDJECIE = 1_500_000
 
