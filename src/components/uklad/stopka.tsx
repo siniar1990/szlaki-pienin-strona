@@ -11,12 +11,14 @@ const KOLUMNY = [
       { adres: '/szlaki/kategorie/rodzinne', etykieta: 'Trasy z dziećmi' },
       { adres: '/szlaki/kategorie/rowerowe', etykieta: 'Trasy rowerowe' },
       { adres: '/atrakcje', etykieta: 'Atrakcje' },
+      { adres: '/miejscowosci', etykieta: 'Miejscowości' },
       { adres: '/mapa', etykieta: 'Mapa interaktywna' },
     ],
   },
   {
     tytul: 'Pieniny',
     odnosniki: [
+      { adres: '/dzis', etykieta: 'Dziś w Pieninach' },
       { adres: '/atrakcje', etykieta: 'Szczyty i punkty widokowe' },
       { adres: '/wyzwania', etykieta: 'Pienińskie odznaki' },
       { adres: '/szukaj', etykieta: 'Szukaj' },
@@ -26,6 +28,7 @@ const KOLUMNY = [
     tytul: 'Aplikacja',
     odnosniki: [
       { adres: '/aplikacja', etykieta: 'O aplikacji' },
+      { adres: '/o-nas', etykieta: 'O nas' },
       { adres: '/wsparcie', etykieta: 'Wsparcie i pomoc' },
       { adres: '/kontakt', etykieta: 'Napisz do nas' },
       { adres: '/prywatnosc', etykieta: 'Prywatność' },
@@ -53,7 +56,7 @@ export function Stopka() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-kamien-600">
               Przewodnik po Pieninach — szlaki, atrakcje i mapy. Część tras to
               oficjalne szlaki PTTK, część opracowaliśmy na podstawie przewodnika
-              „{ZRODLA.przewodnik.tytul}". Pozostałe trasy, opisy atrakcji
+              „{ZRODLA.przewodnik.tytul}”. Pozostałe trasy, opisy atrakcji
               i materiały powstały specjalnie na potrzeby tego portalu
               i aplikacji.
             </p>

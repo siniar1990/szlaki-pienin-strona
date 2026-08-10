@@ -44,7 +44,8 @@ export function dataRfc822(data: Date): string {
 export type WpisMapy = {
   adres: string
   zmieniono?: Date
-  czestotliwosc?: 'daily' | 'weekly' | 'monthly' | 'yearly'
+  /** Dopuszczalne wartości `changefreq` wg specyfikacji sitemaps.org. */
+  czestotliwosc?: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
   waga?: number
 }
 

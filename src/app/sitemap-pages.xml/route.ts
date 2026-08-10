@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 
 import { KATEGORIE_TRAS } from '@/lib/dane/kategorie'
+import { KOLEKCJE } from '@/lib/dane/kolekcje'
 import { pobierzAtrakcje, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { PORTAL } from '@/lib/konfiguracja'
 import { NAGLOWKI_XML } from '@/lib/seo/naglowki'
 import { mapaWitryny, type WpisMapy } from '@/lib/seo/xml'
 import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
+import { MIEJSCOWOSCI } from '@/lib/tresc/miejscowosci'
 
 /**
  * Mapa stron przewodnika: trasy, atrakcje, wyzwania, kategorie i strony stałe.
@@ -27,14 +29,25 @@ export function GET() {
     { adres: PORTAL.adres, czestotliwosc: 'daily', waga: 1 },
     { adres: `${PORTAL.adres}/szlaki`, czestotliwosc: 'weekly', waga: 0.9 },
     { adres: `${PORTAL.adres}/atrakcje`, czestotliwosc: 'monthly', waga: 0.8 },
+    { adres: `${PORTAL.adres}/miejscowosci`, czestotliwosc: 'monthly', waga: 0.8 },
     { adres: `${PORTAL.adres}/mapa`, czestotliwosc: 'monthly', waga: 0.7 },
     { adres: `${PORTAL.adres}/aktualnosci`, czestotliwosc: 'daily', waga: 0.9 },
+    // Treść zmienia się kilka razy dziennie — to jedyna strona stała,
+    // przy której „daily" jest zaniżeniem, a nie grzecznościową deklaracją.
+    { adres: `${PORTAL.adres}/dzis`, czestotliwosc: 'hourly', waga: 0.8 },
     { adres: `${PORTAL.adres}/aplikacja`, czestotliwosc: 'monthly', waga: 0.8 },
     { adres: `${PORTAL.adres}/wyzwania`, czestotliwosc: 'monthly', waga: 0.6 },
+    { adres: `${PORTAL.adres}/o-nas`, czestotliwosc: 'yearly', waga: 0.5 },
     { adres: `${PORTAL.adres}/wsparcie`, czestotliwosc: 'yearly', waga: 0.4 },
     { adres: `${PORTAL.adres}/kontakt`, czestotliwosc: 'yearly', waga: 0.5 },
     { adres: `${PORTAL.adres}/prywatnosc`, czestotliwosc: 'yearly', waga: 0.3 },
   ]
+
+  const miejscowosci: WpisMapy[] = MIEJSCOWOSCI.map((miejscowosc) => ({
+    adres: `${PORTAL.adres}/miejscowosci/${miejscowosc.slug}`,
+    czestotliwosc: 'weekly',
+    waga: 0.7,
+  }))
 
   const trasy: WpisMapy[] = pobierzTrasy().map((trasa) => ({
     adres: `${PORTAL.adres}/szlaki/${trasa.slug}`,
@@ -61,6 +74,18 @@ export function GET() {
   }))
 
   /*
+    Kolekcje wypadły z mapy witryny przy przepisywaniu jej na własną trasę —
+    dziesięć istniejących stron, o których wyszukiwarka nie miała skąd
+    wiedzieć. Są tu z tą samą wagą co kategorie, bo pełnią tę samą rolę:
+    prowadzą do tras, same będąc rozdrożem.
+  */
+  const kolekcje: WpisMapy[] = KOLEKCJE.map((kolekcja) => ({
+    adres: `${PORTAL.adres}/szlaki/kolekcje/${kolekcja.slug}`,
+    czestotliwosc: 'monthly',
+    waga: 0.6,
+  }))
+
+  /*
     Atrakcje pochodzą z dwóch źródeł: katalogu redakcyjnego i punktów na
     trasach. Slug jest wspólną przestrzenią nazw, więc odsiewamy powtórzenia —
     inaczej ten sam adres pojawiłby się w mapie dwa razy.
@@ -77,7 +102,15 @@ export function GET() {
   }))
 
   const xml = mapaWitryny(
-    [...strony, ...trasy, ...wyzwania, ...kategorie, ...atrakcje].map((wpis) => ({
+    [
+      ...strony,
+      ...miejscowosci,
+      ...trasy,
+      ...wyzwania,
+      ...kategorie,
+      ...kolekcje,
+      ...atrakcje,
+    ].map((wpis) => ({
       ...wpis,
       zmieniono: teraz,
     })),

@@ -115,13 +115,19 @@ export const ZRODLA = {
 /**
  * Główna nawigacja portalu.
  *
- * Są tu wyłącznie działy, które mają treść. „Miejscowości" i „Blog" dojdą,
- * gdy powstaną do nich teksty — pusty dział w menu wygląda jak zepsuta
- * strona i marnuje zaufanie, którego potem nie da się odzyskać.
+ * Są tu wyłącznie działy, które mają treść — pusty dział w menu wygląda jak
+ * zepsuta strona i marnuje zaufanie, którego potem nie da się odzyskać.
+ * „Miejscowości" doszły, gdy powstały do nich teksty; „Blog" wciąż czeka.
+ *
+ * „Dziś" stoi pierwsze, choć powstało ostatnie. To jedyny dział, którego
+ * treść zmienia się w ciągu dnia, a więc jedyny, po który ktoś wraca
+ * codziennie — reszta odpowiada na pytania zadawane raz.
  */
 export const MENU = [
+  { adres: '/dzis', etykieta: 'Dziś' },
   { adres: '/szlaki', etykieta: 'Szlaki' },
   { adres: '/atrakcje', etykieta: 'Atrakcje' },
+  { adres: '/miejscowosci', etykieta: 'Miejscowości' },
   { adres: '/mapa', etykieta: 'Mapa' },
   { adres: '/aktualnosci', etykieta: 'Aktualności' },
   { adres: '/aplikacja', etykieta: 'Aplikacja' },
