@@ -7,6 +7,7 @@ import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { LicznikOdslon } from '@/components/analityka/licznik-odslon'
 import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
+import { OBRAZ_PORTALU } from '@/lib/seo/open-graph'
 import { PORTAL } from '@/lib/konfiguracja'
 import {
   adresZdjecia,
@@ -43,7 +44,12 @@ export async function generateMetadata({
   const wiadomosc = await pobierzWiadomosc(slug)
   if (!wiadomosc) return { title: 'Nie znaleziono wiadomości' }
 
-  const obrazek = wiadomosc.maZdjecie ? `${PORTAL.adres}${adresZdjecia(slug)}` : undefined
+  /*
+    Notka bez własnego zdjęcia dostaje obraz portalu, a nie żaden. Wcześniej
+    zostawała bez `og:image` — i akurat notki są tym, co najczęściej trafia
+    do wklejenia na Facebooku.
+  */
+  const obrazek = wiadomosc.maZdjecie ? `${PORTAL.adres}${adresZdjecia(slug)}` : OBRAZ_PORTALU
   const zmieniono = ostatniaZmiana(wiadomosc)
 
   return {
@@ -66,13 +72,13 @@ export async function generateMetadata({
       publishedTime: wiadomosc.opublikowano.toISOString(),
       modifiedTime: zmieniono.toISOString(),
       authors: [PORTAL.redakcja],
-      images: obrazek ? [{ url: obrazek, alt: wiadomosc.zdjecieOpis ?? wiadomosc.tytul }] : undefined,
+      images: [{ url: obrazek, alt: wiadomosc.zdjecieOpis ?? wiadomosc.tytul }],
     },
     twitter: {
-      card: obrazek ? 'summary_large_image' : 'summary',
+      card: 'summary_large_image',
       title: wiadomosc.tytul,
       description: wiadomosc.lid,
-      images: obrazek ? [obrazek] : undefined,
+      images: [obrazek],
     },
   }
 }

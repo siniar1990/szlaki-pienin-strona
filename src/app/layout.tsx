@@ -4,6 +4,7 @@ import { Fraunces, Inter } from 'next/font/google'
 import { Naglowek } from '@/components/uklad/naglowek'
 import { Stopka } from '@/components/uklad/stopka'
 import { PORTAL } from '@/lib/konfiguracja'
+import { OBRAZ_PORTALU } from '@/lib/seo/open-graph'
 
 import './globals.css'
 
@@ -75,11 +76,29 @@ export const metadata: Metadata = {
     url: PORTAL.adres,
     title: `${PORTAL.nazwa} — przewodnik po Pieninach`,
     description: PORTAL.opis,
+    /*
+      Obraz karty linku dla stron, które nie podają własnego. Bez niego portal
+      wklejony na Messengera, WhatsAppa czy do grupy na Facebooku pokazywał się
+      jako goły odnośnik — a to jest droga, którą realnie rozchodzi się
+      przewodnik turystyczny.
+
+      Wymiary podane wprost, żeby serwis nie musiał najpierw pobierać pliku:
+      przy pierwszym udostępnieniu potrafi wtedy pokazać kartę bez grafiki.
+    */
+    images: [
+      {
+        url: OBRAZ_PORTALU,
+        width: 1200,
+        height: 630,
+        alt: 'Panorama Pienin z Trzema Koronami',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${PORTAL.nazwa} — przewodnik po Pieninach`,
     description: PORTAL.opis,
+    images: [OBRAZ_PORTALU],
   },
   icons: {
     // Trzy rozmiary, bo trafiają w trzy różne miejsca: 32 px to karta

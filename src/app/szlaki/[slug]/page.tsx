@@ -40,6 +40,7 @@ import {
   kolorTypu,
   metry,
 } from '@/lib/format'
+import { metadaneStrony, obrazOG } from '@/lib/seo/open-graph'
 import { PORTAL, ZRODLA } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
 
@@ -73,18 +74,15 @@ export async function generateMetadata({
     ? `${liczby} ${trasa.opis.split(/(?<=\.)\s/)[0]}`
     : `${liczby} Trasa w Pieninach z opisem, mapą i profilem wysokości.`
 
-  return {
-    title: trasa.nazwa,
-    description: opis.slice(0, 300),
-    alternates: { canonical: `/szlaki/${trasa.slug}` },
-    openGraph: {
-      type: 'article',
-      title: `${trasa.nazwa} — trasa w Pieninach`,
-      description: opis.slice(0, 300),
-      url: `${PORTAL.adres}/szlaki/${trasa.slug}`,
-      images: trasa.ilustracja ? [{ url: trasa.ilustracja }] : undefined,
-    },
-  }
+  return metadaneStrony({
+    tytul: trasa.nazwa,
+    opis: opis.slice(0, 300),
+    sciezka: `/szlaki/${trasa.slug}`,
+    // Ilustracja jest w WebP i o innych proporcjach niż karta linku — trasa
+    // `/og` przycina ją do 1200 × 630 i przekodowuje na JPEG.
+    obraz: trasa.ilustracja ? obrazOG('trasa', trasa.slug) : null,
+    typ: 'article',
+  })
 }
 
 export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'>) {

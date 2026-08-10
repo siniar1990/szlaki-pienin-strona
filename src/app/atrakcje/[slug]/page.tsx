@@ -19,7 +19,8 @@ import {
   pobierzAtrakcje1,
   pobierzTrasePoId,
 } from '@/lib/dane/zrodlo'
-import { czas, etykietaTypu, kilometry, kolorTypu, metry } from '@/lib/format'
+import { czas, etykietaTypu, kilometry, kolorTypu, metry, odmien } from '@/lib/format'
+import { metadaneStrony, obrazOG } from '@/lib/seo/open-graph'
 import { PORTAL, ZRODLA } from '@/lib/konfiguracja'
 import {
   ZAPROSZENIA_NA_STRONACH,
@@ -65,43 +66,45 @@ export async function generateMetadata({
 
   const zKatalogu = znajdzAtrakcjeTurystyczna(slug)
   if (zKatalogu) {
-    return {
-      title: zKatalogu.nazwa,
-      description: `${miejsceAtrakcji(zKatalogu)}. ${zKatalogu.skrot}`.slice(0, 300),
-      alternates: { canonical: `/atrakcje/${zKatalogu.slug}` },
-      openGraph: {
-        type: 'article',
-        title: `${zKatalogu.nazwa} — ${miejsceAtrakcji(zKatalogu)}`,
-        description: zKatalogu.skrot,
-        url: `${PORTAL.adres}/atrakcje/${zKatalogu.slug}`,
-      },
-    }
+    return metadaneStrony({
+      tytul: zKatalogu.nazwa,
+      opis: `${miejsceAtrakcji(zKatalogu)}. ${zKatalogu.skrot}`.slice(0, 300),
+      sciezka: `/atrakcje/${zKatalogu.slug}`,
+      obraz: obrazOG('atrakcja', zKatalogu.slug),
+      typ: 'article',
+    })
   }
 
   const atrakcja = pobierzAtrakcje1(slug)
   if (!atrakcja) return {}
 
+  const ile = atrakcja.trasy.length
   const opis = [
     etykietaTypu(atrakcja.typ),
     'w Pieninach.',
     atrakcja.wysokoscM !== null ? `Wysokość ${metry(atrakcja.wysokoscM)} n.p.m.` : '',
-    `Prowadzi tu ${atrakcja.trasy.length} opisanych tras.`,
+    /*
+      Polska odmiana, a nie doklejona końcówka. Wcześniej stało tu na sztywno
+      „Prowadzi tu N opisanych tras" — i to zdanie, z błędem, szło do wyników
+      wyszukiwania trzydziestu kilku stron.
+    */
+    `${odmien(ile, ['Prowadzi', 'Prowadzą', 'Prowadzi'])} tu ${ile} ${odmien(ile, [
+      'opisana trasa',
+      'opisane trasy',
+      'opisanych tras',
+    ])}.`,
     atrakcja.ciekawostki[0]?.tekst ?? '',
   ]
     .filter(Boolean)
     .join(' ')
 
-  return {
-    title: atrakcja.nazwa,
-    description: opis.slice(0, 300),
-    alternates: { canonical: `/atrakcje/${atrakcja.slug}` },
-    openGraph: {
-      type: 'article',
-      title: `${atrakcja.nazwa} — ${etykietaTypu(atrakcja.typ).toLowerCase()} w Pieninach`,
-      description: opis.slice(0, 300),
-      url: `${PORTAL.adres}/atrakcje/${atrakcja.slug}`,
-    },
-  }
+  return metadaneStrony({
+    tytul: atrakcja.nazwa,
+    opis: opis.slice(0, 300),
+    sciezka: `/atrakcje/${atrakcja.slug}`,
+    obraz: obrazOG('atrakcja', atrakcja.slug),
+    typ: 'article',
+  })
 }
 
 export default async function StronaAtrakcji({ params }: PageProps<'/atrakcje/[slug]'>) {

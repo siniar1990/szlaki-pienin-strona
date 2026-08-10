@@ -12,6 +12,7 @@ import { podpisZdjecia } from '@/lib/dane/podpisy-zdjec'
 import { maWlasneZdjecie, zdjecieMiejscowosci } from '@/lib/dane/zdjecia-miejscowosci'
 import { pobierzDaneDnia } from '@/lib/dzis'
 import { kilometry, odmien } from '@/lib/format'
+import { metadaneStrony, obrazOG } from '@/lib/seo/open-graph'
 import { MIEJSCOWOSCI, znajdzMiejscowosc } from '@/lib/tresc/miejscowosci'
 import {
   atrakcjeMiejscowosci,
@@ -50,11 +51,12 @@ export async function generateMetadata({
   const miejscowosc = znajdzMiejscowosc(slug)
   if (!miejscowosc) return {}
 
-  return {
-    title: miejscowosc.nazwaPelna,
-    description: miejscowosc.lead,
-    alternates: { canonical: `/miejscowosci/${miejscowosc.slug}` },
-  }
+  return metadaneStrony({
+    tytul: miejscowosc.nazwaPelna,
+    opis: miejscowosc.lead,
+    sciezka: `/miejscowosci/${miejscowosc.slug}`,
+    obraz: obrazOG('miejscowosc', miejscowosc.slug),
+  })
 }
 
 export default async function StronaMiejscowosci({

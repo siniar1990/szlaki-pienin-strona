@@ -7,6 +7,7 @@ import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { KOLEKCJE, trasyWKolekcji, znajdzKolekcje } from '@/lib/dane/kolekcje'
 import { naListe, pobierzTrasy } from '@/lib/dane/zrodlo'
 import { kilometry } from '@/lib/format'
+import { metadaneStrony } from '@/lib/seo/open-graph'
 import { PORTAL } from '@/lib/konfiguracja'
 
 /**
@@ -31,17 +32,11 @@ export async function generateMetadata({
 
   const ile = trasyWKolekcji(kolekcja, pobierzTrasy()).length
 
-  return {
-    title: `${kolekcja.nazwa} — trasy w Pieninach`,
-    description: `${ile} tras. ${kolekcja.opis}`.slice(0, 300),
-    alternates: { canonical: `/szlaki/kolekcje/${kolekcja.slug}` },
-    openGraph: {
-      type: 'website',
-      title: `${kolekcja.nazwa} — trasy w Pieninach`,
-      description: kolekcja.opis,
-      url: `${PORTAL.adres}/szlaki/kolekcje/${kolekcja.slug}`,
-    },
-  }
+  return metadaneStrony({
+    tytul: `${kolekcja.nazwa} — trasy w Pieninach`,
+    opis: `${ile} tras. ${kolekcja.opis}`.slice(0, 300),
+    sciezka: `/szlaki/kolekcje/${kolekcja.slug}`,
+  })
 }
 
 export default async function StronaKolekcji({
