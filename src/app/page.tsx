@@ -3,6 +3,7 @@ import { Map as MapIcon } from 'lucide-react'
 
 import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
+import { PanelDzis } from '@/components/dzis/panel-dzis'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { KafelkiWyzwan } from '@/components/glowna/kafelki-wyzwan'
 import { PasmoMalowane } from '@/components/glowna/pasmo-malowane'
@@ -11,6 +12,7 @@ import { Powitanie } from '@/components/glowna/powitanie'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
 import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
+import { pobierzDaneDnia } from '@/lib/dzis'
 import { liczba } from '@/lib/format'
 import { pobierzWiadomosci } from '@/lib/wiadomosci/zapytania'
 
@@ -20,6 +22,17 @@ import { pobierzWiadomosci } from '@/lib/wiadomosci/zapytania'
  * Wszystkie dane są czytane przy budowaniu — to komponent serwerowy, więc do
  * przeglądarki trafia gotowy HTML, bez ani jednego kilobajta logiki ładowania.
  */
+
+/*
+  Kwadrans, odkąd pod powitaniem stoi pasek „Dziś w Pieninach".
+
+  Wcześniej strona główna odświeżała się wyłącznie przy publikacji notki, bo
+  tylko notki się na niej zmieniały. Teraz zmienia się też temperatura i stan
+  wody — a strona główna pokazująca wczorajszą pogodę podważa wiarygodność
+  wszystkiego innego, co na niej stoi. Ta sama wartość co pamięć podręczna
+  źródeł: krótszy odstęp i tak trafiałby w zapamiętany wynik.
+*/
+export const revalidate = 900
 
 export default async function StronaGlowna() {
   const trasy = pobierzTrasy()
@@ -72,11 +85,23 @@ export default async function StronaGlowna() {
     następnej wiadomości, więc w praktyce baza jest odpytywana raz na dobę,
     a nie raz na odsłonę.
   */
-  const wiadomosci = await pobierzWiadomosci(3)
+  /*
+    Notki i warunki na dziś naraz, a nie jedno po drugim: pierwsze sięga do
+    bazy, drugie do trzech cudzych serwerów, a żadne nie potrzebuje wyniku
+    drugiego. Szeregowo doszłoby to do sekundy przy pustej pamięci podręcznej.
+  */
+  const [wiadomosci, daneDnia] = await Promise.all([pobierzWiadomosci(3), pobierzDaneDnia()])
 
   return (
     <>
       <Powitanie statystyki={statystyki} />
+
+      {/*
+        Pasek warunków od razu pod powitaniem, przed kategoriami. To jedyna
+        treść na stronie głównej, która zmienia się w ciągu dnia — i jedyny
+        powód, żeby wejść tu jutro po tym, jak się już wszystko przeczytało.
+      */}
+      <PanelDzis dane={daneDnia} wariant="pasek" />
 
       {/* ── Kategorie ───────────────────────────────────────────────────── */}
       <section id="odkrywaj" className="sekcja bg-kamien-50">
