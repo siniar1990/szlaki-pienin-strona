@@ -1,0 +1,709 @@
+/*
+  Kafelki „Dziś w Pieninach" — przeniesione z mockupu.
+
+  **Dlaczego osobny plik CSS, a nie klasy Tailwinda.** Bo to jest kilkanaście
+  animacji, selektory potomne wewnątrz SVG i przejścia zależne od stanu
+  rodzica. Zapisane narzędziowo dawałyby ciągi po sto znaków w atrybucie
+  `class`, których nie da się przeczytać ani zmienić bez rozszyfrowywania.
+  Repozytorium importuje już CSS w komponentach (mapa robi to z MapLibre),
+  więc konwencja jest zastana.
+
+  **Tokeny barw siedzą w `globals.css`** razem z resztą tokenów portalu —
+  tutaj tylko z nich korzystamy.
+
+  **Animacje ruszają wyłącznie `transform` i `opacity`.** Jedyny wyjątek to
+  jednorazowe wypełnienie miernika UV, które animuje `width` — bo pasek ma
+  rosnąć od lewej, a `scaleX` rozciągnąłby też zaokrąglenie końca.
+
+  **Ruch stoi, dopóki nie jest widoczny.** Klasę `.w-ruchu` zdejmuje i zakłada
+  komponent kliencki: gdy siatka wyjedzie poza ekran albo karta przeglądarki
+  zejdzie na drugi plan, wszystkie animacje ambientowe zostają wstrzymane.
+  Bez tego sześć nieskończonych pętli chodziłoby w tle na baterii telefonu.
+*/
+
+/* ── siatka ──────────────────────────────────────────────────────────────── */
+
+.dzis-siatka {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 980px) {
+  .dzis-siatka {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dzis-siatka {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── kafelek ─────────────────────────────────────────────────────────────── */
+
+.kafelek {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface, #fcfcfb);
+  border: 1px solid var(--hairline, rgba(11, 11, 11, 0.09));
+  border-radius: 22px;
+  padding: 22px 24px 20px;
+  min-height: 196px;
+  box-shadow: var(--cien-kafelka);
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 0.28s,
+    border-color 0.28s,
+    background 0.3s;
+}
+
+.kafelek:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--cien-kafelka-hover);
+}
+
+/*
+  Wejście kaskadowe TYLKO przy pierwszym pokazaniu siatki.
+
+  Klasę `.wchodzi` zakłada komponent kliencki raz — przy powrocie z historii
+  przeglądarki karty są już na miejscu i nic nie mruga. Stan spoczynkowy to
+  pełna widoczność, więc bez JavaScriptu (i przy wyłączonych animacjach)
+  kafelki po prostu są; nie ma sposobu, żeby zostały niewidoczne.
+*/
+.dzis-siatka.wchodzi .kafelek {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: kafelek-wejscie 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+.dzis-siatka.wchodzi .kafelek:nth-child(1) { animation-delay: 0.02s; }
+.dzis-siatka.wchodzi .kafelek:nth-child(2) { animation-delay: 0.09s; }
+.dzis-siatka.wchodzi .kafelek:nth-child(3) { animation-delay: 0.16s; }
+.dzis-siatka.wchodzi .kafelek:nth-child(4) { animation-delay: 0.23s; }
+.dzis-siatka.wchodzi .kafelek:nth-child(5) { animation-delay: 0.3s; }
+.dzis-siatka.wchodzi .kafelek:nth-child(6) { animation-delay: 0.37s; }
+
+@keyframes kafelek-wejscie {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Barwna poświata w prawym górnym rogu — jedyne miejsce, gdzie akcent
+   wchodzi na tło karty. */
+.kafelek::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 100% 0%, var(--wash) 0%, transparent 55%);
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.kafelek:hover::before {
+  opacity: 1;
+}
+
+.k-sky { --accent: var(--c-sky); --wash: var(--w-sky); }
+.k-peak { --accent: var(--c-peak); --wash: var(--w-peak); }
+.k-river { --accent: var(--c-river); --wash: var(--w-river); }
+.k-open { --accent: var(--c-open); --wash: var(--w-open); }
+.k-dawn { --accent: var(--c-dawn); --wash: var(--w-dawn); }
+.k-uv { --accent: var(--c-uv); --wash: var(--w-uv); }
+
+/* Ramka priorytetu dnia. Dostaje ją wyłącznie kafelek alertowy — gdyby miały
+   ją dwa, przestałaby cokolwiek wyróżniać. */
+.kafelek.alert {
+  border-color: color-mix(in srgb, var(--uv-border) 55%, transparent);
+}
+
+/* ── części wspólne kafelka ──────────────────────────────────────────────── */
+
+.k-glowa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.k-ikona {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}
+
+.k-ikona svg {
+  width: 18px;
+  height: 18px;
+}
+
+.k-etykieta {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-kamien-700);
+  letter-spacing: 0.1px;
+}
+
+.k-wartosc {
+  position: relative;
+  z-index: 2;
+  font-size: 44px;
+  font-weight: 650;
+  letter-spacing: -1px;
+  margin: 14px 0 4px;
+  line-height: 1;
+  color: var(--color-kamien-900);
+}
+
+.k-wartosc small {
+  font-size: 22px;
+  font-weight: 550;
+  letter-spacing: 0;
+  color: var(--color-kamien-700);
+}
+
+/* Godziny i odliczanie: cyfry o równej szerokości, żeby tekst nie skakał
+   przy każdej zmianie minuty. */
+.k-wartosc.godzina,
+.k-odliczanie {
+  font-variant-numeric: tabular-nums;
+}
+
+.k-pod {
+  position: relative;
+  z-index: 2;
+  font-size: 13.5px;
+  color: var(--color-kamien-700);
+  line-height: 1.45;
+}
+
+.k-pod .sep {
+  color: var(--color-kamien-500);
+  margin: 0 3px;
+}
+
+.k-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--color-kamien-700);
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+}
+
+.k-chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Miejsce zarezerwowane na mikroilustrację, żeby brak danych nie zmieniał
+   wysokości karty. Bez tego siatka przeskakiwałaby przy każdym odświeżeniu. */
+.k-miejsce {
+  margin-top: auto;
+  min-height: 34px;
+}
+
+/* ── 1 · Szczawnica: dryfujące chmury ────────────────────────────────────── */
+
+.chmury {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.chmura {
+  position: absolute;
+  fill: color-mix(in srgb, var(--c-sky) 16%, transparent);
+}
+
+.chmura.c1 {
+  width: 96px;
+  top: 14px;
+  right: -10px;
+}
+
+.chmura.c2 {
+  width: 64px;
+  top: 58px;
+  right: 66px;
+  fill: color-mix(in srgb, var(--c-sky) 10%, transparent);
+}
+
+.w-ruchu .chmura.c1 {
+  animation: dryf 14s ease-in-out infinite alternate;
+}
+
+.w-ruchu .chmura.c2 {
+  animation: dryf 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes dryf {
+  from { transform: translateX(0); }
+  to { transform: translateX(-16px); }
+}
+
+/* ── 2 · Trzy Korony: paralaksa grzbietów i smugi wiatru ─────────────────── */
+
+.grzbiety {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 74px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.grzbiety svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.g-tyl { fill: color-mix(in srgb, var(--c-peak) 12%, transparent); }
+.g-srodek { fill: color-mix(in srgb, var(--c-peak) 20%, transparent); }
+.g-przod { fill: color-mix(in srgb, var(--c-peak) 30%, transparent); }
+
+.k-peak:hover .g-tyl { transform: translateX(6px); }
+.k-peak:hover .g-przod { transform: translateX(-7px) translateY(1px); }
+
+.smugi {
+  position: absolute;
+  top: 24px;
+  right: 22px;
+  z-index: 1;
+}
+
+.smugi path {
+  stroke: color-mix(in srgb, var(--c-peak) 45%, transparent);
+  stroke-width: 1.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 26;
+}
+
+.w-ruchu .smugi path {
+  animation: smuga 2.6s linear infinite;
+}
+
+.w-ruchu .smugi path:nth-child(2) {
+  animation-delay: 0.9s;
+}
+
+@keyframes smuga {
+  from { stroke-dashoffset: 52; opacity: 0; }
+  25% { opacity: 1; }
+  80% { opacity: 1; }
+  to { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* ── 3 · Dunajec: fale i sparkline ───────────────────────────────────────── */
+
+.fale {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 46px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fala {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+}
+
+.fala path {
+  fill: color-mix(in srgb, var(--c-river) 14%, transparent);
+}
+
+.fala.f2 {
+  bottom: 6px;
+}
+
+.fala.f2 path {
+  fill: color-mix(in srgb, var(--c-river) 9%, transparent);
+}
+
+.w-ruchu .fala.f1 { animation: plyn 9s linear infinite; }
+.w-ruchu .fala.f2 { animation: plyn 14s linear infinite reverse; }
+
+@keyframes plyn {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.sparkline {
+  position: relative;
+  z-index: 2;
+  margin-top: 6px;
+}
+
+.sparkline polyline {
+  fill: none;
+  stroke: color-mix(in srgb, var(--c-river) 38%, transparent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparkline .teraz {
+  fill: var(--c-river);
+  stroke: var(--surface, #fcfcfb);
+  stroke-width: 2;
+}
+
+/* ── 4 · Obiekty: kropki i odliczanie ────────────────────────────────────── */
+
+.kropki {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.kropka {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--c-open) 45%, transparent);
+  background: transparent;
+}
+
+/* Otwarty obiekt to kropka wypełniona — sam kolor obwódki byłby zbyt cichy,
+   żeby policzyć je wzrokiem. */
+.kropka.otwarty {
+  background: var(--c-open);
+  border-color: var(--c-open);
+}
+
+.kropka.nastepny {
+  border-color: var(--c-open);
+}
+
+.w-ruchu .kropka.nastepny {
+  animation: nastepny 2s ease-in-out infinite;
+}
+
+@keyframes nastepny {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c-open) 35%, transparent); }
+  55% { box-shadow: 0 0 0 6px transparent; }
+}
+
+/* ── 5 · Świt: łuk dnia i gwiazdy ────────────────────────────────────────── */
+
+.luk {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-top: 10px;
+}
+
+.luk .tor {
+  fill: none;
+  stroke: var(--hairline, rgba(11, 11, 11, 0.09));
+  stroke-width: 1.5;
+}
+
+.luk .horyzont {
+  stroke: var(--hairline, rgba(11, 11, 11, 0.09));
+  stroke-width: 1.5;
+}
+
+.luk .slonce { fill: #eda100; }
+.luk .poswiata { fill: #eda100; opacity: 0.25; }
+
+.w-ruchu .luk .poswiata {
+  animation: poswiata 3s ease-in-out infinite;
+}
+
+@keyframes poswiata {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.38; }
+}
+
+.gwiazdy {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gwiazda {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--c-dawn);
+  opacity: 0.5;
+}
+
+.w-ruchu .gwiazda { animation: migotanie 3.4s ease-in-out infinite; }
+.w-ruchu .gwiazda.g2 { animation-delay: 1.2s; }
+.w-ruchu .gwiazda.g3 { animation-delay: 2.1s; }
+
+@keyframes migotanie {
+  0%, 100% { opacity: 0.18; transform: scale(0.8); }
+  50% { opacity: 0.75; transform: scale(1.15); }
+}
+
+/* ── 6 · UV: miernik i promienie ─────────────────────────────────────────── */
+
+.uv-slonce {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 1;
+  color: color-mix(in srgb, var(--c-uv) 55%, transparent);
+  transform-origin: center;
+}
+
+.w-ruchu .uv-slonce {
+  animation: obrot 26s linear infinite;
+}
+
+@keyframes obrot {
+  to { transform: rotate(360deg); }
+}
+
+.miernik {
+  position: relative;
+  z-index: 2;
+  margin-top: 12px;
+}
+
+.miernik-tor {
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--uv-border) 18%, transparent);
+}
+
+/*
+  Wypełnienie startuje dopiero, gdy kafelek wjedzie w pole widzenia — inaczej
+  animacja kończyłaby się, zanim ktokolwiek by ją zobaczył. Docelową szerokość
+  podaje komponent zmienną `--uv-poziom`; stan spoczynkowy to pełne
+  wypełnienie, więc bez JavaScriptu miernik pokazuje poprawną wartość.
+*/
+.miernik-wypelnienie {
+  height: 100%;
+  width: var(--uv-poziom, 0%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0ca30c, #eda100 60%, #eb6834);
+  background-size: 183% 100%;
+}
+
+.miernik.animuj .miernik-wypelnienie {
+  width: 0;
+  animation: miernik 1.1s 0.15s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+@keyframes miernik {
+  to { width: var(--uv-poziom, 0%); }
+}
+
+.miernik-skala {
+  position: relative;
+  height: 15px;
+  font-size: 10.5px;
+  color: var(--color-kamien-500);
+  margin-top: 5px;
+}
+
+.miernik-skala span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.miernik-skala span:first-child { transform: none; }
+.miernik-skala span:last-child { transform: translateX(-100%); }
+
+/* ── pasek na stronie głównej ────────────────────────────────────────────── */
+
+.dzis-pasek {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Miejsce na uniesienie kafelka przy najechaniu — bez tego cień obcinałby
+     się o krawędź kontenera przewijania. */
+  padding: 4px 0 10px;
+  scrollbar-width: none;
+}
+
+.dzis-pasek::-webkit-scrollbar {
+  display: none;
+}
+
+.mini {
+  scroll-snap-align: start;
+  flex: 1 0 auto;
+  min-width: 152px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface, #fcfcfb);
+  border: 1px solid var(--hairline, rgba(11, 11, 11, 0.09));
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: var(--cien-kafelka);
+  text-decoration: none;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 0.28s,
+    border-color 0.28s;
+}
+
+.mini::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 100% 0%, var(--wash) 0%, transparent 60%);
+}
+
+.mini:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--cien-kafelka-hover);
+}
+
+.mini.alert {
+  border-color: color-mix(in srgb, var(--uv-border) 55%, transparent);
+}
+
+.mini-ikona {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  position: relative;
+  z-index: 2;
+}
+
+.mini-ikona svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mini-tresc {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.mini-wartosc {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+  color: var(--color-kamien-900);
+  font-variant-numeric: tabular-nums;
+}
+
+.mini-etykieta {
+  font-size: 11.5px;
+  color: var(--color-kamien-600);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Kropka „na żywo" — jedyna animacja, która zostaje w wariancie kompaktowym. */
+.zywa-kropka {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-las-600);
+  flex: none;
+}
+
+.w-ruchu .zywa-kropka {
+  animation: tetno 2.2s ease-in-out infinite;
+}
+
+@keyframes tetno {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-las-600) 45%, transparent); }
+  55% { box-shadow: 0 0 0 6px transparent; }
+}
+
+/* ── stan zastępczy ──────────────────────────────────────────────────────── */
+
+/*
+  Kafelek bez odczytu zachowuje geometrię — kreska zamiast liczby, ta sama
+  wysokość. Awaria źródła nie może przestawiać siatki, bo skacząca strona
+  wygląda gorzej niż brakująca liczba.
+*/
+.k-wartosc.brak {
+  color: var(--color-kamien-400);
+}
+
+/* ── dostępność ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .kafelek,
+  .kafelek::before,
+  .mini,
+  .grzbiety svg {
+    transition-duration: 0.01ms !important;
+  }
+
+  .dzis-siatka.wchodzi .kafelek {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .chmura,
+  .smugi path,
+  .fala,
+  .kropka,
+  .gwiazda,
+  .luk .poswiata,
+  .uv-slonce,
+  .zywa-kropka {
+    animation: none !important;
+  }
+
+  /* Stan końcowy od razu: miernik pokazuje wartość, nie zero. */
+  .miernik.animuj .miernik-wypelnienie {
+    width: var(--uv-poziom, 0%);
+    animation: none !important;
+  }
+}

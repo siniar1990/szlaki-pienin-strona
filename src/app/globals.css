@@ -130,6 +130,37 @@
   --input: var(--color-kamien-300);
   --ring: var(--color-las-600);
   --radius: 0.75rem;
+
+  /*
+    Akcenty tematyczne sekcji „Dziś w Pieninach".
+
+    Sześć barw, każda przypisana do znaczenia, nie do wyglądu: niebo, grań,
+    woda, otwarcia, świt, słońce. Barwa pojawia się w ikonie, poświacie karty
+    i mikroilustracji — NIGDY w tekście wartości, bo wartość musi być czytelna
+    także wtedy, gdy ktoś nie rozróżnia barw. Przy każdej stoi ikona i podpis
+    słowny, więc kolor jest podpowiedzią, a nie nośnikiem informacji.
+
+    Wariant `--w-*` to rozbielenie tej samej barwy pod radialną poświatę
+    w rogu kafelka; wyliczanie go z `color-mix` dawało na ciemnym tle szarość,
+    więc obie wartości są podane wprost.
+  */
+  --c-sky: #64748b;
+  --w-sky: #eef2f6;
+  --c-peak: #2f7d5c;
+  --w-peak: #ecf3ee;
+  --c-river: #2a78d6;
+  --w-river: #ebf2fb;
+  --c-open: #0ca30c;
+  --w-open: #edf5ea;
+  --c-dawn: #7862c4;
+  --w-dawn: #f1eefa;
+  --c-uv: #eb6834;
+  --w-uv: #fdf3e4;
+  /* Ramka kafelka alertowego — jedyna barwna krawędź w całej siatce. */
+  --uv-border: #eda100;
+
+  --cien-kafelka: 0 1px 2px rgba(20, 20, 15, 0.04), 0 8px 24px rgba(20, 20, 15, 0.05);
+  --cien-kafelka-hover: 0 2px 4px rgba(20, 20, 15, 0.05), 0 18px 44px rgba(20, 20, 15, 0.11);
 }
 
 .dark {
@@ -151,6 +182,33 @@
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 18%);
   --ring: var(--color-las-400);
+
+  /*
+    Ciemne odpowiedniki akcentów. Nie są odwróceniem jasnych: na ciemnym tle
+    ta sama barwa traci nasycenie i schodzi poniżej progu kontrastu, więc
+    wszystkie sześć jest rozjaśnionych, a rozbielenia `--w-*` zamienione na
+    przyciemnienia.
+
+    Klasa `.dark` to mechanizm, który portal już ma (shadcn) — dziś nikt jej
+    nie ustawia, więc nic się nie zmienia. Gdy portal dostanie przełącznik
+    motywu, kafelki zadziałają bez ani jednej dodatkowej linijki.
+  */
+  --c-sky: #94a6bb;
+  --w-sky: #232830;
+  --c-peak: #57b287;
+  --w-peak: #1e2b24;
+  --c-river: #4b90e2;
+  --w-river: #1d2735;
+  --c-open: #3fbb3f;
+  --w-open: #1e2b1c;
+  --c-dawn: #a08fe0;
+  --w-dawn: #262138;
+  --c-uv: #f0824f;
+  --w-uv: #33261a;
+  --uv-border: #c98500;
+
+  --cien-kafelka: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --cien-kafelka-hover: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 44px rgba(0, 0, 0, 0.5);
 }
 
 @layer base {

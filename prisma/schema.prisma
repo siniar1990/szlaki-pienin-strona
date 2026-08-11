@@ -387,3 +387,23 @@ model UstawieniaRedakcji {
 
   zmieniono DateTime @updatedAt
 }
+
+/// Odczyty wodowskazu w Krościenku — historia pod wykres na kafelku.
+///
+/// **Po co osobna tabela.** IMGW udostępnia wyłącznie ostatni pomiar; historii
+/// z ich API nie da się pobrać. Sparkline z ostatniej doby musi więc powstać
+/// z odczytów, które sami zapisaliśmy — inaczej trzeba by go narysować
+/// z niczego, a portal nie pokazuje wymyślonych liczb.
+///
+/// **Dlaczego `pomiar` jest unikalny.** Bo pytamy IMGW co kwadrans, a stacja
+/// raportuje rzadziej — bez tego warunku ta sama chwila trafiałaby do bazy
+/// kilka razy i wykres miałby po kilka punktów w jednym miejscu.
+model OdczytDunajca {
+  /// Chwila pomiaru podana przez IMGW, nie chwila zapisu.
+  pomiar          DateTime @id
+  /// Stan wody w centymetrach.
+  poziom          Int
+  temperaturaWody Float?
+
+  @@index([pomiar])
+}

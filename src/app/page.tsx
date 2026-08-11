@@ -3,7 +3,7 @@ import { Map as MapIcon } from 'lucide-react'
 
 import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
-import { PanelDzis } from '@/components/dzis/panel-dzis'
+import { PasekDzis } from '@/components/dzis/pasek-dzis'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { KafelkiWyzwan } from '@/components/glowna/kafelki-wyzwan'
 import { PasmoMalowane } from '@/components/glowna/pasmo-malowane'
@@ -101,7 +101,7 @@ export default async function StronaGlowna() {
         treść na stronie głównej, która zmienia się w ciągu dnia — i jedyny
         powód, żeby wejść tu jutro po tym, jak się już wszystko przeczytało.
       */}
-      <PanelDzis dane={daneDnia} wariant="pasek" />
+      <PasekDzis dane={daneDnia} />
 
       {/* ── Kategorie ───────────────────────────────────────────────────── */}
       <section id="odkrywaj" className="sekcja bg-kamien-50">

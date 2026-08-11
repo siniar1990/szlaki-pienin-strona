@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { ArrowRight, Smartphone } from 'lucide-react'
 
 import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
-import { PanelDzis } from '@/components/dzis/panel-dzis'
+import { ListaObiektow } from '@/components/dzis/lista-obiektow'
+import { SiatkaDzis } from '@/components/dzis/siatka-dzis'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { pobierzTrasy } from '@/lib/dane/zrodlo'
@@ -62,7 +63,14 @@ export default async function StronaDzis() {
       />
 
       <div className="obszar py-12 lg:py-16">
-        <PanelDzis dane={dane} wariant="pelny" />
+        <SiatkaDzis dane={dane} />
+
+        {/*
+          Lista obiektów zostaje pod siatką. Kafelek mówi „ile", ta lista
+          mówi „które i do której" — a to jest pytanie, które pada zaraz po
+          tamtym.
+        */}
+        <ListaObiektow dane={dane} />
       </div>
 
       {propozycja && propozycja.trasy.length > 0 && (

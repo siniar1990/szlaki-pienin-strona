@@ -2,6 +2,8 @@ import { unstable_cache } from 'next/cache'
 
 import { chwilaWPolsce } from './czas'
 import { coCzynne, type StanObiektu } from './czynne'
+import { zapiszIPobierzHistorie, wspolrzedneWykresu } from './historia-dunajca'
+import { policzSlonce, type Slonce } from './slonce'
 import { pobierzStanDunajca, type StanDunajca } from './dunajec'
 import { pobierzPogode, type Pogoda } from './pogoda'
 import { pobierzPowietrze, type Powietrze } from './powietrze'
@@ -31,6 +33,10 @@ export type DaneDnia = {
   pogoda: Pogoda | null
   dunajec: StanDunajca | null
   powietrze: Powietrze | null
+  /** Wykres z ostatniej doby albo `null`, dopóki historia się nie napełni. */
+  wykresDunajca: { linia: string; teraz: { x: number; y: number } } | null
+  /** Faza doby i pozycja słońca; `null`, gdy nie ma prognozy. */
+  slonce: Slonce | null
   obiekty: StanObiektu[]
   /** Chwila, dla której policzono te dane — do podpisu „stan na". */
   odczyt: Date
@@ -77,15 +83,27 @@ export async function pobierzDaneDnia(): Promise<DaneDnia> {
     wymagają żadnego żądania — a zapamiętane na kwadrans potrafiłyby pokazać
     „otwarte" dziesięć minut po zamknięciu muzeum.
   */
+  const zPogoda = pogoda && {
+    ...pogoda,
+    wschod: data(pogoda.wschod),
+    zachod: data(pogoda.zachod),
+    wschodJutro: data(pogoda.wschodJutro),
+  }
+  const zDunajcem = dunajec && { ...dunajec, pomiar: data(dunajec.pomiar) }
+
+  /*
+    Historia wodowskazu żyje POZA pamięcią podręczną i to jest celowe: zapis
+    ma się wykonać przy każdym odświeżeniu danych, a funkcja zapamiętana
+    wykonuje się tylko przy pierwszym. Inaczej wykres nigdy by nie urósł.
+  */
+  const historia = await zapiszIPobierzHistorie(zDunajcem)
+
   return {
-    pogoda: pogoda && {
-      ...pogoda,
-      wschod: data(pogoda.wschod),
-      zachod: data(pogoda.zachod),
-      wschodJutro: data(pogoda.wschodJutro),
-    },
-    dunajec: dunajec && { ...dunajec, pomiar: data(dunajec.pomiar) },
+    pogoda: zPogoda,
+    dunajec: zDunajcem,
     powietrze,
+    wykresDunajca: wspolrzedneWykresu(historia),
+    slonce: zPogoda ? policzSlonce(zPogoda.wschod, zPogoda.zachod, teraz) : null,
     obiekty: coCzynne(chwilaWPolsce(teraz)),
     odczyt: teraz,
   }
@@ -112,5 +130,7 @@ export { opisPowietrza, PROG_WARTY_UWAGI } from './powietrze'
 export type { Powietrze } from './powietrze'
 export type { StanDunajca } from './dunajec'
 export type { StanObiektu } from './czynne'
+export { dlugoscDniaSlownie, opisFazy, punktNaLuku } from './slonce'
+export type { FazaDoby, Slonce } from './slonce'
 export { chwilaWPolsce, zPolskiegoCzasu } from './czas'
 export type { ChwilaWPolsce } from './czas'

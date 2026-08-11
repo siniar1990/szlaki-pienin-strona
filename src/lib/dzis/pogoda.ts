@@ -46,6 +46,16 @@ export type Pogoda = {
   porywy: number
   /** Szczytowy indeks UV — liczba, przy której zaczyna się parzyć skóra. */
   uv: number
+  /** Indeks UV teraz. Rano i wieczorem bywa zerem przy wysokim maksimum. */
+  uvTeraz: number
+  /**
+   * Godziny, w których UV trzyma się blisko dzisiejszego szczytu.
+   *
+   * `null`, gdy maksimum jest tak niskie, że mówienie o „szczycie" nie ma
+   * sensu — zimą indeks nie przekracza dwóch przez cały dzień i wskazywanie
+   * wtedy godzin sugerowałoby zagrożenie, którego nie ma.
+   */
+  szczytUV: { od: number; do: number } | null
   wschod: Date
   zachod: Date
   /**
@@ -67,6 +77,11 @@ type OdpowiedzApi = {
     weather_code?: number
     wind_speed_10m?: number
     snow_depth?: number
+    uv_index?: number
+  }
+  hourly?: {
+    time?: number[]
+    uv_index?: number[]
   }
   daily?: {
     /** Sekundy epoki — patrz `timeformat` w zapytaniu. */
@@ -88,7 +103,8 @@ async function zapytaj(
     latitude: String(punkt.szerokosc),
     longitude: String(punkt.dlugosc),
     current:
-      'temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,snow_depth',
+      'temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,snow_depth,' +
+      'uv_index',
     timezone: 'Europe/Warsaw',
     /*
       Godziny w sekundach epoki, a nie w napisach.
@@ -111,6 +127,9 @@ async function zapytaj(
       'sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum,' +
         'uv_index_max,wind_gusts_10m_max',
     )
+    // Godzinowe UV służy wyłącznie do wyznaczenia okna szczytu — samego
+    // przebiegu nigdzie nie pokazujemy.
+    parametry.set('hourly', 'uv_index')
   }
 
   const odpowiedz = await fetch(`${ADRES}?${parametry}`, {
@@ -138,6 +157,47 @@ function punkt(dane: OdpowiedzApi): PogodaPunktu {
   }
 }
 
+/** Od tego maksimum w ogóle mówimy o „szczycie" — niżej UV nikomu nie szkodzi. */
+const UV_WARTE_SZCZYTU = 3
+
+/** Godziny liczone jako szczyt trzymają co najmniej tyle procent maksimum. */
+const UDZIAL_SZCZYTU = 0.8
+
+/**
+ * Przedział godzin, w których UV trzyma się blisko dzisiejszego szczytu.
+ *
+ * Bierzemy pierwszą i ostatnią godzinę powyżej progu, a nie wszystkie powyżej —
+ * przebieg UV ma jedno maksimum w ciągu dnia, więc przedział jest ciągły
+ * z natury zjawiska, a wypisywanie listy godzin niczego by nie dodało.
+ */
+function oknoSzczytuUV(
+  godzinowe: OdpowiedzApi['hourly'],
+): { od: number; do: number } | null {
+  const wartosci = godzinowe?.uv_index
+  const czasy = godzinowe?.time
+  if (!wartosci?.length || !czasy?.length) return null
+
+  const maksimum = Math.max(...wartosci)
+  if (maksimum < UV_WARTE_SZCZYTU) return null
+
+  const prog = maksimum * UDZIAL_SZCZYTU
+  const indeksy = wartosci
+    .map((wartosc, indeks) => (wartosc >= prog ? indeks : -1))
+    .filter((indeks) => indeks >= 0)
+  if (!indeksy.length) return null
+
+  const godzina = (indeks: number) =>
+    Number(
+      new Intl.DateTimeFormat('pl-PL', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone: 'Europe/Warsaw',
+      }).format(new Date(czasy[indeks] * 1000)),
+    ) % 24
+
+  return { od: godzina(indeksy[0]), do: godzina(indeksy[indeksy.length - 1]) + 1 }
+}
+
 /** Sekundy epoki na datę; brak wartości daje bieżącą chwilę zamiast NaN. */
 function zSekund(sekundy: number | undefined): Date {
   return sekundy === undefined ? new Date() : new Date(sekundy * 1000)
@@ -156,6 +216,8 @@ export async function pobierzPogode(): Promise<Pogoda | null> {
       opadDzis: dobowa?.precipitation_sum?.[0] ?? 0,
       porywy: Math.round(dobowa?.wind_gusts_10m_max?.[0] ?? 0),
       uv: Math.round(dobowa?.uv_index_max?.[0] ?? 0),
+      uvTeraz: Math.round(wDolinie.current?.uv_index ?? 0),
+      szczytUV: oknoSzczytuUV(wDolinie.hourly),
       wschod: zSekund(dobowa?.sunrise?.[0]),
       zachod: zSekund(dobowa?.sunset?.[0]),
       // Gdyby drugi dzień z jakiegoś powodu nie przyszedł, wracamy do
