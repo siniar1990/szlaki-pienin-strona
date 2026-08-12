@@ -280,6 +280,15 @@ export async function utworzWlasnaNotke(): Promise<void> {
 }
 
 /**
+ * Po tym znaczniku poznajemy zajawkę powstałą z nieudanego pisania.
+ *
+ * Rozpoznanie po treści, a nie po osobnym polu w bazie, bo to jest stan
+ * przejściowy trwający do pierwszej poprawki administratora — nie warto pod
+ * niego zakładać kolumny, o którą trzeba potem dbać w każdej migracji.
+ */
+const ZNACZNIK_NIEUDANEJ_PROBY = '[Automatyczne pisanie nie powiodło się:'
+
+/**
  * Notka dla artykułu wskazanego ręcznie w wykazie.
  *
  * **Dlaczego to samo, co robi redakcja dnia.** Bo różnica jest wyłącznie
@@ -295,14 +304,38 @@ export async function utworzWlasnaNotke(): Promise<void> {
 export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
   const znalezisko = await baza.znalezionyArtykul.findUnique({
     where: { id: znaleziskoId },
-    include: { zrodlo: { select: { nazwa: true } }, wiadomosc: { select: { id: true } } },
+    include: {
+      zrodlo: { select: { nazwa: true } },
+      wiadomosc: { select: { id: true, stan: true, tresc: true } },
+    },
   })
   if (!znalezisko) redirect('/panel/aktualnosci/znaleziska')
 
-  // Znalezisko może już mieć notkę — wtedy prowadzimy do niej zamiast tworzyć
-  // drugą. Pole `znaleziskoId` ma warunek unikalności, więc i tak by się nie
-  // udało, ale komunikat bazy nie tłumaczy nikomu, co się stało.
-  if (znalezisko.wiadomosc) redirect(`/panel/aktualnosci/${znalezisko.wiadomosc.id}`)
+  /*
+    Znalezisko może już mieć notkę — wtedy prowadzimy do niej zamiast tworzyć
+    drugą. Pole `znaleziskoId` ma warunek unikalności, więc i tak by się nie
+    udało, ale komunikat bazy nie tłumaczy nikomu, co się stało.
+
+    Wyjątkiem jest zajawka po nieudanym pisaniu. Ona nie jest notką, tylko
+    zapisanym komunikatem o błędzie — a przekierowanie do niej zamieniało
+    przycisk w ślepy zaułek: po naprawieniu przyczyny administrator klikał
+    „Napisz notkę", dostawał z powrotem ten sam stary komunikat i nie miał
+    jak poprosić o kolejną próbę. Tak zgłoszono to po poprawce czytania
+    artykułów: przyczyna zniknęła, a przycisk nadal pokazywał tamtą porażkę.
+
+    Kasujemy więc zajawkę i piszemy od nowa. Nie ma czego stracić: własnej
+    treści w niej nie ma, a gdyby administrator zdążył coś dopisać, tekst
+    przestaje zaczynać się od znacznika i zostaje potraktowany jak notka.
+  */
+  if (znalezisko.wiadomosc) {
+    const nieudanaProba =
+      znalezisko.wiadomosc.stan !== 'OPUBLIKOWANA' &&
+      znalezisko.wiadomosc.tresc.startsWith(ZNACZNIK_NIEUDANEJ_PROBY)
+
+    if (!nieudanaProba) redirect(`/panel/aktualnosci/${znalezisko.wiadomosc.id}`)
+
+    await baza.wiadomosc.delete({ where: { id: znalezisko.wiadomosc.id } })
+  }
 
   let powodNiepowodzenia: string | null = null
 
@@ -331,7 +364,7 @@ export async function notkaZeZnaleziska(znaleziskoId: string): Promise<void> {
       tytul: znalezisko.tytul.slice(0, 200),
       lid: (znalezisko.opis ?? 'Do napisania.').slice(0, 400),
       tresc:
-        `[Automatyczne pisanie nie powiodło się: ${powodNiepowodzenia}]\n\n` +
+        `${ZNACZNIK_NIEUDANEJ_PROBY} ${powodNiepowodzenia}]\n\n` +
         'Napisz notkę własnymi słowami na podstawie faktów z artykułu źródłowego.\n\n' +
         'Nie kopiuj zdań z oryginału — podaj to, co się wydarzyło, po swojemu ' +
         'i krócej. Odnośnik do źródła pokaże się pod treścią automatycznie.',
