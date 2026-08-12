@@ -99,7 +99,10 @@ export async function ocenNieocenione(budzetMs: number): Promise<WynikOceniania>
       odpowiedz = await zapytajOJson<OdpowiedzOcen>({
         model: MODELE.wybor,
         rolaSystemowa: ROLA_OCENIAJACEGO,
-        najwiecejZnakow: 700,
+        // Para liczb na artykuł przy dwudziestu artykułach to około dwustu
+        // tokenów treści; reszta to zapas, bo limit liczy całe wyjście
+        // modelu — patrz komentarz przy `DOMYSLNIE_TOKENOW`.
+        najwiecejTokenow: 2500,
         czasMs: CZAS_PACZKI_MS,
         tresc:
           paczka

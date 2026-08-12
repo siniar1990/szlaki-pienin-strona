@@ -239,10 +239,16 @@ export async function napiszNotkeDnia(): Promise<WynikRedakcji> {
     zapytajOJson<OdpowiedzWyboru>({
       model: MODELE.wybor,
       rolaSystemowa: ROLA_WYBIERAJACEGO,
-      // Krótka odpowiedź to szybka odpowiedź. Poprzednia wersja prosiła
-      // o wyjaśnienia przy każdym odrzuconym artykule i generowanie tego
-      // trwało dłużej niż limit czasu całej rozmowy.
-      najwiecejZnakow: 400,
+      /*
+        Sama lista numerów to kilkadziesiąt tokenów, ale limit obejmuje całe
+        wyjście modelu — patrz `DOMYSLNIE_TOKENOW`. Zapas jest po to, żeby
+        urwana w połowie lista nie zatrzymywała całej redakcji.
+
+        O zwięzłość odpowiedzi dba polecenie, nie limit: poprzednia wersja
+        prosiła o wyjaśnienie przy każdym odrzuconym artykule i generowanie
+        tego trwało dłużej niż limit czasu całej rozmowy.
+      */
+      najwiecejTokenow: 2000,
       czasMs,
       tresc:
         'Artykuły do oceny:\n\n' +
@@ -425,7 +431,10 @@ export async function napiszDlaArtykulu(
       kandydat = await zapytajOJson<OdpowiedzNotki>({
         model: MODELE.pisanie,
         rolaSystemowa: ROLA_PISZACEGO,
-        najwiecejZnakow: 2000,
+        // Cztery akapity po polsku to grubo ponad tysiąc tokenów, a limit
+        // liczy całe wyjście modelu. Przy 2000 wystarczyło, żeby model napisał
+        // odrobinę dłużej, i notka urywała się w połowie zdania.
+        najwiecejTokenow: 8000,
         czasMs: zostalo,
         tresc: polecenieNotki(
           podejscie === 0

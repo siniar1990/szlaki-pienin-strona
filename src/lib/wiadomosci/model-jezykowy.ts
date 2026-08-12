@@ -45,6 +45,29 @@ export const MODELE = { wybor: MODEL_WYBIERAJACY, pisanie: MODEL_PISZACY } as co
  */
 const CZAS_OCZEKIWANIA_MS = 25_000
 
+/**
+ * Ile tokenów wolno modelowi wygenerować, gdy wołający nie powie inaczej.
+ *
+ * **To limit na całe wyjście modelu, a nie na długość tekstu, który dostaniemy.**
+ * Wchodzi w niego wszystko, co model wygeneruje po drodze — również
+ * rozumowanie, jeśli model je prowadzi. Po przekroczeniu odpowiedź urywa się
+ * w połowie zdania, JSON przestaje być poprawny i całe zadanie kończy się
+ * błędem, mimo że model działał prawidłowo.
+ *
+ * Limity były tu liczone „na styk" pod długość samej notki i redakcja padała
+ * na tym w nocnym przebiegu. Polszczyzna dodatkowo tokenizuje się gorzej niż
+ * angielski — bywa i trzy tokeny na słowo — więc szacunek z liczby słów łatwo
+ * zaniża wynik o połowę.
+ *
+ * Płacimy za tokeny faktycznie wygenerowane, nie za limit, więc zapas nic nie
+ * kosztuje. Ciasny limit kosztuje nieopublikowaną notkę.
+ *
+ * Poprzednia nazwa tego parametru brzmiała `najwiecejZnakow`, co podpowiadało
+ * liczenie znaków notki — stąd wartości w rodzaju 400 przy odpowiedzi, która
+ * „ma przecież tylko listę liczb".
+ */
+const DOMYSLNIE_TOKENOW = 4000
+
 export class BrakKlucza extends Error {}
 export class BladModelu extends Error {}
 
@@ -84,7 +107,7 @@ export async function zapytajOJson<T>(polecenie: {
   model: string
   rolaSystemowa: string
   tresc: string
-  najwiecejZnakow?: number
+  najwiecejTokenow?: number
   /** Ile czekamy na tę konkretną odpowiedź. */
   czasMs?: number
 }): Promise<T> {
@@ -103,7 +126,7 @@ export async function zapytajOJson<T>(polecenie: {
       },
       body: JSON.stringify({
         model: polecenie.model,
-        max_tokens: polecenie.najwiecejZnakow ?? 2000,
+        max_tokens: polecenie.najwiecejTokenow ?? DOMYSLNIE_TOKENOW,
         system: polecenie.rolaSystemowa,
         messages: [
           {
@@ -147,7 +170,9 @@ export async function zapytajOJson<T>(polecenie: {
   */
   if (dane.stop_reason === 'max_tokens') {
     throw new BladModelu(
-      'Odpowiedź modelu została przycięta limitem długości — polecenie prosi o za dużo',
+      'Odpowiedź modelu została przycięta limitem długości. Limit liczy całe ' +
+        'wyjście modelu, nie samą treść odpowiedzi — podnieś `najwiecejTokenow` ' +
+        'przy tym wywołaniu',
     )
   }
 
