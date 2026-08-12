@@ -52,6 +52,14 @@ const NAJWIECEJ_KANDYDATOW = 25
 const KANDYDACI_PRZY_PONOWIENIU = 12
 
 /** Ile znaków cudzego artykułu wystarczy, żeby napisać o nim notkę. */
+/**
+ * Ile treści musi mieć artykuł, żeby było z czego pisać.
+ *
+ * Poniżej akapitu zostaje sam tytuł z datą — model napisałby z tego notkę,
+ * ale byłaby to notka o niczym albo, gorzej, dopowiedziana.
+ */
+const NAJKROTSZE_ZRODLO = 400
+
 const NAJWIECEJ_ZNAKOW_ZRODLA = 12_000
 
 /**
@@ -391,12 +399,35 @@ export async function napiszDlaArtykulu(
     }
   }
 
-  if (tekstZrodla.length < 400) {
+  if (tekstZrodla.length < NAJKROTSZE_ZRODLO) {
+    /*
+      Rozróżniamy dwa powody, bo prowadzą do różnych wniosków. Strona, która
+      rysuje treść dopiero w przeglądarce, nie da się przeczytać nigdy — nie ma
+      sensu próbować ponownie ani szukać winy w artykule. Krótki tekst to
+      zwykła notatka na dwa zdania i tyle.
+
+      Puste wyjście przy niepustym HTML-u poznajemy po tym, że po odtagowaniu
+      nie zostaje ani jeden znak.
+    */
+    const rysowaneSkryptem = tekstZrodla.length === 0
+
     await baza.znalezionyArtykul.update({
       where: { id: wybrany.id },
-      data: { stan: 'ODRZUCONE', uzasadnienie: 'Za mało treści, żeby napisać notkę' },
+      data: {
+        stan: 'ODRZUCONE',
+        uzasadnienie: rysowaneSkryptem
+          ? 'Strona buduje treść skryptem — nie ma czego przeczytać'
+          : 'Za mało treści, żeby napisać notkę',
+      },
     })
-    return { stan: 'nic-nie-warte', szczegoly: 'Artykuł nie ma treści, z której dałoby się pisać.' }
+
+    return {
+      stan: 'nic-nie-warte',
+      szczegoly: rysowaneSkryptem
+        ? 'Ta strona buduje treść skryptem w przeglądarce, więc pobrany dokument ' +
+          'jest pusty. Notkę trzeba napisać ręcznie na podstawie oryginału.'
+        : 'Artykuł ma za mało treści, żeby dało się z niego napisać notkę.',
+    }
   }
 
   /* ── Pisanie ──────────────────────────────────────────────────────────── */

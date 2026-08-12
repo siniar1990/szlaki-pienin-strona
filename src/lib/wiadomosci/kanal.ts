@@ -259,11 +259,52 @@ export async function odczytajZrodlo(
 }
 
 /**
+ * Zamienia fragment HTML-a na czytelny tekst.
+ *
+ * Akapity i nagłówki schodzą do łamań wiersza, żeby streszczenie widziało
+ * strukturę tekstu, a nie jedną ścianę słów.
+ */
+function naTekst(html: string): string {
+  return odkoduj(html.replace(/<\/(p|h[1-6]|li|div|br)>/gi, '\n').replace(/<[^>]*>/g, ' '))
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n\s*\n\s*\n+/g, '\n\n')
+    .trim()
+}
+
+/**
+ * Jaką część tekstu strony musi mieć `<article>`, żeby uznać go za treść.
+ *
+ * Miara jest względna, nie bezwzględna, i to jest sedno: kafelek zajawki bywa
+ * dłuższy niż krótka notka prasowa, więc próg w znakach myli się w obie
+ * strony. Za to proporcja rozdziela te przypadki czysto — artykuł zajmuje
+ * większość tekstu swojej strony, zajawka kilka procent.
+ *
+ * Na stronie, która to ujawniła, najdłuższy kafelek miał 168 znaków przy
+ * 4682 znakach całej strony, czyli cztery procent. Prawdziwy artykuł ma
+ * zwykle ponad połowę; jedna piąta to próg z zapasem w obie strony.
+ */
+const UDZIAL_TRESCI = 0.2
+
+/**
  * Wyciąga czytelny tekst z pojedynczego artykułu.
  *
- * Służy wyłącznie temu, żeby redakcja miała z czego streszczać — tekst nigdy
- * nie trafia do bazy ani na portal. Bierzemy zawartość `<article>`, a gdy jej
- * nie ma, całe `<body>` po wycięciu skryptów, styli, nagłówka i stopki.
+ * Służy wyłącznie temu, żeby redakcja miała z czego pisać — tekst nigdy nie
+ * trafia do bazy ani na portal.
+ *
+ * **Dlaczego najdłuższy `<article>`, a nie pierwszy.** Bo na stronie zbudowanej
+ * w popularnych kreatorach każdy kafelek „przeczytaj też" jest osobnym
+ * znacznikiem `<article>` — i wszystkie stoją w kodzie PRZED właściwym
+ * tekstem. Wersja biorąca pierwszy trafiony wyciągała z takiej strony tytuł
+ * i datę cudzej zajawki, po czym redakcja odrzucała artykuł jako pozbawiony
+ * treści. Trafiło to na prawdziwy artykuł o spływie flisackim: szesnaście
+ * kafelków po kilkadziesiąt znaków, z których żaden nie był tym tekstem.
+ *
+ * **Dlaczego `<body>` bywa lepszy niż najdłuższy `<article>`.** Bo bywa i tak,
+ * że treść w ogóle nie leży w `<article>` — a wtedy każdy kandydat jest
+ * zajawką. Rozstrzyga proporcja: artykuł zajmuje większość tekstu swojej
+ * strony, zajawka kilka procent. Gdy żaden kandydat nie sięga jednej piątej,
+ * bierzemy całe `<body>`. Wchodzi wtedy trochę menu i podpisów, ale model
+ * dostaje tekst, o który chodziło, zamiast czterech słów o niczym.
  */
 export function wydobadzTresc(html: string): string {
   const bezSmieci = html
@@ -271,18 +312,12 @@ export function wydobadzTresc(html: string): string {
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<(nav|header|footer|aside|form)\b[\s\S]*?<\/\1>/gi, ' ')
 
-  const artykul = /<article\b[^>]*>([\s\S]*?)<\/article>/i.exec(bezSmieci)
-  const cialo = /<body\b[^>]*>([\s\S]*?)<\/body>/i.exec(bezSmieci)
-  const wybrany = artykul?.[1] ?? cialo?.[1] ?? bezSmieci
+  const najdluzszyArtykul = [...bezSmieci.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/gi)]
+    .map((dopasowanie) => naTekst(dopasowanie[1]))
+    .reduce((najlepszy, tekst) => (tekst.length > najlepszy.length ? tekst : najlepszy), '')
 
-  return odkoduj(
-    wybrany
-      // Akapity i nagłówki zamieniamy na łamania, żeby streszczenie widziało
-      // strukturę tekstu, a nie jedną ścianę słów.
-      .replace(/<\/(p|h[1-6]|li|div|br)>/gi, '\n')
-      .replace(/<[^>]*>/g, ' '),
-  )
-    .replace(/[ \t]+/g, ' ')
-    .replace(/\n\s*\n\s*\n+/g, '\n\n')
-    .trim()
+  const cialo = /<body\b[^>]*>([\s\S]*?)<\/body>/i.exec(bezSmieci)
+  const zCiala = naTekst(cialo?.[1] ?? bezSmieci)
+
+  return najdluzszyArtykul.length >= zCiala.length * UDZIAL_TRESCI ? najdluzszyArtykul : zCiala
 }
