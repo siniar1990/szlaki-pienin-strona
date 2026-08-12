@@ -68,6 +68,51 @@ const CZAS_OCZEKIWANIA_MS = 25_000
  */
 const DOMYSLNIE_TOKENOW = 4000
 
+/**
+ * Kody, po których warto spróbować jeszcze raz.
+ *
+ * 429 to przekroczony limit zapytań, 529 przeciążenie usługi, a pięćsetki to
+ * awarie po stronie dostawcy. Wszystkie mówią „nie teraz", a nie „to pytanie
+ * jest złe" — powtórzone za chwilę zwykle przechodzą.
+ *
+ * Reszty NIE ponawiamy. Czterysta znaczy, że polecenie jest wadliwe, a 401,
+ * że klucz jest zły; powtarzanie takiego żądania to tylko strata czasu
+ * z budżetu, który i tak jest krótki.
+ */
+export const KODY_DO_PONOWIENIA = new Set([429, 500, 502, 503, 529])
+
+/**
+ * Ile razy próbujemy, zanim uznamy porażkę.
+ *
+ * Trzy podejścia, bo czwarte i tak nie zmieściłoby się w budżecie funkcji
+ * bezserwerowej, a przeciążenie po dwóch odczekaniach zwykle znaczy, że
+ * dostawca ma szerszy problem niż chwilowy skok ruchu.
+ */
+const ILE_PROB = 3
+
+/** Ile czekamy przed kolejnym podejściem: sekunda, potem trzy. */
+export const ODCZEKANIA_MS = [1000, 3000]
+
+const czekaj = (ms: number) => new Promise((gotowe) => setTimeout(gotowe, ms))
+
+/**
+ * Ile czekać według odpowiedzi serwera.
+ *
+ * Przy 429 dostawca podaje w nagłówku `retry-after`, kiedy wolno wrócić —
+ * i wtedy to jego liczba obowiązuje, a nie nasza. Ignorowanie jej oznaczałoby
+ * pukanie do zamkniętych drzwi i przedłużanie limitu.
+ */
+export function ileCzekac(odpowiedz: Response, podejscie: number): number {
+  const zNaglowka = Number(odpowiedz.headers.get('retry-after'))
+  const nasze = ODCZEKANIA_MS[podejscie] ?? ODCZEKANIA_MS[ODCZEKANIA_MS.length - 1]
+
+  // Nagłówek bywa w sekundach; ograniczamy go, bo przy dłuższej przerwie
+  // i tak wypadniemy z budżetu, a chcemy zdążyć z komunikatem.
+  return Number.isFinite(zNaglowka) && zNaglowka > 0
+    ? Math.min(zNaglowka * 1000, 5000)
+    : nasze
+}
+
 export class BrakKlucza extends Error {}
 export class BladModelu extends Error {}
 
@@ -115,6 +160,51 @@ export async function zapytajOJson<T>(polecenie: {
   const klucz = process.env.KLUCZ_ANTHROPIC
   if (!klucz) throw new BrakKlucza('Brak zmiennej KLUCZ_ANTHROPIC')
 
+  /*
+    Cały budżet liczymy od teraz, bo obejmuje także przerwy między próbami.
+    Bez tego trzy podejścia po dwadzieścia pięć sekund przekroczyłyby limit
+    funkcji i zamiast komunikatu wyszłoby ucięcie w połowie.
+  */
+  const koniecBudzetu = Date.now() + czasOczekiwania
+
+  for (let podejscie = 0; ; podejscie++) {
+    const zostalo = koniecBudzetu - Date.now()
+    const wynik = await jednaProba<T>(polecenie, klucz, zostalo)
+
+    if ('dane' in wynik) return wynik.dane
+
+    const ostatnie = podejscie >= ILE_PROB - 1
+    const zostanieCzasu = koniecBudzetu - Date.now() - wynik.odczekanie > MINIMUM_NA_PROBE_MS
+
+    if (!wynik.ponowic || ostatnie || !zostanieCzasu) throw wynik.blad
+
+    await czekaj(wynik.odczekanie)
+  }
+}
+
+/** Poniżej tylu milisekund nie ma po co zaczynać kolejnej próby. */
+const MINIMUM_NA_PROBE_MS = 4000
+
+type WynikProby<T> =
+  | { dane: T }
+  | { blad: BladModelu; ponowic: boolean; odczekanie: number }
+
+/**
+ * Jedno podejście do modelu.
+ *
+ * Zwraca błąd zamiast go rzucać, bo wołający musi wiedzieć nie tylko, że się
+ * nie udało, ale też czy warto próbować dalej i ile odczekać.
+ */
+async function jednaProba<T>(
+  polecenie: {
+    model: string
+    rolaSystemowa: string
+    tresc: string
+    najwiecejTokenow?: number
+  },
+  klucz: string,
+  czasOczekiwania: number,
+): Promise<WynikProby<T>> {
   let odpowiedz: Response
   try {
     odpowiedz = await fetch(ADRES, {
@@ -141,16 +231,34 @@ export async function zapytajOJson<T>(polecenie: {
       cache: 'no-store',
     })
   } catch (blad) {
-    throw new BladModelu(
-      blad instanceof Error && blad.name === 'TimeoutError'
-        ? `Model nie odpowiedział w ${Math.round(czasOczekiwania / 1000)} s`
-        : 'Nie udało się połączyć z modelem',
-    )
+    const przekroczonyCzas = blad instanceof Error && blad.name === 'TimeoutError'
+    return {
+      blad: new BladModelu(
+        przekroczonyCzas
+          ? `Model nie odpowiedział w ${Math.round(czasOczekiwania / 1000)} s`
+          : 'Nie udało się połączyć z modelem',
+      ),
+      // Zerwane połączenie bywa przypadkiem sieci i mija; przekroczony czas
+      // znaczy, że model po prostu nie zdąży, i drugie podejście też nie zdąży.
+      ponowic: !przekroczonyCzas,
+      odczekanie: ODCZEKANIA_MS[0],
+    }
   }
 
   if (!odpowiedz.ok) {
     const tresc = await odpowiedz.text().catch(() => '')
-    throw new BladModelu(`Model odpowiedział kodem ${odpowiedz.status}. ${tresc.slice(0, 300)}`)
+    const ponowic = KODY_DO_PONOWIENIA.has(odpowiedz.status)
+
+    return {
+      blad: new BladModelu(
+        ponowic
+          ? `Usługa modelu jest chwilowo niedostępna (kod ${odpowiedz.status}). ` +
+            'Spróbuj napisać notkę ponownie za kilka minut.'
+          : `Model odpowiedział kodem ${odpowiedz.status}. ${tresc.slice(0, 300)}`,
+      ),
+      ponowic,
+      odczekanie: ileCzekac(odpowiedz, 0),
+    }
   }
 
   const dane = (await odpowiedz.json()) as {
@@ -169,21 +277,35 @@ export async function zapytajOJson<T>(polecenie: {
     winowajcą nie jest format, tylko za mały limit długości.
   */
   if (dane.stop_reason === 'max_tokens') {
-    throw new BladModelu(
-      'Odpowiedź modelu została przycięta limitem długości. Limit liczy całe ' +
-        'wyjście modelu, nie samą treść odpowiedzi — podnieś `najwiecejTokenow` ' +
-        'przy tym wywołaniu',
-    )
+    return {
+      blad: new BladModelu(
+        'Odpowiedź modelu została przycięta limitem długości. Limit liczy całe ' +
+          'wyjście modelu, nie samą treść odpowiedzi — podnieś `najwiecejTokenow` ' +
+          'przy tym wywołaniu',
+      ),
+      // Powtórzenie tego samego pytania z tym samym limitem da ten sam wynik.
+      ponowic: false,
+      odczekanie: 0,
+    }
   }
 
   try {
-    return JSON.parse(wytnijJson(tekst)) as T
-  } catch (blad) {
-    if (blad instanceof BladModelu) throw blad
-    // Początek odpowiedzi w komunikacie: bez niego diagnoza wymaga zgadywania,
-    // co model właściwie odpisał.
-    throw new BladModelu(
-      `Odpowiedź modelu nie jest poprawnym JSON-em. Początek: ${tekst.slice(0, 200)}`,
-    )
+    return { dane: JSON.parse(wytnijJson(tekst)) as T }
+  } catch {
+    return {
+      blad: new BladModelu(
+        // Początek odpowiedzi w komunikacie: bez niego diagnoza wymaga
+        // zgadywania, co model właściwie odpisał.
+        `Odpowiedź modelu nie jest poprawnym JSON-em. Początek: ${tekst.slice(0, 200)}`,
+      ),
+      /*
+        Zepsuty JSON bywa jednorazowym potknięciem modelu — przy tym samym
+        poleceniu druga próba zwykle wychodzi poprawnie. To jedyny błąd
+        merytoryczny, który ponawiamy, i tylko dlatego, że kosztuje jedno
+        wywołanie, a ratuje całą notkę.
+      */
+      ponowic: true,
+      odczekanie: ODCZEKANIA_MS[0],
+    }
   }
 }
