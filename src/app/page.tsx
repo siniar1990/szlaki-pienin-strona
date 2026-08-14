@@ -6,12 +6,11 @@ import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
 import { PasekDzis } from '@/components/dzis/pasek-dzis'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { KafelkiWyzwan } from '@/components/glowna/kafelki-wyzwan'
-import { PasmoMalowane } from '@/components/glowna/pasmo-malowane'
 import { MakietaTelefonu } from '@/components/glowna/makieta-telefonu'
 import { Powitanie } from '@/components/glowna/powitanie'
 import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { KATEGORIE_APLIKACJI } from '@/lib/dane/kategorie'
-import { pobierzAtrakcje, pobierzStatystyki, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
+import { pobierzStatystyki, pobierzTrasy, pobierzWyzwania } from '@/lib/dane/zrodlo'
 import { pobierzDaneDnia } from '@/lib/dzis'
 import { liczba } from '@/lib/format'
 import { pobierzWiadomosci } from '@/lib/wiadomosci/zapytania'
@@ -44,8 +43,7 @@ export default async function StronaGlowna() {
     Aplikacja ma ich dziesięć, a siatka trzy na trzy mieści dziewięć. Poza
     siatkę wypada „Korony Pienin ze Szczawnicy" — nie dlatego, że jest
     najmniej ważna, tylko dlatego, że jako jedyna jest kolekcją szczytów,
-    a nie zbiorem tras. Dostaje za to własną sekcję niżej, z numeracją
-    od najwyższego.
+    a nie zbiorem tras. Szczyty mają swoje miejsce na /atrakcje.
   */
   const kategorieNaSiatce = KATEGORIE_APLIKACJI.filter(
     (kategoria) => kategoria.slug !== 'korony-pienin',
@@ -67,17 +65,6 @@ export default async function StronaGlowna() {
       const trasa = wyzwanie.idTrasy ? trasy.find((t) => t.id === wyzwanie.idTrasy) : undefined
       return { wyzwanie, dlugoscKm: trasa?.dlugoscKm ?? null }
     })
-
-  // Szczyty do malowanego pasma — od najwyższego w dół.
-  const szczytyNaKarty = pobierzAtrakcje()
-    .filter((atrakcja) => atrakcja.typ === 'szczyt' && atrakcja.wysokoscM !== null)
-    .sort((a, b) => (b.wysokoscM ?? 0) - (a.wysokoscM ?? 0))
-    .map((szczyt) => ({
-      slug: szczyt.slug,
-      nazwa: szczyt.nazwa,
-      wysokoscM: szczyt.wysokoscM!,
-      liczbaTras: szczyt.trasy.length,
-    }))
 
   /*
     Trzy najnowsze notki. Odczyt z bazy, więc strona główna przestała być
@@ -140,22 +127,6 @@ export default async function StronaGlowna() {
               </div>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ── Najwyższe szczyty ───────────────────────────────────────────── */}
-      <section className="sekcja">
-        <div className="obszar">
-          <NaglowekSekcji
-            nadtytul="Szczyty"
-            tytul="Najwyższe szczyty Pienin"
-            opis="Od Radziejowej w dół — każdy z opisaną trasą dojścia, czasem przejścia i punktami po drodze."
-            odnosnik={{ adres: '/atrakcje#szczyty', etykieta: 'Całe pasmo' }}
-          />
-
-          <div className="mt-12">
-            <PasmoMalowane szczyty={szczytyNaKarty} />
-          </div>
         </div>
       </section>
 
