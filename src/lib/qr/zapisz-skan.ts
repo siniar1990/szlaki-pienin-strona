@@ -115,30 +115,53 @@ export async function potwierdzTrafienie(identyfikator: string): Promise<WynikPo
     if (skan.potwierdzonyJs) return skan.liczone ? 'policzony' : 'duplikat'
 
     const odkad = new Date(skan.czas.getTime() - OKNO_DUPLIKATU_SEKUND * 1000)
-    const wczesniejszy = await baza.skanQr.findFirst({
-      where: {
-        kodQrId: skan.kodQrId,
-        liczone: true,
-        czas: { gte: odkad, lt: skan.czas },
-        userAgent: skan.userAgent,
-        miasto: skan.miasto,
-      },
-      select: { id: true },
-    })
 
-    const duplikat = wczesniejszy !== null
+    /*
+      Sprawdzenie i zapis w jednej transakcji, pod blokadą doradczą.
 
-    await baza.skanQr.update({
-      where: { id: skan.id },
-      data: {
-        potwierdzonyJs: true,
-        // Duplikat to nadal człowiek — po prostu ten sam. Klasyfikacja mówi,
-        // kto to był, `liczone` mówi, czy go dodajemy, a `powodBota` mówi,
-        // dlaczego nie.
-        klasyfikacja: 'CZLOWIEK',
-        liczone: !duplikat,
-        powodBota: duplikat ? 'duplikat' : null,
-      },
+      Bez niej to był wyścig i widać go było gołym okiem: cztery wejścia
+      w dwie sekundy dały dwa policzone skany zamiast jednego. Oba
+      potwierdzenia pytały „czy jest już policzony skan z tym odciskiem",
+      zanim którekolwiek zdążyło swój zapisać, i oba usłyszały „nie".
+
+      Blokada obejmuje odcisk (tabliczka + przeglądarka + miejscowość), a nie
+      całą tabelę, więc potwierdzenia z różnych tabliczek nadal idą równolegle.
+      Zwalnia się z końcem transakcji — sama, także gdy coś po drodze padnie.
+      Całość dzieje się po odesłaniu odpowiedzi, więc nikt na tę kolejkę
+      nie czeka.
+    */
+    const odcisk = `${skan.kodQrId}|${skan.userAgent ?? ''}|${skan.miasto ?? ''}`
+
+    const duplikat = await baza.$transaction(async (tx) => {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${odcisk}))`
+
+      const wczesniejszy = await tx.skanQr.findFirst({
+        where: {
+          kodQrId: skan.kodQrId,
+          liczone: true,
+          czas: { gte: odkad, lt: skan.czas },
+          userAgent: skan.userAgent,
+          miasto: skan.miasto,
+        },
+        select: { id: true },
+      })
+
+      const powtorzenie = wczesniejszy !== null
+
+      await tx.skanQr.update({
+        where: { id: skan.id },
+        data: {
+          potwierdzonyJs: true,
+          // Duplikat to nadal człowiek — po prostu ten sam. Klasyfikacja mówi,
+          // kto to był, `liczone` mówi, czy go dodajemy, a `powodBota` mówi,
+          // dlaczego nie.
+          klasyfikacja: 'CZLOWIEK',
+          liczone: !powtorzenie,
+          powodBota: powtorzenie ? 'duplikat' : null,
+        },
+      })
+
+      return powtorzenie
     })
 
     return duplikat ? 'duplikat' : 'policzony'
