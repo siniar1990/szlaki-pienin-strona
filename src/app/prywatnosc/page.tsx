@@ -201,6 +201,16 @@ export default function StronaPrywatnosc() {
             Pojedyncze zdarzenia usuwamy po 90 dniach; zostają wyłącznie sumy
             dzienne dla każdej tabliczki.
           </p>
+          <p>
+            Razem ze zdarzeniem zapisujemy <strong>tekst, którym przedstawia się
+            przeglądarka</strong> (nagłówek User-Agent), oraz numer sieci, z której
+            przyszło żądanie. Powód jest jeden: odsianie automatów. Odnośnik
+            opublikowany w serwisie społecznościowym ściąga kilkanaście
+            programów budujących jego podgląd i bez tego wyglądałyby one
+            w statystykach jak turyści pod tabliczką. Numer sieci wyliczamy
+            z adresu IP <strong>w pamięci serwera, w trakcie obsługi żądania</strong> —
+            sam adres nie jest nigdzie zapisywany i znika razem z odpowiedzią.
+          </p>
 
           <h2>Strona internetowa</h2>
           <p>

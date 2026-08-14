@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Activity, MapPin, QrCode, TrendingUp } from 'lucide-react'
+import { Activity, Bot, MapPin, QrCode, TrendingUp } from 'lucide-react'
 
 import { WykresDzienny } from '@/components/panel/wykres-dzienny'
 import { ZakresDat } from '@/components/panel/zakres-dat'
 import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
-import { pobierzPodsumowanie, pobierzWykresDzienny } from '@/lib/qr/statystyki'
+import { pobierzPodsumowanie, pobierzRuchOdsiany, pobierzWykresDzienny } from '@/lib/qr/statystyki'
 import { odczytajZakres } from '@/lib/qr/zakres'
 import { liczba } from '@/lib/format'
 
@@ -26,9 +26,10 @@ export default async function StronaPulpitu({ searchParams }: PageProps<'/panel'
   // sprawdzenie kończy się na dwóch zapytaniach.
   await przeliczJesliTrzeba()
 
-  const [podsumowanie, wykres] = await Promise.all([
+  const [podsumowanie, wykres, odsiane] = await Promise.all([
     pobierzPodsumowanie(zakres),
     pobierzWykresDzienny(zakres),
+    pobierzRuchOdsiany(zakres),
   ])
 
   const platformy = podsumowanie.udzialPlatform
@@ -45,7 +46,7 @@ export default async function StronaPulpitu({ searchParams }: PageProps<'/panel'
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Kafelek
           ikona={Activity}
-          etykieta="Skanów"
+          etykieta="Skany (ludzie)"
           wartosc={liczba(podsumowanie.lacznieSkanow)}
           podpis={zakres.opis}
         />
@@ -71,6 +72,8 @@ export default async function StronaPulpitu({ searchParams }: PageProps<'/panel'
           }
         />
       </div>
+
+      <OdsianyRuch odsiane={odsiane} opisZakresu={zakres.opis} />
 
       <section className="mt-10 rounded-2xl border border-kamien-200 bg-white p-6">
         <h2 className="font-heading text-lg font-semibold text-kamien-900">
@@ -147,5 +150,53 @@ function Kafelek({
       </p>
       {podpis && <p className="mt-0.5 text-xs text-kamien-400">{podpis}</p>}
     </div>
+  )
+}
+
+/**
+ * Ruch, którego nie policzyliśmy.
+ *
+ * **Dlaczego to w ogóle widać.** 14 sierpnia 2026 licznik tabliczki P009
+ * skoczył o 22 skany z Iowa, Utah i Oregonu — to były crawlery Facebooka
+ * budujące podgląd odnośnika, kilka minut po opublikowaniu posta. Liczba
+ * wyglądała świetnie i była nieprawdziwa. Filtr odsiewa taki ruch, ale filtr
+ * bez wglądu w to, co odsiał, jest tylko inną odmianą tego samego problemu:
+ * nie wiadomo, czy odsiewa boty, czy turystów.
+ *
+ * **Dlaczego zwinięte.** Bo to nie jest liczba, którą się ogląda codziennie.
+ * Ma być pod ręką, gdy któraś reguła zacznie się dziwnie zachowywać — i wtedy
+ * od razu widać, która.
+ */
+function OdsianyRuch({
+  odsiane,
+  opisZakresu,
+}: {
+  odsiane: Awaited<ReturnType<typeof pobierzRuchOdsiany>>
+  opisZakresu: string
+}) {
+  if (odsiane.boty === 0 && odsiane.niepewne === 0) return null
+
+  return (
+    <details className="mt-6 rounded-2xl border border-kamien-200 bg-white p-6">
+      <summary className="cursor-pointer text-sm font-medium text-kamien-700">
+        <Bot className="mr-2 inline size-4 align-text-bottom" aria-hidden />
+        Odsiane: {liczba(odsiane.boty)} botów, {liczba(odsiane.niepewne)} niepewnych
+        <span className="ml-2 font-normal text-kamien-500">({opisZakresu})</span>
+      </summary>
+
+      <ul className="mt-4 space-y-1 text-sm text-kamien-600">
+        {odsiane.powody.map((p) => (
+          <li key={p.powod} className="flex justify-between gap-4">
+            <span className="font-mono text-xs text-kamien-500">{p.powod}</span>
+            <span>{liczba(p.liczba)}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-4 text-xs leading-relaxed text-kamien-500">
+        Boty dostają normalną stronę — nie blokujemy ich, żeby Facebook nadal
+        umiał zbudować podgląd odnośnika. Nie wchodzą tylko do liczb powyżej.
+      </p>
+    </details>
   )
 }

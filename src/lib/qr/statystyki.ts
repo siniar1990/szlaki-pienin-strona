@@ -51,7 +51,10 @@ export async function pobierzPodsumowanie(zakres: Zakres): Promise<PodsumowanieP
       where: odDnia,
       _sum: { liczba: true, ios: true, android: true, desktop: true },
     }),
-    baza.skanQr.count({ where: { czas: { gte: poczatekDnia } } }),
+    // Jedyne miejsce, które sięga po surowe zdarzenia — i dlatego jedyne,
+    // które musi pamiętać o `liczone` samo z siebie. Sumy dzienne mają boty
+    // odfiltrowane już na etapie agregacji.
+    baza.skanQr.count({ where: { czas: { gte: poczatekDnia }, liczone: true } }),
     baza.kodQr.count({ where: { status: 'AKTYWNY' } }),
     baza.kodQr.count(),
     sumyWZakresie(zakres),
@@ -228,4 +231,54 @@ export async function pobierzKodyNaListe(zakres: Zakres): Promise<KodNaLiscie[]>
       liczbaSkanow: sumy === null ? k.liczbaSkanow : (sumy.get(id) ?? 0),
     }))
     .sort((a, b) => b.liczbaSkanow - a.liczbaSkanow || a.kod.localeCompare(b.kod))
+}
+
+export type RuchOdsiany = {
+  ludzie: number
+  boty: number
+  niepewne: number
+  /** Rozbicie botów po regule, która zadecydowała — od najczęstszej. */
+  powody: { powod: string; liczba: number }[]
+}
+
+/**
+ * Ile ruchu odpadło i przez co.
+ *
+ * To nie jest ciekawostka, tylko jedyny sposób sprawdzenia, czy filtr nie
+ * zaczął odsiewać ludzi. Reguła „ua_generic" łapiąca nagle setki trafień
+ * dziennie znaczy, że sito jest za gęste; „brak_beacona" rosnące szybciej niż
+ * „ludzie" znaczy, że coś się psuje w potwierdzaniu — a jedno i drugie widać
+ * dopiero wtedy, gdy powody są policzone osobno.
+ *
+ * Liczymy z surowych zdarzeń, bo tylko one znają klasyfikację; sumy dzienne
+ * wiedzą wyłącznie o tym, co przeszło. Zasięg jest więc ograniczony okresem
+ * retencji i to jest w porządku: pytanie „czy filtr działa dobrze" dotyczy
+ * teraźniejszości, nie zeszłego sezonu.
+ */
+export async function pobierzRuchOdsiany(zakres: Zakres): Promise<RuchOdsiany> {
+  const od = zakres.dni === null ? undefined : poczatekZakresu(zakres.dni)
+  const czas = od ? { czas: { gte: od } } : {}
+
+  const [policzone, wgKlasyfikacji, wgPowodu] = await Promise.all([
+    // Ludzi liczymy po `liczone`, a nie po klasyfikacji, bo powtórne wejście
+    // tej samej osoby jest człowiekiem, którego świadomie nie dodajemy.
+    baza.skanQr.count({ where: { ...czas, liczone: true } }),
+    baza.skanQr.groupBy({ by: ['klasyfikacja'], where: czas, _count: { _all: true } }),
+    baza.skanQr.groupBy({
+      by: ['powodBota'],
+      where: { ...czas, powodBota: { not: null } },
+      _count: { _all: true },
+      orderBy: { _count: { powodBota: 'desc' } },
+    }),
+  ])
+
+  const ile = (klasyfikacja: string) =>
+    wgKlasyfikacji.find((w) => w.klasyfikacja === klasyfikacja)?._count._all ?? 0
+
+  return {
+    ludzie: policzone,
+    boty: ile('BOT'),
+    niepewne: ile('NIEPEWNY'),
+    powody: wgPowodu.map((w) => ({ powod: w.powodBota ?? 'nieznany', liczba: w._count._all })),
+  }
 }

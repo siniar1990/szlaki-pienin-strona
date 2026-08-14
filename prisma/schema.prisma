@@ -57,6 +57,19 @@ enum Nosnik {
   BEACON
 }
 
+/// Czy za skanem stał człowiek.
+///
+/// Trzy stany, nie dwa, i to jest istota rzeczy. „Nie wiem" musi być
+/// stanem zapisywalnym, bo w chwili zapisu naprawdę nie wiemy: potwierdzenie
+/// z przeglądarki przychodzi ułamek sekundy później. Gdyby stany były dwa,
+/// trzeba by zgadywać w najgorszym możliwym momencie — a każde zgadnięcie
+/// kończy się albo botem w statystykach, albo turystą wyrzuconym z nich.
+enum KlasyfikacjaSkanu {
+  CZLOWIEK
+  BOT
+  NIEPEWNY
+}
+
 /// Fizyczna tabliczka w terenie.
 model KodQr {
   id String @id @default(cuid())
@@ -141,10 +154,49 @@ model SkanQr {
   przekierowanoDoSklepu Boolean @default(false)
   wariant               String?
 
+  /// Pełny nagłówek User-Agent, przycięty do 512 znaków.
+  ///
+  /// Doszedł razem z filtrem botów i tylko po to. Bez surowego tekstu nie da
+  /// się sprawdzić, czy reguła odsiewająca crawlery nie odsiewa przy okazji
+  /// ludzi — a reguła, której nie da się sprawdzić, prędzej czy później
+  /// zaczyna kłamać i nikt tego nie zauważa.
+  userAgent String?
+
+  /// Numer sieci (ASN), z której przyszło żądanie.
+  ///
+  /// Wyliczany z adresu IP **w pamięci żądania** i natychmiast zapominany.
+  /// Sam numer sieci nie wskazuje osoby — mówi „Amazon", a nie „ten człowiek".
+  asn Int?
+
+  klasyfikacja KlasyfikacjaSkanu @default(NIEPEWNY)
+
+  /// Która reguła zadecydowała: `ua_blocklist`, `ua_generic`, `asn_centrum`,
+  /// `metoda_http`, `bez_accept_language`, `prefetch`, `brak_beacona`,
+  /// `duplikat`, `nawal`, `stare_bez_danych`, `nawal_fb_20260814`.
+  powodBota String?
+
+  /// Czy przyszło potwierdzenie z przeglądarki (patrz `tokenTrafienia`).
+  potwierdzonyJs Boolean @default(false)
+
+  /// Czy wliczać do statystyk pokazywanych w panelu.
+  liczone Boolean @default(false)
+
+  /// Jednorazowy identyfikator trafienia, wpisany w stronę i odesłany przez
+  /// przeglądarkę. Jednorazowość bierze się stąd, że potwierdzenie przestawia
+  /// **ten jeden wiersz** — powtórzenie żądania nie tworzy drugiego skanu,
+  /// więc licznika nie da się napompować powtarzaniem.
+  tokenTrafienia String? @unique
+
   kodQr KodQr @relation(fields: [kodQrId], references: [id], onDelete: Cascade)
 
   @@index([kodQrId, czas])
   @@index([czas])
+  // Wszystkie zapytania statystyk filtrują po `liczone` — bez tego indeksu
+  // każde z nich przechodziłoby przez całą tabelę zdarzeń.
+  @@index([liczone, czas])
+  @@index([kodQrId, liczone, czas])
+  // Po tym indeksie chodzi zamiatanie niepotwierdzonych trafień.
+  @@index([klasyfikacja, czas])
 }
 
 /// Dzienna suma skanów dla jednej tabliczki. Trzymana bezterminowo — to z niej

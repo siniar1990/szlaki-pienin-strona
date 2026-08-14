@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 import { przeliczOdslony, usunStareOdslony } from '@/lib/analityka/statystyki'
 import { RETENCJA_DNI, przeliczStatystyki, usunStareZdarzenia } from '@/lib/qr/agregacja'
+import { zamiecNiepotwierdzone } from '@/lib/qr/zamiatanie'
 import { sprawdzZadanieCykliczne } from '@/lib/panel/zadania'
 
 /**
@@ -31,6 +32,12 @@ export async function GET(zadanie: NextRequest) {
   if (odmowa) return odmowa
 
   const start = Date.now()
+
+  // Zamiatanie przed przeliczeniem: dopiero po nim wiadomo, które trafienia
+  // są botami. Odwrotna kolejność liczyłaby dzień na podstawie wczorajszej
+  // wiedzy — nie zmieniłaby sum (niepotwierdzone i tak nie wchodzą), ale
+  // rozbicie na powody byłoby o dobę do tyłu.
+  const zamiecione = await zamiecNiepotwierdzone()
   const statystyki = await przeliczStatystyki()
   const usuniete = await usunStareZdarzenia()
 
@@ -42,6 +49,7 @@ export async function GET(zadanie: NextRequest) {
 
   return NextResponse.json({
     ...statystyki,
+    ...zamiecione,
     usunieteZdarzenia: usuniete,
     przeliczoneOdslony: odslony,
     usunieteOdslony,

@@ -14,6 +14,23 @@ import { NAZWA_SESJI, sesjaWazna } from '@/lib/panel/sesja'
  * dałoby się jej uzyskać.
  */
 export async function middleware(zadanie: NextRequest) {
+  /*
+    Skanowanie tabliczek przechodzi tędy tylko po to, żeby dołożyć jeden
+    nagłówek: metodę żądania. Strona jest komponentem serwerowym, a te metody
+    nie widzą — a bez niej nie da się odróżnić `HEAD` (tak sprawdza się, czy
+    adres żyje) od `GET` (tak ogląda się stronę).
+
+    Ta gałąź stoi PRZED sprawdzeniem sekretu sesji świadomie. Brak
+    `SEKRET_SESJI` ma unieruchomić panel, a nie tabliczki w terenie — turysta
+    pod Sokolicą nie ma nic wspólnego z tym, że komuś wypadła zmienna
+    środowiskowa.
+  */
+  if (zadanie.nextUrl.pathname.startsWith('/qr/')) {
+    const naglowki = new Headers(zadanie.headers)
+    naglowki.set('x-metoda-zadania', zadanie.method)
+    return NextResponse.next({ request: { headers: naglowki } })
+  }
+
   const sekret = process.env.SEKRET_SESJI
 
   /*
@@ -44,11 +61,14 @@ export async function middleware(zadanie: NextRequest) {
 
 export const config = {
   /*
-    Trzy wzorce, bo sam `/panel/((?!logowanie).*)` NIE łapie adresu `/panel`
+    Trzy wzorce na panel, bo sam `/panel/((?!logowanie).*)` NIE łapie adresu `/panel`
     bez ukośnika na końcu — a to właśnie pulpit ze wszystkimi statystykami.
     Wykryte podczas testów: strona odpowiadała kodem 200 bez sesji.
     Wzorce w Next.js muszą pasować do całej ścieżki, więc pusty ogon nie
     wpada pod `.*` po ukośniku.
+
+    Czwarty wzorzec, `/qr/:kod*`, nie strzeże niczego — dokłada tylko nagłówek
+    z metodą żądania, którego strona skanu inaczej by nie zobaczyła.
   */
-  matcher: ['/panel', '/panel/((?!logowanie).*)', '/api/panel/:path*'],
+  matcher: ['/panel', '/panel/((?!logowanie).*)', '/api/panel/:path*', '/qr/:kod*'],
 }

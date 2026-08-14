@@ -2,15 +2,18 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 import { headers } from 'next/headers'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { after } from 'next/server'
 import { ArrowRight, Mountain } from 'lucide-react'
 
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
+import { PotwierdzenieSkanu } from '@/components/qr/potwierdzenie-skanu'
 import { baza } from '@/lib/baza'
 import { pobierzStatystyki } from '@/lib/dane/zrodlo'
 import { kilometry, odmien } from '@/lib/format'
+import { przytnijUserAgenta, sklasyfikuj, sygnalyZNaglowkow } from '@/lib/qr/klasyfikacja'
 import { rozpoznajUrzadzenie } from '@/lib/qr/rozpoznaj-urzadzenie'
+import { nowyIdentyfikator, wystawToken } from '@/lib/qr/token-trafienia'
 import { ZNACZNIK_TABLICZEK } from '@/lib/qr/znaczniki'
 import { daneZNaglowkow, zapiszSkan } from '@/lib/qr/zapisz-skan'
 import { SKLEPY } from '@/lib/konfiguracja'
@@ -21,13 +24,20 @@ import { SKLEPY } from '@/lib/konfiguracja'
  * Kolejność działań jest tu ważniejsza niż sam kod:
  *
  *  1. odczyt tabliczki z bazy (jedno zapytanie po indeksowanej kolumnie),
- *  2. rozpoznanie platformy z nagłówka,
+ *  2. rozpoznanie platformy z nagłówka i wstępna klasyfikacja ruchu,
  *  3. **zarejestrowanie zapisu przez `after()`** — wykona się po odesłaniu
  *     odpowiedzi, więc nie opóźnia przekierowania ani o milisekundę,
- *  4. przekierowanie albo wyświetlenie strony.
+ *  4. wyświetlenie strony, która potwierdza skan i ewentualnie przenosi do sklepu.
  *
  * Zamiana punktów 3 i 4 miejscami wyglądałaby niewinnie, a kosztowała każdego
  * turystę czekanie na zapis do bazy.
+ *
+ * **Dlaczego do sklepu przenosi przeglądarka, a nie serwer.** Wcześniej było
+ * tu `redirect()` i to było prostsze. Ale odpowiedź 307 nie wykonuje
+ * JavaScriptu, a bez wykonanego JavaScriptu nie ma potwierdzenia, że po
+ * drugiej stronie stoi człowiek — wszystkie skany z telefonów zniknęłyby ze
+ * statystyk w dniu, w którym aplikacja trafi do sklepów. Strona przejściowa
+ * kosztuje sto pięćdziesiąt milisekund i rozwiązuje to raz na zawsze.
  */
 
 // Skan to zdarzenie — nie ma czego zapamiętywać w pamięci podręcznej.
@@ -78,7 +88,23 @@ export default async function StronaSkanu({ params }: PageProps<'/qr/[kod]'>) {
   if (!tabliczka) notFound()
 
   const naglowki = await headers()
-  const { typ, przegladarka } = rozpoznajUrzadzenie(naglowki.get('user-agent'))
+  const { typ, przegladarka } = rozpoznajUrzadzenie(naglowki.get('user-agent'), {
+    platforma: naglowki.get('sec-ch-ua-platform'),
+    mobilne: naglowki.get('sec-ch-ua-mobile'),
+  })
+
+  /*
+    Klasyfikacja dzieje się przed odpowiedzią, bo korzysta z adresu IP, a ten
+    żyje tylko tyle, co żądanie. Do bazy idzie sam werdykt i numer sieci —
+    adresu nie zapisujemy w żadnej postaci.
+  */
+  const sygnaly = sygnalyZNaglowkow(naglowki)
+  const werdykt = sklasyfikuj(sygnaly)
+
+  // Identyfikator trafienia wiąże wiersz w bazie ze stroną w przeglądarce.
+  // Token to ten identyfikator z podpisem i terminem ważności.
+  const identyfikator = nowyIdentyfikator()
+  const token = await wystawToken(identyfikator)
 
   /*
     Dokąd przekierować.
@@ -101,14 +127,58 @@ export default async function StronaSkanu({ params }: PageProps<'/qr/[kod]'>) {
       przekierowanoDoSklepu: przekierowanie,
       wariant: tabliczka.wariant,
       ...daneZNaglowkow(naglowki),
+      userAgent: przytnijUserAgenta(sygnaly.userAgent),
+      asn: werdykt.asn,
+      klasyfikacja: werdykt.klasyfikacja,
+      powodBota: werdykt.powodBota,
+      tokenTrafienia: token ? identyfikator : null,
     })
   })
 
-  // `redirect` działa przez wyjątek przechwytywany przez Next — musi zostać
-  // poza blokiem `try`, inaczej zostałby połknięty jako błąd.
-  if (przekierowanie) redirect(adresSklepu)
+  if (przekierowanie) {
+    return <PrzejscieDoSklepu adres={adresSklepu} token={token} />
+  }
 
-  return <ZaproszenieDoAplikacji />
+  return (
+    <>
+      {token && <PotwierdzenieSkanu token={token} />}
+      <ZaproszenieDoAplikacji />
+    </>
+  )
+}
+
+/**
+ * Strona przejściowa w drodze do sklepu.
+ *
+ * Widać ją ułamek sekundy i tylko po to istnieje: przez ten ułamek zdąży
+ * pójść potwierdzenie skanu. Bez niej skany z telefonów byłyby nie do
+ * odróżnienia od crawlerów — jedne i drugie tylko pobierają adres i znikają.
+ *
+ * `noscript` nie jest ozdobą. Turysta z wyłączonym JavaScriptem nie wyśle
+ * potwierdzenia i trudno; ale musi trafić do sklepu, a nie utknąć na napisie
+ * „przenoszę". Odświeżenie w `meta` i widoczny odnośnik załatwiają oba
+ * przypadki: automatyczny i ręczny.
+ */
+function PrzejscieDoSklepu({ adres, token }: { adres: string; token: string | null }) {
+  return (
+    <div className="obszar flex min-h-[70vh] flex-col items-center justify-center py-16 text-center">
+      {token && <PotwierdzenieSkanu token={token} doSklepu={adres} />}
+
+      <noscript>
+        <meta httpEquiv="refresh" content={`0;url=${adres}`} />
+      </noscript>
+
+      <Mountain className="size-8 text-las-700" aria-hidden />
+      <p className="mt-4 text-prowadzacy text-kamien-700">Przenoszę do sklepu z aplikacją…</p>
+
+      <a
+        href={adres}
+        className="mt-6 text-sm font-medium text-las-700 underline underline-offset-4"
+      >
+        Przejdź od razu
+      </a>
+    </div>
+  )
 }
 
 /**

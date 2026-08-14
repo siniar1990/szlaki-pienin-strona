@@ -26,8 +26,11 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
 
   const [podglad, ostatnieSkany] = await Promise.all([
     kodJakoDataUrl(tabliczka.kod),
+    // Tylko policzone. Lista „ostatnie skany" ma pokazywać ludzi, a nie
+    // crawlery budujące podgląd odnośnika — inaczej po każdym poście na
+    // Facebooku wygląda, jakby tabliczkę oblegał tłum z Iowa.
     baza.skanQr.findMany({
-      where: { kodQrId: tabliczka.id },
+      where: { kodQrId: tabliczka.id, liczone: true },
       orderBy: { czas: 'desc' },
       take: 10,
       select: { czas: true, urzadzenie: true, kraj: true, miasto: true },
