@@ -13,9 +13,9 @@ export default async function StronaLogowania({ searchParams }: PageProps<'/pane
   return (
     <div className="obszar flex min-h-[70vh] items-center justify-center py-16">
       <div className="w-full max-w-sm">
-        <h1 className="font-heading text-2xl font-semibold text-kamien-900">Panel tabliczek</h1>
+        <h1 className="font-heading text-2xl font-semibold text-kamien-900">Panel administratora</h1>
         <p className="mt-2 text-sm text-kamien-600">
-          Zarządzanie kodami QR i statystyki skanowania.
+          Tabliczki szlaków, portal aktualności i analityka.
         </p>
 
         <FormularzLogowania wroc={typeof wroc === 'string' ? wroc : '/panel'} />
