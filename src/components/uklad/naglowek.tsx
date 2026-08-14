@@ -3,11 +3,22 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Menu, Search, X } from 'lucide-react'
+import { Menu, Search, Smartphone, X } from 'lucide-react'
 
 import { Logo } from '@/components/marka/logo'
 import { MENU } from '@/lib/konfiguracja'
 import { cn } from '@/lib/utils'
+
+/**
+ * Pozycja menu prowadząca do aplikacji dostaje wygląd przycisku akcji.
+ *
+ * Reszta menu to nawigacja po portalu — miejsca, w które turysta i tak
+ * zajrzy. Aplikacja jest jedyną pozycją, w której coś mu dajemy, a
+ * traktowana jak siódmy odnośnik z rzędu ginęła między „Mapą"
+ * a „Aktualnościami". Wyróżniamy ją tu, a nie flagą w `MENU`, bo to
+ * decyzja o wyglądzie paska, nie własność samej pozycji menu.
+ */
+const ADRES_APLIKACJI = '/aplikacja'
 
 /**
  * Górny pasek nawigacji.
@@ -71,8 +82,9 @@ export function Naglowek() {
             {MENU.map((pozycja) => {
               const aktywna =
                 sciezka === pozycja.adres || sciezka.startsWith(`${pozycja.adres}/`)
+              const wyrozniona = pozycja.adres === ADRES_APLIKACJI
               return (
-                <li key={pozycja.adres}>
+                <li key={pozycja.adres} className={cn(wyrozniona && 'ml-2 lg:ml-3')}>
                   <Link
                     href={pozycja.adres}
                     // `aria-current` mówi czytnikowi ekranu, na której stronie
@@ -80,11 +92,20 @@ export function Naglowek() {
                     aria-current={aktywna ? 'page' : undefined}
                     className={cn(
                       'rounded-full px-3.5 py-2 text-sm font-medium transition-colors lg:px-4',
-                      aktywna
-                        ? 'bg-las-50 text-las-800'
-                        : 'text-kamien-700 hover:bg-las-50 hover:text-las-800',
+                      wyrozniona
+                        ? cn(
+                            'inline-flex items-center gap-1.5 text-white shadow-miekki',
+                            // Stan aktywny jest ciemniejszy, a nie jaśniejszy:
+                            // przycisk ma zostać przyciskiem także wtedy, gdy
+                            // stoimy na stronie aplikacji.
+                            aktywna ? 'bg-las-800' : 'bg-las-700 hover:bg-las-800',
+                          )
+                        : aktywna
+                          ? 'bg-las-50 text-las-800'
+                          : 'text-kamien-700 hover:bg-las-50 hover:text-las-800',
                     )}
                   >
+                    {wyrozniona && <Smartphone className="size-4" aria-hidden />}
                     {pozycja.etykieta}
                   </Link>
                 </li>
@@ -122,16 +143,25 @@ export function Naglowek() {
           className="border-t border-kamien-200 bg-white md:hidden"
         >
           <ul className="obszar flex flex-col py-3">
-            {MENU.map((pozycja) => (
-              <li key={pozycja.adres}>
-                <Link
-                  href={pozycja.adres}
-                  className="block rounded-lg px-3 py-3 text-base font-medium text-kamien-800 hover:bg-las-50 hover:text-las-800"
-                >
-                  {pozycja.etykieta}
-                </Link>
-              </li>
-            ))}
+            {MENU.map((pozycja) => {
+              const wyrozniona = pozycja.adres === ADRES_APLIKACJI
+              return (
+                <li key={pozycja.adres} className={cn(wyrozniona && 'mt-2')}>
+                  <Link
+                    href={pozycja.adres}
+                    className={cn(
+                      'rounded-lg px-3 py-3 text-base font-medium',
+                      wyrozniona
+                        ? 'flex items-center gap-2 bg-las-700 text-white shadow-miekki'
+                        : 'block text-kamien-800 hover:bg-las-50 hover:text-las-800',
+                    )}
+                  >
+                    {wyrozniona && <Smartphone className="size-5" aria-hidden />}
+                    {pozycja.etykieta}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </nav>
       )}
