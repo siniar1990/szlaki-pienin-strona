@@ -21,11 +21,16 @@ import { adresKodu, kodJakoPng, kodJakoSvg } from '@/lib/qr/generuj-kod'
  * w korzeniu i nazywają się dokładnie kodem tabliczki — `P001.png`. Domyślne
  * `oba` rozdziela je na katalogi `png/` i `svg/`, bo dwóch plików o nazwie
  * `P001` nie da się położyć obok siebie.
+ *
+ * `?identyfikator=1` drukuje pod każdym kodem jego identyfikator. Nazwy
+ * plików w archiwum zostają bez zmian — wariant dotyczy całej paczki, więc
+ * dopisek w każdej nazwie niczego by nie odróżniał.
  */
 export async function GET(zadanie: NextRequest) {
   const status = zadanie.nextUrl.searchParams.get('status')
   const zadanyFormat = zadanie.nextUrl.searchParams.get('format')
   const format = zadanyFormat === 'png' || zadanyFormat === 'svg' ? zadanyFormat : 'oba'
+  const zIdentyfikatorem = zadanie.nextUrl.searchParams.get('identyfikator') === '1'
 
   const kody = await baza.kodQr.findMany({
     where: status === 'ZAPAS' || status === 'AKTYWNY' || status === 'NIEAKTYWNY' ? { status } : {},
@@ -39,14 +44,16 @@ export async function GET(zadanie: NextRequest) {
 
   const paczka = new JSZip()
 
+  const opcje = { zIdentyfikatorem }
+
   for (const k of kody) {
     if (format === 'png') {
-      paczka.file(`${k.kod}.png`, await kodJakoPng(k.kod))
+      paczka.file(`${k.kod}.png`, await kodJakoPng(k.kod, opcje))
     } else if (format === 'svg') {
-      paczka.file(`${k.kod}.svg`, await kodJakoSvg(k.kod))
+      paczka.file(`${k.kod}.svg`, await kodJakoSvg(k.kod, opcje))
     } else {
-      paczka.folder('png')!.file(`${k.kod}.png`, await kodJakoPng(k.kod))
-      paczka.folder('svg')!.file(`${k.kod}.svg`, await kodJakoSvg(k.kod))
+      paczka.folder('png')!.file(`${k.kod}.png`, await kodJakoPng(k.kod, opcje))
+      paczka.folder('svg')!.file(`${k.kod}.svg`, await kodJakoSvg(k.kod, opcje))
     }
   }
 

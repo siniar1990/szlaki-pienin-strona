@@ -18,9 +18,14 @@ import { Download } from 'lucide-react'
  * Zwykłe odnośniki, nie wywołania z JavaScriptu: przeglądarka sama pokaże
  * postęp pobierania i sama zapisze plik, a przy dwustu kodach składanie
  * archiwum trwa i pasek postępu jest jedyną informacją, że coś się dzieje.
+ *
+ * Przełącznik „z identyfikatorem" drukuje pod każdym kodem jego oznaczenie
+ * (P001…) — bez tego dwieście wydrukowanych kodów jest nie do odróżnienia
+ * gołym okiem i dopiero skan mówi, który trzymasz w ręce.
  */
 export function PobierzKody() {
   const [otwarty, ustawOtwarty] = useState(false)
+  const [zIdentyfikatorem, ustawZIdentyfikatorem] = useState(false)
 
   if (!otwarty) {
     return (
@@ -46,12 +51,21 @@ export function PobierzKody() {
       ).map(([format, etykieta]) => (
         <a
           key={format}
-          href={`/api/panel/paczka?format=${format}`}
+          href={`/api/panel/paczka?format=${format}${zIdentyfikatorem ? '&identyfikator=1' : ''}`}
           className="rounded-full px-3.5 py-1.5 text-sm text-kamien-700 transition-colors hover:bg-las-50 hover:text-las-800"
         >
           {etykieta}
         </a>
       ))}
+      <label className="inline-flex cursor-pointer items-center gap-1.5 border-l border-kamien-200 px-3 py-1.5 text-sm text-kamien-700">
+        <input
+          type="checkbox"
+          checked={zIdentyfikatorem}
+          onChange={(zdarzenie) => ustawZIdentyfikatorem(zdarzenie.target.checked)}
+          className="size-3.5 accent-las-700"
+        />
+        z identyfikatorem
+      </label>
       <button
         type="button"
         onClick={() => ustawOtwarty(false)}

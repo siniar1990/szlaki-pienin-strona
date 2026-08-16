@@ -121,6 +121,25 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
                 <Download className="size-4" aria-hidden />
                 Pobierz PNG
               </a>
+              {/*
+                Warianty z identyfikatorem wydrukowanym pod kodem — do plików
+                idących do drukarni luzem, gdzie dwieście kodów wygląda
+                identycznie i tylko podpis mówi, który jest który.
+              */}
+              <a
+                href={`/api/panel/kody/${tabliczka.kod}/obraz?format=svg&identyfikator=1`}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-kamien-300 px-4 py-2.5 text-sm font-medium text-kamien-800 hover:border-las-500 hover:bg-las-50"
+              >
+                <Download className="size-4" aria-hidden />
+                SVG z identyfikatorem
+              </a>
+              <a
+                href={`/api/panel/kody/${tabliczka.kod}/obraz?format=png&identyfikator=1`}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-kamien-300 px-4 py-2.5 text-sm font-medium text-kamien-800 hover:border-las-500 hover:bg-las-50"
+              >
+                <Download className="size-4" aria-hidden />
+                PNG z identyfikatorem
+              </a>
               <a
                 href={adresKodu(tabliczka.kod)}
                 target="_blank"

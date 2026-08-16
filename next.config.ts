@@ -22,6 +22,18 @@ const nextConfig: NextConfig = {
   // Adresy bez ukośnika na końcu: /szlaki/sokolica, nie /szlaki/sokolica/.
   trailingSlash: false,
 
+  /*
+    Font do podpisów pod kodami QR czytany jest z dysku w czasie żądania
+    (`src/lib/qr/podpis.ts`), a automatyczne śledzenie plików nie zagląda
+    w argumenty `readFileSync` składane ze ścieżek. Bez tego wpisu paczka
+    serwerowa na Vercelu wyjedzie bez fontu i pobieranie z identyfikatorem
+    wywróci się dopiero na produkcji.
+  */
+  outputFileTracingIncludes: {
+    '/api/panel/kody/[kod]/obraz': ['./src/lib/qr/czcionki/*'],
+    '/api/panel/paczka': ['./src/lib/qr/czcionki/*'],
+  },
+
   // Błędy typów zatrzymują publikację — to ostatnia bariera przed wypuszczeniem
   // zepsutej strony na produkcję.
   typescript: { ignoreBuildErrors: false },
