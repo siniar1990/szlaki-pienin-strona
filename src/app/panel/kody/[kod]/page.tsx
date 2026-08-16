@@ -15,6 +15,33 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+/*
+  Strefa warszawska wprost, bo strona renderuje się na serwerze, a ten chodzi
+  w UTC. Bez niej godziny skanów byłyby przesunięte o godzinę lub dwie
+  (zależnie od pory roku), a skan tuż po północy nosiłby wczorajszą datę.
+
+  Lista skanów sięga wstecz dalej niż jeden dzień, więc sama godzina nie
+  wystarcza — „22:40" bez daty wygląda jak dzisiejszy wieczór, choć bywa
+  sprzed tygodnia. Rok pomijamy tylko w liście: to „ostatnie" skany, a pełną
+  datę najświeższego i tak widać wiersz wyżej.
+*/
+const DATA_Z_GODZINA = new Intl.DateTimeFormat('pl-PL', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: 'Europe/Warsaw',
+})
+
+const DZIEN_Z_GODZINA = new Intl.DateTimeFormat('pl-PL', {
+  day: '2-digit',
+  month: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: 'Europe/Warsaw',
+})
+
 export const dynamic = 'force-dynamic'
 
 export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod]'>) {
@@ -141,7 +168,7 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
                 <dt className="text-kamien-500">Ostatni skan</dt>
                 <dd className="text-kamien-900">
                   {tabliczka.ostatniSkan
-                    ? tabliczka.ostatniSkan.toLocaleString('pl-PL')
+                    ? DATA_Z_GODZINA.format(tabliczka.ostatniSkan)
                     : 'nigdy'}
                 </dd>
               </div>
@@ -155,7 +182,7 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
                 <ul className="mt-2 space-y-1.5 text-sm text-kamien-600">
                   {ostatnieSkany.map((s, i) => (
                     <li key={i} className="flex justify-between gap-3">
-                      <span>{s.czas.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })}</span>
+                      <span className="tabular-nums">{DZIEN_Z_GODZINA.format(s.czas)}</span>
                       <span className="text-kamien-500">
                         {s.urzadzenie.toLowerCase()}
                         {s.miasto ? ` · ${s.miasto}` : s.kraj ? ` · ${s.kraj}` : ''}
