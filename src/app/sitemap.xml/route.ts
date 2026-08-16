@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
 
+import { PORTAL } from '@/lib/konfiguracja'
+import { najnowszaData, type ManifestDat } from '@/lib/seo/daty'
+import manifestDat from '@/lib/seo/daty-stron.json'
 import { NAGLOWKI_XML } from '@/lib/seo/naglowki'
 import { indeksMap } from '@/lib/seo/xml'
-import { PORTAL } from '@/lib/konfiguracja'
 import { pobierzSlugiWiadomosci } from '@/lib/wiadomosci/zapytania'
 
 /**
@@ -26,8 +28,12 @@ export async function GET() {
   const najnowsza = notki[0]
 
   const xml = indeksMap([
-    // Strony przewodnika zmieniają się razem z wdrożeniem, a nie same z siebie.
-    { adres: `${PORTAL.adres}/sitemap-pages.xml`, zmieniono: new Date() },
+    // Data mapy stron to data ostatniej realnej zmiany treści przewodnika —
+    // nie chwila wdrożenia, bo wdrożenie samo w sobie niczego nie zmienia.
+    {
+      adres: `${PORTAL.adres}/sitemap-pages.xml`,
+      zmieniono: najnowszaData(manifestDat as ManifestDat) ?? new Date(),
+    },
     {
       adres: `${PORTAL.adres}/sitemap-posts.xml`,
       zmieniono: najnowsza

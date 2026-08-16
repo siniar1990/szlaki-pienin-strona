@@ -1,0 +1,59 @@
+name: Daty stron w mapie witryny
+
+# Po każdym pushu do main odświeża `src/lib/seo/daty-stron.json` — pamięć
+# dat zmian, z której mapa witryny bierze `lastmod` osobno dla każdego adresu.
+#
+# Dlaczego workflow, a nie krok budowania: maszyna budująca na Vercelu nie ma
+# historii gita, więc nie zna dat — a wynik i tak musi wrócić do repozytorium,
+# żeby przetrwać do następnego wdrożenia. Tu historia jest pod ręką
+# (fetch-depth: 0), a commit z odświeżonym plikiem sam uruchamia wdrożenie,
+# które nowe daty poda światu.
+#
+# Pętli nie ma: commit tego workflow zmienia wyłącznie plik dat, a pushe
+# dotykające tylko jego są wykluczone niżej.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'src/lib/seo/daty-stron.json'
+
+permissions:
+  contents: write
+
+jobs:
+  odswiez:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Pełna historia — bez niej `git log` przypisuje stare pliki do
+          # sztucznego commita granicznego i daty wychodzą fałszywe.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Bez skryptów instalacyjnych: generator dat potrzebuje tylko tsx
+      # i zoda, a `prisma generate` oraz kompilacja sharpa trwałyby dłużej
+      # niż cała reszta zadania.
+      - run: npm ci --ignore-scripts
+
+      - run: npx tsx narzedzia/zbuduj-daty-stron.ts
+
+      - name: Zapisz zmienione daty
+        run: |
+          if git diff --quiet -- src/lib/seo/daty-stron.json; then
+            echo "Daty bez zmian — nie ma czego zapisywać."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/seo/daty-stron.json
+          git commit -m "Odświeżone daty zmian stron w mapie witryny"
+          # Gdyby w międzyczasie ktoś wypchnął kolejny commit, dokładamy się
+          # na wierzch zamiast przegrywać wyścig.
+          git pull --rebase origin main
+          git push origin main

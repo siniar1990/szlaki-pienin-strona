@@ -31,9 +31,15 @@ export function uciekaj(tekst: string): string {
     .replace(/'/g, '&apos;')
 }
 
-/** Data w formacie W3C, którego oczekują mapy witryny. */
-export function dataW3C(data: Date): string {
-  return data.toISOString()
+/**
+ * Data w formacie W3C, którego oczekują mapy witryny.
+ *
+ * Napis przechodzi bez zmian: daty stron przewodnika znamy z dokładnością
+ * dnia (`RRRR-MM-DD`, też poprawny W3C) i doklejanie im północy UTC udawałoby
+ * precyzję, której nie mamy.
+ */
+export function dataW3C(data: Date | string): string {
+  return typeof data === 'string' ? data : data.toISOString()
 }
 
 /** Data w formacie RFC 822, którego oczekuje RSS 2.0. */
@@ -43,7 +49,7 @@ export function dataRfc822(data: Date): string {
 
 export type WpisMapy = {
   adres: string
-  zmieniono?: Date
+  zmieniono?: Date | string
   /** Dopuszczalne wartości `changefreq` wg specyfikacji sitemaps.org. */
   czestotliwosc?: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly'
   waga?: number
@@ -71,7 +77,7 @@ ${pozycje}
 </urlset>`
 }
 
-export function indeksMap(mapy: { adres: string; zmieniono: Date }[]): string {
+export function indeksMap(mapy: { adres: string; zmieniono: Date | string }[]): string {
   const pozycje = mapy
     .map(
       (mapa) =>
