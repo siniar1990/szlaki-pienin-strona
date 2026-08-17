@@ -86,6 +86,37 @@ export type WiadomoscPelna = WiadomoscNaLiscie & {
   tresc: string
   zrodloNazwa: string | null
   zrodloAdres: string | null
+  /**
+   * Wymiary zdjęcia w pikselach — do `og:image:width/height`. Bez nich
+   * Facebook przy PIERWSZYM udostępnieniu linku pobiera obraz dopiero po
+   * zbudowaniu karty i pokazuje ją bez grafiki — a ten pusty wynik trzyma
+   * potem w swojej pamięci. `null`, gdy zdjęcia nie ma albo nie dało się
+   * go zmierzyć.
+   */
+  wymiaryZdjecia: { szerokosc: number; wysokosc: number } | null
+}
+
+/**
+ * Wymiary obrazu z `data:` URL — mierzone raz, przy zapisie do pamięci
+ * podręcznej. Zepsute zdjęcie nie może położyć całej notki, więc każdy
+ * kłopot z pomiarem kończy się `null`, nie wyjątkiem.
+ */
+async function zmierzZdjecie(
+  zdjecie: string,
+): Promise<{ szerokosc: number; wysokosc: number } | null> {
+  try {
+    const dopasowanie = /^data:image\/[a-z+]+;base64,(.+)$/i.exec(zdjecie)
+    if (!dopasowanie) return null
+
+    // Import w środku, bo sharp to natywna biblioteka — ładujemy ją tylko
+    // wtedy, gdy naprawdę jest co mierzyć, a nie przy każdym odczycie listy.
+    const { default: sharp } = await import('sharp')
+    const { width, height } = await sharp(Buffer.from(dopasowanie[1], 'base64')).metadata()
+    return width && height ? { szerokosc: width, wysokosc: height } : null
+  } catch (blad) {
+    console.error('Pomiar zdjęcia notki nie powiódł się:', blad)
+    return null
+  }
 }
 
 const pobierzWiadomosciZPamieci = unstable_cache(
@@ -152,12 +183,22 @@ const pobierzWiadomoscZPamieci = unstable_cache(
       })
       if (!wiersz) return null
 
+      /*
+        Tu zdjęcie wolno pobrać w całości: jesteśmy WEWNĄTRZ `unstable_cache`,
+        więc megabajtowy napis żyje tylko przez chwilę pomiaru — do pamięci
+        trafiają wyłącznie dwie liczby, a do HTML-a nie trafia nic.
+      */
       const zdjecie = await baza.wiadomosc.findFirst({
         where: { slug, zdjecie: { not: null } },
-        select: { slug: true },
+        select: { zdjecie: true },
       })
 
-      return { ...wiersz, maZdjecie: zdjecie !== null, opublikowano: wiersz.opublikowano as Date }
+      return {
+        ...wiersz,
+        maZdjecie: zdjecie !== null,
+        wymiaryZdjecia: zdjecie?.zdjecie ? await zmierzZdjecie(zdjecie.zdjecie) : null,
+        opublikowano: wiersz.opublikowano as Date,
+      }
     }, null),
   ['wiadomosc-jedna'],
   { tags: [ZNACZNIK_WIADOMOSCI] },

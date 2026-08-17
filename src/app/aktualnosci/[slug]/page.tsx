@@ -48,8 +48,20 @@ export async function generateMetadata({
     Notka bez własnego zdjęcia dostaje obraz portalu, a nie żaden. Wcześniej
     zostawała bez `og:image` — i akurat notki są tym, co najczęściej trafia
     do wklejenia na Facebooku.
+
+    Wymiary podajemy wprost, tak jak robi to `metadaneStrony` dla reszty
+    portalu: bez `og:image:width/height` Facebook przy pierwszym udostępnieniu
+    buduje kartę, zanim pobierze obraz — i pokazuje ją bez grafiki, a pusty
+    wynik zapamiętuje. Obraz portalu ma znane 1200×630; wymiary zdjęcia notki
+    mierzy odczyt z pamięci podręcznej.
   */
-  const obrazek = wiadomosc.maZdjecie ? `${PORTAL.adres}${adresZdjecia(slug)}` : OBRAZ_PORTALU
+  const obrazek = wiadomosc.maZdjecie
+    ? {
+        url: `${PORTAL.adres}${adresZdjecia(slug)}`,
+        width: wiadomosc.wymiaryZdjecia?.szerokosc,
+        height: wiadomosc.wymiaryZdjecia?.wysokosc,
+      }
+    : { url: OBRAZ_PORTALU, width: 1200, height: 630 }
   const zmieniono = ostatniaZmiana(wiadomosc)
 
   return {
@@ -72,13 +84,13 @@ export async function generateMetadata({
       publishedTime: wiadomosc.opublikowano.toISOString(),
       modifiedTime: zmieniono.toISOString(),
       authors: [PORTAL.redakcja],
-      images: [{ url: obrazek, alt: wiadomosc.zdjecieOpis ?? wiadomosc.tytul }],
+      images: [{ ...obrazek, alt: wiadomosc.zdjecieOpis ?? wiadomosc.tytul }],
     },
     twitter: {
       card: 'summary_large_image',
       title: wiadomosc.tytul,
       description: wiadomosc.lid,
-      images: [obrazek],
+      images: [obrazek.url],
     },
   }
 }
