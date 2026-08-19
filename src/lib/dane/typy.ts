@@ -106,6 +106,14 @@ export type Trasa = {
   ilustracja: string | null
   /** Adres śladu GeoJSON albo null, gdy ślad nie został jeszcze zdigitalizowany. */
   slad: string | null
+  /**
+   * Adres pliku z barwami znakowania odcinek po odcinku albo null.
+   *
+   * Osobny plik od śladu, bo odpowiada na inne pytanie: ślad mówi „którędy",
+   * a barwy „za czym iść patrzeć na drzewach". Wylicza je skrypt w aplikacji,
+   * dopasowując ślad do grafu szlaków OSM.
+   */
+  kolory: string | null
   trudnosc: Trudnosc
   /** Miejscowość, z której trasa się zaczyna — do filtrowania i kart. */
   miejscowoscStartu: string

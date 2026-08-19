@@ -1,9 +1,23 @@
 'use client'
 
-import maplibregl, { type LngLatBoundsLike, type Map as MapaGl } from 'maplibre-gl'
+import maplibregl, { type Map as MapaGl } from 'maplibre-gl'
 import { useEffect, useRef, useState } from 'react'
 
 import type { Wspolrzedne } from '@/lib/dane/typy'
+import { granice, liniaTrasy } from '@/lib/mapa/slad'
+import { GESTOSC_STRZALKI, rysujStrzalke } from '@/lib/mapa/strzalka'
+import {
+  ADRES_SZLAKOW,
+  IKONA_STRZALKI,
+  ZRODLO_SZLAKOW,
+  ZRODLO_WSTEGI,
+  ZRODLO_ZNAKOWANIA,
+  warstwaObrysuWstegi,
+  warstwaPodkladuWstegi,
+  warstwaStrzalek,
+  warstwaZnakowania,
+  warstwySzlakow,
+} from '@/lib/mapa/warstwy-trasy'
 import { cn } from '@/lib/utils'
 
 import 'maplibre-gl/dist/maplibre-gl.css'
@@ -21,10 +35,16 @@ import 'maplibre-gl/dist/maplibre-gl.css'
  * kto do mapy w ogóle nie dojdzie.
  */
 
-export type WarstwaSladu = {
-  id: string
-  adres: string
-  kolor: string
+/**
+ * Przebieg trasy do narysowania na mapie.
+ *
+ * Dwa pliki, bo odpowiadają na dwa różne pytania: `slad` mówi „którędy",
+ * `kolory` — „za czym iść patrzeć na drzewach". Bez `kolory` wstęga jest
+ * szara na całej długości i to jest poprawny obraz świata, a nie awaria.
+ */
+export type PrzebiegTrasy = {
+  slad: string
+  kolory: string | null
 }
 
 export type MarkerMapy = {
@@ -78,15 +98,16 @@ function zwinAtrybucje(pojemnik: HTMLElement | null): void {
 }
 
 export function Mapa({
-  slady = [],
+  przebieg,
   markery = [],
   klasa,
-  dopasujDoSladow = true,
+  dopasujWidok = true,
 }: {
-  slady?: WarstwaSladu[]
+  przebieg?: PrzebiegTrasy
   markery?: MarkerMapy[]
   klasa?: string
-  dopasujDoSladow?: boolean
+  /** Czy dosunąć widok do przebiegu trasy. Bez `przebieg` nie ma znaczenia. */
+  dopasujWidok?: boolean
 }) {
   const pojemnik = useRef<HTMLDivElement>(null)
   const mapa = useRef<MapaGl | null>(null)
@@ -127,61 +148,75 @@ export function Mapa({
     }
   }, [])
 
-  // Ślady tras.
+  /*
+    Przebieg trasy — wstęga, znakowanie i szlaki w tle.
+
+    Kolejność dodawania warstw JEST specyfikacją, nie przypadkiem. MapLibre
+    kładzie każdą kolejną na wierzchu poprzednich, a role są takie:
+
+      1. szlaki znakowane   — tło, po którym turysta się orientuje,
+      2. ciemny obrys       — odcina wstęgę od podkładu,
+      3. szara podkładka    — wypełnia dziury, żeby wstęga się nie urwała,
+      4. barwy znakowania   — odpowiedź na „za czym teraz idę",
+      5. strzałki           — kierunek marszu, na samym wierzchu.
+
+    Odwrócenie 1 i 2–4 zabrałoby wstędze pierwszeństwo i trasa zginęłaby wśród
+    szlaków okolicy, czyli dokładnie odwrotnie, niż ma być.
+  */
   useEffect(() => {
     const m = mapa.current
-    if (!m || !gotowa) return
+    if (!m || !gotowa || !przebieg) return
 
-    const granice = new maplibregl.LngLatBounds()
-    let sa = false
+    // Odpowiedź z sieci potrafi przyjść po odmontowaniu komponentu; wtedy
+    // `m` jest już usunięte i dokładanie warstw rzuca wyjątkiem.
+    let aktualne = true
 
-    slady.forEach((slad) => {
-      if (m.getSource(slad.id)) return
+    const rysuj = async () => {
+      let linia
+      try {
+        const odpowiedz = await fetch(przebieg.slad)
+        if (!odpowiedz.ok) return
+        linia = liniaTrasy(await odpowiedz.json())
+      } catch {
+        // Ślad się nie wczytał — zostaje sama mapa ze znacznikami punktów
+        // etapowych. To wciąż użyteczna strona, więc nie robimy z tego błędu.
+        return
+      }
+      if (!aktualne || !linia || !mapa.current || m.getSource(ZRODLO_WSTEGI)) return
 
-      m.addSource(slad.id, { type: 'geojson', data: slad.adres })
+      m.addSource(ZRODLO_SZLAKOW, { type: 'geojson', data: ADRES_SZLAKOW })
+      warstwySzlakow().forEach((warstwa) => m.addLayer(warstwa))
 
-      // Dwie linie jedna pod drugą: szersza biała pod spodem robi obwódkę,
-      // dzięki której kolorowy ślad jest czytelny nad ciemnym lasem i nad
-      // jasną łąką. Bez niej trasa ginie na połowie podkładu.
-      m.addLayer({
-        id: `${slad.id}-obwodka`,
-        type: 'line',
-        source: slad.id,
-        layout: { 'line-join': 'round', 'line-cap': 'round' },
-        paint: { 'line-color': '#ffffff', 'line-width': 6, 'line-opacity': 0.9 },
-      })
-      m.addLayer({
-        id: `${slad.id}-linia`,
-        type: 'line',
-        source: slad.id,
-        layout: { 'line-join': 'round', 'line-cap': 'round' },
-        paint: { 'line-color': slad.kolor, 'line-width': 3.5 },
-      })
-    })
+      m.addSource(ZRODLO_WSTEGI, { type: 'geojson', data: linia })
+      m.addLayer(warstwaObrysuWstegi())
+      m.addLayer(warstwaPodkladuWstegi())
 
-    if (!dopasujDoSladow) return
+      if (przebieg.kolory) {
+        // Źródłem jest wprost adres pliku — nazwy barw na wartości
+        // szesnastkowe przekłada wyrażenie w warstwie.
+        m.addSource(ZRODLO_ZNAKOWANIA, { type: 'geojson', data: przebieg.kolory })
+        m.addLayer(warstwaZnakowania())
+      }
 
-    // Dopasowanie widoku wymaga znajomości zasięgu śladu, a ten jest
-    // dociągany asynchronicznie. Czekamy, aż źródło zgłosi gotowość.
-    const dopasuj = () => {
-      slady.forEach((slad) => {
-        const cechy = m.querySourceFeatures(slad.id)
-        cechy.forEach((cecha) => {
-          if (cecha.geometry.type !== 'LineString') return
-          cecha.geometry.coordinates.forEach((punkt) => {
-            granice.extend(punkt as [number, number])
-            sa = true
-          })
-        })
-      })
-      if (sa) m.fitBounds(granice as LngLatBoundsLike, { padding: 56, duration: 0 })
+      const ikona = rysujStrzalke()
+      if (ikona) {
+        if (!m.hasImage(IKONA_STRZALKI)) {
+          m.addImage(IKONA_STRZALKI, ikona, { pixelRatio: GESTOSC_STRZALKI })
+        }
+        m.addLayer(warstwaStrzalek())
+      }
+
+      if (dopasujWidok) {
+        const zasieg = granice(linia)
+        if (zasieg) m.fitBounds(zasieg, { padding: 56, duration: 0 })
+      }
     }
 
-    m.on('idle', dopasuj)
+    void rysuj()
     return () => {
-      m.off('idle', dopasuj)
+      aktualne = false
     }
-  }, [slady, gotowa, dopasujDoSladow])
+  }, [przebieg, gotowa, dopasujWidok])
 
   // Znaczniki punktów.
   useEffect(() => {

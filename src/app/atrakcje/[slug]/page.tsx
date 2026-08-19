@@ -534,7 +534,6 @@ function WidokZTras({ atrakcja }: { atrakcja: Atrakcja }) {
               </h2>
               <MapaDynamiczna
                 klasa="mt-6 h-[24rem] w-full border border-kamien-200"
-                dopasujDoSladow={false}
                 markery={[
                   {
                     id: atrakcja.slug,

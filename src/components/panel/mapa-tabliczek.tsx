@@ -61,7 +61,7 @@ export function MapaTabliczek({ kody }: { kody: KodNaMapie[] }) {
 
   return (
     <div className="h-[70vh] min-h-[30rem] overflow-hidden rounded-2xl border border-kamien-200">
-      <Mapa markery={markery} dopasujDoSladow={false} klasa="size-full rounded-none border-0" />
+      <Mapa markery={markery} klasa="size-full rounded-none border-0" />
     </div>
   )
 }

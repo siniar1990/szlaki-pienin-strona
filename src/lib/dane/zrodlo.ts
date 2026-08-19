@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 
 import {
@@ -235,6 +235,20 @@ function naTrase(surowa: SurowaTrasa, slug: string): Trasa {
     slad: surowa.geometry
       ? adresPubliczny('slady', path.basename(surowa.geometry))
       : null,
+    /*
+      Barw odcinków opis trasy nie deklaruje — plik albo leży obok śladu, albo
+      nie. Sprawdzamy dysk zamiast zakładać, że skoro jest ślad, to są i barwy:
+      pliki `.kolory.geojson` powstają osobnym przebiegiem skryptu w aplikacji
+      i nowa trasa potrafi trafić na portal, zanim ktoś ten skrypt uruchomi.
+      Mapa bez barw rysuje szarą wstęgę i to jest poprawny obraz świata.
+    */
+    kolory: (() => {
+      if (!surowa.geometry) return null
+      const nazwa = `${surowa.id}.kolory.geojson`
+      return existsSync(path.join(KATALOG_DANYCH, 'slady', nazwa))
+        ? adresPubliczny('slady', nazwa)
+        : null
+    })(),
     trudnosc: ustalTrudnosc(surowa.dlugosc_km, surowa.suma_podejsc_m.tam),
     miejscowoscStartu: miejscowoscStartu(punkty),
     najwyzszyPunktM:

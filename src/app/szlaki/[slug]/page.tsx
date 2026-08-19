@@ -242,13 +242,7 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
                 </h2>
                 <MapaDynamiczna
                   klasa="mt-6 h-[26rem] w-full border border-kamien-200"
-                  slady={[
-                    {
-                      id: `slad-${trasa.id}`,
-                      adres: trasa.slad,
-                      kolor: KOLORY_SZLAKOW[trasa.szlaki[0]]?.tlo ?? '#2f5d43',
-                    },
-                  ]}
+                  przebieg={{ slad: trasa.slad, kolory: trasa.kolory }}
                   markery={trasa.punkty.map((punkt, indeks) => ({
                     id: `${trasa.id}-${indeks}`,
                     nazwa: punkt.nazwa,
