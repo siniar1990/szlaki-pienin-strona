@@ -2,8 +2,8 @@
   "wersja": 1,
   "strony": {
     "/": {
-      "skrot": "017dc4392669fc612a7bab2d44aadec5c7ee4af94fe947e679a18bb7868eb42c",
-      "zmieniono": "2026-08-14"
+      "skrot": "7b8fcb04d683cf59534703049d0fbaa88fea64227ff806c7310650f73262c546",
+      "zmieniono": "2026-08-19"
     },
     "/aktualnosci": {
       "skrot": "13ac49589d49102276481d9f6c71a7e72d4b95e78fc5e6aa22e995a4abdd496e",
@@ -354,7 +354,7 @@
       "zmieniono": "2026-08-10"
     },
     "/mapa": {
-      "skrot": "ef64f5704e1286fd2ebd3cbae4914d4a25867ebda4954a8d02a04f35b1e64645",
+      "skrot": "0267d323755d0dd5225aa052fd81f08026ebd8ce111a38e4cd3658a07372d810",
       "zmieniono": "2026-08-19"
     },
     "/miejscowosci": {
@@ -479,10 +479,6 @@
     },
     "/szlaki/kategorie/latwe": {
       "skrot": "233d669002f4654e9945cf02cfee5578c135346256b07d2d705fa1fd8be580fc",
-      "zmieniono": "2026-08-08"
-    },
-    "/szlaki/kategorie/niecodzienne": {
-      "skrot": "b5e3344749771ad05c6e4a4caf3780fb51c3991d932ed937a8f42c3bf7012e91",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/panoramy": {
