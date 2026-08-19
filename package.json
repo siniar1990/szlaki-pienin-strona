@@ -9,6 +9,7 @@
     "build": "next build",
     "lint": "eslint",
     "dane": "./narzedzia/synchronizuj-dane.sh",
+    "zdjecia:trasy": "node narzedzia/przygotuj-zdjecia-tras.mjs",
     "daty": "tsx narzedzia/zbuduj-daty-stron.ts",
     "haslo": "tsx narzedzia/haslo-panelu.ts",
     "sieci": "tsx narzedzia/pobierz-sieci-centrow.ts",

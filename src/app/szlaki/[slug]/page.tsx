@@ -29,6 +29,7 @@ import {
   pobierzTrasy,
 } from '@/lib/dane/zrodlo'
 import type { Trasa } from '@/lib/dane/typy'
+import { toFotografia } from '@/lib/dane/zdjecia-tras'
 import {
   KOLORY_SZLAKOW,
   TRUDNOSC_ETYKIETY,
@@ -180,7 +181,7 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
               <figure className="overflow-hidden rounded-3xl border border-kamien-200">
                 <Image
                   src={trasa.ilustracja}
-                  alt={`Ilustracja trasy ${trasa.nazwa}`}
+                  alt={`${toFotografia(trasa.ilustracja) ? 'Trasa' : 'Ilustracja trasy'} ${trasa.nazwa}`}
                   width={1200}
                   height={800}
                   priority

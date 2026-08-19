@@ -9,6 +9,7 @@ import {
   type SurowaTrasa,
 } from './schematy'
 import { naSlug, nadajUnikalneSlugi } from './slug'
+import { zdjecieTrasy } from './zdjecia-tras'
 import type {
   Atrakcja,
   Ciekawostka,
@@ -216,7 +217,15 @@ function naTrase(surowa: SurowaTrasa, slug: string): Trasa {
         ? { adres: adresPubliczny('zdjecia', z), podpis: null }
         : { adres: adresPubliczny('zdjecia', z.plik), podpis: z.podpis ?? null },
     ),
+    /*
+      Kolejność: nasze zdjęcie, potem malowany rysunek z aplikacji. Fotografia
+      z konkretnej trasy mówi turyście więcej niż rysunek, a rysunki zostają
+      tam, gdzie zdjęcia jeszcze nie zrobiliśmy — patrz `zdjecia-tras.ts`.
+    */
     ilustracja: (() => {
+      const zdjecie = zdjecieTrasy(surowa.id)
+      if (zdjecie) return zdjecie
+
       const plik = surowa.ilustracja ?? ilustracjaZIndeksu(surowa.id)
       return plik ? adresPubliczny('ilustracje', plik) : null
     })(),

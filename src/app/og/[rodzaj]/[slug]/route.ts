@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 import sharp from 'sharp'
 
 import { zdjecieAtrakcji } from '@/lib/dane/zdjecia-atrakcji'
+import { toFotografia } from '@/lib/dane/zdjecia-tras'
 import { zdjecieMiejscowosci } from '@/lib/dane/zdjecia-miejscowosci'
 import { pobierzTrasy } from '@/lib/dane/zrodlo'
 import { ATRAKCJE_TURYSTYCZNE } from '@/lib/tresc/atrakcje-turystyczne'
@@ -102,8 +103,11 @@ export async function GET(
       i miejscowości są zwykłymi fotografiami, w których to, co ważne, bywa
       gdziekolwiek; tam pozwalamy wybrać kadr po najbardziej kontrastowym
       miejscu. Ta sama reguła dla obu psułaby jedną z dwóch grup.
+
+      Dlatego pytamy o źródło, a nie o rodzaj strony: część tras ma już własne
+      zdjęcie zamiast rysunku i tym należy się kadrowanie jak fotografii.
     */
-    const kadr = rodzaj === 'trasa' ? 'centre' : 'attention'
+    const kadr = toFotografia(zrodlo) || rodzaj !== 'trasa' ? 'attention' : 'centre'
 
     const jpeg = await sharp(plik)
       .resize(SZEROKOSC, WYSOKOSC, { fit: 'cover', position: kadr })
