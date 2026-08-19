@@ -394,24 +394,24 @@
       "zmieniono": "2026-08-04"
     },
     "/szlaki/beresnik": {
-      "skrot": "403c2c8f754abd0d1f4597a0809c73e69594991ef065f38d073ab6b76bf80138",
-      "zmieniono": "2026-08-04"
+      "skrot": "c7246bd42919deaa05852fc0f74b9944f7444be2244fd62f66a4bcb92c56b952",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/borsuczyny": {
       "skrot": "7fa5d3cd76b467c685db342717b567b1c09ed2ac09a4adfe62fea4116464594b",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/cel-muzeum-pieninskie": {
-      "skrot": "f51797b3940ca2977587ed3d190a9c64b547110fcfddaa7e82355da01ec7f535",
-      "zmieniono": "2026-08-04"
+      "skrot": "1a5da1ea3fd3ad8d854ec5e9b7831c75c358397aa048002d0f756deb7995c91b",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/cisowka": {
       "skrot": "bde4d3a7f32ffed3a65e791efc90ac06199df2ab8d3fb7e8c65e8e4ad7b83b34",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/co-tam-u-bacow": {
-      "skrot": "689f785281be7c8f46b81831c2e0be97c38034e889500de34b47a9820e0ece92",
-      "zmieniono": "2026-08-04"
+      "skrot": "a15c2274629f37864eb5a49d79a34d35e1dfa54d84ff1ef93297b2c8d6859b0e",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/czertez": {
       "skrot": "f0e65eb7642a135c15f537dc5ed38bdf26d26ce376bec03d7a6f91fabfda2483",
@@ -422,20 +422,20 @@
       "zmieniono": "2026-08-04"
     },
     "/szlaki/deptak-nad-grajcarkiem": {
-      "skrot": "31f9c57bc4cb9b92ddf0f0f2d1afcf2b2304eea4667dbee945696a22a36fb219",
-      "zmieniono": "2026-08-04"
+      "skrot": "c1f8dbaa48c5de6c315da5122b1e8ad93b90653e6696cdf2b050f788f05a5844",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/diament-pienin": {
       "skrot": "11bfc71c17c8fcb32de683033043c4c44940d0cf62f4d857b37363531215e2dc",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/droga-pieninska": {
-      "skrot": "5cddb4aaa1fb5703229f18234b37f337b19a6675430cabd32c0c510bd91cd563",
-      "zmieniono": "2026-08-04"
+      "skrot": "5ca0f248ec8f278442e074db0e04ff20624bfc517c46f39872ab180661ead834",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/durbaszka": {
-      "skrot": "1ef672b97b72e789d02f618ebf65dfb62b53428897043047b0dd14e8a6e263c2",
-      "zmieniono": "2026-08-04"
+      "skrot": "200ae8ce1f44b92ca73e4fa6ea20889a75ea41f1d235d52da12095c7a40b0f2b",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/durbaszka-kp05": {
       "skrot": "ea29f4340e67b391cc21c80c55a63e6d6aeff46a32341c77548c5b59c0dafd4e",
@@ -462,11 +462,11 @@
       "zmieniono": "2026-08-04"
     },
     "/szlaki/kategorie/calodniowe": {
-      "skrot": "a6986f3c20ad03ddf0750e82a81bb776d6386664c327c094bb163264c828d8c2",
+      "skrot": "86443661881f32858e0a33d36f3ff3eb29a9801d6d1f38932a4a924eb9001da3",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/dlugie": {
-      "skrot": "8d2312ae110b4581b14e92e639097beec817b252d02f0e829e90a9d163fe7e61",
+      "skrot": "aef769245f3f7e39c34fb90f516aca2ead753886ac738be36f5d8cb6e4e7b882",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/korony-pienin": {
@@ -474,11 +474,11 @@
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/krotkie": {
-      "skrot": "842417348f869652deaf5e6830dc2638e786a52cc0601d77a7cbb140eec8dee7",
+      "skrot": "edc202e82be75244c6adb96d5f664aebd5c7096f07abfe00a9a492b2fc4b8618",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/latwe": {
-      "skrot": "d41015b8bc197e5d2e852bd2e679610697b9e7d734ce9f8f1707198d4280f480",
+      "skrot": "233d669002f4654e9945cf02cfee5578c135346256b07d2d705fa1fd8be580fc",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/niecodzienne": {
@@ -486,31 +486,31 @@
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/panoramy": {
-      "skrot": "7bab86f3a7a3bcf1f8c72d7d10e5da328fd4509ea40474cb37a97c568ff5bbc2",
+      "skrot": "fd4780a4a8500307eca0ed20b6d9520ae030bfc25d43452a930b3e2ed5f65022",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/petle": {
-      "skrot": "91c01a7415762d3fc456da07f235438e087f83074c40663ca9b518cd6e98c762",
+      "skrot": "548e8b911eb68ce762228865f06f2e97212dff8c1ae9bf1c4692997c7ad2fc9a",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/przez-granice": {
-      "skrot": "edb4d7a1be8100d9df1680506b8ce06c21716419f9acc1a7148c8a6aa853c27a",
+      "skrot": "f39fc6c17b9d21bd6e34a88b1262f954b8ede36ef98f1113cc74993c93e87e5f",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/rowerowe": {
-      "skrot": "f53c5c1581038b928e3968932a40ba8296106ba2530e62dae004272e876af1d9",
+      "skrot": "f1388c149a0af6269a476d5e1f46cb3f8dff6d83e9649d478dd76ba0ca47f7e7",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/srednie": {
-      "skrot": "f54e770af4579e2f01eb5160e0d213dcd3c96dfa470e90b4b4654703d70cf312",
+      "skrot": "9ebdc8c31031795b36c0d2fc9a5c04382f918e6de78d73ee5d89fa2f01389893",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/srednio-trudne": {
-      "skrot": "0c9c36b041e6a1c5825cc5055743cf10a6387182601368bf110c9d7f0fa45331",
+      "skrot": "5bdccdcf0c46db517f041b0393ade56eb4de2d21e1fea56770157c45bcaf6654",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/trudne": {
-      "skrot": "62a60bbfa82721c130968cea1ab8ac1546d04547a402b59fdbac36a3de8e3b3f",
+      "skrot": "bf9f583b7cd4941b0b11254e0f575f6a2defb101d9014840893d44d18cc98446",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/trzy-korony": {
@@ -522,7 +522,7 @@
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/z-dziecmi": {
-      "skrot": "68e9158acaf79c30ed7d4e66e0c49ddfe28a58b1e1162e52a94cc2d7f1d34a8d",
+      "skrot": "5fa2a14c0ce137f1af180e28535b0a44bed6f6065ad345a5566561f46ab6764f",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kategorie/z-psem": {
@@ -530,15 +530,15 @@
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kolekcje/calodniowe": {
-      "skrot": "549f76fc194688b19d9ee08136414d6c04494cca836c6ae1fd4580536dd87424",
+      "skrot": "a5bdf72a2f8b1b06be6b43099a6d88431090c0b19dc28c21f5764bb55c9665c5",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kolekcje/dla-poczatkujacych": {
-      "skrot": "dfb84f86409fd2816d76855f8e2cfc1600a818a3c301f4f8c40b1417c268b8ff",
+      "skrot": "f6d074aa99a0a8d6735bafc8de3da56691d4518b08a5ec11513e8eba4004beef",
       "zmieniono": "2026-08-05"
     },
     "/szlaki/kolekcje/dla-zaawansowanych": {
-      "skrot": "3b5875f7663d8eb569607e54ad672c4e806c7b4b0638546f49eb59d0b93f198f",
+      "skrot": "625f00d6452d7a4b359debec19eb78efbfdf5c384f9987cf7d770dea2be4e4b5",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kolekcje/korony-pienin": {
@@ -546,96 +546,96 @@
       "zmieniono": "2026-08-05"
     },
     "/szlaki/kolekcje/krotkie-spacery": {
-      "skrot": "e8c55d33a024a5083ca876d78451f682435f22854ab40ab7ab4b5d651a01b26a",
+      "skrot": "74ed2524770b70f5a464581791509315ed0d79338cec60d3c7163cbabb0d790a",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kolekcje/na-dobry-poczatek": {
-      "skrot": "a3922ede9e0e1d6ca1d093bfaafb0abed6d2d7b6f5cb15dce1367278b97dc442",
+      "skrot": "42debb9dc0c8ea0680218a4aa8bdabc69845b8ad94bb3acef1b7937c8be7dd87",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kolekcje/panoramy": {
-      "skrot": "cdbd24dc537947b447671bb2d428fc8f35499d785e38dc917fbd77b24df8a043",
+      "skrot": "ce975739b428925c9df8ec531e9607ff4a92b8c9f132b231950733746bd61807",
       "zmieniono": "2026-08-05"
     },
     "/szlaki/kolekcje/przez-granice": {
-      "skrot": "784905e8be03383e6e04d4d286759b85c75134e813f2e481d6358d85d7069df9",
+      "skrot": "6af98b49c7515fd86ac1bcaa07502b34b7f7d9b13f94cfac1cacc486cf0d307f",
       "zmieniono": "2026-08-08"
     },
     "/szlaki/kolekcje/rowerowe": {
-      "skrot": "f3d745041cf37db5d1984200da9a7d00c87a4ce14c129ca7d309574c15fa83be",
+      "skrot": "db67425076c71b73cf6a064f9b383de1a25a05f0359ad30615bbd40fe8a39957",
       "zmieniono": "2026-08-05"
     },
     "/szlaki/kolekcje/z-dziecmi": {
-      "skrot": "57008c208155018a2b4c8623b6558d1363c209c648a77abfd381cc42aebd8f89",
+      "skrot": "698c1bf16c659cc51776396e1a879c21f1b8f99023989903bbecbd5f8dc88074",
       "zmieniono": "2026-08-05"
     },
     "/szlaki/lawendowe-wzgorza": {
-      "skrot": "0106a0fb6232656fdcfe0ab82339e20a3023c32d09c038266afdc7cedbc77159",
-      "zmieniono": "2026-08-04"
+      "skrot": "66342d442435ed8a6411f4f864fcf6f8cf1b16f258d2b485d62f37377466bd2c",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/majerz": {
       "skrot": "b62662e36522d06a347f0298d0f459b192563d241eda3a3845ef002a32f0c5a8",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/malo-znany-sredniak": {
-      "skrot": "91952cdc1f58391b3bbf9f01929739fbba6f84827622ea73a1639e72d482605d",
-      "zmieniono": "2026-08-08"
+      "skrot": "4086a917569cf4b5182a223e50065c6571f5f6226ee6c1d742ca2eb52c87280d",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/mnisia-sciezka": {
-      "skrot": "c1d912f4515fe42eedf6b83c92100997b8dc1b264620b2e97768a6b50bc67b76",
-      "zmieniono": "2026-08-08"
+      "skrot": "77abb087ffc2679d0ca9338035788cb26284f0a3ac04c71e23f84999d84d2a95",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/nie-mam-roweru": {
-      "skrot": "dec3e083414ad48acc2c6b9ddbdcbe02d01a070e2aa90e7787e39e820bc3c004",
-      "zmieniono": "2026-08-08"
+      "skrot": "f6e5449946b4e5e1d6178e14ddcb1a1ec99fbdcfeb0b4615e97bb28b78fece56",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/od-pitoniakowki-do-stefana": {
-      "skrot": "1c690941e6e2b0da22db815daed87094fcf9facffc2a898f6a04d1d3e27ca6e8",
-      "zmieniono": "2026-08-08"
+      "skrot": "a58863ef36ee895bd4fc874384b31e069b406e850d39151d209046ce4dce3627",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/palenica": {
       "skrot": "5b5ad58c7597be3d37a4b5ad6eeb8a42377e063920fc9f567e55b2fdfa87a8b6",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/palenica-wyciagiem": {
-      "skrot": "b265953541434c26950487e8f6c2d569b85ee88f6458dd73fd6241fde90b3d5a",
-      "zmieniono": "2026-08-04"
+      "skrot": "4e46b759f18c43693fbf3c0897e5562ec0f5aa8a79a652d6e001f5f276c0242b",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/plasna-plasnie": {
       "skrot": "6ba2f3356317d318b0d58e143093768b1627ec7b17b71b5779444b8b2dd4c52d",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/rezerwat-biala-woda": {
-      "skrot": "998353b4ddf0f25d7d34db58960e07d0db99ed3a0489e46859f3d99d843660b9",
-      "zmieniono": "2026-08-04"
+      "skrot": "8c43c832d771af375765b57082e60eef0175fbbf9cdaf5d58800a35a445c7460",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/rowerem-do-czerwonego-klasztoru": {
-      "skrot": "f426ddb8a4431e00947a76a302272cc28b3e75dedec4701f86505c9f6b59c49f",
-      "zmieniono": "2026-08-04"
+      "skrot": "4c8b8fd374215e16c5d6d58bb850e35a645ea97bddc6daa3c899b76fb469cae1",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/rubin-szczawnicy": {
       "skrot": "f6e93b49d2811fc5049f16d34cb7a5bf08d2173a9f98160dc4a77c64ad01cbf6",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/sladem-sw-kingi": {
-      "skrot": "d323a19d0d90dc0498641ae1d8ee2d98c063850524901e9b184259ee69f45ddb",
-      "zmieniono": "2026-08-04"
+      "skrot": "492721f62da6c9791efacc873cfec2f643c0a06716d81c9f54841fa78f8b0d74",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/slowacki-akcent": {
-      "skrot": "2e4a2d5e27e8c7ca470541d513247f0d21917b5037a7bea376dea7aaa24c86bf",
-      "zmieniono": "2026-08-08"
+      "skrot": "48e575066c22232e9f7428c2471b42d05fd0defa1a974614910c2f22ee00ff74",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/slowackie-widoki": {
-      "skrot": "ece5dd232c81c630f7da5c587d69a8da768a3eb48c717a4e83244cba672f50a0",
-      "zmieniono": "2026-08-04"
+      "skrot": "cab0945a25f4c1cbcfcea7d9ddc14825fa8c250f312169161fac116dc9463a0f",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/sokolica": {
       "skrot": "03859947dd8db2245b8a888b075b23b9ad3baa082590294d14d369f266e5e636",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/spacer-harnasia": {
-      "skrot": "fd362de456429d30a4ba80ecb76faac75046bf4231c4b1e7543068695ccb8987",
-      "zmieniono": "2026-08-04"
+      "skrot": "f1c54f2eb89f9d5a8db69a8a8476a9c19303043661cdecaab294345473f61d2a",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/szafranowka": {
       "skrot": "fc8553ef46046c8e055614ef9b01f740c261733b078f112e5756e4ddcc20380c",
@@ -662,36 +662,36 @@
       "zmieniono": "2026-08-04"
     },
     "/szlaki/velo-czorsztyn": {
-      "skrot": "01cfa9dbb03d6aae08b97795deffc4d3b148d27773482e63d4517f30d45d806a",
-      "zmieniono": "2026-08-04"
+      "skrot": "c6e756930f0c908a737ef9b88fa35db47572620598bfbf98146aa8d52aac5acb",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/watrisko": {
       "skrot": "5a034485398c5911035f74a399fe9d014d642fc361c1598e0a5681402022e2f7",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/wawoz-homole": {
-      "skrot": "93efd65a704ffcca84495bda51cc62b4e769f58c5ee12cd72e0692724707a2eb",
-      "zmieniono": "2026-08-04"
+      "skrot": "21afedbcab06e78ad3b07401bc1a1918cafcc889bc4d62641af18f85a2d5cadf",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/wawoz-szopczanski": {
-      "skrot": "b159350ef36b1e39131ad751609627e14b52045199b139ef9b57ef4b306f5752",
-      "zmieniono": "2026-08-04"
+      "skrot": "1c6c7d8a2891f705b83e4b8ccbd8b188715ddb80ab32ff16ca3b651972625886",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/wierchliczka": {
       "skrot": "18b0760bc721ec377413fa24efead22a9dae72ee8e500ea3ac58cdade80bbdfd",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/wilcza-chata": {
-      "skrot": "b8e2d1e01544f75d49fa7cddcce4df403279079620594d91f2b40b051e906109",
-      "zmieniono": "2026-08-04"
+      "skrot": "e0c52d39a8abe42de7047273acc1fe0853d6787539a69bab01c1a04601b36a24",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/witkula": {
       "skrot": "507cc106a8ac52015065f014ef5b4e16baa4f03b5aebfd52b9e183f3bed83495",
       "zmieniono": "2026-08-04"
     },
     "/szlaki/wodospad-zaskalnik": {
-      "skrot": "31bad005d786a356f0b52a3aae8477be8db22f1b762ee27a48980bd9c217f3e4",
-      "zmieniono": "2026-08-04"
+      "skrot": "f8f463398ef9f6fa23112200e4094765467d53a348442e28f9689efbfc0f3ebd",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/wysoka-wysokie-skalki": {
       "skrot": "d6579aecbed9d3cb5f907a91c96765f6d433a5d233fee642e19b6e694af41ac6",
@@ -702,8 +702,8 @@
       "zmieniono": "2026-08-04"
     },
     "/szlaki/z-wizyta-u-sw-kingi": {
-      "skrot": "dfa558d0431dd93e4b3698911b7bfb9e0f60780f3e6daf56b15cd96f426c4574",
-      "zmieniono": "2026-08-04"
+      "skrot": "632ab7bb5eea9ec0f2fd494680d47abf9efa228d6032fe314ea7a6e9673ff5e9",
+      "zmieniono": "2026-08-19"
     },
     "/szlaki/zar": {
       "skrot": "76dd8ebef05f82c13895aa1b576cfb00267f830c12d5205ad741af8d80b978d2",
