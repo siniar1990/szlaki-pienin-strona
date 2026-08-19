@@ -38,16 +38,19 @@ export default async function StronaGlowna() {
   const statystyki = pobierzStatystyki()
 
   /*
-    Kategorie na siatce.
+    Kategorie na siatce — wszystkie, bo jest ich dokładnie dziewięć i siatka
+    trzy na trzy wychodzi bez reszty.
 
-    Aplikacja ma ich dziesięć, a siatka trzy na trzy mieści dziewięć. Poza
-    siatkę wypada „Korony Pienin ze Szczawnicy" — nie dlatego, że jest
-    najmniej ważna, tylko dlatego, że jako jedyna jest kolekcją szczytów,
-    a nie zbiorem tras. Szczyty mają swoje miejsce na /atrakcje.
+    Wcześniej stał tu filtr odrzucający „Korony Pienin ze Szczawnicy": kategorii
+    było dziesięć, jedna musiała wypaść i wypadła ta, która jako jedyna jest
+    kolekcją szczytów, a nie zbiorem tras. Po usunięciu „Szlaków niecodziennych"
+    filtr zostawiał ostatni rząd z jednym pustym polem, a Korony dało się
+    zobaczyć dopiero po kliknięciu „Wszystkie trasy".
+
+    Gdyby kategorii kiedyś przybyło, wybór wypadającej wraca do rozważenia —
+    ale wtedy świadomie, a nie jako pozostałość po dawnym rachunku.
   */
-  const kategorieNaSiatce = KATEGORIE_APLIKACJI.filter(
-    (kategoria) => kategoria.slug !== 'korony-pienin',
-  )
+  const kategorieNaSiatce = KATEGORIE_APLIKACJI
 
   /*
     Pienińskie wyzwania na kafelki.
