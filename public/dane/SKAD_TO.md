@@ -5,4 +5,4 @@ przepadną. Poprawki nanoś w repozytorium aplikacji, potem uruchom:
 
     ./narzedzia/synchronizuj-dane.sh
 
-Ostatnia synchronizacja: 2026-08-19 19:12
+Ostatnia synchronizacja: 2026-08-19 20:02

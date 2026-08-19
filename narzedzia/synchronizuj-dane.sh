@@ -27,7 +27,7 @@ if [ ! -d "$APLIKACJA/assets/trasy" ]; then
 fi
 
 echo "Źródło: $APLIKACJA"
-mkdir -p "$CEL"/{trasy,slady,ilustracje,wyzwania,okolica,szlaki,obrazy,zdjecia}
+mkdir -p "$CEL"/{trasy,slady,ilustracje,wyzwania,okolica,szlaki,obszary,obrazy,zdjecia}
 
 # Opisy tras i indeks — sedno danych.
 rsync -a --delete "$APLIKACJA/assets/trasy/"*.json "$CEL/trasy/"
@@ -42,6 +42,10 @@ cp "$APLIKACJA/assets/wyzwania/wyzwania.json" "$CEL/wyzwania.json"
 rsync -a --delete "$APLIKACJA/assets/okolica/" "$CEL/okolica/"
 # Przebiegi szlaków, kapliczki i godła szałasowe — pozostałe warstwy mapy.
 rsync -a --delete "$APLIKACJA/assets/szlaki/" "$CEL/szlaki/"
+# Obszary z zakazem wprowadzania psów — park narodowy, dwa rezerwaty i wzgórze
+# zamkowe. Granice są szczegółowe (sam PPN ma 1398 punktów, z wcięciami przy
+# Przełomie Dunajca), bo zgrubny obrys zamykałby ścieżki biegnące tuż obok.
+rsync -a --delete "$APLIKACJA/assets/obszary/" "$CEL/obszary/"
 # Zdjęcia z przewodnika i fotografia tytułowa.
 rsync -a --delete "$APLIKACJA/assets/obrazy/" "$CEL/obrazy/"
 rsync -a --delete "$APLIKACJA/assets/zdjecia/" "$CEL/zdjecia/"
@@ -71,5 +75,6 @@ printf '  %-14s %s\n' \
   "wyzwania/"   "$(ls "$CEL/wyzwania" | wc -l | tr -d ' ') odznak" \
   "okolica/"    "$(ls "$CEL/okolica" | wc -l | tr -d ' ') plików" \
   "szlaki/"     "$(ls "$CEL/szlaki" | wc -l | tr -d ' ') warstw" \
+  "obszary/"    "$(ls "$CEL/obszary" | wc -l | tr -d ' ') granic" \
   "zdjecia/"    "$(ls "$CEL/zdjecia" | wc -l | tr -d ' ') fotografii"
 echo "  razem        $(du -sh "$CEL" | cut -f1)"
