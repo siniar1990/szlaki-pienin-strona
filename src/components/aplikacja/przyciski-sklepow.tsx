@@ -46,7 +46,15 @@ type Odznaka = {
   premiera: string | null
 }
 
-function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
+function Sklep({
+  odznaka,
+  wariant,
+  wysrodkowane,
+}: {
+  odznaka: Odznaka
+  wariant: Wariant
+  wysrodkowane: boolean
+}) {
   const dostepny = odznaka.adres.length > 0
 
   const obraz = (
@@ -75,7 +83,12 @@ function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
       niżej, gdzie trafia dopiero ktoś, kto czyta całość.
     */
     return (
-      <span className="inline-flex flex-col items-start gap-1.5">
+      <span
+        className={cn(
+          'inline-flex flex-col gap-1.5',
+          wysrodkowane ? 'items-center' : 'items-start',
+        )}
+      >
         <span className={wyglad}>
           {obraz}
           <span className="sr-only">
@@ -121,9 +134,21 @@ function Sklep({ odznaka, wariant }: { odznaka: Odznaka; wariant: Wariant }) {
 
 export function PrzyciskiSklepow({
   wariant = 'jasny',
+  wysrodkowane = false,
   className,
 }: {
   wariant?: Wariant
+  /**
+   * Wyśrodkowanie całej grupy — odznak i zdania pod nimi.
+   *
+   * **Dlaczego to nie wychodzi samo z `justify-center` na rodzicu.** Rodzic
+   * centruje pudełko komponentu, a jego szerokość dyktuje najszersze dziecko,
+   * czyli zdanie ograniczone do 30 rem. Odznaki są od niego węższe i w środku
+   * tego pudełka stoją do lewej — na stronie, która poza tym jest wyśrodkowana,
+   * widać to jako przesunięcie w bok. Wyrównanie musi więc zejść do wnętrza
+   * komponentu, a nie zostać na jego obrysie.
+   */
+  wysrodkowane?: boolean
   className?: string
 }) {
   const wSklepach = SKLEPY.appStore.length > 0 || SKLEPY.googlePlay.length > 0
@@ -142,14 +167,14 @@ export function PrzyciskiSklepow({
       : 'Nie wymaga konta ani logowania.'
 
   return (
-    <div className={cn('flex flex-col gap-4', className)}>
+    <div className={cn('flex flex-col gap-4', wysrodkowane && 'items-center', className)}>
       {/*
         Wyrównanie do GÓRY, nie do środka. Odznaka z podpisem premiery jest
         wyższa od tej bez niego, a wyśrodkowanie podnosiło ją względem
         sąsiadki — dwie odznaki tej samej wielkości stały na różnych
         wysokościach i wyglądało to na usterkę.
       */}
-      <div className="flex flex-wrap items-start gap-3">
+      <div className={cn('flex flex-wrap items-start gap-3', wysrodkowane && 'justify-center')}>
         <Sklep
           odznaka={{
             adres: SKLEPY.appStore,
@@ -159,6 +184,7 @@ export function PrzyciskiSklepow({
             premiera: dataPremiery('appStore'),
           }}
           wariant={wariant}
+          wysrodkowane={wysrodkowane}
         />
         <Sklep
           odznaka={{
@@ -169,6 +195,7 @@ export function PrzyciskiSklepow({
             premiera: dataPremiery('googlePlay'),
           }}
           wariant={wariant}
+          wysrodkowane={wysrodkowane}
         />
       </div>
 
@@ -180,6 +207,7 @@ export function PrzyciskiSklepow({
       <p
         className={cn(
           'max-w-[30rem] text-sm',
+          wysrodkowane && 'text-center',
           wariant === 'jasny' ? 'text-white/85' : 'text-kamien-600',
         )}
       >

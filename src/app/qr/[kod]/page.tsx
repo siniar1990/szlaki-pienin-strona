@@ -222,8 +222,8 @@ function ZaproszenieDoAplikacji() {
           tam, gdzie telefon go nie łapie.
         </p>
 
-        <div className="mt-9 flex justify-center">
-          <PrzyciskiSklepow wariant="ciemny" />
+        <div className="mt-9">
+          <PrzyciskiSklepow wariant="ciemny" wysrodkowane />
         </div>
 
         <p className="mt-8 text-sm text-kamien-500">
@@ -231,12 +231,24 @@ function ZaproszenieDoAplikacji() {
           całodzienne przejścia grani.
         </p>
 
+        {/*
+          Wyjście na portal jako przycisk, nie szara nitka pod spodem.
+
+          Ta strona ma jedno główne zadanie — zaprowadzić do aplikacji — ale
+          trafia na nią też ktoś, kto skanuje tabliczkę z komputera albo nie
+          chce niczego instalować. Dla niego portal jest całą treścią, jaka
+          zostaje, a dotąd prowadził do niego odnośnik w kolorze tekstu
+          pomocniczego, na samym dole i bez żadnego kształtu.
+
+          Wariant drugorzędny, nie wypełniony: gdyby był równie mocny co odznaki
+          sklepów, strona przestałaby mieć jedną odpowiedź na pytanie „co teraz".
+        */}
         <Link
           href="/"
-          className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-kamien-500 underline-offset-4 transition-colors hover:text-las-700 hover:underline"
+          className="mt-9 inline-flex items-center gap-2 rounded-full border border-kamien-300 bg-white px-6 py-3 text-base font-medium text-kamien-800 shadow-miekki transition-colors hover:border-las-500 hover:bg-las-50 hover:text-las-800"
         >
           Zobacz cały portal
-          <ArrowRight className="size-3.5" aria-hidden />
+          <ArrowRight className="size-4" aria-hidden />
         </Link>
       </div>
     </div>
