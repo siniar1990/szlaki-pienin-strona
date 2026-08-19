@@ -8,7 +8,7 @@ const KOLUMNY = [
     tytul: 'Odkrywaj',
     odnosniki: [
       { adres: '/szlaki', etykieta: 'Wszystkie szlaki' },
-      { adres: '/szlaki/kategorie/rodzinne', etykieta: 'Trasy z dziećmi' },
+      { adres: '/szlaki/kategorie/z-dziecmi', etykieta: 'Trasy z dziećmi' },
       { adres: '/szlaki/kategorie/rowerowe', etykieta: 'Trasy rowerowe' },
       { adres: '/atrakcje', etykieta: 'Atrakcje' },
       { adres: '/miejscowosci', etykieta: 'Miejscowości' },
