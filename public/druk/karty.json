@@ -1,0 +1,1622 @@
+[
+  {
+    "slug": "wilcza-chata",
+    "skrot": "046656bda41ec820",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "aksamitka",
+    "skrot": "e4cf6dccc63d222d",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "barwinkowa-gora",
+    "skrot": "83d93527a1ba53cb",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "beresnik",
+    "skrot": "df710d39cf7ff06a",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "borsuczyny",
+    "skrot": "79ee300e64721643",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "cel-muzeum-pieninskie",
+    "skrot": "3f8b48502fb95975",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "cisowka",
+    "skrot": "b0ce9fab05ab2519",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "co-tam-u-bacow",
+    "skrot": "c80d63ff22c92c42",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "czertezik",
+    "skrot": "80a186ca7fe9e297",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "czertez",
+    "skrot": "70c41b4be70d7a6d",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "deptak-nad-grajcarkiem",
+    "skrot": "dedd8b68e6a6b90e",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "diament-pienin",
+    "skrot": "41af294d0801a072",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "droga-pieninska",
+    "skrot": "3260d1e002afb2ff",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "durbaszka",
+    "skrot": "8b2d192c88ba94fe",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "durbaszka-kp05",
+    "skrot": "a852c35be6a0a4f9",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "faklovka",
+    "skrot": "59d1db4f3ff0afee",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "gora-zamkowa",
+    "skrot": "08ecc7c74aa39b34",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "hombark-lapszanski",
+    "skrot": "d35af447c66e3ff2",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "husciawa",
+    "skrot": "d49f04b0aaf0667b",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "jarmuta",
+    "skrot": "223f0c757bc8b58f",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "lawendowe-wzgorza",
+    "skrot": "d67ccf90fe79cf90",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "majerz",
+    "skrot": "b11d407b07541a94",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "malo-znany-sredniak",
+    "skrot": "0091c6d6f249163d",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "mnisia-sciezka",
+    "skrot": "9523dbf91167cd9e",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "nie-mam-roweru",
+    "skrot": "d95186de730f9c49",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "od-pitoniakowki-do-stefana",
+    "skrot": "22a77d267a0baab3",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "palenica",
+    "skrot": "9d6f0ff6585e47ab",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "palenica-wyciagiem",
+    "skrot": "1cdb4a1e1de2ee24",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "plasna-plasnie",
+    "skrot": "10f9e04508247989",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "rezerwat-biala-woda",
+    "skrot": "0eb01a309be7a2be",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "rowerem-do-czerwonego-klasztoru",
+    "skrot": "cf71dbc25571124c",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "rubin-szczawnicy",
+    "skrot": "7b6972f13e597b32",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "slowacki-akcent",
+    "skrot": "90faebcbf726b079",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "slowackie-widoki",
+    "skrot": "64ae2928777b0247",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "sokolica",
+    "skrot": "043ece47ad74a347",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "spacer-harnasia",
+    "skrot": "f079cfcd5e0556d8",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "szafranowka",
+    "skrot": "e9068fd42dd008dd",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "szmaragd-dunajca",
+    "skrot": "dcf3c2e1b972fc76",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "sladem-sw-kingi",
+    "skrot": "ce8cdb7de74ac197",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "trzy-korony-okraglica",
+    "skrot": "871e9359d9282e18",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "trzy-korony-z-kroscienka-przez-przelecz-szopka",
+    "skrot": "cf94f0ad3b7df8f7",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "trzy-korony-ze-sromowiec-niznych-spod-schroniska",
+    "skrot": "7cb72caf63495d68",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "trzy-korony-ze-szczawnicy-przez-przewoz-i-sokolice",
+    "skrot": "03a4df8ec963d47e",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "velo-czorsztyn",
+    "skrot": "a91b14da4674caff",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "watrisko",
+    "skrot": "4f80a13c97d2ddb0",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "wawoz-homole",
+    "skrot": "5ca6078613b9ae14",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "wawoz-szopczanski",
+    "skrot": "8ca3f937acf773e4",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "wierchliczka",
+    "skrot": "602004da734f6c68",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "witkula",
+    "skrot": "fd1f8e9747d5d64b",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "wodospad-zaskalnik",
+    "skrot": "76198c6ba250dd40",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      }
+    ]
+  },
+  {
+    "slug": "wysoka-wysokie-skalki",
+    "skrot": "18480d0cf5036bde",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": true
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "wysoki-wierch",
+    "skrot": "bef3773c97c54543",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "z-wizyta-u-sw-kingi",
+    "skrot": "1cf71ff5fe350cbd",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.6,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  },
+  {
+    "slug": "zar",
+    "skrot": "bc4cc54113b316b4",
+    "panele": [
+      {
+        "nazwa": "okladka",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "punkty",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "opis",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      },
+      {
+        "nazwa": "praktyczne",
+        "pt": 6.8,
+        "przepelniony": false,
+        "skrocony": false
+      }
+    ]
+  }
+]
