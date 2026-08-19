@@ -5,6 +5,7 @@ import { validateStyleMin } from '@maplibre/maplibre-gl-style-spec'
 import { describe, expect, it } from 'vitest'
 
 import { BARWY_SZLAKOW, KOLOR_BEZ_ZNAKOWANIA, hexBarwy } from './barwy-szlakow'
+import { ZRODLO_ZAKAZOW, warstwyZakazow } from './obszary-bez-psow'
 import { granice, liniaTrasy } from './slad'
 import {
   ZRODLO_SZLAKOW,
@@ -78,6 +79,31 @@ describe('warstwy przebiegu trasy', () => {
     const szlak = szerokosc(warstwySzlakow().find((w) => w.id === 'szlak-czerwony')!)
 
     expect(wstega).toBeGreaterThan(szlak * 3)
+  })
+})
+
+describe('obszary bez psów', () => {
+  it('są poprawnym stylem MapLibre', () => {
+    const pusto = {
+      type: 'geojson' as const,
+      data: { type: 'FeatureCollection' as const, features: [] },
+    }
+    const bledy = validateStyleMin({
+      version: 8 as const,
+      sources: { [ZRODLO_ZAKAZOW]: pusto },
+      layers: warstwyZakazow(),
+      // Wzór kreskowania powstaje w przeglądarce, więc walidator słusznie
+      // nie znajduje go w stylu.
+    }).filter((blad) => !/image.*not found|fill-pattern/i.test(blad.message))
+    expect(bledy.map((b) => b.message)).toEqual([])
+  })
+
+  it('kładą kreskowanie na podkładce, a granicę na wierzchu', () => {
+    expect(warstwyZakazow().map((w) => w.id)).toEqual([
+      'zakazy-podklad',
+      'zakazy-kreski',
+      'zakazy-granica',
+    ])
   })
 })
 

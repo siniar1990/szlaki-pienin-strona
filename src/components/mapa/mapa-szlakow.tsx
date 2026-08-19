@@ -7,6 +7,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, Clock, MoveUpRight, RefreshCw, Route, Search, X } from 'lucide-react'
 
 import { naSlug } from '@/lib/dane/slug'
+import {
+  ADRES_OBSZAROW,
+  GESTOSC_KRESEK,
+  WZOR_KRESEK,
+  ZRODLO_ZAKAZOW,
+  rysujKreski,
+  warstwyZakazow,
+} from '@/lib/mapa/obszary-bez-psow'
 import { TRUDNOSC_ETYKIETY, TRUDNOSC_STYLE, czas, kilometry, metry } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
@@ -102,7 +110,31 @@ function zwinAtrybucje(pojemnik: HTMLElement | null): void {
  */
 export type WysokoscMapy = 'sekcja' | 'pelna'
 
-export function MapaSzlakow({ wysokosc = 'sekcja' }: { wysokosc?: WysokoscMapy } = {}) {
+/**
+ * Co mapa pokazuje poza szlakami.
+ *
+ * `zLista` wyłącza kolumnę z listą — mapa bierze wtedy całą szerokość.
+ * Karta wybranego szlaku zostaje, więc kliknięcie w ślad nadal prowadzi do
+ * jego opisu; lista jest wygodą, nie jedyną drogą.
+ *
+ * `zZakazamiDlaPsow` dokłada obszary, w które nie wolno wejść z psem.
+ * Nie włączamy ich wszędzie: na ogólnej mapie szlaków czerwone kreskowanie
+ * przez pół Pienin mówiłoby o czymś, o co nikt nie pytał, a zasłaniałoby
+ * szlaki, po które ta mapa istnieje.
+ *
+ * Oba są przełącznikami, a nie osobnymi komponentami — z tego samego powodu
+ * co `wysokosc`: wszystko poniżej, czyli wczytywanie śladów, zaznaczanie
+ * i synchronizacja z listą, jest identyczne.
+ */
+export function MapaSzlakow({
+  wysokosc = 'sekcja',
+  zLista = true,
+  zZakazamiDlaPsow = false,
+}: {
+  wysokosc?: WysokoscMapy
+  zLista?: boolean
+  zZakazamiDlaPsow?: boolean
+} = {}) {
   const [klient] = useState(
     () =>
       new QueryClient({
@@ -119,12 +151,20 @@ export function MapaSzlakow({ wysokosc = 'sekcja' }: { wysokosc?: WysokoscMapy }
 
   return (
     <QueryClientProvider client={klient}>
-      <Zawartosc wysokosc={wysokosc} />
+      <Zawartosc wysokosc={wysokosc} zLista={zLista} zZakazamiDlaPsow={zZakazamiDlaPsow} />
     </QueryClientProvider>
   )
 }
 
-function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
+function Zawartosc({
+  wysokosc,
+  zLista,
+  zZakazamiDlaPsow,
+}: {
+  wysokosc: WysokoscMapy
+  zLista: boolean
+  zZakazamiDlaPsow: boolean
+}) {
   const { data, isPending, isError } = useQuery<ZbiorSladow>({
     queryKey: ['slady-szlakow'],
     queryFn: async () => {
@@ -253,6 +293,25 @@ function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
 
     m.addSource(ZRODLO, { type: 'geojson', data })
 
+    /*
+      Obszary bez psów idą POD ślady: są tłem, a nie treścią mapy. Dodajemy je
+      przed warstwami szlaków, więc MapLibre samo ułoży je niżej — bez
+      wskazywania warstwy, przed którą mają wylądować.
+    */
+    if (zZakazamiDlaPsow && !m.getSource(ZRODLO_ZAKAZOW)) {
+      m.addSource(ZRODLO_ZAKAZOW, { type: 'geojson', data: ADRES_OBSZAROW })
+      const kreski = rysujKreski()
+      if (kreski && !m.hasImage(WZOR_KRESEK)) {
+        m.addImage(WZOR_KRESEK, kreski, { pixelRatio: GESTOSC_KRESEK })
+      }
+      for (const warstwa of warstwyZakazow()) {
+        // Bez wzoru kreskowanie nie ma czym wypełnić — zostaje podkładka
+        // i obwódka, czyli obszar nadal widać.
+        if (warstwa.id === 'zakazy-kreski' && !kreski) continue
+        m.addLayer(warstwa)
+      }
+    }
+
     // Biała obwódka pod spodem — bez niej kolorowy ślad ginie i nad ciemnym
     // lasem, i nad jasną łąką.
     m.addLayer({
@@ -345,7 +404,7 @@ function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
       }
       m.off('click', przyKliknieciuWTlo)
     }
-  }, [gotowa, data])
+  }, [gotowa, data, zZakazamiDlaPsow])
 
   // Podświetlenie wybranego śladu.
   useEffect(() => {
@@ -400,7 +459,13 @@ function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
 
   return (
     <div
-      className={`grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[26rem_minmax(0,1fr)] ${wysokoscSiatki}`}
+      className={cn(
+        'grid gap-6',
+        // Bez listy mapa bierze całą szerokość — jedna kolumna, żadnego
+        // pustego pasa po lewej.
+        zLista && 'lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[26rem_minmax(0,1fr)]',
+        wysokoscSiatki,
+      )}
     >
       {/*
         ── Lista szlaków ───────────────────────────────────────────────
@@ -413,142 +478,147 @@ function Zawartosc({ wysokosc }: { wysokosc: WysokoscMapy }) {
         zaczyna się poniżej krawędzi ekranu i trzeba do niej doscrollować,
         żeby zobaczyć cokolwiek — a to mapa jest tu powodem wejścia.
       */}
-      <div
-        className={`order-2 flex flex-col rounded-2xl border border-kamien-200 bg-white lg:order-1 ${wysokoscKafla}`}
-      >
-        <div className="border-b border-kamien-200 p-4">
-          <div className="relative">
-            <Search
-              className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-kamien-400"
-              aria-hidden
-            />
-            <input
-              type="search"
-              value={fraza}
-              onChange={(zdarzenie) => ustawFraze(zdarzenie.target.value)}
-              placeholder="Szukaj szlaku…"
-              aria-label="Szukaj szlaku na liście"
-              className="w-full rounded-xl border border-kamien-300 py-2.5 pl-10 pr-3 text-sm text-kamien-900 placeholder:text-kamien-400"
-            />
-          </div>
-          <p aria-live="polite" className="mt-2.5 px-1 text-xs text-kamien-500">
-            {isPending
-              ? 'Wczytywanie szlaków…'
-              : `${widoczne.length} ${widoczne.length === 1 ? 'szlak' : 'szlaków'} na mapie`}
-          </p>
-        </div>
-
-        <div className="min-h-0 flex-1 overflow-y-auto">
-          {grupy.map((grupa) => (
-            <section key={grupa.klucz} aria-labelledby={`grupa-${grupa.klucz}`}>
-              {/*
-                Nagłówek grupy przykleja się do góry listy przy przewijaniu —
-                po zjechaniu w dwudziestą czwartą Koronę Pienin nadal widać,
-                w której kategorii się jest.
-              */}
-              <h3
-                id={`grupa-${grupa.klucz}`}
-                className="sticky top-0 z-10 flex items-baseline justify-between gap-3 border-y border-kamien-200 bg-kamien-50/95 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-kamien-700 backdrop-blur-sm"
-              >
-                {grupa.nazwa}
-                <span className="font-normal normal-case tracking-normal text-kamien-500">
-                  {grupa.slady.length}
-                </span>
-              </h3>
-
-              <ul className="divide-y divide-kamien-100">
-                {grupa.slady.map((slad) => {
-                  const w = slad.properties
-                  const aktywny = w.id === wybrany
-
-                  return (
-                    <li key={w.id} id={`szlak-${w.id}`}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    ustawWybrany(aktywny ? null : w.id)
-                    if (!aktywny) {
-                      pokazSlad(slad)
-                      przewinDoMapy()
-                    }
-                  }}
-                  aria-pressed={aktywny}
-                  className={cn(
-                    'flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors',
-                    aktywny ? 'bg-las-50' : 'hover:bg-kamien-50',
-                  )}
-                >
-                  {/* Trasa ze śladem dostaje kreskę, trasa bez śladu —
-                      kółko. Ten sam sygnał co na mapie, więc jedno spojrzenie
-                      wystarczy, żeby wiedzieć, czego się spodziewać. */}
-                  {w.maSlad ? (
-                    <span
-                      aria-hidden
-                      className="mt-1.5 h-1 w-6 shrink-0 rounded-full"
-                      style={{ backgroundColor: w.kolor }}
-                    />
-                  ) : (
-                    <span
-                      aria-hidden
-                      className="mt-1 size-3 shrink-0 rounded-full border-2 bg-white"
-                      style={{ borderColor: w.kolor }}
-                    />
-                  )}
-                  <span className="min-w-0 flex-1">
-                    <span
-                      className={cn(
-                        'block font-medium leading-snug',
-                        aktywny ? 'text-las-800' : 'text-kamien-900',
-                      )}
-                    >
-                      {w.nazwa}
-                    </span>
-                    <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-kamien-500">
-                      <span className="inline-flex items-center gap-1">
-                        <Route className="size-3" aria-hidden />
-                        {kilometry(w.dlugoscKm)}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <Clock className="size-3" aria-hidden />
-                        {czas(w.czasMin)}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <MoveUpRight className="size-3" aria-hidden />
-                        {metry(w.podejscieM)}
-                      </span>
-                      {w.petla && (
-                        <span className="inline-flex items-center gap-1">
-                          <RefreshCw className="size-3" aria-hidden />
-                          pętla
-                        </span>
-                      )}
-                      {w.pttk && (
-                        <span className="rounded-full bg-las-50 px-2 py-0.5 text-[0.7rem] font-medium text-las-800">
-                          PTTK
-                        </span>
-                      )}
-                      {!w.maSlad && (
-                        <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.7rem] font-medium text-amber-900">
-                          ślad w przygotowaniu
-                        </span>
-                      )}
-                    </span>
-                  </span>
-                </button>
-                      </li>
-                  )
-                })}
-              </ul>
-            </section>
-          ))}
-
-          {!isPending && widoczne.length === 0 && (
-            <p className="p-8 text-center text-sm text-kamien-500">
-              Żaden szlak nie pasuje do wpisanej nazwy.
-            </p>
+      {zLista && (
+        <div
+          className={cn(
+            'order-2 flex flex-col rounded-2xl border border-kamien-200 bg-white lg:order-1',
+            wysokoscKafla,
           )}
+        >
+          <div className="border-b border-kamien-200 p-4">
+            <div className="relative">
+              <Search
+                className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-kamien-400"
+                aria-hidden
+              />
+              <input
+                type="search"
+                value={fraza}
+                onChange={(zdarzenie) => ustawFraze(zdarzenie.target.value)}
+                placeholder="Szukaj szlaku…"
+                aria-label="Szukaj szlaku na liście"
+                className="w-full rounded-xl border border-kamien-300 py-2.5 pl-10 pr-3 text-sm text-kamien-900 placeholder:text-kamien-400"
+              />
+            </div>
+            <p aria-live="polite" className="mt-2.5 px-1 text-xs text-kamien-500">
+              {isPending
+                ? 'Wczytywanie szlaków…'
+                : `${widoczne.length} ${widoczne.length === 1 ? 'szlak' : 'szlaków'} na mapie`}
+            </p>
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            {grupy.map((grupa) => (
+              <section key={grupa.klucz} aria-labelledby={`grupa-${grupa.klucz}`}>
+                {/*
+                  Nagłówek grupy przykleja się do góry listy przy przewijaniu —
+                  po zjechaniu w dwudziestą czwartą Koronę Pienin nadal widać,
+                  w której kategorii się jest.
+                */}
+                <h3
+                  id={`grupa-${grupa.klucz}`}
+                  className="sticky top-0 z-10 flex items-baseline justify-between gap-3 border-y border-kamien-200 bg-kamien-50/95 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-kamien-700 backdrop-blur-sm"
+                >
+                  {grupa.nazwa}
+                  <span className="font-normal normal-case tracking-normal text-kamien-500">
+                    {grupa.slady.length}
+                  </span>
+                </h3>
+
+                <ul className="divide-y divide-kamien-100">
+                  {grupa.slady.map((slad) => {
+                    const w = slad.properties
+                    const aktywny = w.id === wybrany
+
+                    return (
+                      <li key={w.id} id={`szlak-${w.id}`}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      ustawWybrany(aktywny ? null : w.id)
+                      if (!aktywny) {
+                        pokazSlad(slad)
+                        przewinDoMapy()
+                      }
+                    }}
+                    aria-pressed={aktywny}
+                    className={cn(
+                      'flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors',
+                      aktywny ? 'bg-las-50' : 'hover:bg-kamien-50',
+                    )}
+                  >
+                    {/* Trasa ze śladem dostaje kreskę, trasa bez śladu —
+                        kółko. Ten sam sygnał co na mapie, więc jedno spojrzenie
+                        wystarczy, żeby wiedzieć, czego się spodziewać. */}
+                    {w.maSlad ? (
+                      <span
+                        aria-hidden
+                        className="mt-1.5 h-1 w-6 shrink-0 rounded-full"
+                        style={{ backgroundColor: w.kolor }}
+                      />
+                    ) : (
+                      <span
+                        aria-hidden
+                        className="mt-1 size-3 shrink-0 rounded-full border-2 bg-white"
+                        style={{ borderColor: w.kolor }}
+                      />
+                    )}
+                    <span className="min-w-0 flex-1">
+                      <span
+                        className={cn(
+                          'block font-medium leading-snug',
+                          aktywny ? 'text-las-800' : 'text-kamien-900',
+                        )}
+                      >
+                        {w.nazwa}
+                      </span>
+                      <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-kamien-500">
+                        <span className="inline-flex items-center gap-1">
+                          <Route className="size-3" aria-hidden />
+                          {kilometry(w.dlugoscKm)}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="size-3" aria-hidden />
+                          {czas(w.czasMin)}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <MoveUpRight className="size-3" aria-hidden />
+                          {metry(w.podejscieM)}
+                        </span>
+                        {w.petla && (
+                          <span className="inline-flex items-center gap-1">
+                            <RefreshCw className="size-3" aria-hidden />
+                            pętla
+                          </span>
+                        )}
+                        {w.pttk && (
+                          <span className="rounded-full bg-las-50 px-2 py-0.5 text-[0.7rem] font-medium text-las-800">
+                            PTTK
+                          </span>
+                        )}
+                        {!w.maSlad && (
+                          <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.7rem] font-medium text-amber-900">
+                            ślad w przygotowaniu
+                          </span>
+                        )}
+                      </span>
+                    </span>
+                  </button>
+                        </li>
+                    )
+                  })}
+                </ul>
+              </section>
+            ))}
+
+            {!isPending && widoczne.length === 0 && (
+              <p className="p-8 text-center text-sm text-kamien-500">
+                Żaden szlak nie pasuje do wpisanej nazwy.
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── Mapa ──────────────────────────────────────────────────────── */}
       <div
