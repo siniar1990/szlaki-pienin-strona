@@ -163,6 +163,7 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
       <div className="obszar pt-8">
         <DzialaniaTrasy
           nazwa={trasa.nazwa}
+          slug={trasa.slug}
           gpx={trasa.gpx}
           opis={`${kilometry(trasa.dlugoscKm)}, ${czas(trasa.czasMin.tam)}, ${metry(trasa.sumaPodejscM.tam)} podejść.`}
         />

@@ -143,6 +143,15 @@ o właściwej nazwie wygrywa z zasobem zapasowym, bez zmiany w kodzie:
 | `marka/atrakcje/` | slug atrakcji | pole w barwach marki |
 | `marka/miejscowosci/` | slug miejscowości | zdjęcie zastępcze z listy |
 
+### Karty do druku
+
+Każda trasa ma kartę A4 do wydrukowania i złożenia w kieszonkowy przewodnik:
+przycisk „Wersja do druku" na stronie trasy, podgląd pod `/szlaki/<slug>/druk`,
+plik pod `/szlaki/<slug>/pdf`. PDF-y powstają poleceniem `npm run karty`
+i leżą gotowe w `public/druk/`, więc żadne żądanie nie uruchamia przeglądarki.
+Opis w `narzedzia/karty-druku.md`. **Po `npm run dane` uruchom `npm run karty`** —
+test przypomni, jeśli zapomnisz.
+
 Sprawdzenie istnienia pliku dzieje się przy budowaniu (`src/lib/dane/zdjecia-*.ts`),
 więc do przeglądarki trafia gotowy adres. Zdjęcia tras przygotowuje
 `npm run zdjecia:trasy -- <katalog>` — opis w `narzedzia/zdjecia-tras.md`,
@@ -155,6 +164,8 @@ npm run dev          # podgląd na localhost:3000
 npm test             # Vitest
 npm run lint         # ESLint
 npm run build        # to samo, co robi Vercel — łapie błędy typów
+npm run dane         # przynosi dane z aplikacji
+npm run karty        # składa karty tras do druku (po każdym `npm run dane`)
 ```
 
 Portal uruchomi się bez bazy danych; padną wyłącznie panel, tabliczki QR

@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Check, Download, Link2, Share2 } from 'lucide-react'
+import { Check, Download, Link2, Printer, Share2 } from 'lucide-react'
 
+import { zglos } from '@/components/analityka/licznik-odslon'
 import { cn } from '@/lib/utils'
 
 /**
@@ -19,10 +20,12 @@ import { cn } from '@/lib/utils'
  */
 export function DzialaniaTrasy({
   nazwa,
+  slug,
   gpx,
   opis,
 }: {
   nazwa: string
+  slug: string
   /** Adres pliku GPX albo null, gdy trasa nie ma jeszcze śladu. */
   gpx: string | null
   opis: string
@@ -65,7 +68,8 @@ export function DzialaniaTrasy({
   }
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <>
+      <div className="flex flex-wrap gap-3">
       {gpx && (
         <a
           href={gpx}
@@ -102,7 +106,44 @@ export function DzialaniaTrasy({
             {maUdostepnianie ? 'Udostępnij' : 'Kopiuj link'}
           </>
         )}
-      </button>
-    </div>
+        </button>
+
+      {/*
+        Wersja do druku — trzeci przycisk, w tej samej konwencji co dwa
+        poprzednie: wariant drugorzędny, ta sama wysokość, ta sama ikona.
+        Odnośnik, a nie przycisk, bo prowadzi pod konkretny adres i ma działać
+        po kliknięciu środkowym oraz bez JavaScriptu — pobranie gotowego pliku
+        niczego od strony nie potrzebuje.
+      */}
+      <a
+        href={`/szlaki/${slug}/pdf`}
+        download={`szlaki-pienin-${slug}.pdf`}
+        onClick={() => zglos('POBRANIE', `karta-druku:${slug}:pdf`)}
+        className="inline-flex items-center gap-2 rounded-full border border-kamien-300 px-5 py-2.5 text-sm font-medium text-kamien-800 transition-colors hover:border-las-500 hover:bg-las-50 hover:text-las-800"
+      >
+        <Printer className="size-4" aria-hidden />
+        <span className="max-sm:sr-only">Wersja do druku</span>
+      </a>
+      </div>
+
+      {/*
+        Mikrotekst pod paskiem, nie w dymku: dymek pokazuje się po najechaniu,
+        a na telefonie nie ma czym najechać — czyli akurat tam, gdzie „bateria
+        padnie" jest najbardziej na miejscu, nikt by go nie zobaczył.
+      */}
+      <p className="mt-3 text-sm text-kamien-500">
+        Nie ufasz technologii? Pobierz wersję do druku i zabierz trasę ze sobą — jedna
+        kartka A4, po złożeniu mieści się w kieszeni.{' '}
+        <a
+          href={`/szlaki/${slug}/druk`}
+          target="_blank"
+          rel="noopener"
+          onClick={() => zglos('POBRANIE', `karta-druku:${slug}:podglad`)}
+          className="font-medium text-las-700 underline decoration-las-300 underline-offset-2 hover:decoration-las-700 max-sm:hidden"
+        >
+          Podejrzyj w przeglądarce
+        </a>
+      </p>
+    </>
   )
 }

@@ -1,0 +1,477 @@
+/*
+  Karta trasy A4 — style przeniesione z mockupu `karta-trasy-a4-mockup.html`.
+
+  **Dlaczego zwykły CSS, a nie Tailwind.** Cały ten arkusz mówi milimetrami
+  i punktami typograficznymi, bo opisuje kartkę papieru, a nie ekran. Tailwind
+  nie ma skali w `mm`, więc każda wartość i tak byłaby wyjątkiem w nawiasach
+  kwadratowych — a wtedy nie ma już z czego korzystać. Portal ma na to
+  precedens: `src/components/dzis/kafelki.css`.
+
+  **Dlaczego rozmiary tekstu w `em`, a nie w `pt` jak w mockupie.** Panele mają
+  sztywną wysokość 148,5 mm, a treść tras różni się objętością kilkakrotnie.
+  Autodopasowanie (`autodopasowanie.ts`) zjeżdża z rozmiarem tekstu w panelu,
+  który się nie mieści — i musi ruszyć wszystkim naraz. Przy wartościach
+  bezwzględnych trzeba by zmieniać czterdzieści reguł; przy `em` wystarczy
+  jedna liczba na panelu. Podstawa to 10 pt, więc 6,8 pt z mockupu to 0,68 em
+  i wygląd przy skali 1,0 jest identyczny.
+*/
+
+.karta {
+  --ink: #14211c;
+  --ink2: #3b4a43;
+  --muted: #7b8a82;
+  --line: #dcdcd6;
+  --acc: #2e6b4f;
+  --route: #c8452b;
+}
+
+.karta *,
+.karta *::before,
+.karta *::after {
+  box-sizing: border-box;
+}
+
+/* Arkusz: A4 pionowo, cztery panele po 105 × 148,5 mm. */
+.arkusz {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  background: #fff;
+  display: grid;
+  grid-template-columns: 105mm 105mm;
+  grid-template-rows: 148.5mm 148.5mm;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-feature-settings: "tnum" 0;
+  hyphens: auto;
+}
+
+.panel {
+  position: relative;
+  padding: 7mm 6.5mm;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Podstawa skalowania — autodopasowanie zmienia wyłącznie tę wartość. */
+  font-size: 10pt;
+}
+
+/* Znaczniki zagięcia — mają być ledwo widoczne, nie mogą dominować. */
+.zagiecie {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+}
+.zagiecie-pion {
+  left: 105mm;
+  top: 0;
+  height: 297mm;
+  width: 0;
+  border-left: 0.3pt dashed #b9b3a6;
+}
+.zagiecie-poziom {
+  top: 148.5mm;
+  left: 0;
+  width: 210mm;
+  height: 0;
+  border-top: 0.3pt dashed #b9b3a6;
+}
+.zagiecie-podpis {
+  position: absolute;
+  z-index: 6;
+  font-size: 5pt;
+  letter-spacing: 0.16em;
+  color: #b0a99b;
+  text-transform: uppercase;
+  background: #fff;
+  padding: 0 2mm;
+  font-family: Inter, Arial, sans-serif;
+}
+.zagiecie-podpis-1 {
+  left: 105mm;
+  top: 4mm;
+  transform: translateX(-50%);
+}
+.zagiecie-podpis-2 {
+  top: 148.5mm;
+  left: 4mm;
+  transform: translateY(-50%);
+}
+
+/* ── Okładka ─────────────────────────────────────────────────────────── */
+.karta h1 {
+  font-size: 2em;
+  line-height: 1.03;
+  margin: 0;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+.nadtytul {
+  font-size: 0.56em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--acc);
+  font-weight: 700;
+  margin: 0 0 2mm;
+}
+.podtytul {
+  font-size: 0.7em;
+  color: var(--muted);
+  margin: 1.6mm 0 0;
+}
+.plakietki {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2mm;
+  margin: 3mm 0 0;
+}
+.plakietka {
+  font-size: 0.66em;
+  font-weight: 700;
+  padding: 0.9mm 1.8mm;
+  border: 0.5pt solid var(--line);
+  border-radius: 1mm;
+  background: #fff;
+  white-space: nowrap;
+}
+.plakietka-mocna {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.naglowek-panelu {
+  font-size: 0.6em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acc);
+  padding-bottom: 1.6mm;
+  border-bottom: 1pt solid var(--ink);
+  margin: 0 0 3mm;
+  display: flex;
+  justify-content: space-between;
+  gap: 2mm;
+}
+.naglowek-panelu span {
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+/* ── Mapa ────────────────────────────────────────────────────────────── */
+.mapa {
+  flex: 1;
+  margin-top: 3.5mm;
+  background: #fff;
+  border: 0.5pt solid var(--line);
+  border-radius: 1.2mm;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+}
+.mapa svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.mapa-numer {
+  font-size: 19px;
+  font-weight: 700;
+  text-anchor: middle;
+  fill: #14211c;
+}
+.mapa-podpis {
+  font-size: 20px;
+  font-weight: 600;
+  fill: #14211c;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.mapa-zrodlo {
+  position: absolute;
+  left: 2mm;
+  bottom: 1.6mm;
+  font-size: 5pt;
+  color: #9aa49d;
+}
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2mm 4.5mm;
+  margin-top: 2.4mm;
+  font-size: 0.58em;
+  color: var(--ink2);
+  align-items: center;
+}
+.legenda > span {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.probka {
+  display: inline-block;
+  width: 5mm;
+  height: 1.2mm;
+  border-radius: 1mm;
+  margin-right: 1.4mm;
+  flex: 0 0 5mm;
+}
+
+/* ── Punkty ──────────────────────────────────────────────────────────── */
+.karta table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72em;
+}
+.karta th {
+  font-size: 0.54em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  text-align: right;
+  padding: 0 0 1.4mm;
+  border-bottom: 0.5pt solid var(--line);
+}
+.karta th.lewo,
+.karta td.lewo {
+  text-align: left;
+}
+.karta td {
+  padding: 1.85mm 0;
+  border-bottom: 0.4pt dotted var(--line);
+  vertical-align: baseline;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.numer {
+  display: inline-block;
+  width: 4.2mm;
+  height: 4.2mm;
+  line-height: 4.2mm;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.56em;
+  font-weight: 700;
+  margin-right: 1.6mm;
+}
+.nazwa-punktu {
+  font-weight: 600;
+}
+.znacznik {
+  font-size: 0.52em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acc);
+  font-weight: 700;
+  margin-left: 1.4mm;
+}
+.wysokosc {
+  color: var(--ink2);
+}
+.czas {
+  font-weight: 700;
+}
+
+/*
+  Powyżej dwunastu punktów tabela idzie na dwie kolumny, zamiast zjeżdżać
+  z rozmiarem pisma. Wąska kolumna z krótkimi nazwami czyta się lepiej niż
+  szeroka pisana szóstką.
+*/
+.punkty-dwie-kolumny {
+  column-count: 2;
+  column-gap: 4mm;
+}
+.punkty-dwie-kolumny table {
+  font-size: 0.62em;
+}
+
+.profil {
+  margin-top: 4mm;
+}
+.profil svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.profil-podpis {
+  font-size: 15px;
+  fill: #7b8a82;
+}
+.profil-wysokosc {
+  font-size: 15px;
+  fill: #3b4a43;
+  font-weight: 700;
+}
+.stopka-panelu {
+  margin-top: auto;
+  padding-top: 2.5mm;
+  border-top: 0.5pt solid var(--line);
+  font-size: 0.56em;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Opis ────────────────────────────────────────────────────────────── */
+.odcinek {
+  margin: 0 0 2.6mm;
+}
+.odcinek h3 {
+  margin: 0 0 0.9mm;
+  font-size: 0.66em;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 1.4mm;
+}
+.zakres {
+  font-size: 0.79em;
+  font-weight: 700;
+  color: #fff;
+  background: var(--acc);
+  border-radius: 0.7mm;
+  padding: 0.5mm 1.2mm;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.minuty {
+  margin-left: auto;
+  font-size: 0.85em;
+  color: var(--muted);
+  font-weight: 700;
+}
+.odcinek p {
+  margin: 0;
+  font-size: 0.68em;
+  line-height: 1.42;
+  color: var(--ink2);
+  text-align: justify;
+}
+.uwaga-znak {
+  color: var(--route);
+  font-weight: 700;
+}
+
+/* ── Praktyczne ──────────────────────────────────────────────────────── */
+.ramka {
+  border: 0.5pt solid var(--line);
+  border-radius: 1.2mm;
+  padding: 2.6mm 3mm;
+  margin: 0 0 3mm;
+  background: #fff;
+}
+.ramka h4 {
+  margin: 0 0 1.2mm;
+  font-size: 0.6em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--acc);
+}
+.ramka p {
+  margin: 0;
+  font-size: 0.66em;
+  line-height: 1.45;
+  color: var(--ink2);
+}
+.ramka p + p {
+  margin-top: 1.4mm;
+}
+.ramka-uwaga {
+  border-color: #e3bfb6;
+}
+.ramka-uwaga h4 {
+  color: var(--route);
+}
+
+/* Jedyny ciemny element na całej karcie — numer, którego szuka się w panice. */
+.ratunek {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.ratunek h4 {
+  color: #8fd3ae;
+}
+.ratunek p {
+  color: #e6ece8;
+}
+.ratunek-numer {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 0.8mm;
+}
+
+/*
+  Tryb oszczędny: ten sam blok bez wypełnienia, za to z grubą ramką.
+  Na najprostszej drukarce atramentowej ciemne pole na ćwiartce panelu to
+  realny koszt, a numer ratunkowy musi być czytelny nawet wtedy, gdy ktoś
+  drukuje ostatnią kroplą tuszu.
+*/
+.oszczednie .ratunek {
+  background: #fff;
+  color: var(--ink);
+  border: 1.5pt solid var(--ink);
+}
+.oszczednie .ratunek h4 {
+  color: var(--route);
+}
+.oszczednie .ratunek p {
+  color: var(--ink2);
+}
+.oszczednie .ratunek .ratunek-numer {
+  color: var(--ink);
+}
+
+.qr-wiersz {
+  display: flex;
+  gap: 3mm;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 3mm;
+  border-top: 0.5pt solid var(--line);
+}
+.qr {
+  width: 19mm;
+  height: 19mm;
+  flex: 0 0 19mm;
+}
+.qr-tekst {
+  font-size: 0.6em;
+  line-height: 1.45;
+  color: var(--ink2);
+}
+.qr-tekst b {
+  display: block;
+  font-size: 1.13em;
+  color: var(--ink);
+  margin-bottom: 0.6mm;
+}
+.stopka-karty {
+  font-size: 0.54em;
+  color: var(--muted);
+  margin-top: 2mm;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  .podpowiedz {
+    display: none;
+  }
+  .arkusz {
+    margin: 0;
+    box-shadow: none;
+  }
+}
