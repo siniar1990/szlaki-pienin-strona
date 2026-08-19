@@ -70,16 +70,6 @@ export const KATEGORIE_APLIKACJI: DefinicjaKategorii[] = [
     pasuje: (trasa) => wKategorii(trasa, 'dluga'),
   },
   {
-    slug: 'niecodzienne',
-    nazwa: 'Szlaki niecodzienne',
-    podtytul: 'nietypowe, tematyczne',
-    opis:
-      'Trasy, które prowadzi jakiś temat, a nie sam szczyt — dawne drogi, ' +
-      'ślady po nieistniejących wsiach, przejścia na słowacką stronę.',
-    ilustracja: `${ILUSTRACJE}/DP.webp`,
-    pasuje: (trasa) => wKategorii(trasa, 'niecodzienne'),
-  },
-  {
     slug: 'trzy-korony',
     nazwa: 'Trzy Korony',
     podtytul: 'trzy warianty',

@@ -90,10 +90,10 @@ export function KafelkiKategorii({
                   {kategoria.nazwa}
                 </h3>
                 {/*
-                  Liczbę tras pokazujemy tylko wtedy, gdy jakieś są. Kategorie
-                  „Szlaki niecodzienne" i „Trasy z psem" czekają na dobór tras
-                  w aplikacji — napis „0 tras" wyglądałby jak usterka, a sam
-                  podtytuł mówi, czego się spodziewać.
+                  Liczbę tras pokazujemy tylko wtedy, gdy jakieś są. Kategoria
+                  „Trasy z psem" czeka na dobór tras w aplikacji — napis
+                  „0 tras" wyglądałby jak usterka, a sam podtytuł mówi, czego
+                  się spodziewać.
                 */}
                 <p className="mt-2 flex flex-wrap items-center gap-x-2 text-base text-white/85">
                   {kategoria.podtytul && <span>{kategoria.podtytul}</span>}

@@ -88,6 +88,20 @@ const nextConfig: NextConfig = {
         destination: '/atrakcje/jazda-konna',
         permanent: true,
       },
+      /*
+        Kategoria „Szlaki niecodzienne" zniknęła ze strony. Nie trafiła do niej
+        ani jedna trasa — aplikacja nigdy nie oznaczyła nią żadnej — więc adres
+        pokazywał od początku pustą listę i tyle po nim zostało.
+
+        Przekierowanie, a nie zwykłe 404, bo adres zdążył pobyć w mapie witryny
+        i mógł trafić do wyników wyszukiwania. Prowadzi na listę wszystkich
+        tras: ktoś, kto tu wchodził, szukał tras, a nie tej konkretnej etykiety.
+      */
+      {
+        source: '/szlaki/kategorie/niecodzienne',
+        destination: '/szlaki',
+        permanent: true,
+      },
     ]
   },
 }
