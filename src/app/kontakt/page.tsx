@@ -8,8 +8,8 @@ import { PORTAL } from '@/lib/konfiguracja'
 export const metadata: Metadata = {
   title: 'Kontakt',
   description:
-    'Napisz do nas — pytania o trasy i atrakcje, zgłoszenia poprawek, ' +
-    'współpraca i partnerstwo w kategoriach atrakcji.',
+    'Napisz do nas — pytania o trasy i atrakcje, zgłoszenia poprawek ' +
+    'i wszystko, czego na portalu brakuje.',
   alternates: { canonical: '/kontakt' },
 }
 
@@ -17,12 +17,15 @@ export const metadata: Metadata = {
  * Strona kontaktu.
  *
  * Tematy przychodzące z innych miejsc portalu. Formularz podpowiada temat, gdy
- * ktoś trafia tu z konkretnego zaproszenia — dziś jedynym jest miejsce partnera
- * w kategorii atrakcji. Zamiast trzymać tę listę w komponencie klienckim,
- * stoi tutaj: to strona decyduje, po co ktoś przyszedł.
+ * ktoś trafia tu z konkretnego odnośnika. Zamiast trzymać tę listę
+ * w komponencie klienckim, stoi tutaj: to strona decyduje, po co ktoś przyszedł.
+ *
+ * Był tu również temat „Partner kategorii". Prowadził do niego wyłącznie baner
+ * z wolnym miejscem partnera na stronach atrakcji; po jego usunięciu nie było
+ * jak tu trafić, a podpowiedź zapraszałaby do rozmowy o czymś, czego portal
+ * nie oferuje.
  */
 const TEMATY: Record<string, string> = {
-  partner: 'Partner kategorii — chcę promować swoją firmę',
   poprawka: 'Poprawka w opisie trasy albo atrakcji',
 }
 

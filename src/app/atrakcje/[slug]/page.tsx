@@ -6,7 +6,6 @@ import { CalendarRange, Info, MapPin, Mountain, Sparkles, Ticket } from 'lucide-
 
 import { LicznikOdslon } from '@/components/analityka/licznik-odslon'
 import { PrzewodnikAtrakcji } from '@/components/atrakcje/przewodnik-atrakcji'
-import { WolneMiejscePartnera } from '@/components/atrakcje/wolne-miejsce-partnera'
 import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
@@ -23,7 +22,6 @@ import { czas, etykietaTypu, kilometry, kolorTypu, metry, odmien } from '@/lib/f
 import { metadaneStrony, obrazOG } from '@/lib/seo/open-graph'
 import { PORTAL, ZRODLA } from '@/lib/konfiguracja'
 import {
-  ZAPROSZENIA_NA_STRONACH,
   nazwaKategorii,
   nazwaLokalizacji,
 } from '@/lib/tresc/kategorie-atrakcji'
@@ -360,17 +358,6 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
             <p className="mt-3 text-sm text-kamien-500">
               Stan na dzień publikacji — przed wyjazdem potwierdź u operatora.
             </p>
-          </div>
-        )}
-
-        {/*
-          Zaproszenie dla partnera kategorii — tylko na wskazanych stronach
-          i tylko dopóki kategoria nie ma partnera. Stoi pod opisem, a nie nad
-          nim: czytelnik ma najpierw dostać to, po co przyszedł.
-        */}
-        {kategoria && ZAPROSZENIA_NA_STRONACH.includes(atrakcja.slug) && (
-          <div className="mt-12 max-w-[68ch]">
-            <WolneMiejscePartnera kategoria={kategoria} />
           </div>
         )}
 
