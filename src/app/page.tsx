@@ -3,7 +3,7 @@ import { Map as MapIcon } from 'lucide-react'
 
 import { KartaWiadomosci } from '@/components/aktualnosci/karta-wiadomosci'
 import { PrzyciskiSklepow } from '@/components/aplikacja/przyciski-sklepow'
-import { PasekDzis } from '@/components/dzis/pasek-dzis'
+import { SkrotDzis } from '@/components/dzis/skrot-dzis'
 import { KafelkiKategorii } from '@/components/glowna/kafelki-kategorii'
 import { KafelkiWyzwan } from '@/components/glowna/kafelki-wyzwan'
 import { MakietaTelefonu } from '@/components/glowna/makieta-telefonu'
@@ -91,10 +91,10 @@ export default async function StronaGlowna() {
         treść na stronie głównej, która zmienia się w ciągu dnia — i jedyny
         powód, żeby wejść tu jutro po tym, jak się już wszystko przeczytało.
       */}
-      <PasekDzis dane={daneDnia} />
+      <SkrotDzis dane={daneDnia} />
 
       {/* ── Kategorie ───────────────────────────────────────────────────── */}
-      <section id="odkrywaj" className="sekcja bg-kamien-50">
+      <section id="odkrywaj" className="sekcja">
         <div className="obszar">
           <NaglowekSekcji
             nadtytul="Wybierz po swojemu"
@@ -166,7 +166,7 @@ export default async function StronaGlowna() {
 
       {/* ── Aktualności ─────────────────────────────────────────────────── */}
       {wiadomosci.length > 0 && (
-        <section className="sekcja bg-kamien-50">
+        <section className="sekcja bg-las-50">
           <div className="obszar">
             <NaglowekSekcji
               nadtytul="Co słychać w Pieninach"

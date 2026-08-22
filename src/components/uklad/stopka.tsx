@@ -40,7 +40,7 @@ export function Stopka() {
   const rok = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-kamien-200 bg-kamien-50">
+    <footer className="border-t border-las-100 bg-las-50">
       <div className="obszar py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>

@@ -26,8 +26,17 @@ export function NaglowekSekcji({
   return (
     <div className={cn('flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between', className)}>
       <div className="max-w-2xl">
+        {/*
+          Krótka zielona kreska przed nadtytułem.
+
+          Sekcje na białym tle potrzebowały czegoś, co je zaczyna — bez tego
+          nadtytuł zawisa w pustce i pierwsze, co widać, jest sam tekst.
+          Kreska kosztuje pięć milimetrów i jest jedynym elementem ozdobnym
+          w tym komponencie; wszystko inne niesie treść.
+        */}
         {nadtytul && (
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-las-600">
+          <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.16em] text-las-600">
+            <span className="h-px w-6 shrink-0 bg-las-400" aria-hidden />
             {nadtytul}
           </p>
         )}

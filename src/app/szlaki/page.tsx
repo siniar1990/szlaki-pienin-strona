@@ -66,7 +66,7 @@ export default function StronaSzlakow() {
       />
 
       {/* ── Kategorie z aplikacji ────────────────────────────────────────── */}
-      <section className="sekcja bg-kamien-50" aria-labelledby="kategorie">
+      <section className="sekcja" aria-labelledby="kategorie">
         <div className="obszar">
           <NaglowekSekcji
             nadtytul="Jak w aplikacji"
@@ -83,7 +83,7 @@ export default function StronaSzlakow() {
       </section>
 
       {/* ── Pełna lista z filtrami ───────────────────────────────────────── */}
-      <section className="sekcja" aria-labelledby="wszystkie">
+      <section className="sekcja bg-las-50" aria-labelledby="wszystkie">
         <div className="obszar">
           <NaglowekSekcji
             nadtytul="Wszystkie trasy"

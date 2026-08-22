@@ -63,7 +63,7 @@ export default function StronaAtrakcji() {
       {/* ── Hero ────────────────────────────────────────────────────────────
           Celowo niski. Katalog ma pięćdziesiąt siedem pozycji i każdy
           dodatkowy ekran nagłówka to jeden ekran mniej dla nich. */}
-      <header className="bg-kamien-50 py-10 lg:py-14">
+      <header className="bg-las-50 py-10 lg:py-14">
         <div className="obszar">
           <nav aria-label="Okruszki" className="text-sm text-kamien-500">
             <Link href="/" className="hover:text-las-700">
