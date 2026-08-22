@@ -2,20 +2,20 @@
   "wersja": 1,
   "strony": {
     "/": {
-      "skrot": "a7a1f41729596b3a273b8370acf5cb98a8c70e12c6eddbbeeb6176290d1bbb06",
-      "zmieniono": "2026-08-19"
+      "skrot": "f9f0fba7c450fce76e96fe8528b3ba96494eef7b8ce04ddc5c531e80999ae50d",
+      "zmieniono": "2026-08-23"
     },
     "/aktualnosci": {
-      "skrot": "13ac49589d49102276481d9f6c71a7e72d4b95e78fc5e6aa22e995a4abdd496e",
-      "zmieniono": "2026-08-17"
+      "skrot": "7bec3dcec530be1864f84d84ce6a62a784d1be4bcd0d8e66e9f4c799aedf3b63",
+      "zmieniono": "2026-08-23"
     },
     "/aplikacja": {
       "skrot": "27f6a672db44a9129b366d6339e9b77cfb3859a7fe6048e296f3f0755ec30e20",
       "zmieniono": "2026-08-19"
     },
     "/atrakcje": {
-      "skrot": "f2c48386b303304297c5a9dfd9890c8506ec484d04039c90c14dbbc93c94d02b",
-      "zmieniono": "2026-08-09"
+      "skrot": "d8783ba43c3c14e8ec81e3682e92f94acdc8b8bb9cb5a57d266ab1e974ea8e50",
+      "zmieniono": "2026-08-23"
     },
     "/atrakcje/aksamitka": {
       "skrot": "0c07e05f6bd5ed79844ce015b10396c265e1128e8370d4d14c0047d4c33e56c9",
@@ -346,16 +346,16 @@
       "zmieniono": "2026-08-09"
     },
     "/dzis": {
-      "skrot": "073c781f9c4ba29c07b2cdcefadb1ab8f3a4139d0aa8aee030b27e97b0fdff6a",
-      "zmieniono": "2026-08-11"
+      "skrot": "607016bd0519d7f50f32cba1581af7baf5388d3390716670dba712d658548171",
+      "zmieniono": "2026-08-23"
     },
     "/kontakt": {
-      "skrot": "731898b660b9165b68834bc9536c6e0778657ca5b6cf0e3ea83f0b43a25a63ca",
-      "zmieniono": "2026-08-10"
+      "skrot": "184f94f70667b12613870d46cde85004d2164989134c658047cc5c7563f108b6",
+      "zmieniono": "2026-08-23"
     },
     "/mapa": {
-      "skrot": "0267d323755d0dd5225aa052fd81f08026ebd8ce111a38e4cd3658a07372d810",
-      "zmieniono": "2026-08-19"
+      "skrot": "9b07362e2608bed75843e6d1c49a8efc723bbf42b42e3eba4013207045ffd043",
+      "zmieniono": "2026-08-23"
     },
     "/miejscowosci": {
       "skrot": "339e0122811b7eac713d8f8bb1ea7d705f563f3b1f9999c0e33af5fde9232eb1",
@@ -382,8 +382,8 @@
       "zmieniono": "2026-08-14"
     },
     "/szlaki": {
-      "skrot": "c4e7249e485777cdc52fd0689a4eafd3ca12ca4c377e1724a38f43cafb664d47",
-      "zmieniono": "2026-08-13"
+      "skrot": "b4b06d453b694bd5f965f92719aa9e9bdb0ac941927fad84f738717a404c83ee",
+      "zmieniono": "2026-08-23"
     },
     "/szlaki/aksamitka": {
       "skrot": "01deb79bbf182400156940e577ba8ea9e1c9780533668fd53df31a906d6aa641",
