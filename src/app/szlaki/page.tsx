@@ -83,7 +83,7 @@ export default function StronaSzlakow() {
       </section>
 
       {/* ── Pełna lista z filtrami ───────────────────────────────────────── */}
-      <section className="sekcja bg-las-50" aria-labelledby="wszystkie">
+      <section className="sekcja bg-kamien-100" aria-labelledby="wszystkie">
         <div className="obszar">
           <NaglowekSekcji
             nadtytul="Wszystkie trasy"

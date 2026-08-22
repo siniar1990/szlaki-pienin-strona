@@ -74,7 +74,7 @@ export default async function StronaDzis() {
       </div>
 
       {propozycja && propozycja.trasy.length > 0 && (
-        <section className="sekcja bg-las-50">
+        <section className="sekcja bg-kamien-100">
           <div className="obszar">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-las-700">
               Co z tym zrobić

@@ -63,7 +63,7 @@ export default function StronaAtrakcji() {
       {/* ── Hero ────────────────────────────────────────────────────────────
           Celowo niski. Katalog ma pięćdziesiąt siedem pozycji i każdy
           dodatkowy ekran nagłówka to jeden ekran mniej dla nich. */}
-      <header className="bg-las-50 py-10 lg:py-14">
+      <header className="border-b border-kamien-200 bg-white py-10 lg:py-14">
         <div className="obszar">
           <nav aria-label="Okruszki" className="text-sm text-kamien-500">
             <Link href="/" className="hover:text-las-700">
@@ -125,7 +125,7 @@ export default function StronaAtrakcji() {
           </section>
         ))}
 
-        <section className="rounded-2xl border border-kamien-200 bg-kamien-50 p-6 sm:p-8">
+        <section className="rounded-2xl border border-kamien-200 bg-white p-6 sm:p-8">
           <h2 className="flex items-center gap-2.5 font-heading text-xl font-semibold text-kamien-900">
             <Mountain className="size-5 text-las-600" aria-hidden />
             Szczyty i punkty widokowe

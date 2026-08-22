@@ -70,7 +70,7 @@ export default function StronaMapy() {
         zajmuje 60% wysokości, a lista idzie pod nią.
       */}
       <div className="lg:flex lg:h-[calc(100dvh-6rem)] lg:flex-col">
-        <div className="w-full shrink-0 border-b border-las-100 bg-las-50 px-5 py-3 sm:px-8 lg:px-6">
+        <div className="w-full shrink-0 border-b border-kamien-200 bg-white px-5 py-3 sm:px-8 lg:px-6">
           <nav aria-label="Okruszki" className="mb-2">
             <ol className="flex items-center gap-1.5 text-sm text-kamien-500">
               <li>

@@ -182,7 +182,7 @@ export default async function StronaWyzwania({ params }: PageProps<'/wyzwania/[s
           {/* ── Kolumna boczna ────────────────────────────────────────────── */}
           <aside className="lg:sticky lg:top-28 lg:self-start">
             {wyzwanie.odznaka && (
-              <div className="grid place-items-center rounded-3xl border border-kamien-200 bg-kamien-50 p-8">
+              <div className="grid place-items-center rounded-3xl border border-kamien-200 bg-white p-8">
                 <Image
                   src={wyzwanie.odznaka}
                   alt={`Odznaka ${wyzwanie.nazwa}`}

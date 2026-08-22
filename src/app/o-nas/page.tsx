@@ -156,7 +156,7 @@ export default function StronaONas() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-kamien-200 bg-kamien-50 p-5">
+            <div className="mt-6 rounded-2xl border border-kamien-200 bg-white p-5">
               <p className="inline-flex items-center gap-2 font-heading text-base font-semibold text-kamien-900">
                 <MapIcon className="size-4" aria-hidden />
                 Weź przewodnik ze sobą

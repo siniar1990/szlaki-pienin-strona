@@ -227,7 +227,7 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
                   {trasa.ostrzezenia.map((ostrzezenie) => (
                     <li
                       key={ostrzezenie}
-                      className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-[0.95rem] leading-relaxed text-amber-950"
+                      className="rounded-xl border border-kamien-200 border-l-4 border-l-amber-500 bg-white p-4 text-[0.95rem] leading-relaxed text-kamien-800"
                     >
                       {ostrzezenie}
                     </li>
@@ -317,7 +317,7 @@ export default async function StronaTrasy({ params }: PageProps<'/szlaki/[slug]'
                   {trasa.ciekawostki.map((ciekawostka) => (
                     <article
                       key={ciekawostka.tytul}
-                      className="rounded-2xl border border-kamien-200 bg-kamien-50 p-6"
+                      className="rounded-2xl border border-kamien-200 bg-white p-6"
                     >
                       <Sparkles className="size-5 text-las-600" aria-hidden />
                       <h3 className="mt-3 font-heading text-lg font-semibold text-kamien-900">

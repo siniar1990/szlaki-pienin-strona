@@ -243,7 +243,7 @@ export default function StronaZPsem() {
               </ul>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-kamien-200 bg-kamien-50 p-6">
+            <div className="mt-6 rounded-2xl border border-kamien-200 bg-white p-6">
               <Info className="size-5 text-kamien-500" aria-hidden />
               <h2 className="mt-3 font-heading text-base font-semibold text-kamien-900">
                 Skąd te granice

@@ -211,7 +211,7 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
           </div>
 
           {wiadomosc.zrodloAdres && (
-            <aside className="mt-12 rounded-2xl border border-kamien-200 bg-kamien-50 p-6">
+            <aside className="mt-12 rounded-2xl border border-kamien-200 bg-white p-6">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-kamien-500">
                 Skąd wiemy
               </p>
@@ -243,7 +243,7 @@ export default async function StronaWiadomosci({ params }: PageProps<'/aktualnos
       </article>
 
       {pozostale.length > 0 && (
-        <section className="border-t border-las-100 bg-las-50 py-14">
+        <section className="border-t border-kamien-200 bg-kamien-100 py-14">
           <div className="obszar">
             <h2 className="font-heading text-xl font-semibold text-kamien-900">Czytaj dalej</h2>
             <div className="mt-6 grid gap-6 md:grid-cols-3">

@@ -166,7 +166,7 @@ export default async function StronaGlowna() {
 
       {/* ── Aktualności ─────────────────────────────────────────────────── */}
       {wiadomosci.length > 0 && (
-        <section className="sekcja bg-las-50">
+        <section className="sekcja">
           <div className="obszar">
             <NaglowekSekcji
               nadtytul="Co słychać w Pieninach"

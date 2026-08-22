@@ -51,7 +51,7 @@ export default function StronaWyzwan() {
                   href={`/wyzwania/${wyzwanie.slug}`}
                   className="grid gap-8 p-8 sm:grid-cols-[9rem_minmax(0,1fr)] sm:p-10"
                 >
-                  <div className="grid size-36 place-items-center rounded-2xl bg-kamien-50">
+                  <div className="grid size-36 place-items-center rounded-2xl bg-white">
                     {wyzwanie.odznaka ? (
                       <Image
                         src={wyzwanie.odznaka}

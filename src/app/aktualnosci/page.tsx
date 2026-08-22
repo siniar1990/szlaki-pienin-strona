@@ -42,7 +42,7 @@ export default async function StronaAktualnosci() {
 
       <div className="obszar py-14 lg:py-20">
         {wiadomosci.length === 0 ? (
-          <div className="mx-auto max-w-[46ch] rounded-2xl border border-dashed border-kamien-300 bg-kamien-50 px-8 py-14 text-center">
+          <div className="mx-auto max-w-[46ch] rounded-2xl border border-dashed border-kamien-300 bg-white px-8 py-14 text-center">
             <Newspaper className="mx-auto size-8 text-kamien-400" aria-hidden />
             <h2 className="mt-5 font-heading text-xl font-semibold text-kamien-900">
               Jeszcze nic tu nie ma

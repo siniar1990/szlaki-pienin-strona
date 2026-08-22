@@ -25,7 +25,7 @@ export function NaglowekStrony({
   dodatek?: React.ReactNode
 }) {
   return (
-    <div className="border-b border-las-100 bg-las-50">
+    <div className="border-b border-kamien-200 bg-white">
       <div className="obszar py-12 sm:py-16">
         <nav aria-label="Okruszki" className="mb-6">
           <ol className="flex flex-wrap items-center gap-1.5 text-sm text-kamien-500">

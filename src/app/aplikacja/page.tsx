@@ -164,7 +164,7 @@ export default function StronaAplikacji() {
           ))}
         </ul>
 
-        <section className="mt-16 rounded-3xl border border-kamien-200 bg-kamien-50 p-8 sm:p-12">
+        <section className="mt-16 rounded-3xl border border-kamien-200 bg-white p-8 sm:p-12">
           <h2 className="text-sekcja font-semibold text-kamien-900">
             Skąd biorą się te trasy
           </h2>

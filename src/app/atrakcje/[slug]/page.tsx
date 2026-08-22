@@ -366,7 +366,7 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
           dana atrakcja jest — godziny, ceny i terminy zmieniają się co sezon
           i sprawdza się je u operatora, a nie na stronie o szlakach.
         */}
-        <p className="mt-10 flex max-w-[68ch] items-start gap-3 rounded-xl border border-kamien-200 bg-kamien-50 p-5 text-sm leading-relaxed text-kamien-600">
+        <p className="mt-10 flex max-w-[68ch] items-start gap-3 rounded-xl border border-kamien-200 bg-white p-5 text-sm leading-relaxed text-kamien-600">
           <Info className="mt-0.5 size-4 shrink-0 text-kamien-500" aria-hidden />
           <span>
             {atrakcja.cena || atrakcja.godziny
@@ -484,7 +484,7 @@ function WidokZTras({ atrakcja }: { atrakcja: Atrakcja }) {
                   {atrakcja.ciekawostki.map((ciekawostka) => (
                     <article
                       key={ciekawostka.tytul}
-                      className="rounded-2xl border border-kamien-200 bg-kamien-50 p-7"
+                      className="rounded-2xl border border-kamien-200 bg-white p-7"
                     >
                       <Sparkles className="size-5 text-las-600" aria-hidden />
                       <h3 className="mt-3 font-heading text-xl font-semibold text-kamien-900">

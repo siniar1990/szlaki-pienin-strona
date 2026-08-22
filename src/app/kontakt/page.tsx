@@ -68,7 +68,7 @@ export default async function StronaKontakt({ searchParams }: PageProps<'/kontak
               obok innych zajęć — obietnica odpowiedzi „w ciągu godziny"
               byłaby ładniejsza i nieprawdziwa.
             */}
-            <p className="mt-8 rounded-xl border border-kamien-200 bg-kamien-50 p-4 text-sm leading-relaxed text-kamien-600">
+            <p className="mt-8 rounded-xl border border-kamien-200 bg-white p-4 text-sm leading-relaxed text-kamien-600">
               Odpisujemy zwykle w ciągu kilku dni. Jeśli zgłaszasz błąd na
               szlaku albo w opisie trasy — napisz, której trasy dotyczy,
               poprawimy przy najbliższej aktualizacji danych.

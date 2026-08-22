@@ -274,7 +274,7 @@ export default async function StronaMiejscowosci({
           </section>
 
           <aside>
-            <div className="rounded-2xl border border-kamien-200 bg-kamien-50 p-6">
+            <div className="rounded-2xl border border-kamien-200 bg-white p-6">
               <h2 className="inline-flex items-center gap-2 font-heading text-base font-semibold text-kamien-900">
                 <Car className="size-4" aria-hidden />
                 Dojazd i parking
