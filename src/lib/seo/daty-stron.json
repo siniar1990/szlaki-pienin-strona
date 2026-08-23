@@ -2,19 +2,19 @@
   "wersja": 1,
   "strony": {
     "/": {
-      "skrot": "f9f0fba7c450fce76e96fe8528b3ba96494eef7b8ce04ddc5c531e80999ae50d",
+      "skrot": "a8cff6c66ac305c0729855404595718ccfc1939c2526776a06e4860ba1a3494b",
       "zmieniono": "2026-08-23"
     },
     "/aktualnosci": {
-      "skrot": "7bec3dcec530be1864f84d84ce6a62a784d1be4bcd0d8e66e9f4c799aedf3b63",
+      "skrot": "ae911f13f0ac9739522be51a231c4e480f9ff8b0e4718a9c8b57554dd3cc11c8",
       "zmieniono": "2026-08-23"
     },
     "/aplikacja": {
-      "skrot": "27f6a672db44a9129b366d6339e9b77cfb3859a7fe6048e296f3f0755ec30e20",
-      "zmieniono": "2026-08-19"
+      "skrot": "bc55a8c31d976eb13be90b63df8e4de808a23e0958aea75732db520e5d8e4393",
+      "zmieniono": "2026-08-23"
     },
     "/atrakcje": {
-      "skrot": "d8783ba43c3c14e8ec81e3682e92f94acdc8b8bb9cb5a57d266ab1e974ea8e50",
+      "skrot": "7930b87556d788a3aa9ef04f16381f7536fbe7ea58539dc83befcdda7f972832",
       "zmieniono": "2026-08-23"
     },
     "/atrakcje/aksamitka": {
@@ -346,15 +346,15 @@
       "zmieniono": "2026-08-09"
     },
     "/dzis": {
-      "skrot": "607016bd0519d7f50f32cba1581af7baf5388d3390716670dba712d658548171",
+      "skrot": "2e45230ceee0769c22970f745618fd7468d191fa9a7c13e89975199586ddda9a",
       "zmieniono": "2026-08-23"
     },
     "/kontakt": {
-      "skrot": "184f94f70667b12613870d46cde85004d2164989134c658047cc5c7563f108b6",
+      "skrot": "112e8cd105a4335cdf9b8ca69f20dd1165ef4a1497ff1c4efa7b93a596152dc1",
       "zmieniono": "2026-08-23"
     },
     "/mapa": {
-      "skrot": "9b07362e2608bed75843e6d1c49a8efc723bbf42b42e3eba4013207045ffd043",
+      "skrot": "9777bd2b6a57eee86bfe68183420079eb81a5a3f3cbbc46e3d8fe53752bfb425",
       "zmieniono": "2026-08-23"
     },
     "/miejscowosci": {
@@ -374,15 +374,15 @@
       "zmieniono": "2026-08-10"
     },
     "/o-nas": {
-      "skrot": "0362c44995bc58a57e18eb18fbf307fb4a1fa1e2df109b27722af004d4752ae5",
-      "zmieniono": "2026-08-10"
+      "skrot": "b50a0fc4eb365a167eaa485104143d0952632cce93acd12490bdfbb5edbb46ab",
+      "zmieniono": "2026-08-23"
     },
     "/prywatnosc": {
       "skrot": "fc162e4e346b343bd73ab07a7ed7152333130869df50d7c5bd2a2936f8e99460",
       "zmieniono": "2026-08-14"
     },
     "/szlaki": {
-      "skrot": "b4b06d453b694bd5f965f92719aa9e9bdb0ac941927fad84f738717a404c83ee",
+      "skrot": "605c8a398f259af55874b4274b78f50f91e0b0793eff5f026d960993c7e8ec1b",
       "zmieniono": "2026-08-23"
     },
     "/szlaki/aksamitka": {
@@ -710,8 +710,8 @@
       "zmieniono": "2026-08-09"
     },
     "/wyzwania": {
-      "skrot": "1c8caf07b9ea99830f9f84442a03e49c0bee079525ea7a47d81fdf4e9e42c618",
-      "zmieniono": "2026-08-08"
+      "skrot": "367e7f47da62885d1c0513585e37af2a601e7b82997f4e11cd830e7a2f781373",
+      "zmieniono": "2026-08-23"
     },
     "/wyzwania/diament": {
       "skrot": "e927a3a8f2f8241b9c8bf01e17bff47624454381dc56929b4fc3b2ce55070a13",
