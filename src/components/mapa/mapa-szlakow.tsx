@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, Clock, MoveUpRight, RefreshCw, Route, Search, X } from 'lucide-react'
 
 import { naSlug } from '@/lib/dane/slug'
+import { TRYBY, type TrybMapy, stylTrybu } from '@/lib/mapa/tryby'
 import {
   ADRES_OBSZAROW,
   GESTOSC_KRESEK,
@@ -178,6 +179,7 @@ function Zawartosc({
   const ramkaMapy = useRef<HTMLDivElement>(null)
   const mapa = useRef<MapaGl | null>(null)
   const [gotowa, ustawGotowa] = useState(false)
+  const [tryb, ustawTryb] = useState<TrybMapy>('normalny')
   const [wybrany, ustawWybrany] = useState<string | null>(null)
   const [fraza, ustawFraze] = useState('')
 
@@ -261,7 +263,7 @@ function Zawartosc({
 
     const instancja = new maplibregl.Map({
       container: pojemnik.current,
-      style: 'https://tiles.openfreemap.org/styles/liberty',
+      style: stylTrybu('normalny'),
       center: SRODEK,
       zoom: PRZYBLIZENIE,
       // Kółko myszy przewija stronę, nie przybliża mapę — z wyjątkiem
@@ -285,6 +287,38 @@ function Zawartosc({
       mapa.current = null
     }
   }, [])
+
+  /*
+    Zmiana podkładu.
+
+    `setStyle` wymiata ze sobą wszystko, co dołożyliśmy — źródło śladów,
+    warstwy i obsługę kliknięć — bo to również są elementy stylu. Dlatego
+    zdejmujemy znacznik gotowości i podnosimy go dopiero, gdy nowy podkład
+    się ustawi: efekt rysujący szlaki zobaczy wtedy pustą mapę i położy je
+    od nowa. Bez tego przełączenie na Teren gubi wszystkie trasy.
+
+    Pierwsze wywołanie pomijamy — mapa startuje już we właściwym stylu,
+    a zbędne `setStyle` kazałoby jej wczytać ten sam podkład dwa razy.
+  */
+  const pierwszyTryb = useRef(true)
+
+  useEffect(() => {
+    const m = mapa.current
+    if (!m) return
+    if (pierwszyTryb.current) {
+      pierwszyTryb.current = false
+      return
+    }
+
+    ustawGotowa(false)
+    m.setStyle(stylTrybu(tryb))
+
+    const poWczytaniu = () => ustawGotowa(true)
+    m.once('idle', poWczytaniu)
+    return () => {
+      m.off('idle', poWczytaniu)
+    }
+  }, [tryb])
 
   // Warstwy ze śladami.
   useEffect(() => {
@@ -341,21 +375,15 @@ function Zawartosc({
       filter: ['==', ['get', 'id'], ''],
     })
 
-    // Trasy bez zdigitalizowanego śladu — sam szczyt jako znacznik. Rysujemy
-    // je pierścieniem, a nie linią, żeby na pierwszy rzut oka było widać,
-    // że to nie jest przebieg trasy, tylko jej cel.
-    m.addLayer({
-      id: 'szlaki-punkty',
-      type: 'circle',
-      source: ZRODLO,
-      filter: ['==', ['geometry-type'], 'Point'],
-      paint: {
-        'circle-radius': 7,
-        'circle-color': '#ffffff',
-        'circle-stroke-width': 3,
-        'circle-stroke-color': ['get', 'kolor'],
-      },
-    })
+    /*
+      Tras bez zdigitalizowanego śladu nie rysujemy wcale.
+
+      Wcześniej stał tu pierścień w miejscu szczytu — kropka mówiąca „trasa
+      prowadzi tutaj, ale przebiegu jeszcze nie znamy". W praktyce czytało się
+      to jak znacznik punktu widokowego i mieszało z podkładem, na którym
+      szczyty i tak są podpisane. Cztery trasy, których to dotyczy, zostają
+      na liście obok mapy; tam brak śladu jest opisany słowami.
+    */
 
     // Szeroka, przezroczysta warstwa wyłącznie do łapania kliknięć. Trafienie
     // palcem w linię grubości 3 px jest praktycznie niemożliwe; 20 px daje
@@ -381,27 +409,23 @@ function Zawartosc({
       m.getCanvas().style.cursor = ''
     }
 
-    for (const warstwa of ['szlaki-klikalne', 'szlaki-punkty']) {
-      m.on('click', warstwa, przyKliknieciu)
-      m.on('mouseenter', warstwa, wskaznikNad)
-      m.on('mouseleave', warstwa, wskaznikPoza)
-    }
+    m.on('click', 'szlaki-klikalne', przyKliknieciu)
+    m.on('mouseenter', 'szlaki-klikalne', wskaznikNad)
+    m.on('mouseleave', 'szlaki-klikalne', wskaznikPoza)
 
     // Kliknięcie w puste miejsce zdejmuje zaznaczenie.
     const przyKliknieciuWTlo = (zdarzenie: MapMouseEvent) => {
       const trafione = m.queryRenderedFeatures(zdarzenie.point, {
-        layers: ['szlaki-klikalne', 'szlaki-punkty'],
+        layers: ['szlaki-klikalne'],
       })
       if (trafione.length === 0) ustawWybrany(null)
     }
     m.on('click', przyKliknieciuWTlo)
 
     return () => {
-      for (const warstwa of ['szlaki-klikalne', 'szlaki-punkty']) {
-        m.off('click', warstwa, przyKliknieciu)
-        m.off('mouseenter', warstwa, wskaznikNad)
-        m.off('mouseleave', warstwa, wskaznikPoza)
-      }
+      m.off('click', 'szlaki-klikalne', przyKliknieciu)
+      m.off('mouseenter', 'szlaki-klikalne', wskaznikNad)
+      m.off('mouseleave', 'szlaki-klikalne', wskaznikPoza)
       m.off('click', przyKliknieciuWTlo)
     }
   }, [gotowa, data, zZakazamiDlaPsow])
@@ -416,10 +440,6 @@ function Zawartosc({
     // przez plątaninę czterdziestu dziewięciu linii.
     m.setPaintProperty('szlaki-linia', 'line-opacity', wybrany ? 0.28 : 1)
     m.setPaintProperty('szlaki-obwodka', 'line-opacity', wybrany ? 0.3 : 0.85)
-    if (m.getLayer('szlaki-punkty')) {
-      m.setPaintProperty('szlaki-punkty', 'circle-opacity', wybrany ? 0.35 : 1)
-      m.setPaintProperty('szlaki-punkty', 'circle-stroke-opacity', wybrany ? 0.35 : 1)
-    }
   }, [wybrany, gotowa])
 
   const wybranySlad = slady.find((slad) => slad.properties.id === wybrany) ?? null
@@ -626,6 +646,36 @@ function Zawartosc({
         className={`order-1 relative h-[60vh] overflow-hidden rounded-2xl border border-kamien-200 bg-kamien-100 lg:order-2 ${wysokoscKafla}`}
       >
         <div ref={pojemnik} className="size-full" />
+
+        {/*
+          Przełącznik podkładu — lewy górny róg, bo prawy zajmują przyciski
+          przybliżenia i pełnego ekranu. Trzy pozycje obok siebie, nie lista
+          rozwijana: wybór jest trójelementowy i widać z niego od razu, że są
+          inne tryby, zamiast chować je za jednym kliknięciem.
+        */}
+        <div
+          role="group"
+          aria-label="Podkład mapy"
+          className="absolute left-3 top-3 z-10 flex rounded-full border border-kamien-200 bg-white/95 p-0.5 shadow-miekki backdrop-blur-sm"
+        >
+          {TRYBY.map((pozycja) => (
+            <button
+              key={pozycja.id}
+              type="button"
+              onClick={() => ustawTryb(pozycja.id)}
+              aria-pressed={tryb === pozycja.id}
+              title={pozycja.opis}
+              className={cn(
+                'rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
+                tryb === pozycja.id
+                  ? 'bg-las-700 text-white'
+                  : 'text-kamien-700 hover:bg-kamien-100',
+              )}
+            >
+              {pozycja.nazwa}
+            </button>
+          ))}
+        </div>
 
         {(!gotowa || isPending) && !isError && (
           <div className="absolute inset-0 grid place-items-center bg-kamien-100 text-sm text-kamien-500">

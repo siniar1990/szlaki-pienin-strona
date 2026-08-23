@@ -56,7 +56,7 @@ export function SkrotDzis({ dane }: { dane: DaneDnia }) {
   if (kafelki.length === 0) return null
 
   return (
-    <section aria-labelledby="skrot-dzis-naglowek" className="border-y border-kamien-200 bg-kamien-100">
+    <section aria-labelledby="skrot-dzis-naglowek" className="border-y border-kamien-200 bg-white">
       <div className="obszar py-6">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <h2
@@ -93,7 +93,7 @@ export function SkrotDzis({ dane }: { dane: DaneDnia }) {
                 }`}
               >
                 <span
-                  className="grid size-8 shrink-0 place-items-center rounded-lg bg-kamien-100 text-kamien-600 [&_svg]:size-4"
+                  className="grid size-8 shrink-0 place-items-center rounded-lg bg-las-50 text-las-700 [&_svg]:size-4"
                   aria-hidden
                 >
                   {mini.ikona}

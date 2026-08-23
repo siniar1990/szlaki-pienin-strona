@@ -11,7 +11,14 @@
 
      las      — zieleń jodły i buczyny; kolor wiodący, przyciski, akcenty
      dunajec  — błękit rzeki; drugi głos, mapy, oznaczenia szlaków wodnych
-     kamien   — jasne szarości wapienia; tła, obramowania, tekst pomocniczy
+     kamien   — szarości wapienia; tła, obramowania, tekst pomocniczy
+
+   Szarości są CHŁODNE (hue 210), i to jest poprawka, nie gust. Przy hue 150
+   każdy stopień rampy miał w przestrzeni Lab dodatnią składową żółtą — od
+   +0,41 na najjaśniejszym po +2,31 na tekście. Pojedynczy piksel tego nie
+   zdradza, ale na dużych powierzchniach: stopce, pasach sekcji, kartach —
+   składa się to na wrażenie kremu, którego nikt tu nie chciał. Po zmianie
+   te same stopnie mają składową ujemną i czytają się jako czysta szarość.
 
    Zapisane w OKLCH, bo w tej przestrzeni jasność zachowuje się przewidywalnie:
    krok o 0,05 wygląda tak samo daleko w zieleni i w błękicie. Przy HSL trzeba
@@ -45,16 +52,16 @@
   --color-dunajec-800: oklch(0.362 0.070 236);
   --color-dunajec-900: oklch(0.296 0.053 237);
 
-  --color-kamien-50: oklch(0.985 0.002 150);
-  --color-kamien-100: oklch(0.968 0.003 150);
-  --color-kamien-200: oklch(0.928 0.005 150);
-  --color-kamien-300: oklch(0.872 0.007 150);
-  --color-kamien-400: oklch(0.712 0.009 150);
-  --color-kamien-500: oklch(0.576 0.010 150);
-  --color-kamien-600: oklch(0.468 0.010 150);
-  --color-kamien-700: oklch(0.386 0.009 150);
-  --color-kamien-800: oklch(0.284 0.007 150);
-  --color-kamien-900: oklch(0.208 0.006 150);
+  --color-kamien-50: oklch(0.985 0.002 210);
+  --color-kamien-100: oklch(0.968 0.003 210);
+  --color-kamien-200: oklch(0.928 0.005 210);
+  --color-kamien-300: oklch(0.872 0.007 210);
+  --color-kamien-400: oklch(0.712 0.009 210);
+  --color-kamien-500: oklch(0.576 0.010 210);
+  --color-kamien-600: oklch(0.468 0.010 210);
+  --color-kamien-700: oklch(0.386 0.009 210);
+  --color-kamien-800: oklch(0.284 0.007 210);
+  --color-kamien-900: oklch(0.208 0.006 210);
 
   /* Skala typograficzna. Nagłówki skalują się płynnie z szerokością okna —
      clamp() zamiast progów, żeby na tablecie nie było skoku o pół ekranu. */
