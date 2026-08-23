@@ -175,6 +175,66 @@ export async function zmienStatus(kod: string, status: 'AKTYWNY' | 'NIEAKTYWNY')
   revalidatePath(`/panel/kody/${kod}`)
 }
 
+/**
+ * Usunięcie tabliczki.
+ *
+ * **Co dokładnie znika.** Wpis kodu razem z całą jego historią: pojedynczymi
+ * skanami i dobowymi podsumowaniami, bo obie tabele mają w schemacie kasowanie
+ * kaskadowe. Statystyki portalu zmniejszą się o te skany wstecz — to nie jest
+ * ukrycie tabliczki, tylko wymazanie jej z danych.
+ *
+ * **Dlaczego trzeba przepisać identyfikator.** Kasowanie tabliczki jest
+ * rzadkie i nieodwracalne, a lista w panelu ma dwieście pozycji o bardzo
+ * podobnym wyglądzie. Samo „na pewno?" chroni przed przypadkowym kliknięciem,
+ * ale nie przed skasowaniem nie tej pozycji, co trzeba. Przepisanie kodu
+ * wymaga spojrzenia, którą tabliczkę się właśnie usuwa.
+ *
+ * **Numer zostaje zajęty na zawsze.** Po skasowaniu wpis trafia do
+ * `UsunietaTabliczka` i numeracja go pomija. Gdyby wrócił do puli, dwa różne
+ * miejsca mogłyby dostać ten sam kod — a wydrukowany egzemplarz nie wie, że
+ * jego wpis usunięto.
+ *
+ * **Czego ta akcja nie robi.** Nie tyka fizycznej tabliczki. Jeśli wisi
+ * w terenie, po skasowaniu jej kod przestaje istnieć i skan kończy się
+ * stroną „nie ma takiej tabliczki". Dla tabliczki wycofanej z użycia to
+ * właściwe zachowanie; dla działającej — nie, i o tym mówi panel przed
+ * potwierdzeniem.
+ */
+export async function usunKod(kod: string, _stan: WynikAkcji, dane: FormData): Promise<WynikAkcji> {
+  const potwierdzenie = String(dane.get('potwierdzenie') ?? '').trim()
+
+  if (potwierdzenie.toUpperCase() !== kod.toUpperCase()) {
+    return { blad: `Aby usunąć, przepisz identyfikator tabliczki: ${kod}` }
+  }
+
+  const tabliczka = await baza.kodQr.findUnique({ where: { kod }, select: { nazwa: true } })
+  if (!tabliczka) return { blad: 'Tej tabliczki już nie ma' }
+
+  /*
+    Kasowanie i nagrobek w jednej transakcji.
+
+    Nagrobek trzyma numer zajętym na zawsze — inaczej kolejna utworzona
+    tabliczka dostałaby ten sam kod, a wydrukowany egzemplarz może przecież
+    nadal gdzieś być. Gdyby te dwa zapisy poszły osobno i drugi się nie udał,
+    numer po cichu wróciłby do puli; transakcja robi z nich jedną całość.
+  */
+  await baza.$transaction([
+    baza.usunietaTabliczka.upsert({
+      where: { kod },
+      create: { kod, nazwa: tabliczka.nazwa },
+      update: { nazwa: tabliczka.nazwa },
+    }),
+    baza.kodQr.delete({ where: { kod } }),
+  ])
+
+  revalidatePath('/panel/kody')
+  revalidatePath('/panel')
+  // Mapa tabliczek i przekierowania skanów czytają ten sam znacznik — bez
+  // unieważnienia skasowana tabliczka wisiałaby na mapie jeszcze minutę.
+  revalidateTag(ZNACZNIK_TABLICZEK, 'max')
+  redirect('/panel/kody')
+}
+
 /* ── Logowanie ──────────────────────────────────────────────────────────── */
 
 export async function zaloguj(_stan: WynikAkcji, dane: FormData): Promise<WynikAkcji> {

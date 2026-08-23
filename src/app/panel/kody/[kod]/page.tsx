@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Download, ExternalLink } from 'lucide-react'
 
-import { zapiszKod } from '@/app/panel/dzialania'
+import { zapiszKod, usunKod } from '@/app/panel/dzialania'
 import { FormularzKodu } from '@/components/panel/formularz-kodu'
+import { UsunTabliczke } from '@/components/panel/usun-tabliczke'
 import { baza } from '@/lib/baza'
 import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
 import { adresKodu, kodJakoDataUrl } from '@/lib/qr/generuj-kod'
@@ -91,6 +92,20 @@ export default async function StronaKodu({ params }: PageProps<'/panel/kody/[kod
             dataMontazu: tabliczka.dataMontazu?.toISOString().slice(0, 10) ?? '',
           }}
         />
+
+        {/*
+          Usuwanie na końcu kolumny z formularzem, a nie w pasku akcji na
+          górze: to jedyna nieodwracalna rzecz na tej stronie i nie ma powodu,
+          żeby wpadała pod rękę przy zapisywaniu nazwy.
+        */}
+        <div className="lg:col-start-1">
+          <UsunTabliczke
+            kod={tabliczka.kod}
+            akcja={usunKod.bind(null, tabliczka.kod)}
+            liczbaSkanow={tabliczka.liczbaSkanow}
+            aktywna={tabliczka.status === 'AKTYWNY'}
+          />
+        </div>
 
         <aside className="space-y-6">
           <div className="rounded-2xl border border-kamien-200 bg-white p-5 text-center">

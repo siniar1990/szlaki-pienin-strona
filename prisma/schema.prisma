@@ -216,6 +216,24 @@ model SkanDzienny {
   @@index([dzien])
 }
 
+/// Identyfikatory tabliczek wycofanych z użycia.
+///
+/// Wiersz zostaje po skasowaniu tabliczki wyłącznie po to, żeby jej numer
+/// nigdy nie trafił na kolejną. Tabliczka jest przedmiotem: wydrukowany
+/// egzemplarz P042 może leżeć w szufladzie albo wisieć na słupie, o którym
+/// nikt już nie pamięta. Gdyby numer wrócił, dwa różne miejsca miałyby ten sam
+/// kod, a ich skany zlałyby się w jedną statystykę — i nie dałoby się tego
+/// później rozplątać, bo skan nie niesie ze sobą nic poza kodem.
+///
+/// Nazwę trzymamy razem z numerem, bo „P042" po pół roku nikomu nic nie mówi,
+/// a „P042 — Sokolica, taras widokowy" odpowiada na pytanie, dlaczego ten
+/// numer jest zajęty.
+model UsunietaTabliczka {
+  kod      String   @id
+  nazwa    String
+  usunieto DateTime @default(now())
+}
+
 // ─── Aktualności ───────────────────────────────────────────────────────────
 //
 // Trzy tabele opisują drogę wiadomości od cudzej strony do naszego portalu:

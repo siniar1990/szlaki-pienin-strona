@@ -6,6 +6,7 @@ import { FormularzPaczki } from '@/components/panel/formularz-paczki'
 import { PobierzKody } from '@/components/panel/pobierz-kody'
 import { TabelaKodow, type WierszKodu } from '@/components/panel/tabela-kodow'
 import { ZakresDat } from '@/components/panel/zakres-dat'
+import { baza } from '@/lib/baza'
 import { przeliczJesliTrzeba } from '@/lib/qr/agregacja'
 import { pobierzKodyNaListe } from '@/lib/qr/statystyki'
 import { odczytajZakres } from '@/lib/qr/zakres'
@@ -44,6 +45,19 @@ export default async function StronaKodow({ searchParams }: PageProps<'/panel/ko
   await przeliczJesliTrzeba()
 
   const kody = await pobierzKodyNaListe(zakres)
+
+  /*
+    Numery tabliczek wycofanych z użycia.
+    
+    Bez tego wykazu dziura w numeracji jest zagadką: po pół roku nikt nie
+    pamięta, czy P042 nigdy nie powstała, czy została skasowana. A ponieważ
+    numer nie wraca do puli, pytanie „dlaczego go nie ma" prędzej czy później
+    padnie.
+  */
+  const wycofane = await baza.usunietaTabliczka.findMany({
+    orderBy: { kod: 'asc' },
+    select: { kod: true, nazwa: true },
+  })
 
   const wiersze: WierszKodu[] = kody.map((k) => ({
     kod: k.kod,
@@ -84,6 +98,15 @@ export default async function StronaKodow({ searchParams }: PageProps<'/panel/ko
         </p>
       ) : (
         <TabelaKodow wiersze={wiersze} opisZakresu={zakres.opis} />
+      )}
+
+      {wycofane.length > 0 && (
+        <p className="mt-8 max-w-[80ch] text-sm leading-relaxed text-kamien-500">
+          <span className="font-medium text-kamien-700">Wycofane numery:</span>{' '}
+          {wycofane.map((w) => `${w.kod} (${w.nazwa})`).join(', ')}. Te
+          identyfikatory nie zostaną nadane ponownie — wydrukowany egzemplarz
+          może przecież nadal gdzieś być.
+        </p>
       )}
     </>
   )
