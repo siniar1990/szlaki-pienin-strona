@@ -69,21 +69,24 @@ export function czySklepDostepny(sklep: Sklep): boolean {
 /**
  * Zapowiedziane daty premier w sklepach, w których aplikacji jeszcze nie ma.
  *
- * **Dlaczego data, a nie samo „wkrótce".** Ktoś z Androidem, który trafia na
- * portal i widzi wyszarzoną odznakę bez wyjaśnienia, wychodzi i nie wraca.
- * Konkretny dzień daje mu powód, żeby zajrzeć ponownie — a nam obowiązek,
- * żeby go dotrzymać.
+ * **Dziś pusta i tak ma zostać, dopóki data nie jest pewna.** Stała tu
+ * zapowiedź premiery Androida na 24 sierpnia 2026; aplikacja nie przeszła
+ * do tego dnia weryfikacji w Google Play, więc portal obiecywał termin,
+ * którego nie dotrzymał — a to jest gorsze niż brak terminu. Bez wpisu
+ * odznaka mówi po prostu „wkrótce" i nikogo nie oszukuje.
  *
- * Wpis znika stąd w chwili, gdy w `SKLEPY` pojawi się adres: komponent
- * pokazuje datę wyłącznie przy sklepie bez odnośnika, więc opublikowanie
- * aplikacji samo zdejmuje zapowiedź. Nie ma jak zostawić na stronie daty,
- * która już minęła.
+ * **Kiedy wpisać datę z powrotem.** Dopiero gdy aplikacja przejdzie
+ * weryfikację i znany będzie dzień publikacji. Konkretny dzień jest lepszy
+ * od „wkrótce", bo daje powód, żeby zajrzeć ponownie — ale tylko wtedy, gdy
+ * da się go dotrzymać. Format: `'2026-09-15'`.
+ *
+ * Wpis znika stąd sam w chwili, gdy w `SKLEPY` pojawi się adres: data
+ * pokazuje się wyłącznie przy sklepie bez odnośnika, więc opublikowanie
+ * aplikacji zdejmuje zapowiedź bez niczyjej pamięci.
  */
-export const PREMIERY: Partial<Record<Sklep, string>> = {
-  googlePlay: '2026-08-24',
-}
+export const PREMIERY: Partial<Record<Sklep, string>> = {}
 
-/** Data premiery po polsku, np. „24 sierpnia". `null`, gdy nie zapowiedziano. */
+/** Data premiery po polsku, np. „15 września". `null`, gdy nie zapowiedziano. */
 export function dataPremiery(sklep: Sklep): string | null {
   const dzien = PREMIERY[sklep]
   if (!dzien || czySklepDostepny(sklep)) return null

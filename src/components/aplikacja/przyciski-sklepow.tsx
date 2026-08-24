@@ -20,9 +20,9 @@ import { cn } from '@/lib/utils'
  * odnośnika. To lepsze niż odnośnik z `aria-disabled`, bo ten nadal daje się
  * kliknąć i prowadzi donikąd.
  *
- * Sklep bez adresu, ale z zapowiedzianą datą, dostaje ją podpisem pod odznaką.
- * Data znika sama w chwili wpisania adresu do `SKLEPY` — nie ma jak zostawić
- * na stronie terminu, który już minął.
+ * Sklep bez adresu dostaje podpis pod odznaką: datę, gdy jest zapowiedziana,
+ * a w przeciwnym razie „wkrótce". Data znika sama w chwili wpisania adresu do
+ * `SKLEPY` — nie ma jak zostawić na stronie terminu, który już minął.
  *
  * Po wpisaniu adresów w `konfiguracja.ts` te same odznaki stają się zwykłymi
  * odnośnikami — bez zmiany czegokolwiek tutaj.
@@ -92,21 +92,25 @@ function Sklep({
         <span className={wyglad}>
           {obraz}
           <span className="sr-only">
-            {odznaka.premiera ? `— dostępne od ${odznaka.premiera}` : '— jeszcze niedostępne'}
+            {odznaka.premiera ? `— dostępne od ${odznaka.premiera}` : '— dostępne wkrótce'}
           </span>
         </span>
 
-        {odznaka.premiera && (
-          <span
-            aria-hidden
-            className={cn(
-              'text-xs font-medium',
-              wariant === 'jasny' ? 'text-white/85' : 'text-kamien-600',
-            )}
-          >
-            od {odznaka.premiera}
-          </span>
-        )}
+        {/*
+          Podpis jest ZAWSZE, z datą albo bez. Wyszarzona odznaka bez słowa
+          wyjaśnienia czyta się jak usterka strony; „wkrótce" mówi, że tak ma
+          być. Data pojawia się tu tylko wtedy, gdy jest pewna — patrz
+          `PREMIERY` w `konfiguracja.ts`.
+        */}
+        <span
+          aria-hidden
+          className={cn(
+            'text-xs font-medium',
+            wariant === 'jasny' ? 'text-white/85' : 'text-kamien-600',
+          )}
+        >
+          {odznaka.premiera ? `od ${odznaka.premiera}` : 'wkrótce'}
+        </span>
       </span>
     )
   }
@@ -155,16 +159,27 @@ export function PrzyciskiSklepow({
   const premieraAndroida = dataPremiery('googlePlay')
 
   /*
-    Trzy różne zdania, bo są trzy różne sytuacje i każda wymaga czego innego.
-    Najciekawsza jest środkowa: aplikacja JEST w App Store, ale nie w Google
-    Play. Bez wskazania Androida wprost połowa odwiedzających uznaje, że
-    aplikacja po prostu dla nich nie istnieje.
+    Cztery sytuacje, cztery zdania. Najważniejsza jest druga: aplikacja JEST
+    w App Store, ale nie w Google Play. Bez wskazania Androida wprost połowa
+    odwiedzających uznaje, że aplikacja po prostu dla nich nie istnieje.
+
+    Zdanie zależy od tego, KTÓREGO sklepu brakuje, a nie od tego, czy
+    zapowiedziano datę. Wcześniej było odwrotnie i zdjęcie daty zabierało przy
+    okazji całą wzmiankę o Androidzie — czyli dokładnie tę informację, dla
+    której to zdanie powstało.
   */
+  const brakAndroida = SKLEPY.googlePlay.length === 0
+  const brakIOS = SKLEPY.appStore.length === 0
+
+  const kiedy = premieraAndroida ? `w Google Play ${premieraAndroida}` : 'wkrótce'
+
   const zdanie = !wSklepach
     ? 'Czeka na publikację w sklepach — wszystkie trasy, opisy i mapy są już dostępne na tej stronie.'
-    : premieraAndroida
-      ? `Nie wymaga konta ani logowania. Wersja na Androida pojawi się w Google Play ${premieraAndroida}.`
-      : 'Nie wymaga konta ani logowania.'
+    : brakAndroida
+      ? `Nie wymaga konta ani logowania. Wersja na Androida pojawi się ${kiedy}.`
+      : brakIOS
+        ? 'Nie wymaga konta ani logowania. Wersja na iPhone’a pojawi się wkrótce.'
+        : 'Nie wymaga konta ani logowania.'
 
   return (
     <div className={cn('flex flex-col gap-4', wysrodkowane && 'items-center', className)}>
