@@ -141,6 +141,7 @@ o właściwej nazwie wygrywa z zasobem zapasowym, bez zmiany w kodzie:
 | `marka/trasy/` | identyfikator trasy (`4D.webp`) | malowana ilustracja z aplikacji |
 | `marka/kategorie/` | slug kategorii | ilustracja wskazanej trasy |
 | `marka/atrakcje/` | slug atrakcji | pole w barwach marki |
+| `marka/atrakcje/galeria/<slug>/` | `01.webp`, `02.webp`… | sekcji nie ma |
 | `marka/miejscowosci/` | slug miejscowości | zdjęcie zastępcze z listy |
 
 ### Karty do druku
@@ -153,7 +154,13 @@ Opis w `narzedzia/karty-druku.md`. **Po `npm run dane` uruchom `npm run karty`**
 test przypomni, jeśli zapomnisz.
 
 Sprawdzenie istnienia pliku dzieje się przy budowaniu (`src/lib/dane/zdjecia-*.ts`),
-więc do przeglądarki trafia gotowy adres. Zdjęcia tras przygotowuje
+więc do przeglądarki trafia gotowy adres. Galeria atrakcji („Zdjęcia turystów") to zdjęcia własne, robione na miejscu —
+w odróżnieniu od zdjęcia głównego, które pochodzi z Wikimedia Commons i wymaga
+podpisu autora. Przygotowuje ją
+`node narzedzia/przygotuj-galerie-atrakcji.mjs <slug> <katalog>`; kolejność
+w galerii wynika z numerów w nazwach plików.
+
+Zdjęcia tras przygotowuje
 `npm run zdjecia:trasy -- <katalog>` — opis w `narzedzia/zdjecia-tras.md`,
 kafelków kategorii w `narzedzia/zdjecia-kategorii.md`.
 

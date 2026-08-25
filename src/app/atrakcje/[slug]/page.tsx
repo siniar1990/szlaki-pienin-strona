@@ -10,6 +10,7 @@ import { MapaDynamiczna } from '@/components/mapa/mapa-dynamiczna'
 import { KafelekTrasy } from '@/components/trasy/kafelek-trasy'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { podpisZdjecia } from '@/lib/dane/podpisy-zdjec'
+import { galeriaAtrakcji } from '@/lib/dane/galeria-atrakcji'
 import { zdjecieAtrakcji } from '@/lib/dane/zdjecia-atrakcji'
 import type { Atrakcja } from '@/lib/dane/typy'
 import {
@@ -140,6 +141,7 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
   const kategoria = atrakcja.kategorie[0]
   const zdjecie = zdjecieAtrakcji(atrakcja.slug)
   const podpis = zdjecie ? podpisZdjecia(atrakcja.slug) : null
+  const galeria = galeriaAtrakcji(atrakcja.slug)
 
   /*
     Trasy z aplikacji po identyfikatorze. `filter(Boolean)` odsiewa te, których
@@ -375,6 +377,51 @@ function WidokKatalogu({ atrakcja }: { atrakcja: AtrakcjaTurystyczna }) {
             {atrakcja.doPotwierdzenia && ' Szczegóły działania tej atrakcji potwierdź na miejscu.'}
           </span>
         </p>
+
+          {galeria.length > 0 && (
+            <section className="mt-14" aria-labelledby="zdjecia-turystow">
+              <h2
+                id="zdjecia-turystow"
+                className="text-sekcja font-semibold text-kamien-900"
+              >
+                Zdjęcia turystów
+              </h2>
+              <p className="mt-3 text-kamien-600">
+                Zrobione na miejscu, zwykłym telefonem — mniej więcej tak, jak
+                zobaczysz to sam.
+              </p>
+
+              {/*
+                Siatka z kadrowaniem przez przeglądarkę, a nie przy obróbce:
+                zdjęcia są i pionowe, i poziome, a kafelki mają być równe.
+                Kliknięcie otwiera pełny plik — to, co ucięło `object-cover`,
+                jest wtedy z powrotem, bez pisania własnej przeglądarki
+                obrazków.
+              */}
+              <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {galeria.map((adres, indeks) => (
+                  <li key={adres}>
+                    <a
+                      href={adres}
+                      target="_blank"
+                      rel="noopener"
+                      className="group block overflow-hidden rounded-xl border border-kamien-200 bg-kamien-100"
+                    >
+                      <Image
+                        src={adres}
+                        alt={`${atrakcja.nazwa} — zdjęcie ${indeks + 1} z ${galeria.length}`}
+                        width={800}
+                        height={600}
+                        sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 22vw"
+                        loading="lazy"
+                        className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
         {pokrewne.length > 0 && (
           <section className="mt-20 border-t border-kamien-200 pt-14">
