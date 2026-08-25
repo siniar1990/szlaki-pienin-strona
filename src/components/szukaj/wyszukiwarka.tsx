@@ -22,13 +22,61 @@ export type WpisIndeksu = {
   adres: string
   rodzaj: string
   opis?: string
+  /**
+   * Miejscowość, w której to jest — w mianowniku.
+   *
+   * Osobne pole, a nie kawałek opisu, bo pełni dwie role naraz. Po pierwsze
+   * łączy odmienione formy: atrakcja nazywa się „Zamek Dunajec w Niedzicy",
+   * a szuka się jej wpisując „Niedzica" i tylko to pole ma tę drugą postać.
+   * Po drugie waży w kolejności wyników — rzecz leżąca w Niedzicy jest bliżej
+   * pytania „Niedzica" niż trasa, która Niedzicę mija po drodze.
+   */
+  miejsce?: string
 }
 
 const RODZAJE_ETYKIETY: Record<string, string> = {
   trasa: 'Trasa',
   atrakcja: 'Atrakcja',
   kategoria: 'Kategoria',
+  miejscowosc: 'Miejscowość',
   strona: 'Strona',
+}
+
+/**
+ * Jak blisko wpis jest tego, czego szukano — mniej znaczy bliżej.
+ *
+ * Trzy stopnie, bo tyle jest naprawdę różnych sytuacji:
+ *
+ *   0 — nazwa zaczyna się od frazy: kto wpisuje „soko", szuka Sokolicy;
+ *   1 — fraza jest gdzieś w nazwie: „Ruiny zamku Czorsztyn" przy „czorsztyn";
+ *   2 — zgadza się miejscowość: zamek w Niedzicy przy „niedzica";
+ *   3 — fraza jest tylko w opisie: trasa, która Niedzicę mija po drodze.
+ *
+ * Stopień z miejscowością nie jest ozdobą. Nazwy własne odmieniają się przez
+ * przypadki, więc „Zamek Dunajec w Niedzicy" NIGDY nie dopasuje się nazwą do
+ * frazy „Niedzica" — jedynym miejscem, w którym stoi mianownik, jest pole
+ * miejscowości. Bez tego stopnia zamek wypadał za trasami na literę B i C,
+ * które pasowały wyłącznie listą punktów etapowych.
+ */
+/**
+ * Rozstrzygnięcie remisu: co pokazać wyżej, gdy dwa wpisy pasują tak samo.
+ *
+ * Liczy się przy pytaniach o miejsce. „Niedzica" pasuje jednakowo do zamku,
+ * który tam stoi, i do trasy, która startuje w Niedzicy-Zamku — obu przez
+ * pole miejscowości. Kto pyta o miejscowość, pyta najpierw „co tu jest",
+ * a dopiero potem „którędy stąd iść".
+ *
+ * Przy trafieniach w nazwę ta kolejność nie ma znaczenia: nazwa rozstrzyga
+ * wcześniej i mocniej.
+ */
+const KOLEJNOSC_RODZAJOW = ['miejscowosc', 'atrakcja', 'trasa', 'kategoria', 'strona']
+
+function waga(wpis: WpisIndeksu, szukane: string): number {
+  const nazwa = naSlug(wpis.nazwa)
+  if (nazwa.startsWith(szukane)) return 0
+  if (nazwa.includes(szukane)) return 1
+  if (wpis.miejsce && naSlug(wpis.miejsce).includes(szukane)) return 2
+  return 3
 }
 
 export function Wyszukiwarka({ indeks }: { indeks: WpisIndeksu[] }) {
@@ -36,7 +84,11 @@ export function Wyszukiwarka({ indeks }: { indeks: WpisIndeksu[] }) {
 
   // Slug każdego wpisu liczymy raz, a nie przy każdym naciśnięciu klawisza.
   const przygotowany = useMemo(
-    () => indeks.map((wpis) => ({ wpis, klucz: naSlug(`${wpis.nazwa} ${wpis.opis ?? ''}`) })),
+    () =>
+      indeks.map((wpis) => ({
+        wpis,
+        klucz: naSlug(`${wpis.nazwa} ${wpis.miejsce ?? ''} ${wpis.opis ?? ''}`),
+      })),
     [indeks],
   )
 
@@ -46,13 +98,12 @@ export function Wyszukiwarka({ indeks }: { indeks: WpisIndeksu[] }) {
 
     return przygotowany
       .filter(({ klucz }) => klucz.includes(szukane))
-      .sort((a, b) => {
-        // Trafienia od początku nazwy przed trafieniami w środku opisu —
-        // kto wpisuje „soko", szuka Sokolicy, a nie trasy, która ją wspomina.
-        const aOdPoczatku = naSlug(a.wpis.nazwa).startsWith(szukane) ? 0 : 1
-        const bOdPoczatku = naSlug(b.wpis.nazwa).startsWith(szukane) ? 0 : 1
-        return aOdPoczatku - bOdPoczatku || a.wpis.nazwa.localeCompare(b.wpis.nazwa, 'pl')
-      })
+      .sort(
+        (a, b) =>
+          waga(a.wpis, szukane) - waga(b.wpis, szukane) ||
+          KOLEJNOSC_RODZAJOW.indexOf(a.wpis.rodzaj) - KOLEJNOSC_RODZAJOW.indexOf(b.wpis.rodzaj) ||
+          a.wpis.nazwa.localeCompare(b.wpis.nazwa, 'pl'),
+      )
       .slice(0, 30)
       .map(({ wpis }) => wpis)
   }, [fraza, przygotowany])
