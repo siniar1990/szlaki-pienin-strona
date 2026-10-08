@@ -14,18 +14,19 @@ import { cn } from '@/lib/utils'
  * ich użycia bez przerysowywania — poza tym są rozpoznawalne odruchowo,
  * bo wyglądają tak samo na każdej stronie, jaką człowiek widział wcześniej.
  *
- * Odznaki mają dwa stany, bo Google Play jeszcze nie ma adresu. Gdy adres
- * w `SKLEPY` jest pusty, renderujemy `span`, a nie `a` — element bez atrybutu
- * `href` nie trafia do kolejności fokusu i czytnik ekranu nie zapowiada go jako
- * odnośnika. To lepsze niż odnośnik z `aria-disabled`, bo ten nadal daje się
- * kliknąć i prowadzi donikąd.
+ * Odznaki mają dwa stany, bo sklep bywa bez adresu — tak było z Google Play
+ * do października 2026. Gdy adres w `SKLEPY` jest pusty, renderujemy `span`,
+ * a nie `a` — element bez atrybutu `href` nie trafia do kolejności fokusu
+ * i czytnik ekranu nie zapowiada go jako odnośnika. To lepsze niż odnośnik
+ * z `aria-disabled`, bo ten nadal daje się kliknąć i prowadzi donikąd.
  *
  * Sklep bez adresu dostaje podpis pod odznaką: datę, gdy jest zapowiedziana,
  * a w przeciwnym razie „wkrótce". Data znika sama w chwili wpisania adresu do
  * `SKLEPY` — nie ma jak zostawić na stronie terminu, który już minął.
  *
  * Po wpisaniu adresów w `konfiguracja.ts` te same odznaki stają się zwykłymi
- * odnośnikami — bez zmiany czegokolwiek tutaj.
+ * odnośnikami — bez zmiany czegokolwiek tutaj. Tak się to skończyło:
+ * publikacja w Google Play była jedną linijką w konfiguracji.
  */
 
 type Wariant = 'jasny' | 'ciemny'
@@ -159,9 +160,11 @@ export function PrzyciskiSklepow({
   const premieraAndroida = dataPremiery('googlePlay')
 
   /*
-    Cztery sytuacje, cztery zdania. Najważniejsza jest druga: aplikacja JEST
-    w App Store, ale nie w Google Play. Bez wskazania Androida wprost połowa
-    odwiedzających uznaje, że aplikacja po prostu dla nich nie istnieje.
+    Cztery sytuacje, cztery zdania. Dziś obowiązuje ostatnie — aplikacja jest
+    w obu sklepach, więc nie ma potrzeby tłumaczyć, czego brakuje. Pozostałe
+    trzy zostają, bo pusty adres w `SKLEPY` może wrócić, a wtedy zdanie musi
+    wskazać brakującą platformę wprost: póki Androida nie było, połowa
+    odwiedzających uznawała, że aplikacja po prostu dla nich nie istnieje.
 
     Zdanie zależy od tego, KTÓREGO sklepu brakuje, a nie od tego, czy
     zapowiedziano datę. Wcześniej było odwrotnie i zdjęcie daty zabierało przy

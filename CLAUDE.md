@@ -210,8 +210,9 @@ To jedyne rzeczy generowane przy wdrożeniu.
 
 ## Rzeczy, o które łatwo się potknąć
 
-- **`/prywatnosc` i `/wsparcie` są podane w App Store Connect.** Bez tych
-  dwóch działających adresów Apple nie wypuści aktualizacji aplikacji.
+- **`/prywatnosc` i `/wsparcie` są podane w App Store Connect, a polityka
+  prywatności także w Google Play Console.** Bez tych dwóch działających
+  adresów ani Apple, ani Google nie wypuści aktualizacji aplikacji.
   Stare adresy z `.html` żyją jako trwałe przekierowania w `next.config.ts` —
   nie usuwaj ich. Zmieniając treść, sprawdź, czy nadal opisuje prawdę.
 - **Trasa może nie mieć śladu ani ilustracji.** Część szczytów Korony Pienin
@@ -243,11 +244,12 @@ o różnym tempie zmian.
 ## Czym jest
 
 **Szlaki Pienin** — przewodnik po Pieninach i Beskidzie Sądeckim na iOS
-i Androida. Flutter + Riverpod + MapLibre. Identyfikator
-`pl.szczawnica.szlakiPienin`. Jest w App Store; wersja Androida jeszcze nie
-(adres w `SKLEPY` w `src/lib/konfiguracja.ts` jest pusty, a przycisk sam
-pokazuje wtedy „Wkrótce”). Aktualną wersję sprawdzaj w `pubspec.yaml`
-aplikacji, nie tutaj.
+i Androida. Flutter + Riverpod + MapLibre. Identyfikatory różnią się zapisem
+między platformami: `pl.szczawnica.szlakiPienin` w App Store,
+`pl.szczawnica.szlaki_pienin` w Google Play. Od października 2026 jest w obu
+sklepach — adresy stoją w `SKLEPY` w `src/lib/konfiguracja.ts` i to jedyne
+miejsce, w którym portal o nich wie. Aktualną wersję sprawdzaj
+w `pubspec.yaml` aplikacji, nie tutaj.
 
 Darmowa, bez konta, bez wersji premium i bez reklam firm. Nagrania tras
 zostają w telefonie.

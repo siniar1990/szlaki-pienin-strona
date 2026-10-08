@@ -29,19 +29,16 @@ export const PORTAL = {
   aplikacja: {
     nazwa: 'Szlaki Pienin',
     identyfikatorIOS: 'pl.szczawnica.szlakiPienin',
+    /*
+      Identyfikator w Google Play różni się od iOS-owego zapisem — podkreślenie
+      zamiast wielkiej litery. To nie pomyłka: tak aplikacja została wydana
+      i tego zapisu trzyma się adres w sklepie, więc nie da się mieć jednego
+      identyfikatora na obie platformy.
+    */
+    identyfikatorAndroid: 'pl.szczawnica.szlaki_pienin',
   },
 } as const
 
-/**
- * Adresy w sklepach.
- *
- * Puste, dopóki aplikacja nie zostanie opublikowana. Komponent przycisku
- * sam rozpoznaje pustkę i pokazuje wtedy stan „Wkrótce" zamiast martwego
- * odnośnika — użytkownik, który zeskanował kod QR na szlaku, dostaje uczciwą
- * informację, a nie błąd 404 w App Store.
- *
- * Po publikacji wystarczy wkleić tu adresy; nic więcej nie trzeba zmieniać.
- */
 /**
  * Klucz dostępu formularza kontaktowego (Web3Forms).
  *
@@ -55,9 +52,18 @@ export const PORTAL = {
  */
 export const KLUCZ_WEB3FORMS = '25f55b8f-5d20-475a-97cd-14cdeb050128'
 
+/**
+ * Adresy w sklepach.
+ *
+ * Pusty adres znaczy „aplikacji tam jeszcze nie ma" i cały portal rozpoznaje
+ * to sam: odznaka robi się wyszarzonym napisem „wkrótce" zamiast martwego
+ * odnośnika, a tabliczka QR nie przekierowuje w kartę, której nie ma.
+ * Mechanizm zostaje, choć dziś oba adresy są wypełnione — gdyby kiedyś
+ * aplikacja wypadła ze sklepu, wystarczy wyczyścić jedno pole.
+ */
 export const SKLEPY = {
   appStore: 'https://apps.apple.com/pl/app/szlaki-pienin/id6797675813',
-  googlePlay: '',
+  googlePlay: `https://play.google.com/store/apps/details?id=${PORTAL.aplikacja.identyfikatorAndroid}`,
 } as const
 
 export type Sklep = keyof typeof SKLEPY
@@ -69,18 +75,17 @@ export function czySklepDostepny(sklep: Sklep): boolean {
 /**
  * Zapowiedziane daty premier w sklepach, w których aplikacji jeszcze nie ma.
  *
- * **Dziś pusta i tak ma zostać, dopóki data nie jest pewna.** Stała tu
- * zapowiedź premiery Androida na 24 sierpnia 2026; aplikacja nie przeszła
- * do tego dnia weryfikacji w Google Play, więc portal obiecywał termin,
- * którego nie dotrzymał — a to jest gorsze niż brak terminu. Bez wpisu
- * odznaka mówi po prostu „wkrótce" i nikogo nie oszukuje.
+ * **Dziś pusta, bo aplikacja jest w obu sklepach** — nie ma czego
+ * zapowiadać. Mechanizm zostaje na wypadek kolejnej platformy i dlatego, że
+ * uczy ostrożności: stała tu zapowiedź premiery Androida na 24 sierpnia 2026,
+ * aplikacja nie przeszła do tego dnia weryfikacji w Google Play i portal
+ * obiecywał termin, którego nie dotrzymał — gorzej niż brak terminu.
  *
- * **Kiedy wpisać datę z powrotem.** Dopiero gdy aplikacja przejdzie
- * weryfikację i znany będzie dzień publikacji. Konkretny dzień jest lepszy
- * od „wkrótce", bo daje powód, żeby zajrzeć ponownie — ale tylko wtedy, gdy
- * da się go dotrzymać. Format: `'2026-09-15'`.
+ * **Kiedy wpisywać datę.** Dopiero gdy dzień publikacji jest pewny. Konkretny
+ * dzień jest lepszy od „wkrótce", bo daje powód, żeby zajrzeć ponownie — ale
+ * tylko wtedy, gdy da się go dotrzymać. Format: `'2026-09-15'`.
  *
- * Wpis znika stąd sam w chwili, gdy w `SKLEPY` pojawi się adres: data
+ * Wpis przestaje działać sam w chwili, gdy w `SKLEPY` pojawi się adres: data
  * pokazuje się wyłącznie przy sklepie bez odnośnika, więc opublikowanie
  * aplikacji zdejmuje zapowiedź bez niczyjej pamięci.
  */

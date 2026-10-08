@@ -109,11 +109,12 @@ export default async function StronaSkanu({ params }: PageProps<'/qr/[kod]'>) {
   /*
     Dokąd przekierować.
 
-    Właściciel wybrał natychmiastowe przejście do sklepu. Ale dopóki adresy
-    w `konfiguracja.ts` są puste — a są, bo aplikacji nie ma jeszcze
-    w sklepach — przekierowanie prowadziłoby w martwą kartę App Store.
-    Dlatego pytamy najpierw, czy jest dokąd iść. Po wpisaniu adresów
-    zachowanie zmieni się samo, bez dotykania tego pliku.
+    Właściciel wybrał natychmiastowe przejście do sklepu. Pytamy jednak
+    najpierw, czy jest dokąd iść: pusty adres w `konfiguracja.ts` znaczy, że
+    aplikacji w tym sklepie nie ma, a przekierowanie prowadziłoby w martwą
+    kartę. Dziś oba adresy są wypełnione, więc skan z telefonu idzie prosto
+    do App Store albo Google Play — zachowanie zmieniło się samo, bez
+    dotykania tego pliku.
   */
   const adresSklepu =
     typ === 'IOS' ? SKLEPY.appStore : typ === 'ANDROID' ? SKLEPY.googlePlay : ''

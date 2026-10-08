@@ -18,7 +18,7 @@ import { NaglowekSekcji } from '@/components/uklad/naglowek-sekcji'
 import { NaglowekStrony } from '@/components/uklad/naglowek-strony'
 import { pobierzStatystyki } from '@/lib/dane/zrodlo'
 import { liczba } from '@/lib/format'
-import { PORTAL } from '@/lib/konfiguracja'
+import { PORTAL, SKLEPY } from '@/lib/konfiguracja'
 
 export const metadata: Metadata = {
   title: 'Aplikacja Szlaki Pienin',
@@ -85,9 +85,16 @@ export default function StronaAplikacji() {
     url: `${PORTAL.adres}/aplikacja`,
     description: metadata.description,
     offers: { '@type': 'Offer', price: 0, priceCurrency: 'PLN' },
-    // Świadomie bez `aggregateRating` — aplikacja nie jest jeszcze w sklepach,
-    // więc nie ma ocen. Wpisanie tu czegokolwiek byłoby fałszowaniem danych,
-    // za które Google zresztą karze.
+    /*
+      Adresy obu sklepów wprost w danych strukturalnych. Odznaki na stronie
+      widzi człowiek, ale wyszukiwarka czyta stąd — bez tego pola wie, że
+      aplikacja istnieje, i nie wie, gdzie ją pobrać. Lista powstaje z `SKLEPY`,
+      więc sklep bez adresu po prostu się nie pojawia.
+    */
+    installUrl: [SKLEPY.appStore, SKLEPY.googlePlay].filter((adres) => adres.length > 0),
+    // Świadomie bez `aggregateRating` — portal nie zbiera ocen aplikacji
+    // i nie przepisuje ich ze sklepów. Wpisanie tu czegokolwiek byłoby
+    // fałszowaniem danych, za które Google zresztą karze.
   }
 
   return (
